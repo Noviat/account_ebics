@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<odoo>
+
+  <record id="ebics_file_format_view_tree" model="ir.ui.view">
+    <field name="name">ebics.file.format.tree</field>
+    <field name="model">ebics.file.format</field>
+    <field name="arch" type="xml">
+      <tree string="EBICS File Formats">
+        <field name="type"/>
+        <field name="order_type"/>
+        <field name="signature_class"/>
+        <field name="name"/>
+        <field name="description"/>
+      </tree>
+    </field>
+  </record>
+
+  <record id="ebics_file_format_view_form" model="ir.ui.view">
+    <field name="name">ebics.file.format.form</field>
+    <field name="model">ebics.file.format</field>
+    <field name="arch" type="xml">
+      <form string="EBICS File Format">
+        <group col="4">
+          <field name="type"/>
+          <field name="order_type"/>
+          <field name="name"/>
+          <field name="signature_class"/>
+          <field name="suffix"/>
+          <newline/>
+          <field name="description"/>
+        </group>
+      </form>
+    </field>
+  </record>
+
+  <record id="ebics_file_format_action" model="ir.actions.act_window">
+    <field name="name">EBICS File Formats</field>
+    <field name="res_model">ebics.file.format</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+
+  <menuitem id="ebics_file_format_menu"
+            name="EBICS File Formats"
+            parent="ebics_menu"
+            action="ebics_file_format_action"
+            groups="account_ebics.group_ebics_manager"
+            sequence="20"/>
+
+</odoo>

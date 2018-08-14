@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<odoo>
+
+  <menuitem id="ebics_processing_menu"
+            name="EBICS Processing"
+            parent="account.menu_finance"
+            sequence="4"/>
+
+  <menuitem id="ebics_menu"
+            name="EBICS"
+            parent='account.menu_finance_configuration'
+            groups="account_ebics.group_ebics_manager"
+            sequence="100"/>
+
+</odoo>
