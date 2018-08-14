@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.16: http://docutils.sourceforge.net/" />
+<title>README.rst</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 7952 2016-07-26 18:15:59Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+.subscript {
+  vertical-align: sub;
+  font-size: smaller }
+
+.superscript {
+  vertical-align: super;
+  font-size: smaller }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+object[type="image/svg+xml"], object[type="application/x-shockwave-flash"] {
+  overflow: hidden;
+}
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title, .code .error {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left, table.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right, table.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table.align-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: inherit }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+.align-top    {
+  vertical-align: top }
+
+.align-middle {
+  vertical-align: middle }
+
+.align-bottom {
+  vertical-align: bottom }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block, pre.math, pre.code {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+pre.code .ln { color: grey; } /* line numbers */
+pre.code, code { background-color: #eeeeee }
+pre.code .comment, code .comment { color: #5C6576 }
+pre.code .keyword, code .keyword { color: #3B0D06; font-weight: bold }
+pre.code .literal.string, code .literal.string { color: #0C5404 }
+pre.code .name.builtin, code .name.builtin { color: #352B84 }
+pre.code .deleted, code .deleted { background-color: #DEB0A1}
+pre.code .inserted, code .inserted { background-color: #A3D289}
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+/* "booktabs" style (no vertical lines) */
+table.docutils.booktabs {
+  border: 0px;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  border-collapse: collapse;
+}
+table.docutils.booktabs * {
+  border: 0px;
+}
+table.docutils.booktabs th {
+  border-bottom: thin solid;
+  text-align: left;
+}
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document">
+
+
+<a class="reference external image-reference" href="https://www.gnu.org/licenses/lgpl"><img alt="License: LGPL-3" src="https://img.shields.io/badge/license-LGPL--3-blue.png" /></a>
+<div class="section" id="ebics-banking-protocol">
+<h1>EBICS banking protocol</h1>
+<p>Implementation of the  EBICS banking protocol.</p>
+<p>This module facilitates the exchange of files with banks via the EBICS protocol.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<div class="section" id="installation">
+<h2>Installation</h2>
+<p>The module depends upon</p>
+<ul class="simple">
+<li><a class="reference external" href="https://pypi.python.org/pypi/fintech">https://pypi.python.org/pypi/fintech</a></li>
+<li><a class="reference external" href="https://pypi.python.org/pypi/cryptography">https://pypi.python.org/pypi/cryptography</a></li>
+</ul>
+<p>Remark:</p>
+<p>The EBICS 'Test Mode' for uploading orders requires fintech 4.3.4 or higher for EBICS 2.x
+and fintech 7.2.7 or higher for EBICS 3.0.</p>
+<p>SWIFT 3SKey support requires fintech 6.4 or higher.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>We also recommend to consider the installation of the following modules:</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<ul>
+<li><p class="first">account_ebics_oe</p>
+<p>Required if you are running Odoo Enterprise</p>
+<p>Cf. <a class="reference external" href="https://github.com/Noviat/account_ebics">https://github.com/Noviat/account_ebics</a></p>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<ul>
+<li><p class="first">account_ebics_batch</p>
+<p>This module adds a cron job for the automated import of EBICS files.</p>
+<p>Cf. <a class="reference external" href="https://github.com/Noviat/account_ebics">https://github.com/Noviat/account_ebics</a></p>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<ul>
+<li><p class="first">account_ebics_batch_payment</p>
+<p>Recommended if you are using the Odoo Enterprise account_batch_payment module</p>
+<p>Cf. <a class="reference external" href="https://github.com/Noviat/account_ebics">https://github.com/Noviat/account_ebics</a></p>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<ul>
+<li><p class="first">account_usability</p>
+<p>Recommended if you have multiple financial journals.
+This module adds a number of accounting menu entries such as bank statement list view
+which allows to see all statements downloaded via the ir.cron automated EBICS download.</p>
+<p>Cf. <a class="reference external" href="https://github.com/OCA/account-financial-tools">https://github.com/OCA/account-financial-tools</a></p>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<ul>
+<li><p class="first">account_ebics_payment_order</p>
+<p>Required if you are using the OCA account_payment_order module.</p>
+<p>Cf. <a class="reference external" href="https://github.com/OCA/bank-payment">https://github.com/OCA/bank-payment</a></p>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<ul>
+<li><p class="first">account_ebics_oca_statement_import</p>
+<p>Required if you are using the OCA Bank Statement import modules.</p>
+<p><a class="reference external" href="https://github.com/OCA/bank-statement-import">https://github.com/OCA/bank-statement-import</a></p>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<ul>
+<li><p class="first">account_statement_import_fr_cfonb</p>
+<p>Required to handle french CFONB files.</p>
+<p>Cf. <a class="reference external" href="https://github.com/OCA/l10n_france">https://github.com/OCA/l10n_france</a></p>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<ul>
+<li><p class="first">account_statement_import_camt</p>
+<p>Required to handle camt.052 and camt.054 files.</p>
+<p>Cf. <a class="reference external" href="https://github.com/OCA/bank-statement-import">https://github.com/OCA/bank-statement-import</a></p>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<div class="section" id="fintech-license">
+<h3>Fintech license</h3>
+<p>If you have a valid Fintech.ebics license, you should add the following
+licensing parameters to the odoo server configuration file:</p>
+<ul class="simple">
+<li>fintech_register_name</li>
+</ul>
+<p>The name of the licensee.</p>
+<ul class="simple">
+<li>fintech_register_keycode</li>
+</ul>
+<p>The keycode of the licensed version.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line">Example:</div>
+<div class="line"><br /></div>
+</div>
+<pre class="literal-block">
+; fintech
+fintech_register_name = MyCompany
+fintech_register_keycode = AB1CD-E2FG-3H-IJ4K-5L
+</pre>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Cf. <a class="reference external" href="https://www.joonis.de/en/fintech/prices/">https://www.joonis.de/en/fintech/prices/</a></p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+</div>
+<div class="section" id="configuration">
+<h2>Configuration</h2>
+<p>Go to <strong>Settings &gt; Users</strong></p>
+<p>Add the users that are authorised to maintain the EBICS configuration to the 'EBICS Manager' Group.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Go to <strong>Accounting &gt; Configuration &gt; Miscellaneous &gt; EBICS &gt; EBICS File Formats</strong></p>
+<p>Check if the EBICS File formats that you want to process in Odoo are defined.</p>
+<p>Most commonly used formats for which support is available in Odoo should be there already.</p>
+<p>Please open an issue on <a class="reference external" href="https://github.com/Noviat/account_ebics">https://github.com/Noviat/account_ebics</a> to report missing EBICS File Formats.</p>
+<p>For File Formats of type 'Downloads' you can also specify a 'Download Process Method'.</p>
+<p>This is the method that will be executed when hitting the 'Process' button on the downloaded file.</p>
+<p>The following methods are currently available:</p>
+<ul class="simple">
+<li>cfonb120</li>
+<li>camt.053</li>
+<li>camt.052</li>
+<li>camt.054</li>
+</ul>
+<p>All these methods require complimentary modules to be installed (cf. Installation section supra).</p>
+<p>You'll get an error message when the required module is not installed on your Odoo instance.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Go to <strong>Accounting &gt; Configuration &gt; Miscellaneous &gt; EBICS &gt; EBICS Configuration</strong></p>
+<p>Configure your EBICS configuration according to the contract with your bank.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="usage">
+<h2>Usage</h2>
+<p>Go to <strong>Accounting &gt; Bank and Cash &gt; EBICS Processing</strong></p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="diagnostics">
+<h2>Diagnostics</h2>
+<p>Add the following to your Odoo config file in order to diagnose
+issues with the EBICS connection with your bank:</p>
+<p>log_handler = fintech.ebics:DEBUG</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<div class="section" id="ebics-return-codes">
+<h3>EBICS Return Codes</h3>
+<p>During the processing of your EBICS upload/download, your bank may return an Error Code, e.g.</p>
+<p>EBICS Functional Error:
+EBICS_NO_DOWNLOAD_DATA_AVAILABLE (code: 90005)</p>
+<p>A detailed explanation of the codes can be found on <a class="reference external" href="http://www.ebics.org">http://www.ebics.org</a>.
+You can also find this information in the doc folder of this module (file EBICS_Annex1_ReturnCodes).</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="electronic-distributed-signature-eds">
+<h3>Electronic Distributed Signature (EDS)</h3>
+<p>This is supported via external signing apps, e.g. BankingVEU:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://play.google.com/store/apps/details?id=subsembly.bankingveu">https://play.google.com/store/apps/details?id=subsembly.bankingveu</a></li>
+<li><a class="reference external" href="https://apps.apple.com/de/app/bankingveu/id1578694190">https://apps.apple.com/de/app/bankingveu/id1578694190</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="known-issues-roadmap">
+<h2>Known Issues / Roadmap</h2>
+<ul class="simple">
+<li>The end user is currently not able to change his passphrases (only the users with 'EBICS Manager' rights can do so).</li>
+<li>Add support to import externally generated keys &amp; certificates (currently only 3SKey signature certificate).</li>
+<li>Add support for SWIFT 3SKey signing javascript lib (SConnect, cf <a class="reference external" href="https://www2.swift.com/3skey/help/sconnect.html">https://www2.swift.com/3skey/help/sconnect.html</a>).</li>
+</ul>
+</div>
+</div>
+</div>
+</body>
+</html>
