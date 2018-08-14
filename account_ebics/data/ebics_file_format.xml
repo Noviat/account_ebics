@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+
+  <!-- Download formats -->
+
+  <record id="ebics_ff_C52" model="ebics.file.format">
+    <field name="ebics_version">2</field>
+    <field name="name">camt.052</field>
+    <field name="type">down</field>
+    <field name="order_type">C52</field>
+    <field name="download_process_method">camt.052</field>
+    <field name="description">bank to customer account report in format camt.052</field>
+    <field name="suffix">c52.xml</field>
+  </record>
+
+  <record id="ebics_ff_Z52" model="ebics.file.format">
+      <field name="ebics_version">2</field>
+    <field name="name">camt.052</field>
+    <field name="type">down</field>
+    <field name="order_type">Z52</field>
+    <field name="download_process_method">camt.052</field>
+    <field name="description">bank to customer account report in format camt.052</field>
+    <field name="suffix">c52.xml</field>
+  </record>
+
+  <record id="ebics_ff_C53" model="ebics.file.format">
+      <field name="ebics_version">2</field>
+    <field name="name">camt.053</field>
+    <field name="type">down</field>
+    <field name="order_type">C53</field>
+    <field name="download_process_method">camt.053</field>
+    <field
+            name="description"
+        >Bank to customer statement report in format camt.053</field>
+    <field name="suffix">c53.xml</field>
+  </record>
+
+  <record id="ebics_ff_Z53" model="ebics.file.format">
+      <field name="ebics_version">2</field>
+    <field name="name">camt.053</field>
+    <field name="type">down</field>
+    <field name="order_type">Z53</field>
+    <field name="download_process_method">camt.053</field>
+    <field
+            name="description"
+        >Bank to customer statement report in format camt.053</field>
+    <field name="suffix">c53.xml</field>
+  </record>
+
+  <record id="ebics_ff_C54" model="ebics.file.format">
+      <field name="ebics_version">2</field>
+    <field name="name">camt.054</field>
+    <field name="type">down</field>
+    <field name="order_type">C54</field>
+    <field name="download_process_method">camt.054</field>
+    <field
+            name="description"
+        >Bank to customer debit credit notification in format camt.054</field>
+    <field name="suffix">c52.xml</field>
+  </record>
+
+  <record id="ebics_ff_Z54" model="ebics.file.format">
+      <field name="ebics_version">2</field>
+    <field name="name">camt.054</field>
+    <field name="type">down</field>
+    <field name="order_type">Z54</field>
+    <field name="download_process_method">camt.054</field>
+    <field
+            name="description"
+        >Bank to customer debit credit notification in format camt.054</field>
+    <field name="suffix">c52.xml</field>
+  </record>
+
+  <record id="ebics_ff_FDL_camt_xxx_cfonb120_stm" model="ebics.file.format">
+      <field name="ebics_version">2</field>
+    <field name="name">camt.xxx.cfonb120.stm</field>
+    <field name="type">down</field>
+    <field name="order_type">FDL</field>
+    <field name="download_process_method">cfonb120</field>
+    <field
+            name="description"
+        >Bank to customer statement report in format cfonb120</field>
+    <field name="suffix">cfonb120.dat</field>
+  </record>
+
+  <record id="ebics_ff_CDZ" model="ebics.file.format">
+      <field name="ebics_version">2</field>
+    <field name="name">pain.002</field>
+    <field name="type">down</field>
+    <field name="order_type">CDZ</field>
+    <field
+            name="description"
+        >Payment status report for direct debit in format pain.002</field>
+    <field name="suffix">psr.xml</field>
+  </record>
+
+  <record id="ebics_ff_Z01" model="ebics.file.format">
+      <field name="ebics_version">2</field>
+    <field name="name">pain.002</field>
+    <field name="type">down</field>
+    <field name="order_type">Z01</field>
+    <field name="download_process_method">pain.002</field>
+    <field
+            name="description"
+        >Payment status report for direct debit in format pain.002</field>
+    <field name="suffix">psr.xml</field>
+  </record>
+
+  <record id="ebics_ff_btf_cfonb120" model="ebics.file.format">
+    <field name="ebics_version">3</field>
+    <field name="type">down</field>
+    <field name="order_type">BTD</field>
+    <field name="download_process_method">cfonb120</field>
+    <field
+            name="description"
+        >Bank to customer statement report in format cfonb120</field>
+    <field name="suffix">cfonb120.dat</field>
+    <field name="btf_service">EOP</field>
+    <field name="btf_message">cfonb120</field>
+  </record>
+
+  <!-- Upload formats -->
+
+  <record id="ebics_ff_LCR" model="ebics.file.format">
+      <field name="ebics_version">2</field>
+    <field name="name">pain.xxx.cfonb160.dco</field>
+    <field name="type">up</field>
+    <field name="order_type">FUL</field>
+    <field name="description">Remises de LCR</field>
+    <field name="suffix">txt</field>
+  </record>
+
+  <record id="ebics_ff_CCT" model="ebics.file.format">
+      <field name="ebics_version">2</field>
+    <field name="name">pain.001.001.03</field>
+    <field name="type">up</field>
+    <field name="order_type">CCT</field>
+    <field name="description">Payment Order in format pain.001.001.03</field>
+    <field name="suffix">xml</field>
+  </record>
+
+  <record id="ebics_ff_XE2" model="ebics.file.format">
+      <field name="ebics_version">2</field>
+    <field name="name">pain.001.001.03</field>
+    <field name="type">up</field>
+    <field name="order_type">XE2</field>
+    <field name="description">Payment Order in format pain.001.001.03</field>
+    <field name="suffix">xml</field>
+  </record>
+
+  <record id="ebics_ff_CDD" model="ebics.file.format">
+      <field name="ebics_version">2</field>
+    <field name="name">pain.008.001.02.sdd</field>
+    <field name="type">up</field>
+    <field name="order_type">CDD</field>
+    <field
+            name="description"
+        >Sepa Core Direct Debit Order in format pain.008.001.02</field>
+    <field name="suffix">xml</field>
+  </record>
+
+  <record id="ebics_ff_XE3" model="ebics.file.format">
+      <field name="ebics_version">2</field>
+    <field name="name">pain.008.001.02.sdd</field>
+    <field name="type">up</field>
+    <field name="order_type">XE3</field>
+    <field
+            name="description"
+        >Sepa Core Direct Debit Order in format pain.008.001.02</field>
+    <field name="suffix">xml</field>
+  </record>
+
+  <record id="ebics_ff_CDB" model="ebics.file.format">
+      <field name="ebics_version">2</field>
+    <field name="name">pain.008.001.02.sbb</field>
+    <field name="type">up</field>
+    <field name="order_type">CDB</field>
+    <field
+            name="description"
+        >Sepa Direct Debit (B2B) Order in format pain.008.001.02</field>
+    <field name="suffix">xml</field>
+  </record>
+
+  <record id="ebics_ff_XE4" model="ebics.file.format">
+      <field name="ebics_version">2</field>
+    <field name="name">pain.008.001.02.sbb</field>
+    <field name="type">up</field>
+    <field name="order_type">XE4</field>
+    <field
+            name="description"
+        >Sepa Direct Debit (B2B) Order in format pain.008.001.02</field>
+    <field name="suffix">xml</field>
+  </record>
+
+  <record id="ebics_ff_FUL_pain_001_001_02_sct" model="ebics.file.format">
+      <field name="ebics_version">2</field>
+    <field name="name">pain.001.001.02.sct</field>
+    <field name="type">up</field>
+    <field name="order_type">FUL</field>
+    <field name="description">Payment Order in format pain.001.001.02</field>
+    <field name="suffix">xml</field>
+  </record>
+
+  <record id="ebics_ff_btf_SCT" model="ebics.file.format">
+    <field name="ebics_version">3</field>
+    <field name="type">up</field>
+    <field name="order_type">BTU</field>
+    <field name="description">SEPA credit transfer</field>
+    <field name="suffix">txt</field>
+    <field name="btf_service">SCT</field>
+    <field name="btf_message">pain.001</field>
+    <field name="btf_scope">GLB</field>
+  </record>
+
+</odoo>
