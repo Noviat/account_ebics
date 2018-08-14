@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<openerp>
+  <data>
+
+    <menuitem id="ebics_processing_menu"
+              name="EBICS Processing"
+              parent="account.menu_finance_bank_and_cash"
+              sequence="40"/>
+
+    <menuitem id="ebics_menu"
+              name="EBICS"
+              parent="account.menu_configuration_misc"
+              groups="account_ebics.group_ebics_manager"
+              sequence="100"/>
+
+  </data>
+</openerp>

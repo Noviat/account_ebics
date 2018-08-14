@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+
+    <record id="banking_export_sepa_wizard_view" model="ir.ui.view">
+      <field name="name">banking.export.sepa.wizard.view</field>
+      <field name="model">banking.export.sepa.wizard</field>
+      <field name="inherit_id" ref="account_banking_sepa_credit_transfer.banking_export_sepa_wizard_view"/>
+      <field name="arch" type="xml">
+        <button name="save_sepa" position="before">
+          <button name="ebics_upload" string="EBICS Upload" type="object" class="oe_highlight" states="finish"/>
+        </button>
+      </field>
+    </record>
+
+  </data>
+</openerp>
