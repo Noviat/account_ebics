@@ -260,6 +260,10 @@ class EbicsConfig(models.Model):
         return self.write({'state': 'draft'})
 
     @api.multi
+    def set_to_get_bank_keys(self):
+        return self.write({'state': 'get_bank_keys'})
+
+    @api.multi
     def set_to_active(self):
         return self.write({'state': 'active'})
 

@@ -25,6 +25,9 @@
           <button name="set_to_draft" states="active" string="Set to Draft" type="object"
                   groups="account.group_account_manager"
                   help="Set to Draft in order to reinitialize your bank connection."/>
+          <button name="set_to_get_bank_keys" states="active" string="Renew Bank Keys" type="object"
+                  groups="account.group_account_manager"
+                  help="Use this button to update the EBICS certificates of your bank."/>
           <button name="set_to_active" states="draft" string="Force Active" type="object"
                   groups="account.group_account_manager"
                   help="Use this button to bypass the EBICS initialization (e.g. in case you have manually transferred active EBICS keys from another system."/>
