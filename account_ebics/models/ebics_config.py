@@ -1,4 +1,4 @@
-# Copyright 2009-2018 Noviat.
+# Copyright 2009-2019 Noviat.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 """
@@ -288,7 +288,7 @@ class EbicsConfig(models.Model):
             user = EbicsUser(
                 keyring=keyring, partnerid=self.ebics_partner,
                 userid=self.ebics_user)
-        except:
+        except Exception:
             exctype, value = exc_info()[:2]
             error = _("EBICS Initialisation Error:")
             error += '\n' + str(exctype) + '\n' + str(value)

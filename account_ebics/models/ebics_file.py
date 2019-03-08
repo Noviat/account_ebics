@@ -1,4 +1,4 @@
-# Copyright 2009-2018 Noviat.
+# Copyright 2009-2019 Noviat.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import logging
@@ -136,7 +136,7 @@ class EbicsFile(models.Model):
 
     def _check_import_module(self, module):
         mod = self.env['ir.module.module'].search(
-            [('name', '=', module),
+            [('name', '=like', module),
              ('state', '=', 'installed')])
         if not mod:
             raise UserError(_(
@@ -207,14 +207,15 @@ class EbicsFile(models.Model):
 
     @staticmethod
     def _process_camt053(self):
-        import_module = 'account_bank_statement_import_camt'
+        import_module = 'account_bank_statement_import_camt%'
         self._check_import_module(import_module)
         wiz_model = 'account.bank.statement.import'
         wiz_vals = {
             'data_file': self.data,
             'filename': self.name,
         }
-        wiz = self.env[wiz_model].create(wiz_vals)
+        ctx = dict(self.env.context, active_model='ebics.file')
+        wiz = self.env[wiz_model].with_context(ctx).create(wiz_vals)
         res = wiz.import_file()
         if res.get('res_model') \
                 == 'account.bank.statement.import.journal.creation':
