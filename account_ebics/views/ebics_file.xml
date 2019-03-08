@@ -64,6 +64,7 @@
                   type="object"
                   groups="account.group_account_manager"
                   help="Process the EBICS File"/>
+          <button name="set_to_done" states="draft" string="Set to Done" type="object" groups="account.group_account_manager"/>
           <field name="state" widget="statusbar"/>
         </header>
         <group colspan="4" col="4">

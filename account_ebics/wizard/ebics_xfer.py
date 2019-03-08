@@ -1,4 +1,4 @@
-# Copyright 2009-2018 Noviat.
+# Copyright 2009-2019 Noviat.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 """
@@ -199,7 +199,7 @@ class EbicsXfer(models.TransientModel):
                     self.note += _("Warning:")
                     self.note += '\n'
                     self.note += e.message
-                except:
+                except Exception:
                     self.note += '\n'
                     self.note += _("Unknown Error")
                     tb = ''.join(format_exception(*exc_info()))
@@ -321,7 +321,7 @@ class EbicsXfer(models.TransientModel):
                 self.note += _("EBICS Verification Error:")
                 self.note += '\n'
                 self.note += _("The EBICS response could not be verified.")
-            except:
+            except Exception:
                 self.note += '\n'
                 self.note += _("Unknown Error")
                 tb = ''.join(format_exception(*exc_info()))
@@ -359,7 +359,7 @@ class EbicsXfer(models.TransientModel):
         try:
             client = EbicsClient(
                 bank, user, version=self.ebics_config_id.ebics_version)
-        except:
+        except Exception:
             self.note += '\n'
             self.note += _("Unknown Error")
             tb = ''.join(format_exception(*exc_info()))
