@@ -71,7 +71,8 @@
             <group col="4" name="ebics_key">
               <field name="ebics_keys"/>
               <field name="ebics_keys_found" invisible="1"/>
-              <field name="ebics_passphrase" password="True" attrs="{'invisible': [('ebics_keys_found', '!=', False)]}"/>
+              <field name="ebics_passphrase" password="True"
+                     attrs="{'required': [('state', '=', 'draft')], 'invisible': [('ebics_keys_found', '=', True)]}"/>
               <newline/>
               <field name="ebics_key_version"/>
               <field name="ebics_key_bitlength"/>
