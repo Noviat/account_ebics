@@ -223,11 +223,11 @@ class EbicsConfig(models.Model):
                          'mykeys'])
 
     @api.multi
+    @api.depends('ebics_keys')
     def _compute_ebics_keys_found(self):
         for cfg in self:
-            if cfg.ebics_keys:
-                dirname = os.path.dirname(self.ebics_keys)
-                self.ebics_keys_found = os.path.exists(dirname)
+            cfg.ebics_keys_found = (
+                cfg.ebics_keys and os.path.isfile(cfg.ebics_keys))
 
     @api.multi
     @api.constrains('order_number')
@@ -279,10 +279,14 @@ class EbicsConfig(models.Model):
             raise UserError(
                 _("Set state to 'draft' before Bank Key (re)initialisation."))
 
+        if not self.ebics_passphrase:
+            raise UserError(
+                _("Set a passphrase."))
+
         try:
             keyring = EbicsKeyRing(
                 keys=self.ebics_keys,
-                passphrase=self.ebics_passphrase or None)
+                passphrase=self.ebics_passphrase)
             bank = EbicsBank(
                 keyring=keyring, hostid=self.ebics_host, url=self.ebics_url)
             user = EbicsUser(
@@ -296,9 +300,15 @@ class EbicsConfig(models.Model):
 
         self._check_ebics_keys()
         if not os.path.isfile(self.ebics_keys):
-            user.create_keys(
-                keyversion=self.ebics_key_version,
-                bitlength=self.ebics_key_bitlength)
+            try:
+                user.create_keys(
+                    keyversion=self.ebics_key_version,
+                    bitlength=self.ebics_key_bitlength)
+            except Exception:
+                exctype, value = exc_info()[:2]
+                error = _("EBICS Initialisation Error:")
+                error += '\n' + str(exctype) + '\n' + str(value)
+                raise UserError(error)
 
         if self.ebics_key_x509:
             dn_attrs = {
@@ -351,10 +361,13 @@ class EbicsConfig(models.Model):
             self._update_order_number(OrderID)
 
         # Create an INI-letter which must be printed and sent to the bank.
-        lang = self.env.user.lang[:2]
         cc = self.bank_id.bank_id.country.code
         if cc in ['FR', 'DE']:
             lang = cc
+        else:
+            lang = self.env.user.lang or \
+                self.env['res.lang'].search([])[0].code
+            lang = lang[:2]
         tmp_dir = os.path.normpath(self.ebics_files + '/tmp')
         if not os.path.isdir(tmp_dir):
             os.makedirs(tmp_dir, mode=0o700)
@@ -488,6 +501,11 @@ class EbicsConfig(models.Model):
                     "EBICS Keys Directory '%s' is not available."
                     "\nPlease contact your system administrator.")
                     % dirname)
+        if os.path.isdir(self.ebics_keys):
+            raise UserError(_(
+                "Configuration Error.\n"
+                "The 'EBICS Keys' parameter should be a full path "
+                "(directory + filename) not a directory name."))
 
     def _check_ebics_files(self):
         dirname = self.ebics_files or ''
