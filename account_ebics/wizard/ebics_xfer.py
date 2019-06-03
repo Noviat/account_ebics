@@ -198,7 +198,7 @@ class EbicsXfer(models.TransientModel):
                     self.note += '\n'
                     self.note += _("Warning:")
                     self.note += '\n'
-                    self.note += e.message
+                    self.note += e.name
                 except Exception:
                     self.note += '\n'
                     self.note += _("Unknown Error")
