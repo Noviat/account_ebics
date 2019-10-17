@@ -371,7 +371,7 @@ class EbicsConfig(models.Model):
         tmp_dir = os.path.normpath(self.ebics_files + '/tmp')
         if not os.path.isdir(tmp_dir):
             os.makedirs(tmp_dir, mode=0o700)
-        fn_date = fields.Date.today()
+        fn_date = fields.Date.today().isoformat()
         fn = '_'.join([self.ebics_host, 'ini_letter', fn_date]) + '.pdf'
         full_tmp_fn = os.path.normpath(tmp_dir + '/' + fn)
         user.create_ini_letter(
@@ -427,7 +427,7 @@ class EbicsConfig(models.Model):
         tmp_dir = os.path.normpath(self.ebics_files + '/tmp')
         if not os.path.isdir(tmp_dir):
             os.makedirs(tmp_dir, mode=0o700)
-        fn_date = fields.Date.today()
+        fn_date = fields.Date.today().isoformat()
         fn = '_'.join([self.ebics_host, 'public_bank_keys', fn_date]) + '.txt'
         self.write({
             'ebics_public_bank_keys': base64.encodestring(public_bank_keys),
