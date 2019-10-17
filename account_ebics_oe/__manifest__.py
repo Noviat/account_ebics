@@ -1,5 +1,5 @@
-# Copyright 2009-2019 Noviat.
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+# Copyright 2019 Noviat.
+# License LGPL-3 or later (http://www.gnu.org/licenses/agpl).
 
 {
     'name': 'account_ebics on Odoo Enterprise',
@@ -7,7 +7,7 @@
     'version': '12.0.1.0.0',
     'author': 'Noviat',
     'category': 'Hidden',
-    'license': 'AGPL-3',
+    'license': 'LGPL-3',
     'installable': True,
     'depends': [
         'account_ebics',
