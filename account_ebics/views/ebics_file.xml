@@ -21,10 +21,10 @@
         </group>
         <newline/>
         <group expand="0" string="Group By">
-          <filter string="File Format" context="{'group_by':'format_id'}"/>
-          <filter string="State" context="{'group_by':'state'}"/>
-          <filter string="User" context="{'group_by':'user_id'}"/>
-          <filter string="Company" domain="[]" groups="base.group_multi_company" context="{'group_by':'company_id'}"/>
+          <filter string="File Format" name="file_format" context="{'group_by':'format_id'}"/>
+          <filter string="State" name="state" context="{'group_by':'state'}"/>
+          <filter string="User" name="user" context="{'group_by':'user_id'}"/>
+          <filter string="Company" name="domain" domain="[]" groups="base.group_multi_company" context="{'group_by':'company_id'}"/>
         </group>
       </search>
     </field>
