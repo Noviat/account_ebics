@@ -48,7 +48,6 @@ class EbicsXfer(models.TransientModel):
         comodel_name='ebics.config',
         string='EBICS Configuration',
         domain=[('state', '=', 'active')],
-        required=True,
         default=lambda self: self._default_ebics_config_id())
     ebics_passphrase = fields.Char(
         string='EBICS Passphrase')
@@ -168,8 +167,12 @@ class EbicsXfer(models.TransientModel):
                     params['filetype'] = df.name
                 if order_type in ['FDL', 'C53']:
                     params.update({
-                        'start': self.date_from or None,
-                        'end': self.date_to or None,
+                        'start':
+                            self.date_from and self.date_from.isoformat()
+                            or None,
+                        'end':
+                            self.date_to and self.date_to.isoformat()
+                            or None,
                     })
                 kwargs = {k: v for k, v in params.items() if v}
                 try:
@@ -447,7 +450,7 @@ class EbicsXfer(models.TransientModel):
             fn_parts.append(docname)
         else:
             fn_date = self.date_to or fields.Date.today()
-            fn_parts.append(fn_date)
+            fn_parts.append(fn_date.isoformat())
         base_fn = '_'.join(fn_parts)
         n = 1
         full_tmp_fn = os.path.normpath(tmp_dir + '/' + base_fn)
