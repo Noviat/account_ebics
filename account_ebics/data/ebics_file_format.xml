@@ -16,6 +16,18 @@
 
     <!--
     File format tested with the following banks:
+    - Kreissparkasse Göppingen (Germany)
+    -->
+    <record id="ebics_ff_camt_052_001_02_stm" model="ebics.file.format">
+      <field name="name">camt.052.001.02.stm</field>
+      <field name="type">down</field>
+      <field name="order_type">C52</field>
+      <field name="description">Bank Statement in Format camt.052</field>
+      <field name="suffix">c52.xml</field>
+    </record>
+
+    <!--
+    File format tested with the following banks:
     - GLS Gemeinschaftsbank (Germany)
     -->
     <record id="ebics_ff_pain_001_001_03_sct" model="ebics.file.format">
@@ -41,7 +53,7 @@
       <field name="description">Sepa Direct Debit (B2B) Order in Format pain.008.001.02</field>
       <field name="suffix">xml</field>
     </record>
-    
+
     <!--
     File format tested with the following banks:
     - Credit Suisse (Switzerland)
