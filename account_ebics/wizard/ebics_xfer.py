@@ -165,7 +165,7 @@ class EbicsXfer(models.TransientModel):
                 params = {}
                 if order_type == 'FDL':
                     params['filetype'] = df.name
-                if order_type in ['FDL', 'C53']:
+                if order_type in ['FDL', 'C52', 'C53']:
                     params.update({
                         'start':
                             self.date_from and self.date_from.isoformat()
@@ -399,6 +399,7 @@ class EbicsXfer(models.TransientModel):
         """
         res = {
             'camt.xxx.cfonb120.stm': self._handle_cfonb120,
+            'camt.052.001.02.stm': self._handle_camt052,
             'camt.053.001.02.stm': self._handle_camt053,
         }
         return res
@@ -534,6 +535,15 @@ class EbicsXfer(models.TransientModel):
 
     def _handle_cfonb240(self, data_in):
         return self._insert_line_terminator(data_in, 240)
+
+    def _handle_camt052(self, data_in):
+        """
+        Use this method if you need to fix camt files received
+        from your bank before passing them to the
+        Odoo Community CAMT parser.
+        Remark: Odoo Enterprise doesn't support camt.052.
+        """
+        return data_in
 
     def _handle_camt053(self, data_in):
         """
