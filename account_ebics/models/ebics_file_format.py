@@ -48,7 +48,7 @@ class EbicsFileFormat(models.Model):
         return ['FUL', 'CCT', 'CDD', 'CDB', 'XE2', 'XE3']
 
     def _supported_download_order_types(self):
-        return ['FDL', 'C53']
+        return ['FDL', 'C52', 'C53']
 
     @api.model
     def _selection_name(self):
@@ -65,6 +65,7 @@ class EbicsFileFormat(models.Model):
         the doc folder of this module (EBICS_Annex2).
         """
         request_types = [
+            'camt.052.001.02.stm',
             'camt.053.001.02.stm',
             'pain.001.001.03.sct',
             'pain.008.001.02.sdd',
