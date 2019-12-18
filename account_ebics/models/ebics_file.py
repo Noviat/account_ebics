@@ -128,6 +128,9 @@ class EbicsFile(models.Model):
             'camt.xxx.cfonb120.stm':
                 {'process': self._process_cfonb120,
                  'unlink': self._unlink_cfonb120},
+            'camt.052.001.02.stm':
+                {'process': self._process_camt052,
+                 'unlink': self._unlink_camt052},
             'camt.053.001.02.stm':
                 {'process': self._process_camt053,
                  'unlink': self._unlink_camt053},
@@ -201,6 +204,20 @@ class EbicsFile(models.Model):
     def _unlink_cfonb120(self):
         """
         Placeholder for cfonb120 specific actions before removing the
+        EBICS data file and its related bank statements.
+        """
+        pass
+
+    @staticmethod
+    def _process_camt052(self):
+        import_module = 'account_bank_statement_import_camt_oca'
+        self._check_import_module(import_module)
+        return self._process_camt053(self)
+
+    @staticmethod
+    def _unlink_camt052(self):
+        """
+        Placeholder for camt052 specific actions before removing the
         EBICS data file and its related bank statements.
         """
         pass
