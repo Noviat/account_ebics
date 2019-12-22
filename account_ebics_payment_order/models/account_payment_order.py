@@ -1,5 +1,5 @@
 # Copyright 2009-2019 Noviat.
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+# License LGPL-3 or later (http://www.gnu.org/licenses/lpgl).
 
 from odoo import api, models, _
 from odoo.exceptions import UserError
