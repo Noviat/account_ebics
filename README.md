@@ -1,4 +1,4 @@
-![Licence](https://img.shields.io/badge/licence-AGPL--3-blue.svg)
+![Licence](https://img.shields.io/badge/licence-LGPL--3-blue.svg)
 
 EBICS support for Odoo
 ======================
