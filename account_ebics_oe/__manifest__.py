@@ -1,5 +1,5 @@
 # Copyright 2019 Noviat.
-# License LGPL-3 or later (http://www.gnu.org/licenses/agpl).
+# License LGPL-3 or later (http://www.gnu.org/licenses/lpgl).
 
 {
     'name': 'account_ebics on Odoo Enterprise',
