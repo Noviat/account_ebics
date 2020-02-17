@@ -26,7 +26,7 @@ try:
         fintech.register(
             fintech_register_name,
             fintech_register_keycode,
-            fintech_register_users)
+            fintech_register_users.split(','))
 except RuntimeError, e:
     if e.message == "'register' can be called only once":
         pass
