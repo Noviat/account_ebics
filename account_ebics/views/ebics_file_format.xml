@@ -36,7 +36,6 @@
   <record id="ebics_file_format_action" model="ir.actions.act_window">
     <field name="name">EBICS File Formats</field>
     <field name="res_model">ebics.file.format</field>
-    <!-- <field name="view_type">form</field> -->
     <field name="view_mode">tree,form</field>
   </record>
 
