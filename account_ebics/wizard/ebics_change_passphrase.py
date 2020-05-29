@@ -35,7 +35,6 @@ class EbicsChangePassphrase(models.TransientModel):
         required=True)
     note = fields.Text(string='Notes', readonly=True)
 
-    @api.multi
     def change_passphrase(self):
         self.ensure_one()
         if self.old_pass != self.ebics_config_id.ebics_passphrase:
@@ -71,7 +70,6 @@ class EbicsChangePassphrase(models.TransientModel):
             'type': 'ir.actions.act_window',
         }
 
-    @api.multi
     def button_close(self):
         self.ensure_one()
         return {'type': 'ir.actions.act_window_close'}

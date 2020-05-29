@@ -1,13 +1,6 @@
 # Copyright 2009-2019 Noviat.
 # License LGPL-3 or later (http://www.gnu.org/licenses/lpgl).
 
-"""
-import logging
-logging.basicConfig(
-    level=logging.DEBUG,
-    format='[%(asctime)s] %(levelname)s - %(name)s: %(message)s')
-"""
-
 import base64
 import logging
 import re
@@ -222,14 +215,12 @@ class EbicsConfig(models.Model):
                          self._cr.dbname,
                          'mykeys'])
 
-    @api.multi
     @api.depends('ebics_keys')
     def _compute_ebics_keys_found(self):
         for cfg in self:
             cfg.ebics_keys_found = (
                 cfg.ebics_keys and os.path.isfile(cfg.ebics_keys))
 
-    @api.multi
     @api.constrains('order_number')
     def _check_order_number(self):
         for cfg in self:
@@ -247,7 +238,6 @@ class EbicsConfig(models.Model):
                     "Order Number should comply with the following pattern:"
                     "\n[A-Z]{1}[A-Z0-9]{3}"))
 
-    @api.multi
     def unlink(self):
         for ebics_config in self:
             if ebics_config.state == 'active':
@@ -255,19 +245,15 @@ class EbicsConfig(models.Model):
                     "You cannot remove active EBICS congirations."))
         return super(EbicsConfig, self).unlink()
 
-    @api.multi
     def set_to_draft(self):
         return self.write({'state': 'draft'})
 
-    @api.multi
     def set_to_get_bank_keys(self):
         return self.write({'state': 'get_bank_keys'})
 
-    @api.multi
     def set_to_active(self):
         return self.write({'state': 'active'})
 
-    @api.multi
     def ebics_init_1(self):
         """
         Initialization of bank keys - Step 1:
@@ -387,7 +373,6 @@ class EbicsConfig(models.Model):
 
         return self.write({'state': 'init'})
 
-    @api.multi
     def ebics_init_2(self):
         """
         Initialization of bank keys - Step 2:
@@ -399,7 +384,6 @@ class EbicsConfig(models.Model):
         self.ensure_one()
         return self.write({'state': 'get_bank_keys'})
 
-    @api.multi
     def ebics_init_3(self):
         """
         Initialization of bank keys - Step 3:
@@ -437,7 +421,6 @@ class EbicsConfig(models.Model):
 
         return True
 
-    @api.multi
     def ebics_init_4(self):
         """
         Initialization of bank keys - Step 2:
@@ -456,7 +439,6 @@ class EbicsConfig(models.Model):
         bank.activate_keys()
         return self.write({'state': 'active'})
 
-    @api.multi
     def change_passphrase(self):
         self.ensure_one()
         ctx = dict(self._context, default_ebics_config_id=self.id)

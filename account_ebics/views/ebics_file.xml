@@ -36,7 +36,7 @@
     <field name="name">ebics.file.tree</field>
     <field name="model">ebics.file</field>
     <field name="arch" type="xml">
-      <tree string="EBICS Files" colors="blue:state=='draft'" create="false">
+      <tree string="EBICS Files" decoration-muted="state=='draft'" create="false">
         <field name="date" string="Download Date"/>
         <field name="name"/>
         <field name="date_from"/>
@@ -111,7 +111,6 @@
     <field name="name">EBICS Download Files</field>
     <field name="type">ir.actions.act_window</field>
     <field name="res_model">ebics.file</field>
-    <field name="view_type">form</field>
     <field name="view_mode">tree,form</field>
     <field name="view_id" eval="False"/>
     <field name="domain">[('type','=','down')]</field>
@@ -144,7 +143,7 @@
     <field name="name">ebics.file.tree</field>
     <field name="model">ebics.file</field>
     <field name="arch" type="xml">
-      <tree string="EBICS Files" colors="blue:state=='draft'" create="false">
+      <tree string="EBICS Files" decoration-muted="state=='draft'" create="false">
         <field name="date" string="Upload Date"/>
         <field name="name"/>
         <field name="user_id"/>
@@ -187,7 +186,6 @@
     <field name="name">EBICS Upload Files</field>
     <field name="type">ir.actions.act_window</field>
     <field name="res_model">ebics.file</field>
-    <field name="view_type">form</field>
     <field name="view_mode">tree,form</field>
     <field name="view_id" eval="False"/>
     <field name="domain">[('type','=','up')]</field>

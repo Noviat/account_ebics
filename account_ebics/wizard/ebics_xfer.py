@@ -125,7 +125,6 @@ class EbicsXfer(models.TransientModel):
     def _onchange_format_id(self):
         self.order_type = self.format_id.order_type
 
-    @api.multi
     def ebics_upload(self):
         self.ensure_one()
         ctx = self._context.copy()
@@ -147,7 +146,6 @@ class EbicsXfer(models.TransientModel):
             'type': 'ir.actions.act_window',
         }
 
-    @api.multi
     def ebics_download(self):
         self.ensure_one()
         self.ebics_config_id._check_ebics_files()
@@ -238,12 +236,10 @@ class EbicsXfer(models.TransientModel):
             'type': 'ir.actions.act_window',
         }
 
-    @api.multi
     def button_close(self):
         self.ensure_one()
         return {'type': 'ir.actions.act_window_close'}
 
-    @api.multi
     def view_ebics_file(self):
         self.ensure_one()
         module = __name__.split('addons.')[1].split('.')[0]
@@ -335,7 +331,6 @@ class EbicsXfer(models.TransientModel):
 
         return ebics_file
 
-    @api.multi
     def _setup_client(self):
         self.ebics_config_id._check_ebics_keys()
         passphrase = self._get_passphrase()

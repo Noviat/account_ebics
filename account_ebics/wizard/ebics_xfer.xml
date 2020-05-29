@@ -70,7 +70,7 @@
     <field name="name">EBICS File Transfer</field>
     <field name="type">ir.actions.act_window</field>
     <field name="res_model">ebics.xfer</field>
-    <field name="view_type">form</field>
+    <!-- <field name="view_type">form</field> -->
     <field name="view_mode">form</field>
     <field name="target">new</field>
     <field name="context">{'ebics_download': 1}</field>
@@ -81,7 +81,7 @@
     <field name="name">EBICS File Transfer</field>
     <field name="type">ir.actions.act_window</field>
     <field name="res_model">ebics.xfer</field>
-    <field name="view_type">form</field>
+    <!-- <field name="view_type">form</field> -->
     <field name="view_mode">form</field>
     <field name="target">new</field>
     <field name="context">{'ebics_upload': 1}</field>
