@@ -21,5 +21,10 @@
     ],
     'installable': True,
     'application': True,
-    'external_dependencies': {'python': ['fintech', ]},
+    'external_dependencies': {
+        'python': [
+            'fintech',
+            'cryptography',
+            ]
+        },
 }
