@@ -1,4 +1,4 @@
-# Copyright 2009-2019 Noviat.
+# Copyright 2009-2020 Noviat.
 # License LGPL-3 or later (http://www.gnu.org/licenses/lpgl).
 
 from odoo import api, models, _
@@ -8,7 +8,6 @@ from odoo.exceptions import UserError
 class AccountPaymentOrder(models.Model):
     _inherit = 'account.payment.order'
 
-    @api.multi
     def ebics_upload(self):
         self.ensure_one()
         ctx = self._context.copy()
