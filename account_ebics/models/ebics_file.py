@@ -66,7 +66,6 @@ class EbicsFile(models.Model):
         """
         return self.env.user.company_id
 
-    @api.multi
     def unlink(self):
         ff_methods = self._file_format_methods()
         for ebics_file in self:
@@ -82,15 +81,12 @@ class EbicsFile(models.Model):
             ebics_file.bank_statement_ids.unlink()
         return super(EbicsFile, self).unlink()
 
-    @api.multi
     def set_to_draft(self):
         return self.write({'state': 'draft'})
 
-    @api.multi
     def set_to_done(self):
         return self.write({'state': 'done'})
 
-    @api.multi
     def process(self):
         self.ensure_one()
         self.note_process = ''
@@ -104,7 +100,6 @@ class EbicsFile(models.Model):
         else:
             return self._process_undefined_format()
 
-    @api.multi
     def action_open_bank_statements(self):
         self.ensure_one()
         action = self.env['ir.actions.act_window'].for_xml_id(
@@ -114,7 +109,6 @@ class EbicsFile(models.Model):
         action.update({'domain': domain})
         return action
 
-    @api.multi
     def button_close(self):
         self.ensure_one()
         return {'type': 'ir.actions.act_window_close'}
