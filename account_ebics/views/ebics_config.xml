@@ -5,7 +5,7 @@
     <field name="name">ebics.config.tree</field>
     <field name="model">ebics.config</field>
     <field name="arch" type="xml">
-      <tree string="EBICS Configuration" colors="blue:state!='active'">
+      <tree string="EBICS Configuration" decoration-muted="state!='active'">
         <field name="name"/>
         <field name="bank_id"/>
         <field name="ebics_host"/>
@@ -113,7 +113,7 @@
   <record id="ebics_config_action" model="ir.actions.act_window">
     <field name="name">EBICS Configuration</field>
     <field name="res_model">ebics.config</field>
-    <field name="view_type">form</field>
+    <!-- <field name="view_type">form</field> -->
     <field name="view_mode">tree,form</field>
   </record>
 
