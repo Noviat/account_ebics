@@ -113,7 +113,6 @@
   <record id="ebics_config_action" model="ir.actions.act_window">
     <field name="name">EBICS Configuration</field>
     <field name="res_model">ebics.config</field>
-    <!-- <field name="view_type">form</field> -->
     <field name="view_mode">tree,form</field>
   </record>
 
