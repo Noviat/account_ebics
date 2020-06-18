@@ -4,4 +4,4 @@ access_ebics_config_user,ebics_config user,model_ebics_config,account.group_acco
 access_ebics_file_format_manager,ebics_file_format manager,model_ebics_file_format,account_ebics.group_ebics_manager,1,1,1,1
 access_ebics_file_format_user,ebics_file_format user,model_ebics_file_format,account.group_account_user,1,0,0,0
 access_ebics_file_manager,ebics_file manager,model_ebics_file,account_ebics.group_ebics_manager,1,1,1,1
-access_ebics_file_user,ebics_file user,model_ebics_file,account.group_account_user,1,0,0,0
+access_ebics_file_user,ebics_file user,model_ebics_file,account.group_account_user,1,1,1,0
