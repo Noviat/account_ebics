@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-# Copyright 2009-2018 Noviat.
+# Copyright 2009-2020 Noviat.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
     'name': 'EBICS banking protocol',
-    'version': '8.0.1.5.0',
+    'version': '8.0.1.5.1',
     'license': 'AGPL-3',
     'author': 'Noviat',
     'category': 'Accounting & Finance',
