@@ -63,7 +63,7 @@
                     states="draft"
                     string="Process"
                     type="object"
-                    groups="account.group_account_manager"
+                    groups="account.group_account_user"
                     help="Process the EBICS File"/>
             <field name="state" widget="statusbar"/>
           </header>
