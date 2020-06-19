@@ -62,7 +62,7 @@
                   states="draft"
                   string="Process"
                   type="object"
-                  groups="account.group_account_manager"
+                  groups="account.group_account_user"
                   help="Process the EBICS File"/>
           <button name="set_to_done" states="draft" string="Set to Done" type="object" groups="account.group_account_manager"/>
           <field name="state" widget="statusbar"/>
