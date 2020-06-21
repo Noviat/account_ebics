@@ -228,6 +228,13 @@ class EbicsConfig(models.Model):
             cfg.ebics_keys_found = (
                 cfg.ebics_keys and os.path.isfile(cfg.ebics_keys))
 
+    @api.constrains('ebics_passphrase')
+    def _check_ebics_passphrase(self):
+        for cfg in self:
+            if not cfg.ebics_passphrase or len(cfg.ebics_passphrase) < 8:
+                raise UserError(_(
+                    "The passphrase must be at least 8 characters long"))
+
     @api.constrains('order_number')
     def _check_order_number(self):
         for cfg in self:
