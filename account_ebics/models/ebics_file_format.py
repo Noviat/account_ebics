@@ -1,4 +1,4 @@
-# Copyright 2009-2018 Noviat.
+# Copyright 2009-2020 Noviat.
 # License LGPL-3 or later (http://www.gnu.org/licenses/lpgl).
 
 from odoo import api, fields, models
@@ -48,7 +48,7 @@ class EbicsFileFormat(models.Model):
         return ['FUL', 'CCT', 'CDD', 'CDB', 'XE2', 'XE3']
 
     def _supported_download_order_types(self):
-        return ['FDL', 'C52', 'C53']
+        return ['FDL', 'C52', 'C53', 'C54']
 
     @api.model
     def _selection_name(self):

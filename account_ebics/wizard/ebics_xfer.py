@@ -1,4 +1,4 @@
-# Copyright 2009-2019 Noviat.
+# Copyright 2009-2020 Noviat.
 # License LGPL-3 or later (http://www.gnu.org/licenses/lpgl).
 
 """
@@ -163,7 +163,7 @@ class EbicsXfer(models.TransientModel):
                 params = {}
                 if order_type == 'FDL':
                     params['filetype'] = df.name
-                if order_type in ['FDL', 'C52', 'C53']:
+                if order_type in ['FDL', 'C52', 'C53', 'C54']:
                     params.update({
                         'start':
                             self.date_from and self.date_from.isoformat()
