@@ -21,11 +21,13 @@ fintech_register_users = config.get('fintech_register_users')
 
 try:
     if fintech:
+        fintech_register_users = fintech_register_users \
+            and fintech_register_users.split(',')
         fintech.cryptolib = 'cryptography'
         fintech.register(
             fintech_register_name,
             fintech_register_keycode,
-            fintech_register_users.split(','))
+            fintech_register_users)
 except RuntimeError as e:
     if e.message == "'register' can be called only once":
         pass
