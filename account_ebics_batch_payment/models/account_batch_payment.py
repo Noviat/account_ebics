@@ -7,7 +7,6 @@ from odoo import _, api, models
 class AccountBatchPayment(models.Model):
     _inherit = "account.batch.payment"
 
-    @api.multi
     def ebics_upload(self):
         self.ensure_one()
         ctx = self.env.context.copy()
