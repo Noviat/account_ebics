@@ -1,4 +1,4 @@
-# Copyright 2009-2019 Noviat.
+# Copyright 2009-2020 Noviat.
 # License LGPL-3 or later (http://www.gnu.org/licenses/lpgl).
 
 import base64
@@ -49,10 +49,17 @@ class EbicsConfig(models.Model):
     _order = 'name'
 
     name = fields.Char(string='Name', required=True)
+    company_partner_id = fields.Many2one(
+        comodel_name='res.partner',
+        related='company_id.partner_id',
+        string='Account Holder',
+        readonly=True, store=False)
     bank_id = fields.Many2one(
         comodel_name='res.partner.bank',
         readonly=True, states={'draft': [('readonly', False)]},
-        string='Bank Account', required=True)
+        string='Bank Account',
+        domain="[('partner_id','=', company_partner_id)]",
+        required=True)
     ebics_host = fields.Char(
         string='EBICS HostID', required=True,
         readonly=True, states={'draft': [('readonly', False)]},

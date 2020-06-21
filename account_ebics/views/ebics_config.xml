@@ -35,7 +35,7 @@
         </header>
         <group col="4">
           <field name="name" colspan="2"/>
-          <field name="bank_id" domain="[('company_id', '=', company_id)]"/>
+          <field name="bank_id"/>
           <field name="ebics_host"/>
           <field name="ebics_url"/>
           <field name="ebics_partner"/>
@@ -47,6 +47,7 @@
                  attrs="{'invisible': [('ebics_version', '=', 'H004')]}"/>
           <field name="active"/>
           <field name="company_id" widget='selection' groups="base.group_multi_company"/>
+          <field name="company_partner_id" invisible="1"/>
         </group>
         <notebook>
           <page string="Keys" groups="account_ebics.group_ebics_manager">
