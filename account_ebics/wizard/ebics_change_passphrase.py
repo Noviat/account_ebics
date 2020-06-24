@@ -1,9 +1,9 @@
-# Copyright 2009-2019 Noviat.
+# Copyright 2009-2020 Noviat.
 # License LGPL-3 or later (http://www.gnu.org/licenses/lpgl).
 
 import logging
 
-from odoo import api, fields, models, _
+from odoo import _, fields, models
 from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
