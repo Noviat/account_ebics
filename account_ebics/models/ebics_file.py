@@ -1,4 +1,4 @@
-# Copyright 2009-2019 Noviat.
+# Copyright 2009-2020 Noviat.
 # License LGPL-3 or later (http://www.gnu.org/licenses/lpgl).
 
 import logging
@@ -168,7 +168,10 @@ class EbicsFile(models.Model):
         import_module = 'account_bank_statement_import_fr_cfonb'
         self._check_import_module(import_module)
         wiz_model = 'account.bank.statement.import'
-        wiz_vals = {'data_file': self.data}
+        wiz_vals = {
+            'attachment_ids': [(0, 0, {'name': self.name,
+                                       'datas': self.data,
+                                       'store_fname': self.name})]}
         wiz = self.env[wiz_model].create(wiz_vals)
         res = wiz.import_file()
         notifications = []
