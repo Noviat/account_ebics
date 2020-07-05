@@ -1,0 +1,74 @@
+<?xml version="1.0" ?>
+<odoo>
+
+  <record id="ebics_config_view_tree" model="ir.ui.view">
+    <field name="name">ebics.config.tree</field>
+    <field name="model">ebics.config</field>
+    <field name="arch" type="xml">
+      <tree string="EBICS Configuration" decoration-muted="state == 'draft'">
+        <field name="name"/>
+        <field name="ebics_host"/>
+        <field name="state"/>
+        <field name="active"/>
+      </tree>
+    </field>
+  </record>
+
+  <record id="ebics_config_view_form" model="ir.ui.view">
+    <field name="name">ebics.config.form</field>
+    <field name="model">ebics.config</field>
+    <field name="arch" type="xml">
+      <form string="EBICS Configuration">
+        <header>
+          <button name="set_to_draft" states="confirm" string="Set to Draft" type="object"
+                  groups="account_ebics.group_ebics_manager"
+                  help="Set to Draft in order to change the EBICS configuration parameters."/>
+          <button name="set_to_confirm" states="draft" string="Confirm" type="object" class="oe_highlight"
+                  groups="account_ebics.group_ebics_manager"
+                  help="The EBICS configuration must be confirmed before it can used for bank transactions."/>
+          <field name="state" widget="statusbar"/>
+        </header>
+        <field name="active" invisible="1" />
+        <widget name="web_ribbon"
+                text="Archived"
+                bg_color="bg-danger"
+                attrs="{'invisible': [('active', '=', True)]}"/>
+        <group name="main">
+          <group name="main-left">
+            <field name="name" colspan="2"/>
+            <field name="ebics_host"/>
+            <field name="ebics_url"/>
+            <field name="ebics_partner"/>
+            <field name="ebics_files"/>
+            <field name="ebics_keys"/>
+          </group>
+          <group name="main-right">
+            <field name="journal_ids" widget="many2many_tags" options="{'no_create': True}"/>
+            <field name="ebics_version"/>
+            <field name="ebics_key_version"/>
+            <field name="ebics_key_bitlength"/>
+            <field name="order_number"
+                   attrs="{'invisible': [('ebics_version', '=', 'H004')]}"/>
+          </group>
+          <field name="company_ids" invisible="1"/>
+        </group>
+        <notebook>
+          <page string="EBICS Users" groups="account_ebics.group_ebics_manager">
+            <field name="ebics_userid_ids"/>
+          </page>
+          <page string="File Formats" groups="account_ebics.group_ebics_manager">
+            <field name="ebics_file_format_ids"/>
+          </page>
+        </notebook>
+      </form>
+    </field>
+  </record>
+
+  <record id="ebics_config_action" model="ir.actions.act_window">
+    <field name="name">EBICS Configuration</field>
+    <field name="res_model">ebics.config</field>
+    <field name="view_mode">tree,form</field>
+    <field name="context">{'active_test': False}</field>
+  </record>
+
+</odoo>
