@@ -14,7 +14,7 @@
         'data/ebics_file_format.xml',
         'views/ebics_config_views.xml',
         'views/ebics_file_views.xml',
-        'views/ebics_user_views.xml',
+        'views/ebics_userid_views.xml',
         'views/ebics_file_format_views.xml',
         'wizards/ebics_change_passphrase.xml',
         'wizards/ebics_xfer.xml',

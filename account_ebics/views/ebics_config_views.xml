@@ -43,7 +43,7 @@
             <field name="ebics_keys"/>
           </group>
           <group name="main-right">
-            <field name="journal_ids" widget="many2many_tags"/>
+            <field name="journal_ids" widget="many2many_tags" options="{'no_create': True}"/>
             <field name="ebics_version"/>
             <field name="ebics_key_version"/>
             <field name="ebics_key_bitlength"/>
