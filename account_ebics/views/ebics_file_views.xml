@@ -1,11 +1,6 @@
 <?xml version="1.0" ?>
 <odoo>
 
-  <menuitem id="ebics_file_menu"
-        name="EBICS Files"
-        parent="ebics_processing_menu"
-        sequence="30"/>
-
   <record id="ebics_file_view_search" model="ir.ui.view">
     <field name="name">ebics.file.search</field>
     <field name="model">ebics.file</field>
@@ -17,14 +12,13 @@
           <field name="name"/>
           <field name="format_id"/>
           <field name="user_id"/>
-          <field name="company_id" widget="selection" groups="base.group_multi_company"/>
+          <field name="company_ids" widget="selection" groups="base.group_multi_company"/>
         </group>
         <newline/>
         <group expand="0" string="Group By">
           <filter string="File Format" name="file_format" context="{'group_by':'format_id'}"/>
           <filter string="State" name="state" context="{'group_by':'state'}"/>
           <filter string="User" name="user" context="{'group_by':'user_id'}"/>
-          <filter string="Company" name="domain" domain="[]" groups="base.group_multi_company" context="{'group_by':'company_id'}"/>
         </group>
       </search>
     </field>
@@ -44,7 +38,7 @@
         <field name="user_id"/>
         <field name="state"/>
         <field name="format_id"/>
-        <field name="company_id" groups="base.group_multi_company"/>
+        <field name="company_ids" groups="base.group_multi_company"/>
       </tree>
     </field>
   </record>
@@ -75,7 +69,8 @@
           <field name="date_from"/>
           <field name="date_to"/>
           <field name="user_id"/>
-          <field name="company_id" groups="base.group_multi_company"/>
+          <field name="ebics_userid_id"/>
+          <field name="company_ids" groups="base.group_multi_company"/>
         </group>
         <notebook>
           <page string="Additional Information">
@@ -131,12 +126,6 @@
     <field name="act_window_id" ref="ebics_file_action_download"/>
   </record>
 
-  <menuitem id="ebics_file_menu_download"
-            name="Download"
-            parent="ebics_file_menu"
-            action="ebics_file_action_download"
-            sequence="31"/>
-
   <!-- Upload -->
 
   <record id="ebics_file_view_tree_upload" model="ir.ui.view">
@@ -149,7 +138,7 @@
         <field name="user_id"/>
         <field name="state"/>
         <field name="format_id"/>
-        <field name="company_id" groups="base.group_multi_company"/>
+        <field name="company_ids" groups="base.group_multi_company"/>
       </tree>
     </field>
   </record>
@@ -171,7 +160,8 @@
           <field name="data" filename="name"/>
           <field name="format_id"/>
           <field name="user_id"/>
-          <field name="company_id" groups="base.group_multi_company"/>
+          <field name="ebics_userid_id"/>
+          <field name="company_ids" groups="base.group_multi_company"/>
         </group>
         <notebook>
           <page string="Additional Information">
@@ -205,11 +195,5 @@
     <field name="view_id" ref="ebics_file_view_form_upload"/>
     <field name="act_window_id" ref="ebics_file_action_upload"/>
   </record>
-
-  <menuitem id="ebics_file_menu_upload"
-            name="Upload"
-            parent="ebics_file_menu"
-            action="ebics_file_action_upload"
-            sequence="31"/>
 
 </odoo>
