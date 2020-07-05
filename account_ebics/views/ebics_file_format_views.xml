@@ -39,11 +39,4 @@
     <field name="view_mode">tree,form</field>
   </record>
 
-  <menuitem id="ebics_file_format_menu"
-            name="EBICS File Formats"
-            parent="ebics_menu"
-            action="ebics_file_format_action"
-            groups="account_ebics.group_ebics_manager"
-            sequence="20"/>
-
 </odoo>

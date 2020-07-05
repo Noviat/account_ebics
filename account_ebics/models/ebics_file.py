@@ -1,9 +1,10 @@
 # Copyright 2009-2020 Noviat.
 # License LGPL-3 or later (http://www.gnu.org/licenses/lpgl).
 
+import base64
 import logging
 
-from odoo import api, fields, models, _
+from odoo import _, fields, models
 from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
@@ -13,6 +14,10 @@ class EbicsFile(models.Model):
     _name = 'ebics.file'
     _description = 'Object to store EBICS Data Files'
     _order = 'date desc'
+    _sql_constraints = [
+        ('name_uniq', 'unique (name, format_id)',
+         'This File has already been down- or uploaded !')
+    ]
 
     name = fields.Char(string='Filename')
     data = fields.Binary(string='File', readonly=True)
@@ -46,25 +51,17 @@ class EbicsFile(models.Model):
         comodel_name='res.users', string='User',
         default=lambda self: self.env.user,
         readonly=True)
+    ebics_userid_id = fields.Many2one(
+        comodel_name='ebics.userid',
+        string='EBICS UserID',
+        ondelete='restrict',
+        readonly=True)
     note = fields.Text(string='Notes')
     note_process = fields.Text(string='Notes')
-    company_id = fields.Many2one(
+    company_ids = fields.Many2many(
         comodel_name='res.company',
-        string='Company',
-        default=lambda self: self._default_company_id())
-
-    _sql_constraints = [
-        ('name_company_uniq', 'unique (name, company_id, format_id)',
-         'This File has already been imported !')
-    ]
-
-    @api.model
-    def _default_company_id(self):
-        """
-        Adapt this method in case your bank provides transactions
-        of multiple legal entities in a single EBICS File.
-        """
-        return self.env.user.company_id
+        string='Companies',
+        help="Companies sharing this EBICS file.")
 
     def unlink(self):
         ff_methods = self._file_format_methods()
@@ -168,11 +165,25 @@ class EbicsFile(models.Model):
         import_module = 'account_bank_statement_import_fr_cfonb'
         self._check_import_module(import_module)
         wiz_model = 'account.bank.statement.import'
-        wiz_vals = {
-            'attachment_ids': [(0, 0, {'name': self.name,
-                                       'datas': self.data,
-                                       'store_fname': self.name})]}
-        wiz = self.env[wiz_model].create(wiz_vals)
+        data_file = base64.b64decode(self.data)
+        lines = data_file.split(b'\n')
+        att_vals = []
+        st_lines = b''
+        for line in lines:
+            rec_type = line[0:2]
+            acc_number = line[21:32]
+            st_lines += line + b'\n'
+            if rec_type == b'07':
+                fn = '_'.join([acc_number.decode(), self.name])
+                att_vals.append({
+                    'name': fn,
+                    'store_fname': fn,
+                    'datas': base64.b64encode(st_lines)
+                })
+                st_lines = b''
+        wiz_vals = {'attachment_ids': [(0, 0, x) for x in att_vals]}
+        wiz_ctx = dict(self.env.context, active_model='ebics.file')
+        wiz = self.env[wiz_model].with_context(wiz_ctx).create(wiz_vals)
         res = wiz.import_file()
         notifications = []
         statement_ids = []
@@ -224,10 +235,11 @@ class EbicsFile(models.Model):
         import_module = 'account_bank_statement_import_camt%'
         self._check_import_module(import_module)
         wiz_model = 'account.bank.statement.import'
+
         wiz_vals = {
-            'data_file': self.data,
-            'filename': self.name,
-        }
+            'attachment_ids': [(0, 0, {'name': self.name,
+                                       'datas': self.data,
+                                       'store_fname': self.name})]}
         ctx = dict(self.env.context, active_model='ebics.file')
         wiz = self.env[wiz_model].with_context(ctx).create(wiz_vals)
         res = wiz.import_file()

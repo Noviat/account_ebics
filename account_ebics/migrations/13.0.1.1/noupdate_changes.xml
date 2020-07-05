@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<odoo>
+
+  <record id="ebics_config_comp_rule" model="ir.rule">
+    <field name="name">EBICS Configuration model company rule</field>
+    <field name="model_id" ref="model_ebics_config"/>
+    <field eval="True" name="global"/>
+    <field name="domain_force">['|', ('company_ids', '=', False), ('company_ids', 'in', user.company_ids.ids)]</field>
+  </record>
+
+  <record id="ebics_file_comp_rule" model="ir.rule">
+    <field name="name">EBICS File model company rule</field>
+    <field name="model_id" ref="model_ebics_file"/>
+    <field eval="True" name="global"/>
+    <field name="domain_force">['|', ('company_ids', '=', False), ('company_ids', 'in', user.company_ids.ids)]</field>
+  </record>
+
+</odoo>

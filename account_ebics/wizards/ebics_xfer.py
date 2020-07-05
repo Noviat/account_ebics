@@ -47,8 +47,12 @@ class EbicsXfer(models.TransientModel):
     ebics_config_id = fields.Many2one(
         comodel_name='ebics.config',
         string='EBICS Configuration',
-        domain=[('state', '=', 'active')],
+        domain=[('state', '=', 'confirm')],
         default=lambda self: self._default_ebics_config_id())
+    ebics_userid_id = fields.Many2one(
+        comodel_name='ebics.userid',
+        string='EBICS UserID',
+        required=True)
     ebics_passphrase = fields.Char(
         string='EBICS Passphrase')
     date_from = fields.Date()
@@ -81,8 +85,8 @@ class EbicsXfer(models.TransientModel):
     def _default_ebics_config_id(self):
         cfg_mod = self.env['ebics.config']
         cfg = cfg_mod.search(
-            [('company_id', '=', self.env.user.company_id.id),
-             ('state', '=', 'active')])
+            [('company_ids', 'in', self.env.user.company_ids.ids),
+             ('state', '=', 'confirm')])
         if cfg and len(cfg) == 1:
             return cfg
         else:
@@ -94,7 +98,8 @@ class EbicsXfer(models.TransientModel):
 
     @api.onchange('ebics_config_id')
     def _onchange_ebics_config_id(self):
-        domain = {}
+        ebics_userids = self.ebics_config_id.ebics_userid_ids
+        domain = {'ebics_userid_id': [('id', 'in', ebics_userids.ids)]}
         if self._context.get('ebics_download'):
             download_formats = self.ebics_config_id.ebics_file_format_ids\
                 .filtered(lambda r: r.type == 'down')
@@ -102,6 +107,13 @@ class EbicsXfer(models.TransientModel):
                 self.format_id = download_formats
             domain['format_id'] = [('type', '=', 'down'),
                                    ('id', 'in', download_formats.ids)]
+            if len(ebics_userids) == 1:
+                self.ebics_userid_id = ebics_userids
+            else:
+                transport_users = ebics_userids.filtered(
+                    lambda r: r.signature_class == 'T')
+                if len(transport_users) == 1:
+                    self.ebics_userid_id = transport_users
         else:
             upload_formats = self.ebics_config_id.ebics_file_format_ids\
                 .filtered(lambda r: r.type == 'up')
@@ -109,6 +121,8 @@ class EbicsXfer(models.TransientModel):
                 self.format_id = upload_formats
             domain['format_id'] = [('type', '=', 'up'),
                                    ('id', 'in', upload_formats.ids)]
+            if len(ebics_userids) == 1:
+                self.ebics_userid_id = ebics_userids
         return {'domain': domain}
 
     @api.onchange('upload_data')
@@ -298,7 +312,9 @@ class EbicsXfer(models.TransientModel):
                         'format_id': self.format_id.id,
                         'state': 'done',
                         'user_id': self._uid,
+                        'ebics_userid_id': self.ebics_userid_id.id,
                         'note': ef_note,
+                        'company_ids': [self.env.user.company_id.id],
                     }
                     self._update_ef_vals(ef_vals)
                     ebics_file = self.env['ebics.file'].create(ef_vals)
@@ -441,7 +457,8 @@ class EbicsXfer(models.TransientModel):
         tmp_dir = os.path.normpath(ebics_files_root + '/tmp')
         if not os.path.isdir(tmp_dir):
             os.makedirs(tmp_dir, mode=0o700)
-        fn_parts = [self.ebics_config_id.ebics_host]
+        fn_parts = [self.ebics_config_id.ebics_host,
+                    self.ebics_config_id.ebics_partner]
         if docname:
             fn_parts.append(docname)
         else:
@@ -479,6 +496,8 @@ class EbicsXfer(models.TransientModel):
             'date_to': self.date_from,
             'format_id': file_format.id,
             'user_id': self._uid,
+            'ebics_userid_id': self.ebics_userid_id.id,
+            'company_ids': self.ebics_config_id.company_ids.ids,
         }
         self._update_ef_vals(ef_vals)
         ebics_file = self.env['ebics.file'].create(ef_vals)
@@ -487,10 +506,7 @@ class EbicsXfer(models.TransientModel):
     def _check_duplicate_ebics_file(self, fn, file_format):
         dups = self.env['ebics.file'].search(
             [('name', '=', fn),
-             ('format_id', '=', file_format.id),
-             '|',
-             ('company_id', '=', self.env.user.company_id.id),
-             ('company_id', '=', False)])
+             ('format_id', '=', file_format.id)])
         return dups
 
     def _detect_upload_format(self):

@@ -67,3 +67,9 @@ EBICS_NO_DOWNLOAD_DATA_AVAILABLE (code: 90005)
 
 A detailled explanation of the codes can be found on http://www.ebics.org.
 You can also find this information in the doc folder of this module (file EBICS_Annex1_ReturnCodes).
+
+Known Issues / Roadmap
+======================
+
+- add support for 3SKEY signed transactions
+- add support for EBICS 3.0
