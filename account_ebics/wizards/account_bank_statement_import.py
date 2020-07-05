@@ -1,4 +1,4 @@
-# Copyright 2009-2019 Noviat.
+# Copyright 2009-2020 Noviat.
 # License LGPL-3 or later (http://www.gnu.org/licenses/lpgl).
 
 import logging
@@ -11,12 +11,12 @@ _logger = logging.getLogger(__name__)
 class AccountBankStatementImport(models.TransientModel):
     _inherit = 'account.bank.statement.import'
 
-    def _check_parsed_data(self, stmts_vals):
+    def _check_parsed_data(self, stmts_vals, account_number):
         """ Basic and structural verifications """
         if self.env.context.get('active_model') == 'ebics.file':
             message = False
             if len(stmts_vals) == 0:
-                message = _('This file doesn\'t contain any statement.')
+                message = _("This file doesn't contain any statement.")
             if not message:
                 no_st_line = True
                 for vals in stmts_vals:
@@ -31,7 +31,7 @@ class AccountBankStatementImport(models.TransientModel):
                     ) + ':\n' + message
                     _logger.warn(log_msg)
                     return
-        super()._check_parsed_data(stmts_vals)
+        super()._check_parsed_data(stmts_vals, account_number)
 
     def _create_bank_statements(self, stmts_vals):
         """
