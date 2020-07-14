@@ -379,6 +379,17 @@ licensing parameters to the odoo server configuration file:</p>
 <p>The licensed EBICS user ids. It must be a string or a list of user ids.</p>
 <div class="line-block">
 <div class="line"><br /></div>
+<div class="line">Example:</div>
+<div class="line"><br /></div>
+</div>
+<pre class="literal-block">
+; fintech
+fintech_register_name = MyCompany
+fintech_register_keycode = AB1CD-E2FG-3H-IJ4K-5L
+fintech_register_users = USER1, USER2
+</pre>
+<div class="line-block">
+<div class="line"><br /></div>
 </div>
 </div>
 </div>
@@ -395,6 +406,9 @@ licensing parameters to the odoo server configuration file:</p>
 <div class="section" id="usage">
 <h2>Usage</h2>
 <p>Go to <strong>Accounting &gt; Bank and Cash &gt; EBICS Processing</strong></p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
 <div class="section" id="ebics-return-codes">
 <h3>EBICS Return Codes</h3>
 <p>During the processing of your EBICS upload/download, your bank may return an Error Code, e.g.</p>
