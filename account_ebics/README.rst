@@ -10,6 +10,8 @@ Implementation of the  EBICS banking protocol.
 
 This module facilitates the exchange of files with banks via the EBICS protocol.
 
+|
+
 Installation
 ============
 
@@ -21,6 +23,8 @@ The module depends upon
 Remark:
 
 The EBICS 'Test Mode' for uploading orders requires Fintech 4.3.4 or higher.
+
+|
 
 Fintech license
 ---------------
@@ -41,6 +45,19 @@ The keycode of the licensed version.
 
 The licensed EBICS user ids. It must be a string or a list of user ids.
 
+|
+| Example:
+|
+
+::
+
+ ; fintech
+ fintech_register_name = MyCompany
+ fintech_register_keycode = AB1CD-E2FG-3H-IJ4K-5L
+ fintech_register_users = USER1, USER2
+
+|
+
 Configuration
 =============
 
@@ -52,10 +69,14 @@ Go to **Accounting > Configuration > Miscellaneous > EBICS > EBICS Configuration
 
 Configure your EBICS configuration according to the contract with your bank.
 
+|
+
 Usage
 =====
 
 Go to **Accounting > Bank and Cash > EBICS Processing**
+
+|
 
 EBICS Return Codes
 ------------------
@@ -67,6 +88,8 @@ EBICS_NO_DOWNLOAD_DATA_AVAILABLE (code: 90005)
 
 A detailled explanation of the codes can be found on http://www.ebics.org.
 You can also find this information in the doc folder of this module (file EBICS_Annex1_ReturnCodes).
+
+|
 
 Known Issues / Roadmap
 ======================

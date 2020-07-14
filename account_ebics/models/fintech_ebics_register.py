@@ -22,7 +22,7 @@ fintech_register_users = config.get('fintech_register_users')
 try:
     if fintech:
         fintech_register_users = fintech_register_users \
-            and fintech_register_users.split(',')
+            and [x.strip() for x in fintech_register_users.split(',')]
         fintech.cryptolib = 'cryptography'
         fintech.register(
             fintech_register_name,
