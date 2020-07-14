@@ -131,8 +131,7 @@ class EbicsUserID(models.Model):
             rec.ebics_keys_fn = (
                 rec.name
                 and keys_dir
-                and os.path.isfile(
-                    keys_dir + '/' + rec.name + '_keys'))
+                and (keys_dir + '/' + rec.name + '_keys'))
 
     @api.depends('ebics_keys_fn')
     def _compute_ebics_keys_found(self):
@@ -152,6 +151,9 @@ class EbicsUserID(models.Model):
     def set_to_draft(self):
         return self.write({'state': 'draft'})
 
+    def set_to_active_keys(self):
+        return self.write({'state': 'active_keys'})
+
     def set_to_get_bank_keys(self):
         return self.write({'state': 'get_bank_keys'})
 
@@ -161,7 +163,7 @@ class EbicsUserID(models.Model):
         Create new keys and certificates for this user
         """
         self.ensure_one()
-        self._check_ebics_files()
+        self.ebics_config_id._check_ebics_files()
         if self.state != 'draft':
             raise UserError(
                 _("Set state to 'draft' before Bank Key (re)initialisation."))
@@ -172,12 +174,15 @@ class EbicsUserID(models.Model):
 
         try:
             keyring = EbicsKeyRing(
-                keys=self.ebics_keys,
+                keys=self.ebics_keys_fn,
                 passphrase=self.ebics_passphrase)
             bank = EbicsBank(
-                keyring=keyring, hostid=self.ebics_host, url=self.ebics_url)
+                keyring=keyring,
+                hostid=self.ebics_config_id.ebics_host,
+                url=self.ebics_config_id.ebics_url)
             user = EbicsUser(
-                keyring=keyring, partnerid=self.ebics_partner,
+                keyring=keyring,
+                partnerid=self.ebics_config_id.ebics_partner,
                 userid=self.name)
         except Exception:
             exctype, value = exc_info()[:2]
@@ -185,12 +190,12 @@ class EbicsUserID(models.Model):
             error += '\n' + str(exctype) + '\n' + str(value)
             raise UserError(error)
 
-        self._check_ebics_keys()
-        if not os.path.isfile(self.ebics_keys):
+        self.ebics_config_id._check_ebics_keys()
+        if not os.path.isfile(self.ebics_keys_fn):
             try:
                 user.create_keys(
-                    keyversion=self.ebics_key_version,
-                    bitlength=self.ebics_key_bitlength)
+                    keyversion=self.ebics_config_id.ebics_key_version,
+                    bitlength=self.ebics_config_id.ebics_key_bitlength)
             except Exception:
                 exctype, value = exc_info()[:2]
                 error = _("EBICS Initialisation Error:")
@@ -210,17 +215,18 @@ class EbicsUserID(models.Model):
             kwargs = {k: v for k, v in dn_attrs.items() if v}
             user.create_certificates(**kwargs)
 
-        client = EbicsClient(bank, user, version=self.ebics_version)
+        client = EbicsClient(
+            bank, user, version=self.ebics_config_id.ebics_version)
 
         # Send the public electronic signature key to the bank.
         try:
-            if self.ebics_version == 'H003':
-                bank._order_number = self._get_order_number()
+            if self.ebics_config_id.ebics_version == 'H003':
+                bank._order_number = self.ebics_config_id._get_order_number()
             OrderID = client.INI()
             _logger.info(
                 '%s, EBICS INI command, OrderID=%s', self._name, OrderID)
             if self.ebics_version == 'H003':
-                self._update_order_number(OrderID)
+                self.ebics_config_id._update_order_number(OrderID)
         except URLError:
             exctype, value = exc_info()[:2]
             raise UserError(_(
@@ -240,29 +246,31 @@ class EbicsUserID(models.Model):
             raise UserError(error)
 
         # Send the public authentication and encryption keys to the bank.
-        if self.ebics_version == 'H003':
-            bank._order_number = self._get_order_number()
+        if self.ebics_config_id.ebics_version == 'H003':
+            bank._order_number = self.ebics_config_id._get_order_number()
         OrderID = client.HIA()
         _logger.info('%s, EBICS HIA command, OrderID=%s', self._name, OrderID)
         if self.ebics_version == 'H003':
-            self._update_order_number(OrderID)
+            self.ebics_config_id._update_order_number(OrderID)
 
         # Create an INI-letter which must be printed and sent to the bank.
-        cc = self.bank_id.bank_id.country.code
+        bank = self.ebics_config_id.journal_ids[0].bank_id
+        cc = bank.country.code
         if cc in ['FR', 'DE']:
             lang = cc
         else:
             lang = self.env.user.lang or \
                 self.env['res.lang'].search([])[0].code
             lang = lang[:2]
-        tmp_dir = os.path.normpath(self.ebics_files + '/tmp')
+        tmp_dir = os.path.normpath(self.ebics_config_id.ebics_files + '/tmp')
         if not os.path.isdir(tmp_dir):
             os.makedirs(tmp_dir, mode=0o700)
         fn_date = fields.Date.today().isoformat()
-        fn = '_'.join([self.ebics_host, 'ini_letter', fn_date]) + '.pdf'
+        fn = '_'.join(
+            [self.ebics_config_id.ebics_host, 'ini_letter', fn_date]) + '.pdf'
         full_tmp_fn = os.path.normpath(tmp_dir + '/' + fn)
         user.create_ini_letter(
-            bankname=self.bank_id.bank_id.name,
+            bankname=bank.name,
             path=full_tmp_fn,
             lang=lang)
         with open(full_tmp_fn, 'rb') as f:
@@ -293,27 +301,32 @@ class EbicsUserID(models.Model):
         must be downloaded and checked for consistency.
         """
         self.ensure_one()
-        self._check_ebics_files()
+        self.ebics_config_id._check_ebics_files()
         if self.state != 'get_bank_keys':
             raise UserError(
                 _("Set state to 'Get Keys from Bank'."))
         keyring = EbicsKeyRing(
-            keys=self.ebics_keys, passphrase=self.ebics_passphrase)
+            keys=self.ebics_keys_fn, passphrase=self.ebics_passphrase)
         bank = EbicsBank(
-            keyring=keyring, hostid=self.ebics_host, url=self.ebics_url)
+            keyring=keyring,
+            hostid=self.ebics_config_id.ebics_host,
+            url=self.ebics_config_id.ebics_url)
         user = EbicsUser(
-            keyring=keyring, partnerid=self.ebics_partner,
+            keyring=keyring,
+            partnerid=self.ebics_config_id.ebics_partner,
             userid=self.name)
         client = EbicsClient(
-            bank, user, version=self.ebics_version)
+            bank, user, version=self.ebics_config_id.ebics_version)
 
         public_bank_keys = client.HPB()
         public_bank_keys = public_bank_keys.encode()
-        tmp_dir = os.path.normpath(self.ebics_files + '/tmp')
+        tmp_dir = os.path.normpath(self.ebics_config_id.ebics_files + '/tmp')
         if not os.path.isdir(tmp_dir):
             os.makedirs(tmp_dir, mode=0o700)
         fn_date = fields.Date.today().isoformat()
-        fn = '_'.join([self.ebics_host, 'public_bank_keys', fn_date]) + '.txt'
+        fn = '_'.join(
+            [self.ebics_config_id.ebics_host, 'public_bank_keys', fn_date]
+        ) + '.txt'
         self.write({
             'ebics_public_bank_keys': base64.encodestring(public_bank_keys),
             'ebics_public_bank_keys_fn': fn,
@@ -334,15 +347,17 @@ class EbicsUserID(models.Model):
                 _("Set state to 'Verification'."))
 
         keyring = EbicsKeyRing(
-            keys=self.ebics_keys, passphrase=self.ebics_passphrase)
+            keys=self.ebics_keys_fn, passphrase=self.ebics_passphrase)
         bank = EbicsBank(
-            keyring=keyring, hostid=self.ebics_host, url=self.ebics_url)
+            keyring=keyring,
+            hostid=self.ebics_config_id.ebics_host,
+            url=self.ebics_config_id.ebics_url)
         bank.activate_keys()
         return self.write({'state': 'active_keys'})
 
     def change_passphrase(self):
         self.ensure_one()
-        ctx = dict(self._context, default_ebics_config_id=self.id)
+        ctx = dict(self._context, default_ebics_userid_id=self.id)
         module = __name__.split('addons.')[1].split('.')[0]
         view = self.env.ref(
             '%s.ebics_change_passphrase_view_form' % module)

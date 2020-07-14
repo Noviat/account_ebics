@@ -20,9 +20,9 @@ class EbicsChangePassphrase(models.TransientModel):
     _name = 'ebics.change.passphrase'
     _description = 'Change EBICS keys passphrase'
 
-    ebics_config_id = fields.Many2one(
-        comodel_name='ebics.config',
-        string='EBICS Configuration',
+    ebics_userid_id = fields.Many2one(
+        comodel_name='ebics.userid',
+        string='EBICS UserID',
         readonly=True)
     old_pass = fields.Char(
         string='Old Passphrase',
@@ -37,23 +37,23 @@ class EbicsChangePassphrase(models.TransientModel):
 
     def change_passphrase(self):
         self.ensure_one()
-        if self.old_pass != self.ebics_config_id.ebics_passphrase:
+        if self.old_pass != self.ebics_userid_id.ebics_passphrase:
             raise UserError(_(
                 "Incorrect old passphrase."))
         if self.new_pass != self.new_pass_check:
             raise UserError(_(
                 "New passphrase verification error."))
-        if self.new_pass == self.ebics_config_id.ebics_passphrase:
+        if self.new_pass == self.ebics_userid_id.ebics_passphrase:
             raise UserError(_(
                 "New passphrase equal to old passphrase."))
         try:
             keyring = EbicsKeyRing(
-                keys=self.ebics_config_id.ebics_keys,
-                passphrase=self.ebics_config_id.ebics_passphrase)
+                keys=self.ebics_userid_id.ebics_keys_fn,
+                passphrase=self.ebics_userid_id.ebics_passphrase)
             keyring.change_passphrase(self.new_pass)
         except ValueError as e:
             raise UserError(str(e))
-        self.ebics_config_id.ebics_passphrase = self.new_pass
+        self.ebics_userid.ebics_passphrase = self.new_pass
         self.note = "The EBICS Passphrase has been changed."
 
         module = __name__.split('addons.')[1].split('.')[0]
