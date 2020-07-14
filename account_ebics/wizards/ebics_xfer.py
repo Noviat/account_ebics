@@ -277,10 +277,10 @@ class EbicsXfer(models.TransientModel):
                     and getattr(client, order_type)
                 if order_type == 'FUL':
                     kwargs = {}
-                    # bank = self.ebics_config_id.bank_id.bank v8.0
-                    bank = self.ebics_config_id.bank_id.bank_id
-                    if bank.country:
-                        kwargs['country'] = bank.country.code
+                    bank = self.ebics_config_id.journal_ids[0].bank_id
+                    cc = bank.country.code
+                    if cc:
+                        kwargs['country'] = cc
                     if self.test_mode:
                         kwargs['TEST'] = 'TRUE'
                     OrderID = method(ef_format.name, upload_data, **kwargs)
@@ -298,7 +298,7 @@ class EbicsXfer(models.TransientModel):
                         "EBICS File has been uploaded (OrderID %s)."
                     ) % OrderID
                     ef_note = _("EBICS OrderID: %s") % OrderID
-                    if self._context.get('origin'):
+                    if self.env.context.get('origin'):
                         ef_note += '\n' + _(
                             "Origin: %s") % self._context['origin']
                     suffix = self.format_id.suffix
@@ -351,7 +351,7 @@ class EbicsXfer(models.TransientModel):
         self.ebics_config_id._check_ebics_keys()
         passphrase = self._get_passphrase()
         keyring = EbicsKeyRing(
-            keys=self.ebics_config_id.ebics_keys,
+            keys=self.ebics_userid_id.ebics_keys_fn,
             passphrase=passphrase)
 
         bank = EbicsBank(
@@ -364,9 +364,9 @@ class EbicsXfer(models.TransientModel):
         user = EbicsUser(
             keyring=keyring,
             partnerid=self.ebics_config_id.ebics_partner,
-            userid=self.ebics_config_id.ebics_user)
+            userid=self.ebics_userid_id.name)
         signature_class = self.format_id.signature_class \
-            or self.ebics_config_id.signature_class
+            or self.ebics_userid_id.signature_class
         if signature_class == 'T':
             user.manual_approval = True
 
@@ -383,7 +383,7 @@ class EbicsXfer(models.TransientModel):
         return client
 
     def _get_passphrase(self):
-        passphrase = self.ebics_config_id.ebics_passphrase
+        passphrase = self.ebics_userid_id.ebics_passphrase
 
         if passphrase:
             return passphrase
