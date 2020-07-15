@@ -139,7 +139,39 @@ class EbicsFile(models.Model):
                 "\nPlease install module '%s'")
                 % (self.format_id.name, module))
 
-    def _process_result_action(self, ctx):
+    def _process_result_action(self, res):
+        notifications = []
+        st_line_ids = []
+        statement_ids = []
+        if res.get('context'):
+            notifications = res['context'].get('notifications', [])
+            st_line_ids = res['context'].get('statement_line_ids', [])
+        if notifications:
+            for notif in notifications:
+                parts = []
+                for k in ['type', 'message', 'details']:
+                    if notif.get(k):
+                        msg = '%s: %s' % (k, notif[k])
+                        parts.append(msg)
+                self.note_process += '\n'.join(parts)
+                self.note_process += '\n'
+            self.note_process += '\n'
+        if st_line_ids:
+            self.env.cr.execute(
+                """
+                SELECT DISTINCT statement_id
+                FROM account_bank_statement_line
+                WHERE id IN %s
+                """
+                % (tuple(st_line_ids),)
+            )
+            statement_ids = list(self.env.cr.fetchall()[0])
+        self.note_process += _(
+            "Number of Bank Statements: %s"
+        ) % len(statement_ids)
+        if statement_ids:
+            self.sudo().bank_statement_ids = [(6, 0, statement_ids)]
+        ctx = dict(self.env.context, statement_ids=statement_ids)
         module = __name__.split('addons.')[1].split('.')[0]
         result_view = self.env.ref('%s.ebics_file_view_form_result' % module)
         return {
@@ -185,28 +217,7 @@ class EbicsFile(models.Model):
         wiz_ctx = dict(self.env.context, active_model='ebics.file')
         wiz = self.env[wiz_model].with_context(wiz_ctx).create(wiz_vals)
         res = wiz.import_file()
-        notifications = []
-        statement_ids = []
-        if res.get('context'):
-            notifications = res['context'].get('notifications', [])
-            statement_ids = res['context'].get('statement_ids', [])
-        if notifications:
-            for notif in notifications:
-                parts = []
-                for k in ['type', 'message', 'details']:
-                    if notif.get(k):
-                        msg = '%s: %s' % (k, notif[k])
-                        parts.append(msg)
-                self.note_process += '\n'.join(parts)
-                self.note_process += '\n'
-            self.note_process += '\n'
-        self.note_process += _(
-            "Number of Bank Statements: %s"
-        ) % len(statement_ids)
-        if statement_ids:
-            self.bank_statement_ids = [(6, 0, statement_ids)]
-        ctx = dict(self._context, statement_ids=statement_ids)
-        return self._process_result_action(ctx)
+        return self._process_result_action(res)
 
     @staticmethod
     def _unlink_cfonb120(self):
@@ -250,28 +261,7 @@ class EbicsFile(models.Model):
                 raise UserError(_(
                     "No financial journal found for Company Bank Account %s"
                 ) % bank_account)
-        notifications = []
-        statement_ids = []
-        if res.get('context'):
-            notifications = res['context'].get('notifications', [])
-            statement_ids = res['context'].get('statement_ids', [])
-        if notifications:
-            for notif in notifications:
-                parts = []
-                for k in ['type', 'message', 'details']:
-                    if notif.get(k):
-                        msg = '%s: %s' % (k, notif[k])
-                        parts.append(msg)
-                self.note_process += '\n'.join(parts)
-                self.note_process += '\n'
-            self.note_process += '\n'
-        self.note_process += _(
-            "Number of Bank Statements: %s"
-        ) % len(statement_ids)
-        if statement_ids:
-            self.bank_statement_ids = [(6, 0, statement_ids)]
-        ctx = dict(self._context, statement_ids=statement_ids)
-        return self._process_result_action(ctx)
+        return self._process_result_action(res)
 
     @staticmethod
     def _unlink_camt053(self):
