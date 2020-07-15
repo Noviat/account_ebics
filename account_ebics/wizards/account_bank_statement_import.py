@@ -51,12 +51,12 @@ class AccountBankStatementImport(models.TransientModel):
                     break
             if not transactions:
                 message = _('This file doesn\'t contain any transaction.')
-                statement_ids = []
+                st_line_ids = []
                 notifications = {
                     'type': 'warning',
                     'message': message,
                     'details': ''
                 }
-                return statement_ids, [notifications]
+                return st_line_ids, [notifications]
 
         return super()._create_bank_statements(stmts_vals)
