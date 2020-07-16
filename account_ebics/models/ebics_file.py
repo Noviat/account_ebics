@@ -162,8 +162,8 @@ class EbicsFile(models.Model):
                 SELECT DISTINCT statement_id
                 FROM account_bank_statement_line
                 WHERE id IN %s
-                """
-                % (tuple(st_line_ids),)
+                """,
+                (tuple(st_line_ids),)
             )
             statement_ids = list(self.env.cr.fetchall()[0])
         self.note_process += _(
@@ -189,35 +189,51 @@ class EbicsFile(models.Model):
     @staticmethod
     def _process_cfonb120(self):
         """
-        TODO:
-        adapt OCA import logic to find correct journal on the basis
-        of both account number and currency.
-        Prompt for journal in case the journal is not found.
+        We do not support the standard _journal_creation_wizard since a single
+        cfonb120 file may contain statements from different legal entities.
         """
         import_module = 'account_bank_statement_import_fr_cfonb'
         self._check_import_module(import_module)
         wiz_model = 'account.bank.statement.import'
         data_file = base64.b64decode(self.data)
         lines = data_file.split(b'\n')
-        att_vals = []
+        attachments_vals = []
         st_lines = b''
+        transactions = False
         for line in lines:
             rec_type = line[0:2]
             acc_number = line[21:32]
             st_lines += line + b'\n'
+            if rec_type == b'04':
+                transactions = True
             if rec_type == b'07':
-                fn = '_'.join([acc_number.decode(), self.name])
-                att_vals.append({
-                    'name': fn,
-                    'store_fname': fn,
-                    'datas': base64.b64encode(st_lines)
-                })
+                if transactions:
+                    fn = '_'.join([acc_number.decode(), self.name])
+                    attachments_vals.append({
+                        'name': fn,
+                        'store_fname': fn,
+                        'datas': base64.b64encode(st_lines)
+                    })
                 st_lines = b''
-        wiz_vals = {'attachment_ids': [(0, 0, x) for x in att_vals]}
+                transactions = False
+        result = {
+            'type': 'ir.actions.client',
+            'tag': 'bank_statement_reconciliation_view',
+            'context': {'statement_line_ids': [],
+                        'company_ids': self.env.user.company_ids.ids,
+                        'notifications': []},
+        }
         wiz_ctx = dict(self.env.context, active_model='ebics.file')
-        wiz = self.env[wiz_model].with_context(wiz_ctx).create(wiz_vals)
-        res = wiz.import_file()
-        return self._process_result_action(res)
+        for attachment_vals in attachments_vals:
+            wiz_vals = {'attachment_ids': [(0, 0, attachment_vals)]}
+            wiz = self.env[wiz_model].with_context(wiz_ctx).create(wiz_vals)
+            res = wiz.import_file()
+            ctx = res.get('context')
+            result['context']['statement_line_ids'].extend(
+                ctx['statement_line_ids'])
+            result['context']['notifications'].extend(
+                ctx['notifications'])
+        return self._process_result_action(result)
 
     @staticmethod
     def _unlink_cfonb120(self):
