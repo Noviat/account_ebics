@@ -22,7 +22,7 @@ def _ebics_config_upgrade(env, version):
         keys_fn_old = cfg_data['ebics_keys']
         ebics_keys_root = os.path.dirname(keys_fn_old)
         if os.path.isfile(keys_fn_old):
-            keys_fn = ebics_keys_root + '/' + cfg_data['ebics_user']
+            keys_fn = ebics_keys_root + '/' + cfg_data['ebics_user'] + '_keys'
             os.rename(keys_fn_old, keys_fn)
         state = cfg_data['state'] == 'active' and 'confirm' or 'draft'
         cfg.write({
