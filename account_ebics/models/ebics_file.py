@@ -165,7 +165,7 @@ class EbicsFile(models.Model):
                 """,
                 (tuple(st_line_ids),)
             )
-            statement_ids = list(self.env.cr.fetchall()[0])
+            statement_ids = [x[0] for x in self.env.cr.fetchall()]
         self.note_process += _(
             "Number of Bank Statements: %s"
         ) % len(statement_ids)
@@ -224,11 +224,26 @@ class EbicsFile(models.Model):
                         'notifications': []},
         }
         wiz_ctx = dict(self.env.context, active_model='ebics.file')
-        for attachment_vals in attachments_vals:
+        for i, attachment_vals in enumerate(attachments_vals, start=1):
             wiz_vals = {'attachment_ids': [(0, 0, attachment_vals)]}
             wiz = self.env[wiz_model].with_context(wiz_ctx).create(wiz_vals)
             res = wiz.import_file()
             ctx = res.get('context')
+            if (res.get('res_model')
+                    == 'account.bank.statement.import.journal.creation'):
+                message = _(
+                    "Error detected while importing statement number %s.\n"
+                ) % i
+                message += _("No financial journal found.")
+                details = _(
+                    'Bank account number: %s'
+                ) % ctx.get('default_bank_acc_number')
+                result['context']['notifications'].extend([{
+                    'type': 'warning',
+                    'message': message,
+                    'details': details,
+                }])
+                continue
             result['context']['statement_line_ids'].extend(
                 ctx['statement_line_ids'])
             result['context']['notifications'].extend(
