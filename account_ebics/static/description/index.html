@@ -361,6 +361,54 @@ ul.auto-toc {
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
+<p>We also recommend to consider the installation of the following modules:</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<ul>
+<li><p class="first">account_ebics_oe</p>
+<p>Required if you are running Odoo Enterprise</p>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<ul>
+<li><p class="first">account_ebics_batch_payment</p>
+<p>Recommended if you are using the Odoo Enterprise account_batch_payment module</p>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<ul>
+<li><p class="first">account_ebics_payment_order</p>
+<p>Recommended if you are using the OCA account_payment_order module.</p>
+<p>Cf. <a class="reference external" href="https://github.com/OCA/bank-payment">https://github.com/OCA/bank-payment</a></p>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<ul>
+<li><p class="first">account_bank_statement_import_fr_cfonb</p>
+<p>Required to handle french CFONB files.</p>
+<p>Cf. <a class="reference external" href="https://github.com/OCA/l10n_fr">https://github.com/OCA/l10n_fr</a></p>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<ul>
+<li><p class="first">account_bank_statement_import_helper</p>
+<p>Required if you are processing bank statements with local bank account numbers (e.g. french CFONB files).</p>
+<p>The import helper will match the local bank account number with the IBAN number specified on the Odoo Financial journal.</p>
+<p>Cf. <a class="reference external" href="https://github.com/noviat-apps">https://github.com/noviat-apps</a></p>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
 <div class="section" id="fintech-license">
 <h3>Fintech license</h3>
 <p>If you have a valid Fintech.ebics license, you should add the following
