@@ -26,6 +26,48 @@ The EBICS 'Test Mode' for uploading orders requires Fintech 4.3.4 or higher.
 
 |
 
+We also recommend to consider the installation of the following modules:
+
+|
+
+- account_ebics_oe
+
+  Required if you are running Odoo Enterprise
+
+|
+
+- account_ebics_batch_payment
+
+  Recommended if you are using the Odoo Enterprise account_batch_payment module
+
+|
+
+- account_ebics_payment_order
+
+  Recommended if you are using the OCA account_payment_order module.
+
+  Cf. https://github.com/OCA/bank-payment
+
+|
+
+- account_bank_statement_import_fr_cfonb
+
+  Required to handle french CFONB files.
+
+  Cf. https://github.com/OCA/l10n_fr
+
+|
+
+- account_bank_statement_import_helper
+
+  Required if you are processing bank statements with local bank account numbers (e.g. french CFONB files).
+
+  The import helper will match the local bank account number with the IBAN number specified on the Odoo Financial journal.
+
+  Cf. https://github.com/noviat-apps
+
+|
+
 Fintech license
 ---------------
 
