@@ -86,6 +86,10 @@ class EbicsFile(models.Model):
 
     def process(self):
         self.ensure_one()
+        ctx = dict(
+            self.env.context,
+            allowed_company_ids=self.env.user.company_ids.ids)
+        self = self.with_context(ctx)
         self.note_process = ''
         ff_methods = self._file_format_methods()
         ff = self.format_id.name
@@ -157,18 +161,36 @@ class EbicsFile(models.Model):
                 self.note_process += '\n'
             self.note_process += '\n'
         if st_line_ids:
+            self.flush()
             self.env.cr.execute(
                 """
-                SELECT DISTINCT statement_id
-                FROM account_bank_statement_line
-                WHERE id IN %s
+    SELECT DISTINCT
+        absl.statement_id,
+        abs.name, abs.date, abs.company_id,
+        rc.name AS company_name
+      FROM account_bank_statement_line absl
+      INNER JOIN account_bank_statement abs
+        ON abs.id = absl.statement_id
+      INNER JOIN res_company rc
+        ON rc.id = abs.company_id
+      WHERE absl.id IN %s
+      ORDER BY date, company_id
                 """,
                 (tuple(st_line_ids),)
             )
-            statement_ids = [x[0] for x in self.env.cr.fetchall()]
-        self.note_process += _(
-            "Number of Bank Statements: %s"
-        ) % len(statement_ids)
+            sts_data = self.env.cr.dictfetchall()
+        else:
+            sts_data = []
+        st_cnt = len(sts_data)
+        if st_cnt:
+            self.note_process += _(
+                "%s bank statements have been imported: "
+            ) % st_cnt
+            self.note_process += '\n'
+        for st_data in sts_data:
+            self.note_process += ("\n%s, %s (%s)") % (
+                st_data['date'], st_data['name'], st_data['company_name'])
+        statement_ids = [x['statement_id'] for x in sts_data]
         if statement_ids:
             self.sudo().bank_statement_ids = [(6, 0, statement_ids)]
         ctx = dict(self.env.context, statement_ids=statement_ids)
