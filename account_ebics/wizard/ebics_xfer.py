@@ -478,7 +478,7 @@ class EbicsXfer(models.TransientModel):
             'data': data,
             'date': fields.Datetime.now(),
             'date_from': self.date_from,
-            'date_to': self.date_from,
+            'date_to': self.date_to,
             'format_id': file_format.id,
             'user_id': self._uid,
         }
