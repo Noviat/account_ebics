@@ -5,12 +5,21 @@ import base64
 import logging
 import os
 from sys import exc_info
+from traceback import format_exception
 from urllib.error import URLError
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
+
+
+"""
+logging.basicConfig(
+    level=logging.DEBUG,
+    format='[%(asctime)s] %(levelname)s - %(name)s: %(message)s')
+"""
+
 
 try:
     import fintech
@@ -171,7 +180,6 @@ class EbicsUserID(models.Model):
         if not self.ebics_passphrase:
             raise UserError(
                 _("Set a passphrase."))
-
         try:
             keyring = EbicsKeyRing(
                 keys=self.ebics_keys_fn,
@@ -229,9 +237,15 @@ class EbicsUserID(models.Model):
                 self.ebics_config_id._update_order_number(OrderID)
         except URLError:
             exctype, value = exc_info()[:2]
+            tb = "".join(format_exception(*exc_info()))
+            _logger.error(
+                "EBICS INI command error\nUserID: %s\n%s",
+                self.name,
+                tb,
+            )
             raise UserError(_(
                 "urlopen error:\n url '%s' - %s")
-                % (self.ebics_url, str(value)))
+                % (self.ebics_config_id.ebics_url, str(value)))
         except EbicsFunctionalError:
             e = exc_info()
             error = _("EBICS Functional Error:")
