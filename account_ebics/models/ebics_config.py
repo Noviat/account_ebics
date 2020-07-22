@@ -10,25 +10,6 @@ from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
 
-try:
-    import fintech
-    from fintech.ebics import EbicsBank
-    fintech.cryptolib = 'cryptography'
-except ImportError:
-    EbicsBank = object
-    _logger.warning('Failed to import fintech')
-
-
-class EbicsBank(EbicsBank):
-
-    def _next_order_id(self, partnerid):
-        """
-        EBICS protocol version H003 requires generation of the OrderID.
-        The OrderID must be a string between 'A000' and 'ZZZZ' and
-        unique for each partner id.
-        """
-        return hasattr(self, '_order_number') and self._order_number or 'A000'
-
 
 class EbicsConfig(models.Model):
     """
