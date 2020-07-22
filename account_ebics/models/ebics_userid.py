@@ -30,6 +30,17 @@ except ImportError:
     _logger.warning('Failed to import fintech')
 
 
+class EbicsBank(EbicsBank):
+
+    def _next_order_id(self, partnerid):
+        """
+        EBICS protocol version H003 requires generation of the OrderID.
+        The OrderID must be a string between 'A000' and 'ZZZZ' and
+        unique for each partner id.
+        """
+        return hasattr(self, '_order_number') and self._order_number or 'A000'
+
+
 class EbicsUserID(models.Model):
     _name = 'ebics.userid'
     _description = 'EBICS UserID'
