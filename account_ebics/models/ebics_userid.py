@@ -191,6 +191,8 @@ class EbicsUserID(models.Model):
         if not self.ebics_passphrase:
             raise UserError(
                 _("Set a passphrase."))
+
+        ebics_version = self.ebics_config_id.ebics_version
         try:
             keyring = EbicsKeyRing(
                 keys=self.ebics_keys_fn,
@@ -235,16 +237,23 @@ class EbicsUserID(models.Model):
             user.create_certificates(**kwargs)
 
         client = EbicsClient(
-            bank, user, version=self.ebics_config_id.ebics_version)
+            bank, user, version=ebics_version)
 
         # Send the public electronic signature key to the bank.
         try:
-            if self.ebics_config_id.ebics_version == 'H003':
+            supported_versions = client.HEV()
+            if ebics_version not in supported_versions:
+                err_msg = _("EBICS version mismatch.") + "\n"
+                err_msg += _("Versions supported by your bank:")
+                for k in supported_versions:
+                    err_msg += "\n%s: %s " % (k, supported_versions[k])
+                raise UserError(err_msg)
+            if ebics_version == 'H003':
                 bank._order_number = self.ebics_config_id._get_order_number()
             OrderID = client.INI()
             _logger.info(
                 '%s, EBICS INI command, OrderID=%s', self._name, OrderID)
-            if self.ebics_version == 'H003':
+            if ebics_version == 'H003':
                 self.ebics_config_id._update_order_number(OrderID)
         except URLError:
             exctype, value = exc_info()[:2]
@@ -271,11 +280,11 @@ class EbicsUserID(models.Model):
             raise UserError(error)
 
         # Send the public authentication and encryption keys to the bank.
-        if self.ebics_config_id.ebics_version == 'H003':
+        if ebics_version == 'H003':
             bank._order_number = self.ebics_config_id._get_order_number()
         OrderID = client.HIA()
         _logger.info('%s, EBICS HIA command, OrderID=%s', self._name, OrderID)
-        if self.ebics_version == 'H003':
+        if ebics_version == 'H003':
             self.ebics_config_id._update_order_number(OrderID)
 
         # Create an INI-letter which must be printed and sent to the bank.
