@@ -240,6 +240,11 @@ class EbicsUserID(models.Model):
             bank, user, version=ebics_version)
 
         # Send the public electronic signature key to the bank.
+        ebics_config_bank = self.ebics_config_id.journal_ids[0].bank_id
+        if not ebics_config_bank:
+            raise UserError(_(
+                "No bank defined for the financial journal "
+                "of the EBICS Config"))
         try:
             supported_versions = client.HEV()
             if ebics_version not in supported_versions:
@@ -288,8 +293,8 @@ class EbicsUserID(models.Model):
             self.ebics_config_id._update_order_number(OrderID)
 
         # Create an INI-letter which must be printed and sent to the bank.
-        bank = self.ebics_config_id.journal_ids[0].bank_id
-        cc = bank.country.code
+        ebics_config_bank = self.ebics_config_id.journal_ids[0].bank_id
+        cc = ebics_config_bank.country.code
         if cc in ['FR', 'DE']:
             lang = cc
         else:
@@ -304,7 +309,7 @@ class EbicsUserID(models.Model):
             [self.ebics_config_id.ebics_host, 'ini_letter', fn_date]) + '.pdf'
         full_tmp_fn = os.path.normpath(tmp_dir + '/' + fn)
         user.create_ini_letter(
-            bankname=bank.name,
+            bankname=ebics_config_bank.name,
             path=full_tmp_fn,
             lang=lang)
         with open(full_tmp_fn, 'rb') as f:
