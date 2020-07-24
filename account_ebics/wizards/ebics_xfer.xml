@@ -10,7 +10,10 @@
         <group>
           <separator string="Select your bank :" colspan="2"/>
           <field name="ebics_config_id" required="1" options="{'no_create': True, 'no_open': True}"/>
-          <field name="ebics_userid_id" required="1" options="{'no_create': True, 'no_open': True}"/>
+          <field name="ebics_userid_id"
+                 domain="[('ebics_config_id', '=', ebics_config_id)]"
+                 required="1"
+                 options="{'no_create': True, 'no_open': True}"/>
           <field name="date_from"/>
           <field name="date_to"/>
           <field name="format_id"/>
@@ -33,7 +36,10 @@
         <group>
           <separator string="Select your bank :" colspan="2"/>
           <field name="ebics_config_id" required="1" options="{'no_create': True, 'no_open': True}"/>
-          <field name="ebics_userid_id" required="1" options="{'no_create': True, 'no_open': True}"/>
+          <field name="ebics_userid_id"
+                 domain="[('ebics_config_id', '=', ebics_config_id)]"
+                 required="1"
+                 options="{'no_create': True, 'no_open': True}"/>
           <separator string="Select your file :" colspan="2"/>
           <field name="upload_data" filename="upload_fname" required="1"/>
           <field name="upload_fname" invisible="1"/>
