@@ -519,6 +519,7 @@ class EbicsXfer(models.TransientModel):
         self.ebics_config_id.order_number = next
 
     def _insert_line_terminator(self, data_in, line_len):
+        data_in = data_in.replace('\n', '').replace('\r', '')
         data_out = ''
         max = len(data_in)
         i = 0
