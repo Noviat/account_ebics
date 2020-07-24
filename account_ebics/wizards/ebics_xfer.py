@@ -51,8 +51,7 @@ class EbicsXfer(models.TransientModel):
         default=lambda self: self._default_ebics_config_id())
     ebics_userid_id = fields.Many2one(
         comodel_name='ebics.userid',
-        string='EBICS UserID',
-        required=True)
+        string='EBICS UserID')
     ebics_passphrase = fields.Char(
         string='EBICS Passphrase')
     date_from = fields.Date()
