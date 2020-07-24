@@ -8,7 +8,6 @@
     'author': 'Noviat',
     'category': 'Hidden',
     'license': 'LGPL-3',
-    'installable': True,
     'depends': [
         'account_ebics',
         'account_accountant',
