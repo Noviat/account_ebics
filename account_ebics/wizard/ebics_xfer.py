@@ -49,7 +49,6 @@ class EbicsXfer(models.TransientModel):
         comodel_name='ebics.config',
         string='EBICS Configuration',
         domain=[('state', '=', 'active')],
-        required=True,
         default=lambda self: self._default_ebics_config_id())
     ebics_passphrase = fields.Char(
         string='EBICS Passphrase')
