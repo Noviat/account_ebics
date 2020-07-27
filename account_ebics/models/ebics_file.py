@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-# Copyright 2009-2018 Noviat.
+# Copyright 2009-2020 Noviat.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+import base64
 import logging
 
 from openerp import api, fields, models, _
@@ -163,23 +164,61 @@ class EbicsFile(models.Model):
 
     @staticmethod
     def _process_cfonb120(self):
-        """
-        TODO:
-        adapt OCA import logic to find correct journal on the basis
-        of both account number and currency.
-        Prompt for journal in case the journal is not found.
-        """
         import_module = 'account_bank_statement_import_fr_cfonb'
         self._check_import_module(import_module)
         wiz_model = 'account.bank.statement.import'
-        wiz_vals = {'data_file': self.data}
-        wiz = self.env[wiz_model].create(wiz_vals)
-        res = wiz.import_file()
-        notifications = []
-        statement_ids = []
-        if res.get('context'):
-            notifications = res['context'].get('notifications', [])
-            statement_ids = res['context'].get('statement_ids', [])
+        data_file = base64.b64decode(self.data)
+        lines = data_file.split('\n')
+        data_files = []
+        st_lines = ''
+        transactions = False
+        for line in lines:
+            rec_type = line[0:2]
+            acc_number = line[21:32]
+            st_lines += line + '\n'
+            if rec_type == '04':
+                transactions = True
+            if rec_type == '07':
+                if transactions:
+                    data_files.append({
+                        'acc_number': acc_number,
+                        'data_file': base64.b64encode(st_lines),
+                    })
+                st_lines = ''
+                transactions = False
+        result = {
+            'type': 'ir.actions.client',
+            'tag': 'bank_statement_reconciliation_view',
+            'context': {'statement_ids': [],
+                        'notifications': []},
+        }
+        for i, data_file in enumerate(data_files, start=1):
+            acc_number = data_file['acc_number']
+            if not self.env[wiz_model]._find_bank_account_id(acc_number):
+                message = _(
+                    "Error detected while importing statement number %s.\n"
+                ) % i
+                message += _("No financial journal found.")
+                details = _(
+                    'Bank account number: %s'
+                ) % acc_number
+                result['context']['notifications'].extend([{
+                    'type': 'warning',
+                    'message': message,
+                    'details': details,
+                }])
+                continue
+            wiz_vals = {'data_file': data_file['data_file']}
+            wiz = self.env[wiz_model].create(wiz_vals)
+            res = wiz.import_file()
+            ctx = res.get('context')
+            result['context']['statement_ids'].extend(
+                ctx['statement_ids'])
+            result['context']['notifications'].extend(
+                ctx['notifications'])
+        if result.get('context'):
+            notifications = result['context'].get('notifications', [])
+            statement_ids = result['context'].get('statement_ids', [])
         if notifications:
             for notif in notifications:
                 parts = []
@@ -195,8 +234,8 @@ class EbicsFile(models.Model):
         ) % len(statement_ids)
         if statement_ids:
             self.bank_statement_ids = [(6, 0, statement_ids)]
-        ctx = dict(self._context, statement_ids=statement_ids)
-        return self._process_result_action(ctx)
+        return self._process_result_action(
+            dict(self.env.context, statement_ids=statement_ids))
 
     @staticmethod
     def _unlink_cfonb120(self):
