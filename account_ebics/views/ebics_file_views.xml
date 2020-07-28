@@ -38,7 +38,7 @@
         <field name="user_id"/>
         <field name="state"/>
         <field name="format_id"/>
-        <field name="company_ids" groups="base.group_multi_company"/>
+        <field name="company_ids" widget="many2many_tags" groups="base.group_multi_company"/>
       </tree>
     </field>
   </record>
@@ -70,7 +70,7 @@
           <field name="date_to"/>
           <field name="user_id"/>
           <field name="ebics_userid_id"/>
-          <field name="company_ids" groups="base.group_multi_company"/>
+          <field name="company_ids" widget="many2many_tags" groups="base.group_multi_company"/>
         </group>
         <notebook>
           <page string="Additional Information">
@@ -138,7 +138,7 @@
         <field name="user_id"/>
         <field name="state"/>
         <field name="format_id"/>
-        <field name="company_ids" groups="base.group_multi_company"/>
+        <field name="company_ids" widget="many2many_tags" groups="base.group_multi_company"/>
       </tree>
     </field>
   </record>
@@ -161,7 +161,7 @@
           <field name="format_id"/>
           <field name="user_id"/>
           <field name="ebics_userid_id"/>
-          <field name="company_ids" groups="base.group_multi_company"/>
+          <field name="company_ids" widget="many2many_tags" groups="base.group_multi_company"/>
         </group>
         <notebook>
           <page string="Additional Information">
