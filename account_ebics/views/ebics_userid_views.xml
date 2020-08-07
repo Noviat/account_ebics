@@ -38,13 +38,18 @@
                   help="Use this button to bypass the EBICS initialization (e.g. in case you have manually transferred active EBICS keys from another system."/>
           <field name="state" widget="statusbar"/>
         </header>
-        <group name="main">
+        <group name="main" attrs="{'readonly': [('state', '!=', 'draft')]}">
           <field name="ebics_keys_found" invisible="1"/>
           <field name="ebics_keys_fn" invisible="1"/>
           <group name="main-left">
             <field name="name"/>
             <field name="ebics_passphrase" password="True"
                    attrs="{'required': [('state', '=', 'draft')]}"/>
+            <field name="swift_3skey"
+                   attrs="{'invisible': [('signature_class', '=', 'T')]}"/>
+            <field name="swift_3skey_certificate_fn" invisible="1"/>
+            <field name="swift_3skey_certificate" filename="swift_3skey_certificate_fn"
+                   attrs="{'invisible': [('swift_3skey', '=', False)], 'required': [('swift_3skey', '=', True)]}"/>
             <field name="active"/>
           </group>
           <group name="main-right">
@@ -53,7 +58,7 @@
             <field name="ebics_key_x509"/>
           </group>
         </group>
-        <group col="4" name="dn" attrs="{'invisible': [('ebics_key_x509', '=', False)]}">
+        <group col="4" name="dn" attrs="{'invisible': [('ebics_key_x509', '=', False)], 'readonly': [('state', '!=', 'draft')]}">
           <group colspan="4" col="1">
             <strong>Distinguished Name attributes used to create self-signed X.509 certificates:</strong>
           </group>
