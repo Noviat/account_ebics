@@ -93,6 +93,14 @@ class EbicsUserID(models.Model):
         help="EBICS Public Bank Keys to be checked for consistency.")
     ebics_public_bank_keys_fn = fields.Char(
         string='EBICS Public Bank Keys Filename', readonly=True)
+    swift_3skey = fields.Boolean(
+        string='Enable 3SKey support',
+        help="Transactions for this user will be signed "
+             "by means of the SWIFT 3SKey token.")
+    swift_3skey_certificate = fields.Binary(
+        string='3SKey Certficate')
+    swift_3skey_certificate_fn = fields.Char(
+        string='EBICS Public Bank Keys Filename')
     # X.509 Distinguished Name attributes used to
     # create self-signed X.509 certificates
     ebics_key_x509 = fields.Boolean(
@@ -168,6 +176,16 @@ class EbicsUserID(models.Model):
                 raise UserError(_(
                     "The passphrase must be at least 8 characters long"))
 
+    @api.onchange('signature_class')
+    def _onchange_signature_class(self):
+        if self.signature_class == 'T':
+            self.swift_3skey = False
+
+    @api.onchange('swift_3skey')
+    def _onchange_swift_3skey(self):
+        if self.swift_3skey:
+            self.ebics_key_x509 = True
+
     def set_to_draft(self):
         return self.write({'state': 'draft'})
 
@@ -192,6 +210,10 @@ class EbicsUserID(models.Model):
             raise UserError(
                 _("Set a passphrase."))
 
+        if not self.swift_3skey and not self.swift_3skey_certificate:
+            raise UserError(
+                _("3SKey certificate missing."))
+
         ebics_version = self.ebics_config_id.ebics_version
         try:
             keyring = EbicsKeyRing(
@@ -214,6 +236,14 @@ class EbicsUserID(models.Model):
         self.ebics_config_id._check_ebics_keys()
         if not os.path.isfile(self.ebics_keys_fn):
             try:
+                # TODO:
+                # enable import of all type of certicates: A00x, X002, E002
+                if self.swift_3skey:
+                    kwargs = {
+                        self.ebics_config_id.ebics_key_version:
+                        base64.decodestring(self.swift_3skey_certificate),
+                    }
+                    user.import_certificates(**kwargs)
                 user.create_keys(
                     keyversion=self.ebics_config_id.ebics_key_version,
                     bitlength=self.ebics_config_id.ebics_key_bitlength)
@@ -222,6 +252,11 @@ class EbicsUserID(models.Model):
                 error = _("EBICS Initialisation Error:")
                 error += '\n' + str(exctype) + '\n' + str(value)
                 raise UserError(error)
+
+        if self.swift_3skey and not self.ebics_key_x509:
+            raise UserError(_(
+                "The current version of this module "
+                "requires to X509 support when enabling 3SKey"))
 
         if self.ebics_key_x509:
             dn_attrs = {
