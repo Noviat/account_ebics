@@ -24,6 +24,7 @@ Remark:
 
 The EBICS 'Test Mode' for uploading orders requires Fintech 4.3.4 or higher.
 
+SWIFT 3SKey support requires Fintech 6.4 or higher.
 |
 
 We also recommend to consider the installation of the following modules:
@@ -136,5 +137,5 @@ You can also find this information in the doc folder of this module (file EBICS_
 Known Issues / Roadmap
 ======================
 
-- add support for 3SKEY signed transactions
 - add support for EBICS 3.0
+- add support to import externally generated keys & certificates (currently only 3SKey signature certificate)
