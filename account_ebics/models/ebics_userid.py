@@ -210,7 +210,7 @@ class EbicsUserID(models.Model):
             raise UserError(
                 _("Set a passphrase."))
 
-        if not self.swift_3skey and not self.swift_3skey_certificate:
+        if self.swift_3skey and not self.swift_3skey_certificate:
             raise UserError(
                 _("3SKey certificate missing."))
 
