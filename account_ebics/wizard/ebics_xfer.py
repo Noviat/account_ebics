@@ -166,7 +166,7 @@ class EbicsXfer(models.TransientModel):
                 params = {}
                 if order_type == 'FDL':
                     params['filetype'] = df.name
-                if order_type in ['FDL', 'C52', 'C53', 'C54','Z54','Z53','Z52','Z01','HAA']:
+                if order_type in ['FDL', 'C52', 'C53', 'C54', 'Z54', 'Z53', 'Z52', 'Z01']:
                     params.update({
                         'start':
                             self.date_from and self.date_from.isoformat()
@@ -177,7 +177,7 @@ class EbicsXfer(models.TransientModel):
                     })
                 kwargs = {k: v for k, v in params.items() if v}
                 try:
-                    if order_type in ['Z53', 'Z54','Z01','HAA']:
+                    if order_type in ['Z52', 'Z53', 'Z54', 'Z01']:
                         data = client.download(order_type)
                     else:
                         method = getattr(client, order_type)
