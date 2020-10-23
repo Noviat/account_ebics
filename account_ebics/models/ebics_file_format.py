@@ -48,7 +48,7 @@ class EbicsFileFormat(models.Model):
         return ['FUL', 'CCT', 'CDD', 'CDB', 'XE2', 'XE3']
 
     def _supported_download_order_types(self):
-        return ['FDL', 'C52', 'C53', 'C54']
+        return ['FDL', 'C52', 'C53', 'C54','Z53','Z54','Z52','Z01','HAA']
 
     @api.model
     def _selection_name(self):
@@ -68,10 +68,14 @@ class EbicsFileFormat(models.Model):
             'camt.052.001.02.stm',
             'camt.053.001.02.stm',
             'pain.001.001.03.sct',
+            'pain.002.001.03',
             'pain.008.001.02.sdd',
             'pain.008.001.02.sbb',
             'camt.xxx.cfonb120.stm',
             'pain.001.001.02.sct',
+            'camt.054.001.04',
+            'camt.053.001.04',
+            'camt.054',
             'camt.053',
             'pain.001',
             'pain.008',

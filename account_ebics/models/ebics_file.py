@@ -134,6 +134,18 @@ class EbicsFile(models.Model):
             'camt.053.001.02.stm':
                 {'process': self._process_camt053,
                  'unlink': self._unlink_camt053},
+            'camt.053.001.04':
+                {'process': self._process_camt053,
+                 'unlink': self._unlink_camt053},
+            'camt.054':
+                {'process': self._process_camt053,
+                 'unlink': self._unlink_camt053},
+            'camt.053':
+                {'process': self._process_camt053,
+                 'unlink': self._unlink_camt053},
+            'camt.054.001.04':
+                {'process': self._process_camt053,
+                 'unlink': self._unlink_camt053},
         }
         return res
 

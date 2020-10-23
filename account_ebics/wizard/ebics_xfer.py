@@ -19,6 +19,7 @@ from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
 
+
 try:
     import fintech
     from fintech.ebics import EbicsKeyRing, EbicsBank, EbicsUser, EbicsClient,\
@@ -165,7 +166,7 @@ class EbicsXfer(models.TransientModel):
                 params = {}
                 if order_type == 'FDL':
                     params['filetype'] = df.name
-                if order_type in ['FDL', 'C52', 'C53', 'C54']:
+                if order_type in ['FDL', 'C52', 'C53', 'C54','Z54','Z53','Z52','Z01','HAA']:
                     params.update({
                         'start':
                             self.date_from and self.date_from.isoformat()
@@ -176,8 +177,11 @@ class EbicsXfer(models.TransientModel):
                     })
                 kwargs = {k: v for k, v in params.items() if v}
                 try:
-                    method = getattr(client, order_type)
-                    data = method(**kwargs)
+                    if order_type in ['Z53', 'Z54','Z01','HAA']:
+                        data = client.download(order_type)
+                    else:
+                        method = getattr(client, order_type)
+                        data = method(**kwargs)
                     ebics_files += self._handle_download_data(data, df)
                     success = True
                 except EbicsFunctionalError:
