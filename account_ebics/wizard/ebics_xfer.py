@@ -182,12 +182,11 @@ class EbicsXfer(models.TransientModel):
                         data = client.FDL(df.name, date_from, date_to)
                     else:
                         params = None
-                        if order_type in ['C52', 'C53', 'C54', 'Z52', 'Z53', 'Z54', 'Z01']:
-                            if date_from and date_to:
-                                params = {'DateRange': {
-                                    'Start': date_from,
-                                    'End': date_to,
-                                }}
+                        if date_from and date_to:
+                            params = {'DateRange': {
+                                'Start': date_from,
+                                'End': date_to,
+                            }}
                         data = client.download(order_type, params=params)
                     ebics_files += self._handle_download_data(data, df)
                     success = True
