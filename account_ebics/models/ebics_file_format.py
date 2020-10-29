@@ -48,7 +48,7 @@ class EbicsFileFormat(models.Model):
         return ['FUL', 'CCT', 'CDD', 'CDB', 'XE2', 'XE3']
 
     def _supported_download_order_types(self):
-        return ['FDL', 'C52', 'C53', 'C54','Z53','Z54','Z52','Z01','HAA']
+        return ['FDL', 'C52', 'C53', 'C54', 'Z53', 'Z54', 'Z52', 'Z01']
 
     @api.model
     def _selection_name(self):

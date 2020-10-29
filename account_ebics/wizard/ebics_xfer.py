@@ -175,22 +175,20 @@ class EbicsXfer(models.TransientModel):
             for df in download_formats:
                 success = False
                 order_type = df.order_type or 'FDL'
-                params = {}
-                if order_type == 'FDL':
-                    params['filetype'] = df.name
-                if order_type in ['FDL', 'C52', 'C53', 'C54', 'Z54', 'Z53', 'Z52', 'Z01']:
-                    params.update({
-                        'start':
-                            self.date_from and self.date_from.isoformat()
-                            or None,
-                        'end':
-                            self.date_to and self.date_to.isoformat()
-                            or None,
-                    })
-                kwargs = {k: v for k, v in params.items() if v}
+                date_from = self.date_from and self.date_from.isoformat() or None
+                date_to = self.date_to and self.date_to.isoformat() or None
                 try:
-                    method = getattr(client, order_type)
-                    data = method(**kwargs)
+                    if order_type == 'FDL':
+                        data = client.FDL(df.name, date_from, date_to)
+                    else:
+                        params = None
+                        if order_type in ['C52', 'C53', 'C54', 'Z52', 'Z53', 'Z54', 'Z01']:
+                            if date_from and date_to:
+                                params = {'DateRange': {
+                                    'Start': date_from,
+                                    'End': date_to,
+                                }}
+                        data = client.download(order_type, params=params)
                     ebics_files += self._handle_download_data(data, df)
                     success = True
                 except EbicsFunctionalError:
