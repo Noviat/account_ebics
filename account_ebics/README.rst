@@ -87,6 +87,8 @@ The keycode of the licensed version.
 - fintech_register_users
 
 The licensed EBICS user ids. It must be a string or a list of user ids.
+You should NOT specify this parameter is your license is subsciption
+based (with monthly recurring billing).
 
 |
 | Example:
