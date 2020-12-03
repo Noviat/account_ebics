@@ -4,7 +4,7 @@
 
 {
     'name': 'EBICS banking protocol',
-    'version': '10.0.1.6.1',
+    'version': '10.0.1.6.2',
     'license': 'AGPL-3',
     'author': 'Noviat',
     'category': 'Accounting & Finance',
