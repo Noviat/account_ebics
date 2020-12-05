@@ -64,8 +64,10 @@ class EbicsXfer(models.TransientModel):
     format_id = fields.Many2one(
         comodel_name='ebics.file.format',
         string='EBICS File Format',
-        help="Select EBICS File Format to upload/download.")
+        help="Select EBICS File Format to upload/download."
+             "\nLeave blank to download all available files.")
     order_type = fields.Char(
+        related='format_id.order_type',
         string='Order Type',
         help="For most banks in France you should use the "
              "format neutral Order Types 'FUL' for upload "
@@ -160,56 +162,73 @@ class EbicsXfer(models.TransientModel):
         self.note = ''
         client = self._setup_client()
         if client:
+            download_formats = (
+                self.format_id
+                or self.ebics_config_id.ebics_file_format_ids.filtered(
+                    lambda r: r.type == 'down'
+                )
+            )
             ebics_files = self.env['ebics.file']
-            success = False
-            order_type = self.order_type or 'FDL'
             date_from = self.date_from and self.date_from.isoformat() or None
             date_to = self.date_to and self.date_to.isoformat() or None
-            try:
-                if order_type == 'FDL':
-                    data = client.FDL(self.format_id.name, date_from, date_to)
+            for df in download_formats:
+                try:
+                    success = False
+                    if df.order_type == 'FDL':
+                        data = client.FDL(df.name, date_from, date_to)
+                    else:
+                        params = None
+                        if date_from and date_to:
+                            params = {'DateRange': {
+                                'Start': date_from,
+                                'End': date_to,
+                            }}
+                        data = client.download(df.order_type, params=params)
+                    ebics_files += self._handle_download_data(data, df)
+                    success = True
+                except EbicsFunctionalError:
+                    e = exc_info()
+                    self.note += '\n'
+                    self.note += _(
+                        "EBICS Functional Error during download of File Format %s (%s):"
+                    ) % (df.name, df.order_type)
+                    self.note += '\n'
+                    self.note += '%s (code: %s)' % (e[1].message, e[1].code)
+                except EbicsTechnicalError:
+                    e = exc_info()
+                    self.note += '\n'
+                    self.note += _(
+                        "EBICS Technical Error during download of File Format %s (%s):"
+                    ) % (df.name, df.order_type)
+                    self.note += '\n'
+                    self.note += '%s (code: %s)' % (e[1].message, e[1].code)
+                except EbicsVerificationError:
+                    self.note += '\n'
+                    self.note += _(
+                        "EBICS Verification Error during download of "
+                        "File Format %s (%s):"
+                    ) % (df.name, df.order_type)
+                    self.note += '\n'
+                    self.note += _("The EBICS response could not be verified.")
+                except UserError as e:
+                    self.note += '\n'
+                    self.note += _(
+                        "Warning during download of File Format %s (%s):"
+                    ) % (df.name, df.order_type)
+                    self.note += '\n'
+                    self.note += e.name
+                except Exception:
+                    self.note += '\n'
+                    self.note += _(
+                        "Unknown Error during download of File Format %s (%s):"
+                    ) % (df.name, df.order_type)
+                    tb = ''.join(format_exception(*exc_info()))
+                    self.note += '\n%s' % tb
                 else:
-                    params = None
-                    if date_from and date_to:
-                        params = {'DateRange': {
-                            'Start': date_from,
-                            'End': date_to,
-                        }}
-                    data = client.download(order_type, params=params)
-                ebics_files += self._handle_download_data(data, self.format_id)
-                success = True
-            except EbicsFunctionalError:
-                e = exc_info()
-                self.note += '\n'
-                self.note += _("EBICS Functional Error:")
-                self.note += '\n'
-                self.note += '%s (code: %s)' % (e[1].message, e[1].code)
-            except EbicsTechnicalError:
-                e = exc_info()
-                self.note += '\n'
-                self.note += _("EBICS Technical Error:")
-                self.note += '\n'
-                self.note += '%s (code: %s)' % (e[1].message, e[1].code)
-            except EbicsVerificationError:
-                self.note += '\n'
-                self.note += _("EBICS Verification Error:")
-                self.note += '\n'
-                self.note += _("The EBICS response could not be verified.")
-            except UserError as e:
-                self.note += '\n'
-                self.note += _("Warning:")
-                self.note += '\n'
-                self.note += e.name
-            except Exception:
-                self.note += '\n'
-                self.note += _("Unknown Error")
-                tb = ''.join(format_exception(*exc_info()))
-                self.note += '\n%s' % tb
-            else:
-                # mark received data so that it is not included in further
-                # downloads
-                trans_id = client.last_trans_id
-                client.confirm_download(trans_id=trans_id, success=success)
+                    # mark received data so that it is not included in further
+                    # downloads
+                    trans_id = client.last_trans_id
+                    client.confirm_download(trans_id=trans_id, success=success)
 
             ctx['ebics_file_ids'] = ebics_files._ids
 
@@ -258,9 +277,7 @@ class EbicsXfer(models.TransientModel):
             ef_format = self.format_id
             OrderID = False
             try:
-                order_type = self.order_type or 'FUL'
-                method = hasattr(client, order_type) \
-                    and getattr(client, order_type)
+                order_type = self.order_type
                 if order_type == 'FUL':
                     kwargs = {}
                     bank = self.ebics_config_id.journal_ids[0].bank_id
@@ -269,9 +286,7 @@ class EbicsXfer(models.TransientModel):
                         kwargs['country'] = cc
                     if self.test_mode:
                         kwargs['TEST'] = 'TRUE'
-                    OrderID = method(ef_format.name, upload_data, **kwargs)
-                elif order_type in ['CCT', 'CDD', 'CDB']:
-                    OrderID = method(upload_data)
+                    OrderID = client.FUL(ef_format.name, upload_data, **kwargs)
                 else:
                     OrderID = client.upload(order_type, upload_data)
                 if OrderID:
@@ -509,17 +524,17 @@ class EbicsXfer(models.TransientModel):
             else:
                 o_list[-i] = chr(ord(c) + 1)
                 break
-        next = ''.join(o_list)
-        if next == 'ZZZZ':
-            next = 'A000'
-        self.ebics_config_id.order_number = next
+        next_nr = ''.join(o_list)
+        if next_nr == 'ZZZZ':
+            next_nr = 'A000'
+        self.ebics_config_id.order_number = next_nr
 
     def _insert_line_terminator(self, data_in, line_len):
         data_in = data_in.replace(b'\n', b'').replace(b'\r', b'')
         data_out = b''
-        max = len(data_in)
+        max_len = len(data_in)
         i = 0
-        while i + line_len <= max:
+        while i + line_len <= max_len:
             data_out += data_in[i:i + line_len] + b'\n'
             i += line_len
         return data_out
