@@ -32,10 +32,10 @@ try:
             keycode=fintech_register_keycode,
             users=fintech_register_users)
 except RuntimeError as e:
-    if e.message == "'register' can be called only once":
+    if str(e) == "'register' can be called only once":
         pass
     else:
-        _logger.error(e.message)
+        _logger.error(str(e))
         fintech.register()
 except Exception:
     msg = "fintech.register error"
