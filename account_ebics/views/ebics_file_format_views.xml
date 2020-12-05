@@ -20,13 +20,21 @@
     <field name="model">ebics.file.format</field>
     <field name="arch" type="xml">
       <form string="EBICS File Format">
-        <group col="4">
-          <field name="type"/>
-          <field name="order_type"/>
-          <field name="name"/>
-          <field name="signature_class"/>
-          <field name="suffix"/>
-          <newline/>
+        <group name="main">
+          <group name="main-left">
+            <field name="type"/>
+            <field name="suffix"/>
+            <field name="download_process_method"
+                   attrs="{'invisible': [('type', '=', 'up')]}"
+                   force_save="1"/>
+            <field name="signature_class"/>
+          </group>
+          <group name="main-right">
+            <field name="order_type"/>
+            <field name="name"/>
+          </group>
+        </group>
+        <group name="description">
           <field name="description"/>
         </group>
       </form>
