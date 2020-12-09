@@ -79,6 +79,7 @@
       <field name="name">pain.002</field>
       <field name="type">down</field>
       <field name="order_type">Z01</field>
+      <field name="download_process_method">pain.002</field>
       <field name="description">Payment status report for direct debit in format pain.002</field>
       <field name="suffix">psr.xml</field>
     </record>
