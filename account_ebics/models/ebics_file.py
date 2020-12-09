@@ -137,6 +137,9 @@ class EbicsFile(models.Model):
             'camt.054':
                 {'process': self._process_camt054,
                  'unlink': self._unlink_camt054},
+            'pain.002':
+                {'process': self._process_pain002,
+                 'unlink': self._unlink_pain002},
         }
         return res
 
@@ -288,6 +291,23 @@ class EbicsFile(models.Model):
         EBICS data file and its related bank statements.
         """
         pass
+
+    @staticmethod
+    def _process_pain002(self):
+        """
+        Placeholder for processing pain.002 files.
+        TODO:
+        add import logic based upon OCA 'account_payment_return_import'
+        """
+        pass
+
+    @staticmethod
+    def _unlink_pain002(self):
+        """
+        Placeholder for pain.002 specific actions before removing the
+        EBICS data file.
+        """
+        raise NotImplementedError
 
     def _process_undefined_format(self):
         raise UserError(_(
