@@ -70,7 +70,7 @@ class EbicsFile(models.Model):
                 raise UserError(_(
                     "You can only remove EBICS files in state 'Draft'."))
             # execute format specific actions
-            ff = ebics_file.format_id.name
+            ff = ebics_file.format_id.download_process_method
             if ff in ff_methods:
                 if ff_methods[ff].get('unlink'):
                     ff_methods[ff]['unlink'](ebics_file)
@@ -92,7 +92,7 @@ class EbicsFile(models.Model):
         self = self.with_context(ctx)
         self.note_process = ''
         ff_methods = self._file_format_methods()
-        ff = self.format_id.name
+        ff = self.format_id.download_process_method
         if ff in ff_methods:
             if ff_methods[ff].get('process'):
                 res = ff_methods[ff]['process'](self)
@@ -120,15 +120,21 @@ class EbicsFile(models.Model):
         for extra file formats.
         """
         res = {
-            'camt.xxx.cfonb120.stm':
+            'cfonb120':
                 {'process': self._process_cfonb120,
                  'unlink': self._unlink_cfonb120},
-            'camt.052.001.02.stm':
+            'camt.052':
                 {'process': self._process_camt052,
                  'unlink': self._unlink_camt052},
-            'camt.053.001.02.stm':
+            'camt.053':
                 {'process': self._process_camt053,
                  'unlink': self._unlink_camt053},
+            'camt.054':
+                {'process': self._process_camt054,
+                 'unlink': self._unlink_camt054},
+            'pain.002':
+                {'process': self._process_pain002,
+                 'unlink': self._unlink_pain002},
         }
         return res
 
@@ -295,6 +301,20 @@ class EbicsFile(models.Model):
         pass
 
     @staticmethod
+    def _process_camt054(self):
+        import_module = 'account_bank_statement_import_camt_oca'
+        self._check_import_module(import_module)
+        return self._process_camt053(self)
+
+    @staticmethod
+    def _unlink_camt054(self):
+        """
+        Placeholder for camt054 specific actions before removing the
+        EBICS data file and its related bank statements.
+        """
+        pass
+
+    @staticmethod
     def _process_camt053(self):
         import_module = 'account_bank_statement_import_camt%'
         self._check_import_module(import_module)
@@ -323,6 +343,23 @@ class EbicsFile(models.Model):
         EBICS data file and its related bank statements.
         """
         pass
+
+    @staticmethod
+    def _process_pain002(self):
+        """
+        Placeholder for processing pain.002 files.
+        TODO:
+        add import logic based upon OCA 'account_payment_return_import'
+        """
+        pass
+
+    @staticmethod
+    def _unlink_pain002(self):
+        """
+        Placeholder for pain.002 specific actions before removing the
+        EBICS data file.
+        """
+        raise NotImplementedError
 
     def _process_undefined_format(self):
         raise UserError(_(
