@@ -13,6 +13,7 @@
           <field name="date_from"/>
           <field name="date_to"/>
           <field name="format_id"/>
+          <field name="order_type"/>
         </group>
         <footer>
           <button name="ebics_download" string="Download Files" type="object" class="oe_highlight"/>

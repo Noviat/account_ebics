@@ -22,6 +22,58 @@ Remark:
 
 The EBICS 'Test Mode' for uploading orders requires Fintech 4.3.4 or higher.
 
+|
+
+We also recommend to consider the installation of the following modules:
+
+|
+
+- account_ebics_oe
+
+  Required if you are running Odoo Enterprise
+
+|
+
+- account_ebics_batch_payment
+
+  Recommended if you are using the Odoo Enterprise account_batch_payment module
+
+|
+
+- account_ebics_payment_order
+
+  Recommended if you are using the OCA account_payment_order module.
+
+  Cf. https://github.com/OCA/bank-payment
+
+|
+
+- account_bank_statement_import_fr_cfonb
+
+  Required to handle french CFONB files.
+
+  Cf. https://github.com/OCA/l10n_fr
+
+|
+
+- account_bank_statement_import_camt_oca
+
+  Required to handle camt.052 and camt.054 files.
+
+  Cf. https://github.com/OCA/bank_statement_import
+
+|
+
+- account_bank_statement_import_helper
+
+  Required if you are processing bank statements with local bank account numbers (e.g. french CFONB files).
+
+  The import helper will match the local bank account number with the IBAN number specified on the Odoo Financial journal.
+
+  Cf. https://github.com/noviat-apps
+
+|
+
 Fintech license
 ---------------
 
@@ -49,6 +101,33 @@ Configuration
 Go to **Settings > Users**
 
 Add the users that are authorised to maintain the EBICS configuration to the 'EBICS Manager' Group.
+
+|
+
+Go to **Accounting > Configuration > Miscellaneous > EBICS > EBICS File Formats**
+
+Check if the EBICS File formats that you want to process in Odoo are defined.
+
+Most commonly used formats for which support is available in Odoo should be there already.
+
+Please open an issue on https://github.com/Noviat/account_ebics to report missing EBICS File Formats.
+
+For File Formats of type 'Downloads' you can also specifiy a 'Download Process Method'.
+
+This is the method that will be executed when hitting the 'Process' button on the downloaded file.
+
+The following methods are currently available:
+
+- cfonb120
+- camt.053
+- camt.052
+- camt.054
+
+All these methods require complimentary modules to be installed (cf. Installation section supra).
+
+You'll get an error message when the required module is not installed on your Odoo instance.
+
+|
 
 Go to **Accounting > Configuration > Miscellaneous > EBICS > EBICS Configuration**
 

@@ -355,6 +355,66 @@ ul.auto-toc {
 </ul>
 <p>Remark:</p>
 <p>The EBICS 'Test Mode' for uploading orders requires Fintech 4.3.4 or higher.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>We also recommend to consider the installation of the following modules:</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<ul>
+<li><p class="first">account_ebics_oe</p>
+<p>Required if you are running Odoo Enterprise</p>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<ul>
+<li><p class="first">account_ebics_batch_payment</p>
+<p>Recommended if you are using the Odoo Enterprise account_batch_payment module</p>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<ul>
+<li><p class="first">account_ebics_payment_order</p>
+<p>Recommended if you are using the OCA account_payment_order module.</p>
+<p>Cf. <a class="reference external" href="https://github.com/OCA/bank-payment">https://github.com/OCA/bank-payment</a></p>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<ul>
+<li><p class="first">account_bank_statement_import_fr_cfonb</p>
+<p>Required to handle french CFONB files.</p>
+<p>Cf. <a class="reference external" href="https://github.com/OCA/l10n_fr">https://github.com/OCA/l10n_fr</a></p>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<ul>
+<li><p class="first">account_bank_statement_import_camt_oca</p>
+<p>Required to handle camt.052 and camt.054 files.</p>
+<p>Cf. <a class="reference external" href="https://github.com/OCA/bank_statement_import">https://github.com/OCA/bank_statement_import</a></p>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<ul>
+<li><p class="first">account_bank_statement_import_helper</p>
+<p>Required if you are processing bank statements with local bank account numbers (e.g. french CFONB files).</p>
+<p>The import helper will match the local bank account number with the IBAN number specified on the Odoo Financial journal.</p>
+<p>Cf. <a class="reference external" href="https://github.com/noviat-apps">https://github.com/noviat-apps</a></p>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
 <div class="section" id="fintech-license">
 <h3>Fintech license</h3>
 <p>If you have a valid Fintech.ebics license, you should add the following
@@ -379,6 +439,27 @@ based (with monthly recurring billing).</p>
 <h2>Configuration</h2>
 <p>Go to <strong>Settings &gt; Users</strong></p>
 <p>Add the users that are authorised to maintain the EBICS configuration to the 'EBICS Manager' Group.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Go to <strong>Accounting &gt; Configuration &gt; Miscellaneous &gt; EBICS &gt; EBICS File Formats</strong></p>
+<p>Check if the EBICS File formats that you want to process in Odoo are defined.</p>
+<p>Most commonly used formats for which support is available in Odoo should be there already.</p>
+<p>Please open an issue on <a class="reference external" href="https://github.com/Noviat/account_ebics">https://github.com/Noviat/account_ebics</a> to report missing EBICS File Formats.</p>
+<p>For File Formats of type 'Downloads' you can also specifiy a 'Download Process Method'.</p>
+<p>This is the method that will be executed when hitting the 'Process' button on the downloaded file.</p>
+<p>The following methods are currently available:</p>
+<ul class="simple">
+<li>cfonb120</li>
+<li>camt.053</li>
+<li>camt.052</li>
+<li>camt.054</li>
+</ul>
+<p>All these methods require complimentary modules to be installed (cf. Installation section supra).</p>
+<p>You'll get an error message when the required module is not installed on your Odoo instance.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
 <p>Go to <strong>Accounting &gt; Configuration &gt; Miscellaneous &gt; EBICS &gt; EBICS Configuration</strong></p>
 <p>Configure your EBICS configuration according to the contract with your bank.</p>
 </div>
