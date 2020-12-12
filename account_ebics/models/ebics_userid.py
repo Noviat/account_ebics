@@ -379,20 +379,39 @@ class EbicsUserID(models.Model):
         if self.state != 'get_bank_keys':
             raise UserError(
                 _("Set state to 'Get Keys from Bank'."))
-        keyring = EbicsKeyRing(
-            keys=self.ebics_keys_fn, passphrase=self.ebics_passphrase)
-        bank = EbicsBank(
-            keyring=keyring,
-            hostid=self.ebics_config_id.ebics_host,
-            url=self.ebics_config_id.ebics_url)
-        user = EbicsUser(
-            keyring=keyring,
-            partnerid=self.ebics_config_id.ebics_partner,
-            userid=self.name)
-        client = EbicsClient(
-            bank, user, version=self.ebics_config_id.ebics_version)
+        try:
+            keyring = EbicsKeyRing(
+                keys=self.ebics_keys_fn, passphrase=self.ebics_passphrase)
+            bank = EbicsBank(
+                keyring=keyring,
+                hostid=self.ebics_config_id.ebics_host,
+                url=self.ebics_config_id.ebics_url)
+            user = EbicsUser(
+                keyring=keyring,
+                partnerid=self.ebics_config_id.ebics_partner,
+                userid=self.name)
+            client = EbicsClient(
+                bank, user, version=self.ebics_config_id.ebics_version)
+        except Exception:
+            exctype, value = exc_info()[:2]
+            error = _("EBICS Initialisation Error:")
+            error += '\n' + str(exctype) + '\n' + str(value)
+            raise UserError(error)
 
-        public_bank_keys = client.HPB()
+        try:
+            public_bank_keys = client.HPB()
+        except EbicsFunctionalError:
+            e = exc_info()
+            error = _("EBICS Functional Error:")
+            error += '\n'
+            error += '%s (code: %s)' % (e[1].message, e[1].code)
+            raise UserError(error)
+        except Exception:
+            exctype, value = exc_info()[:2]
+            error = _("EBICS Initialisation Error:")
+            error += '\n' + str(exctype) + '\n' + str(value)
+            raise UserError(error)
+
         public_bank_keys = public_bank_keys.encode()
         tmp_dir = os.path.normpath(self.ebics_config_id.ebics_files + '/tmp')
         if not os.path.isdir(tmp_dir):
