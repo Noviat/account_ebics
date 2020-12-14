@@ -4,7 +4,7 @@
 {
     'name': 'account_ebics on Odoo Enterprise',
     'summary': "Deploy account_ebics module on Odoo Enterprise",
-    'version': '13.0.1.0.0',
+    'version': '14.0.1.0.0',
     'author': 'Noviat',
     'category': 'Hidden',
     'license': 'LGPL-3',
