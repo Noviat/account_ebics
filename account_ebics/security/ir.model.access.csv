@@ -7,3 +7,6 @@ access_ebics_file_format_manager,ebics_file_format manager,model_ebics_file_form
 access_ebics_file_format_user,ebics_file_format user,model_ebics_file_format,account.group_account_invoice,1,0,0,0
 access_ebics_file_manager,ebics_file manager,model_ebics_file,group_ebics_manager,1,1,1,1
 access_ebics_file_user,ebics_file user,model_ebics_file,account.group_account_invoice,1,1,1,0
+
+access_ebics_change_passphrase,access_ebics_change_passphrase,model_ebics_change_passphrase,group_ebics_manager,1,1,1,0
+access_ebics_xfer,access_ebics_xfer,model_ebics_xfer,account.group_account_invoice,1,1,1,0
