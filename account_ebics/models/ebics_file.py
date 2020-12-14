@@ -103,8 +103,8 @@ class EbicsFile(models.Model):
 
     def action_open_bank_statements(self):
         self.ensure_one()
-        action = self.env['ir.actions.act_window'].for_xml_id(
-            'account', 'action_bank_statement_tree')
+        action = self.env['ir.actions.act_window']._for_xml_id(
+            'account.action_bank_statement_tree')
         domain = eval(action.get('domain') or '[]')
         domain += [('id', 'in', self._context.get('statement_ids'))]
         action.update({'domain': domain})
@@ -220,12 +220,12 @@ class EbicsFile(models.Model):
         We do not support the standard _journal_creation_wizard since a single
         cfonb120 file may contain statements from different legal entities.
         """
-        import_module = 'account_bank_statement_import_fr_cfonb'
+        import_module = 'account_statement_import_fr_cfonb'
         self._check_import_module(import_module)
-        wiz_model = 'account.bank.statement.import'
+        wiz_model = 'account.statement.import'
         data_file = base64.b64decode(self.data)
         lines = data_file.split(b'\n')
-        attachments_vals = []
+        wiz_vals_list = []
         st_lines = b''
         transactions = False
         for line in lines:
@@ -237,10 +237,9 @@ class EbicsFile(models.Model):
             if rec_type == b'07':
                 if transactions:
                     fn = '_'.join([acc_number.decode(), self.name])
-                    attachments_vals.append({
-                        'name': fn,
-                        'store_fname': fn,
-                        'datas': base64.b64encode(st_lines)
+                    wiz_vals_list.append({
+                        'statement_filename': fn,
+                        'statement_file': base64.b64encode(st_lines)
                     })
                 st_lines = b''
                 transactions = False
@@ -252,10 +251,9 @@ class EbicsFile(models.Model):
                         'notifications': []},
         }
         wiz_ctx = dict(self.env.context, active_model='ebics.file')
-        for i, attachment_vals in enumerate(attachments_vals, start=1):
-            wiz_vals = {'attachment_ids': [(0, 0, attachment_vals)]}
+        for i, wiz_vals in enumerate(wiz_vals_list, start=1):
             wiz = self.env[wiz_model].with_context(wiz_ctx).create(wiz_vals)
-            res = wiz.import_file()
+            res = wiz.import_file_button()
             ctx = res.get('context')
             if (res.get('res_model')
                     == 'account.bank.statement.import.journal.creation'):
@@ -272,6 +270,7 @@ class EbicsFile(models.Model):
                     'details': details,
                 }])
                 continue
+            import pdb; pdb.set_trace()
             result['context']['statement_line_ids'].extend(
                 ctx['statement_line_ids'])
             result['context']['notifications'].extend(

@@ -66,6 +66,9 @@ class EbicsXfer(models.TransientModel):
         string='EBICS File Format',
         help="Select EBICS File Format to upload/download."
              "\nLeave blank to download all available files.")
+    allowed_format_ids = fields.Many2many(
+        related='ebics_config_id.ebics_file_format_ids',
+        string='Allowed EBICS File Formats')
     order_type = fields.Char(
         related='format_id.order_type',
         string='Order Type',
@@ -94,14 +97,11 @@ class EbicsXfer(models.TransientModel):
     @api.onchange('ebics_config_id')
     def _onchange_ebics_config_id(self):
         ebics_userids = self.ebics_config_id.ebics_userid_ids
-        domain = {'ebics_userid_id': [('id', 'in', ebics_userids.ids)]}
         if self._context.get('ebics_download'):
             download_formats = self.ebics_config_id.ebics_file_format_ids\
                 .filtered(lambda r: r.type == 'down')
             if len(download_formats) == 1:
                 self.format_id = download_formats
-            domain['format_id'] = [('type', '=', 'down'),
-                                   ('id', 'in', download_formats.ids)]
             if len(ebics_userids) == 1:
                 self.ebics_userid_id = ebics_userids
             else:
@@ -114,11 +114,8 @@ class EbicsXfer(models.TransientModel):
                 .filtered(lambda r: r.type == 'up')
             if len(upload_formats) == 1:
                 self.format_id = upload_formats
-            domain['format_id'] = [('type', '=', 'up'),
-                                   ('id', 'in', upload_formats.ids)]
             if len(ebics_userids) == 1:
                 self.ebics_userid_id = ebics_userids
-        return {'domain': domain}
 
     @api.onchange('upload_data')
     def _onchange_upload_data(self):
@@ -262,8 +259,8 @@ class EbicsXfer(models.TransientModel):
     def view_ebics_file(self):
         self.ensure_one()
         module = __name__.split('addons.')[1].split('.')[0]
-        act = self.env['ir.actions.act_window'].for_xml_id(
-            module, 'ebics_file_action_download')
+        act = self.env['ir.actions.act_window']._for_xml_id(
+            '{}.ebics_file_action_download'.format(module))
         act['domain'] = [('id', 'in', self._context['ebics_file_ids'])]
         return act
 

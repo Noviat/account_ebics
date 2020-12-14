@@ -16,8 +16,10 @@
                  options="{'no_create': True, 'no_open': True}"/>
           <field name="date_from"/>
           <field name="date_to"/>
-          <field name="format_id"/>
+          <field name="format_id"
+                 domain="[('type', '=', 'down'), ('id', 'in', allowed_format_ids)]"/>
           <field name="order_type"/>
+          <field name="allowed_format_ids" invisible="1"/>
         </group>
         <footer>
           <button name="ebics_download" string="Download Files" type="object" class="oe_highlight"/>
@@ -45,9 +47,11 @@
           <field name="upload_data" filename="upload_fname" required="1"/>
           <field name="upload_fname" invisible="1"/>
           <field name="upload_fname_dummy"/>
-          <field name="format_id" required="1"/>
+          <field name="format_id" required="1"
+                 domain="[('type', '=', 'up'), ('id', 'in', allowed_format_ids)]"/>
           <field name="order_type"/>
           <field name="test_mode" attrs="{'invisible': [('order_type', '!=', 'FUL')]}"/>
+          <field name="allowed_format_ids" invisible="1"/>
         </group>
         <footer>
           <button name="ebics_upload" string="Upload File" type="object" class="oe_highlight"/>

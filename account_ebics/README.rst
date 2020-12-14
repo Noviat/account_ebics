@@ -51,11 +51,11 @@ We also recommend to consider the installation of the following modules:
 
 |
 
-- account_bank_statement_import_fr_cfonb
+- account_statement_import_fr_cfonb
 
   Required to handle french CFONB files.
 
-  Cf. https://github.com/OCA/l10n_fr
+  Cf. https://github.com/OCA/l10n_france
 
 |
 
