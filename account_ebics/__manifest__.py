@@ -8,7 +8,7 @@
     'author': 'Noviat',
     'website': 'www.noviat.com',
     'category': 'Accounting & Finance',
-    'depends': ['account'],
+    'depends': ['account', 'account_bank_statement_import'],
     'data': [
         'security/ebics_security.xml',
         'security/ir.model.access.csv',
