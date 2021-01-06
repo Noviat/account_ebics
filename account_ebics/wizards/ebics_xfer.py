@@ -1,4 +1,4 @@
-# Copyright 2009-2020 Noviat.
+# Copyright 2009-2021 Noviat.
 # License LGPL-3 or later (http://www.gnu.org/licenses/lpgl).
 
 """
@@ -311,7 +311,9 @@ class EbicsXfer(models.TransientModel):
                         'user_id': self._uid,
                         'ebics_userid_id': self.ebics_userid_id.id,
                         'note': ef_note,
-                        'company_ids': [self.env.user.company_id.id],
+                        "company_ids": [
+                            self.env.context.get("force_company", self.env.company.id)
+                        ],
                     }
                     self._update_ef_vals(ef_vals)
                     ebics_file = self.env['ebics.file'].create(ef_vals)
