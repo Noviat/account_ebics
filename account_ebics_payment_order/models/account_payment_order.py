@@ -1,4 +1,4 @@
-# Copyright 2009-2020 Noviat.
+# Copyright 2009-2021 Noviat.
 # License LGPL-3 or later (http://www.gnu.org/licenses/lpgl).
 
 from odoo import _, models
@@ -41,6 +41,7 @@ class AccountPaymentOrder(models.Model):
                 'default_upload_data': attach.datas,
                 'default_upload_fname': attach.name,
                 'origin': origin,
+                'force_comany': self.company_id.id,
             })
             ebics_xfer = self.env['ebics.xfer'].with_context(ctx).create({})
             ebics_xfer._onchange_ebics_config_id()
