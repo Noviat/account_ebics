@@ -110,14 +110,6 @@
       <field name="suffix">sdd.xml</field>
     </record>
 
-    <record id="ebics_ff_CDD" model="ebics.file.format">
-      <field name="name">pain.008.001.02.sdd</field>
-      <field name="type">up</field>
-      <field name="order_type">CDD</field>
-      <field name="description">Sepa Core Direct Debit Order in format pain.008.001.02</field>
-      <field name="suffix">sdd.xml</field>
-    </record>
-
     <record id="ebics_ff_XE3" model="ebics.file.format">
       <field name="name">pain.008.001.02.sdd</field>
       <field name="type">up</field>
