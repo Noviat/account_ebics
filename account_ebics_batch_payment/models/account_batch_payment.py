@@ -1,4 +1,4 @@
-# Copyright 2009-2020 Noviat.
+# Copyright 2009-2021 Noviat.
 # License LGPL-3 or later (http://www.gnu.org/licenses/lpgl).
 
 from odoo import _, models
@@ -29,6 +29,7 @@ class AccountBatchPayment(models.Model):
                 "default_upload_data": self.export_file,
                 "default_upload_fname": self.export_filename,
                 "origin": origin,
+                'force_comany': self.journal_id.company_id.id,
             }
         )
 
