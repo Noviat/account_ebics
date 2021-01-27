@@ -291,7 +291,7 @@ class EbicsXfer(models.TransientModel):
                     suffix = self.format_id.suffix
                     fn = self.upload_fname
                     if not fn.endswith(suffix):
-                        fn = '.'.join[fn, suffix]
+                        fn = '.'.join([fn, suffix])
                     ef_vals = {
                         'name': self.upload_fname,
                         'data': self.upload_data,
