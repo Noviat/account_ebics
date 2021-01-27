@@ -86,6 +86,14 @@
     
     <!-- Upload formats -->
 
+    <record id="ebics_ff_LCR" model="ebics.file.format">
+      <field name="name">pain.xxx.cfonb160.dco</field>
+      <field name="type">up</field>
+      <field name="order_type">FUL</field>
+      <field name="description">Remises de LCR</field>
+      <field name="suffix">lcr.dat</field>
+    </record>
+
     <record id="ebics_ff_CCT" model="ebics.file.format">
       <field name="name">pain.001.001.03</field>
       <field name="type">up</field>
