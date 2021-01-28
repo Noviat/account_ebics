@@ -144,7 +144,7 @@ class EbicsFile(models.Model):
         return res
 
     def _check_import_module(self, module):
-        mod = self.env['ir.module.module'].search(
+        mod = self.env['ir.module.module'].sudo().search(
             [('name', '=like', module),
              ('state', '=', 'installed')])
         if not mod:
