@@ -1,4 +1,4 @@
-# Copyright 2009-2020 Noviat.
+# Copyright 2009-2021 Noviat.
 # License LGPL-3 or later (http://www.gnu.org/licenses/lpgl).
 
 import base64
@@ -138,16 +138,19 @@ class EbicsFile(models.Model):
         }
         return res
 
-    def _check_import_module(self, module):
-        mod = self.env['ir.module.module'].search(
+    def _check_import_module(self, module, raise_if_not_found=True):
+        mod = self.env['ir.module.module'].sudo().search(
             [('name', '=like', module),
              ('state', '=', 'installed')])
         if not mod:
-            raise UserError(_(
-                "The module to process the '%s' format is not installed "
-                "on your system. "
-                "\nPlease install module '%s'")
-                % (self.format_id.name, module))
+            if raise_if_not_found:
+                raise UserError(_(
+                    "The module to process the '%s' format is not installed "
+                    "on your system. "
+                    "\nPlease install module '%s'")
+                    % (self.format_id.name, module))
+            return False
+        return True
 
     def _process_result_action(self, res):
         notifications = []
@@ -287,7 +290,7 @@ class EbicsFile(models.Model):
 
     @staticmethod
     def _process_camt052(self):
-        import_module = 'account_bank_statement_import_camt_oca'
+        import_module = 'account_statement_import_camt'
         self._check_import_module(import_module)
         return self._process_camt053(self)
 
@@ -301,7 +304,7 @@ class EbicsFile(models.Model):
 
     @staticmethod
     def _process_camt054(self):
-        import_module = 'account_bank_statement_import_camt_oca'
+        import_module = 'account_statement_import_camt'
         self._check_import_module(import_module)
         return self._process_camt053(self)
 
@@ -315,10 +318,67 @@ class EbicsFile(models.Model):
 
     @staticmethod
     def _process_camt053(self):
-        import_module = 'account_bank_statement_import_camt%'
-        self._check_import_module(import_module)
-        wiz_model = 'account.bank.statement.import'
+        modules = [
+            ('oca', 'account_statement_import_camt'),
+            ('oe', 'account_bank_statement_import_camt'),
+        ]
+        found = False
+        for src, mod in modules:
+            if self._check_import_module(mod, raise_if_not_found=False):
+                found = True
+                break
+        if not found:
+            raise UserError(_(
+                "The module to process the '%s' format is not installed "
+                "on your system. "
+                "\nPlease install one of the following modules: \n%s."
+                ) % (self.format_id.name, ', '.join([x[1] for x in modules]))
+            )
+        if src == 'oca':
+            self._process_camt053_oca()
+        else:
+            self._process_camt053_oe()
 
+    def _process_camt053_oca(self):
+        wiz_model = 'account.statement.import'
+        wiz_vals = {
+            'statement_filename': self.name,
+            'statement_file': self.data,
+        }
+        result = {
+            'type': 'ir.actions.client',
+            'tag': 'bank_statement_reconciliation_view',
+            'context': {'statement_line_ids': [],
+                        'company_ids': self.env.user.company_ids.ids,
+                        'notifications': []},
+        }
+        wiz_ctx = dict(self.env.context, active_model='ebics.file')
+        wiz = self.env[wiz_model].with_context(wiz_ctx).create(wiz_vals)
+        res = wiz.import_file_button()
+        ctx = res.get('context')
+        import pdb; pdb.set_trace()
+        if (res.get('res_model')
+                == 'account.bank.statement.import.journal.creation'):
+            message = _(
+                "Error detected while importing statement %s.\n"
+            ) % self.name
+            message += _("No financial journal found.")
+            details = _(
+                'Bank account number: %s'
+            ) % ctx.get('default_bank_acc_number')
+            result['context']['notifications'].extend([{
+                'type': 'warning',
+                'message': message,
+                'details': details,
+            }])
+        result['context']['statement_line_ids'].extend(
+            ctx['statement_line_ids'])
+        result['context']['notifications'].extend(
+            ctx['notifications'])
+        return self._process_result_action(result)
+
+    def _process_camt053_oe(self):
+        wiz_model = 'account.bank.statement.import'
         wiz_vals = {
             'attachment_ids': [(0, 0, {'name': self.name,
                                        'datas': self.data,
