@@ -91,7 +91,7 @@
       <field name="type">up</field>
       <field name="order_type">FUL</field>
       <field name="description">Remises de LCR</field>
-      <field name="suffix">lcr.dat</field>
+      <field name="suffix">txt</field>
     </record>
 
     <record id="ebics_ff_CCT" model="ebics.file.format">
@@ -99,7 +99,7 @@
       <field name="type">up</field>
       <field name="order_type">CCT</field>
       <field name="description">Payment Order in format pain.001.001.03</field>
-      <field name="suffix">cct.xml</field>
+      <field name="suffix">xml</field>
     </record>
 
     <record id="ebics_ff_XE2" model="ebics.file.format">
@@ -107,7 +107,7 @@
       <field name="type">up</field>
       <field name="order_type">XE2</field>
       <field name="description">Payment Order in format pain.001.001.03</field>
-      <field name="suffix">cct.xml</field>
+      <field name="suffix">xml</field>
     </record>
 
     <record id="ebics_ff_CDD" model="ebics.file.format">
@@ -115,7 +115,7 @@
       <field name="type">up</field>
       <field name="order_type">CDD</field>
       <field name="description">Sepa Core Direct Debit Order in format pain.008.001.02</field>
-      <field name="suffix">sdd.xml</field>
+      <field name="suffix">xml</field>
     </record>
 
     <record id="ebics_ff_XE3" model="ebics.file.format">
@@ -123,7 +123,7 @@
       <field name="type">up</field>
       <field name="order_type">XE3</field>
       <field name="description">Sepa Core Direct Debit Order in format pain.008.001.02</field>
-      <field name="suffix">sdd.xml</field>
+      <field name="suffix">xml</field>
     </record>
     
     <record id="ebics_ff_CDB" model="ebics.file.format">
@@ -131,7 +131,7 @@
       <field name="type">up</field>
       <field name="order_type">CDB</field>
       <field name="description">Sepa Direct Debit (B2B) Order in format pain.008.001.02</field>
-      <field name="suffix">sbb.xml</field>
+      <field name="suffix">xml</field>
     </record>
 
     <record id="ebics_ff_XE4" model="ebics.file.format">
@@ -139,7 +139,7 @@
       <field name="type">up</field>
       <field name="order_type">XE4</field>
       <field name="description">Sepa Direct Debit (B2B) Order in format pain.008.001.02</field>
-      <field name="suffix">sbb.xml</field>
+      <field name="suffix">xml</field>
     </record>
 
     <record id="ebics_ff_FUL_pain_001_001_02_sct" model="ebics.file.format">
@@ -147,7 +147,7 @@
       <field name="type">up</field>
       <field name="order_type">FUL</field>
       <field name="description">Payment Order in format pain.001.001.02</field>
-      <field name="suffix">cct.xml</field>
+      <field name="suffix">xml</field>
     </record>
 
   </data>

@@ -73,7 +73,7 @@ We also recommend to consider the installation of the following modules:
 
   The import helper will match the local bank account number with the IBAN number specified on the Odoo Financial journal.
 
-  Cf. https://github.com/noviat-apps
+  Cf. https://github.com/Noviat/noviat-apps
 
 |
 
