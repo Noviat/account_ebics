@@ -123,12 +123,17 @@ class EbicsXfer(models.TransientModel):
     @api.onchange('upload_data')
     def _onchange_upload_data(self):
         self.upload_fname_dummy = self.upload_fname
+        self.format_id = False
         self._detect_upload_format()
-        upload_formats = self.format_id \
-            or self.ebics_config_id.ebics_file_format_ids.filtered(
-                lambda r: r.type == 'up')
-        if len(upload_formats) == 1:
-            self.format_id = upload_formats
+        if not self.format_id:
+            upload_formats = self.format_id \
+                or self.ebics_config_id.ebics_file_format_ids.filtered(
+                    lambda r: r.type == 'up')
+            if len(upload_formats) > 1:
+                upload_formats = upload_formats.filtered(
+                    lambda r: self.upload_fname.endswith(r.suffix))
+            if len(upload_formats) == 1:
+                self.format_id = upload_formats
 
     @api.onchange('format_id')
     def _onchange_format_id(self):
