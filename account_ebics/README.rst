@@ -59,7 +59,7 @@ We also recommend to consider the installation of the following modules:
 
 |
 
-- account_bank_statement_import_camt_oca
+- account_statement_import_camt
 
   Required to handle camt.052 and camt.054 files.
 
@@ -67,13 +67,25 @@ We also recommend to consider the installation of the following modules:
 
 |
 
-- account_bank_statement_import_helper
+- account_statement_import_helper
 
-  Required if you are processing bank statements with local bank account numbers (e.g. french CFONB files).
+  Required if you are processing bank statements with local bank account numbers (e.g. french CFONB files)
+  and using import parsers based upon the OCA account_statement_import module.
 
   The import helper will match the local bank account number with the IBAN number specified on the Odoo Financial journal.
 
-  Cf. https://github.com/noviat-apps
+  Cf. https://github.com/Noviat/noviat-apps
+
+|
+
+- account_bank_statement_import_helper
+
+  Required if you are processing bank statements with local bank account numbers
+  and using import parsers based upon the Odoo Enterprise account_bank_statement_import module.
+
+  The import helper will match the local bank account number with the IBAN number specified on the Odoo Financial journal.
+
+  Cf. https://github.com/Noviat/noviat-apps
 
 |
 
