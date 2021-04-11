@@ -488,7 +488,7 @@ class EbicsXfer(models.TransientModel):
                 "\nPlease check this file and rename in case there is "
                 "no risk on duplicate transactions.")
                 % fn)
-        data = base64.encodestring(data)
+        data = base64.encodebytes(data)
         ef_vals = {
             'name': fn,
             'data': data,
