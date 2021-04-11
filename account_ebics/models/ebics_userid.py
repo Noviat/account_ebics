@@ -350,7 +350,7 @@ class EbicsUserID(models.Model):
         with open(full_tmp_fn, 'rb') as f:
             letter = f.read()
             self.write({
-                'ebics_ini_letter': base64.encodestring(letter),
+                'ebics_ini_letter': base64.encodebytes(letter),
                 'ebics_ini_letter_fn': fn,
             })
 
