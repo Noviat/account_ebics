@@ -1,0 +1,58 @@
+<?xml version="1.0" ?>
+<odoo>
+
+  <menuitem id="ebics_processing_menu"
+            name="EBICS Processing"
+            parent="account.menu_finance"
+            sequence="4"/>
+
+  <menuitem id="ebics_xfer_menu_download"
+            name="EBICS Download"
+            parent="ebics_processing_menu"
+            action="ebics_xfer_action_download"
+            sequence="10"/>
+
+  <menuitem id="ebics_xfer_menu_upload"
+            name="EBICS Upload"
+            parent="ebics_processing_menu"
+            action="ebics_xfer_action_upload"
+            sequence="20"/>
+
+  <menuitem id="ebics_file_menu"
+            name="EBICS Files"
+            parent="ebics_processing_menu"
+            sequence="30"/>
+
+  <menuitem id="ebics_file_menu_download"
+            name="Download"
+            parent="ebics_file_menu"
+            action="ebics_file_action_download"
+            sequence="10"/>
+
+  <menuitem id="ebics_file_menu_upload"
+            name="Upload"
+            parent="ebics_file_menu"
+            action="ebics_file_action_upload"
+            sequence="20"/>
+
+  <menuitem id="ebics_menu"
+            name="EBICS"
+            parent='account.menu_finance_configuration'
+            groups="account_ebics.group_ebics_manager"
+            sequence="100"/>
+
+  <menuitem id="ebics_config_menu"
+            name="EBICS Configuration"
+            parent="ebics_menu"
+            action="ebics_config_action"
+            groups="account_ebics.group_ebics_manager"
+            sequence="10"/>
+
+  <menuitem id="ebics_file_format_menu"
+            name="EBICS File Formats"
+            parent="ebics_menu"
+            action="ebics_file_format_action"
+            groups="account_ebics.group_ebics_manager"
+            sequence="20"/>
+
+</odoo>

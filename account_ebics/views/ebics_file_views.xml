@@ -1,0 +1,199 @@
+<?xml version="1.0" ?>
+<odoo>
+
+  <record id="ebics_file_view_search" model="ir.ui.view">
+    <field name="name">ebics.file.search</field>
+    <field name="model">ebics.file</field>
+    <field name="arch" type="xml">
+      <search string="Search EBICS Files">
+        <group col="10" colspan="4">
+          <field name="date_from"/>
+          <field name="date_to"/>
+          <field name="name"/>
+          <field name="format_id"/>
+          <field name="user_id"/>
+          <field name="company_ids" widget="selection" groups="base.group_multi_company"/>
+        </group>
+        <newline/>
+        <group expand="0" string="Group By">
+          <filter string="File Format" name="file_format" context="{'group_by':'format_id'}"/>
+          <filter string="State" name="state" context="{'group_by':'state'}"/>
+          <filter string="User" name="user" context="{'group_by':'user_id'}"/>
+        </group>
+      </search>
+    </field>
+  </record>
+
+  <!-- Download -->
+
+  <record id="ebics_file_view_tree_download" model="ir.ui.view">
+    <field name="name">ebics.file.tree</field>
+    <field name="model">ebics.file</field>
+    <field name="arch" type="xml">
+      <tree string="EBICS Files" decoration-muted="state=='draft'" create="false">
+        <field name="date" string="Download Date"/>
+        <field name="name"/>
+        <field name="date_from"/>
+        <field name="date_to"/>
+        <field name="user_id"/>
+        <field name="state"/>
+        <field name="format_id"/>
+        <field name="company_ids" widget="many2many_tags" groups="base.group_multi_company"/>
+      </tree>
+    </field>
+  </record>
+
+  <record id="ebics_file_view_form_download" model="ir.ui.view">
+    <field name="name">ebics.file.form</field>
+    <field name="model">ebics.file</field>
+    <field name="priority">1</field>
+    <field name="arch" type="xml">
+      <form string="EBICS File" create="false">
+        <header>
+          <button name="set_to_draft" states="done" string="Set to Draft" type="object" groups="account.group_account_manager"/>
+          <button name="process"
+                  class="oe_highlight"
+                  states="draft"
+                  string="Process"
+                  type="object"
+                  groups="account.group_account_invoice"
+                  help="Process the EBICS File"/>
+          <button name="set_to_done" states="draft" string="Set to Done" type="object" groups="account.group_account_manager"/>
+          <field name="state" widget="statusbar"/>
+        </header>
+        <group colspan="4" col="4">
+          <field name="date" string="Download Date"/>
+          <field name="name"/>
+          <field name="data" filename="name"/>
+          <field name="format_id"/>
+          <field name="date_from"/>
+          <field name="date_to"/>
+          <field name="user_id"/>
+          <field name="ebics_userid_id"/>
+          <field name="company_ids" widget="many2many_tags" groups="base.group_multi_company"/>
+        </group>
+        <notebook>
+          <page string="Additional Information">
+            <field name="note" nolabel="1"/>
+          </page>
+          <page string="Bank Statements" attrs="{'invisible':[('bank_statement_ids','=',[])]}">
+            <field name="bank_statement_ids" nolabel="1"/>
+          </page>
+        </notebook>
+      </form>
+    </field>
+  </record>
+
+  <record id="ebics_file_view_form_result" model="ir.ui.view">
+    <field name="name">ebics.file.process.result</field>
+    <field name="model">ebics.file</field>
+    <field name="priority">2</field>
+    <field name="arch" type="xml">
+      <form string="Process EBICS File">
+        <separator colspan="4" string="Results :" />
+        <field name="note_process" colspan="4" nolabel="1" width="850" height="400"/>
+        <footer>
+          <button name="action_open_bank_statements" string="View Bank Statement(s)"
+                  type="object" class="oe_highlight"
+                  invisible="not context.get('statement_ids')"/>
+          <button name="button_close" type="object" string="Close"/>
+        </footer>
+      </form>
+    </field>
+  </record>
+
+  <record id="ebics_file_action_download" model="ir.actions.act_window">
+    <field name="name">EBICS Download Files</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">ebics.file</field>
+    <field name="view_mode">tree,form</field>
+    <field name="view_id" eval="False"/>
+    <field name="domain">[('type','=','down')]</field>
+    <field name="search_view_id" ref="ebics_file_view_search"/>
+  </record>
+
+  <record id="ebics_file_action_download_tree" model="ir.actions.act_window.view">
+    <field eval="1" name="sequence"/>
+    <field name="view_mode">tree</field>
+    <field name="view_id" ref="ebics_file_view_tree_download"/>
+    <field name="act_window_id" ref="ebics_file_action_download"/>
+  </record>
+
+  <record id="ebics_file_action_download_form" model="ir.actions.act_window.view">
+    <field eval="2" name="sequence"/>
+    <field name="view_mode">form</field>
+    <field name="view_id" ref="ebics_file_view_form_download"/>
+    <field name="act_window_id" ref="ebics_file_action_download"/>
+  </record>
+
+  <!-- Upload -->
+
+  <record id="ebics_file_view_tree_upload" model="ir.ui.view">
+    <field name="name">ebics.file.tree</field>
+    <field name="model">ebics.file</field>
+    <field name="arch" type="xml">
+      <tree string="EBICS Files" decoration-muted="state=='draft'" create="false">
+        <field name="date" string="Upload Date"/>
+        <field name="name"/>
+        <field name="user_id"/>
+        <field name="state"/>
+        <field name="format_id"/>
+        <field name="company_ids" widget="many2many_tags" groups="base.group_multi_company"/>
+      </tree>
+    </field>
+  </record>
+
+  <record id="ebics_file_view_form_upload" model="ir.ui.view">
+    <field name="name">ebics.file.form</field>
+    <field name="model">ebics.file</field>
+    <field name="priority">1</field>
+    <field name="arch" type="xml">
+      <form string="EBICS File" create="false">
+        <header>
+          <button name="set_to_draft" states="done" string="Set to Draft" type="object" groups="account.group_account_manager"/>
+          <button name="set_to_done" states="draft" string="Set to Done" type="object" groups="account.group_account_manager"/>
+          <field name="state" widget="statusbar"/>
+        </header>
+        <group colspan="4" col="4">
+          <field name="date" string="Upload Date"/>
+          <field name="name"/>
+          <field name="data" filename="name"/>
+          <field name="format_id"/>
+          <field name="user_id"/>
+          <field name="ebics_userid_id"/>
+          <field name="company_ids" widget="many2many_tags" groups="base.group_multi_company"/>
+        </group>
+        <notebook>
+          <page string="Additional Information">
+            <field name="note" nolabel="1"/>
+          </page>
+        </notebook>
+      </form>
+    </field>
+  </record>
+
+  <record id="ebics_file_action_upload" model="ir.actions.act_window">
+    <field name="name">EBICS Upload Files</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">ebics.file</field>
+    <field name="view_mode">tree,form</field>
+    <field name="view_id" eval="False"/>
+    <field name="domain">[('type','=','up')]</field>
+    <field name="search_view_id" ref="ebics_file_view_search"/>
+  </record>
+
+  <record id="ebics_file_action_upload_tree" model="ir.actions.act_window.view">
+    <field eval="1" name="sequence"/>
+    <field name="view_mode">tree</field>
+    <field name="view_id" ref="ebics_file_view_tree_upload"/>
+    <field name="act_window_id" ref="ebics_file_action_upload"/>
+  </record>
+
+  <record id="ebics_file_action_upload_form" model="ir.actions.act_window.view">
+    <field eval="2" name="sequence"/>
+    <field name="view_mode">form</field>
+    <field name="view_id" ref="ebics_file_view_form_upload"/>
+    <field name="act_window_id" ref="ebics_file_action_upload"/>
+  </record>
+
+</odoo>

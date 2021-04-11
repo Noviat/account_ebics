@@ -1,0 +1,89 @@
+<?xml version="1.0" ?>
+<odoo>
+
+  <record id="ebics_userid_view_tree" model="ir.ui.view">
+    <field name="name">ebics.userid.tree</field>
+    <field name="model">ebics.userid</field>
+    <field name="arch" type="xml">
+      <tree string="EBICS UserID" decoration-muted="state != 'active_keys'">
+        <field name="name"/>
+        <field name="signature_class"/>
+        <field name="state"/>
+        <field name="active"/>
+      </tree>
+    </field>
+  </record>
+
+  <record id="ebics_userid_view_form" model="ir.ui.view">
+    <field name="name">ebics.userid.form</field>
+    <field name="model">ebics.userid</field>
+    <field name="arch" type="xml">
+      <form string="EBICS UserID">
+        <header groups="account_ebics.group_ebics_manager">
+          <button name="ebics_init_1" states="draft" string="EBICS Initialisation" type="object" class="oe_highlight"
+                  help="Initialise EBICS Bank Keys"/>
+          <button name="ebics_init_2" states="init" string="Account activated" type="object" class="oe_highlight"
+                  help="EBICS Initialisation - Push this button when the account has been activated by the bank."/>
+          <button name="ebics_init_3" states="get_bank_keys" string="Get Bank Keys" type="object" class="oe_highlight"
+                  help="EBICS Initialisation - After the account has been activated the public bank keys must be downloaded and checked for consistency."/>
+          <button name="ebics_init_4" states="to_verify" string="Bank Keys Verified" type="object" class="oe_highlight"
+                  help="EBICS Initialisation - Push this button when the public have been checked for consistency."/>
+          <button name="change_passphrase" string="Change Passphrase" type="object" class="oe_highlight"
+                  attrs="{'invisible': [('ebics_keys_found', '=', False)]}"/>
+          <button name="set_to_draft" states="active_keys" string="Set to Draft" type="object"
+                  help="Set to Draft in order to reinitialize your bank connection."/>
+          <button name="set_to_get_bank_keys" states="active_keys" string="Renew Bank Keys" type="object"
+                  help="Use this button to update the EBICS certificates of your bank."/>
+          <button name="set_to_active_keys" states="draft" string="Force Active Keys" type="object"
+                  help="Use this button to bypass the EBICS initialization (e.g. in case you have manually transferred active EBICS keys from another system."/>
+          <field name="state" widget="statusbar"/>
+        </header>
+        <group name="main" attrs="{'readonly': [('state', '!=', 'draft')]}">
+          <field name="ebics_keys_found" invisible="1"/>
+          <field name="ebics_keys_fn" invisible="1"/>
+          <group name="main-left">
+            <field name="name"/>
+            <field name="ebics_passphrase" password="True"
+                   attrs="{'required': [('state', '=', 'draft')]}"/>
+            <field name="swift_3skey"
+                   attrs="{'invisible': [('signature_class', '=', 'T')]}"/>
+            <field name="swift_3skey_certificate_fn" invisible="1"/>
+            <field name="swift_3skey_certificate" filename="swift_3skey_certificate_fn"
+                   attrs="{'invisible': [('swift_3skey', '=', False)], 'required': [('swift_3skey', '=', True)]}"/>
+            <field name="active"/>
+          </group>
+          <group name="main-right">
+            <field name="signature_class"/>
+            <field name="user_ids" widget="many2many_tags" options="{'no_create': True}"/>
+            <field name="ebics_key_x509"/>
+          </group>
+        </group>
+        <group col="4" name="dn" attrs="{'invisible': [('ebics_key_x509', '=', False)], 'readonly': [('state', '!=', 'draft')]}">
+          <group colspan="4" col="1">
+            <strong>Distinguished Name attributes used to create self-signed X.509 certificates:</strong>
+          </group>
+          <group name="dn_l" colspan="2">
+            <field name="ebics_key_x509_dn_cn"/>
+            <field name="ebics_key_x509_dn_o"/>
+            <field name="ebics_key_x509_dn_l"/>
+            <field name="ebics_key_x509_dn_c"/>
+          </group>
+          <group name="dn_r" colspan="2">
+            <field name="ebics_key_x509_dn_e"/>
+            <field name="ebics_key_x509_dn_ou"/>
+            <field name="ebics_key_x509_dn_st"/>
+          </group>
+        </group>
+        <group colspan="4" name="ebics_ini_letter" attrs="{'invisible': [('ebics_ini_letter', '=', False)]}">
+          <field name="ebics_ini_letter_fn" invisible="1"/>
+          <field name="ebics_ini_letter" filename="ebics_ini_letter_fn"/>
+        </group>
+        <group colspan="4" name="ebics_public_bank_keys" attrs="{'invisible': [('ebics_public_bank_keys', '=', False)]}">
+          <field name="ebics_public_bank_keys_fn" invisible="1"/>
+          <field name="ebics_public_bank_keys" filename="ebics_public_bank_keys_fn"/>
+        </group>
+      </form>
+    </field>
+  </record>
+
+</odoo>
