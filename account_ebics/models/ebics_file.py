@@ -273,7 +273,6 @@ class EbicsFile(models.Model):
                     'details': details,
                 }])
                 continue
-            import pdb; pdb.set_trace()
             result['context']['statement_line_ids'].extend(
                 ctx['statement_line_ids'])
             result['context']['notifications'].extend(
@@ -356,7 +355,6 @@ class EbicsFile(models.Model):
         wiz = self.env[wiz_model].with_context(wiz_ctx).create(wiz_vals)
         res = wiz.import_file_button()
         ctx = res.get('context')
-        import pdb; pdb.set_trace()
         if (res.get('res_model')
                 == 'account.bank.statement.import.journal.creation'):
             message = _(
