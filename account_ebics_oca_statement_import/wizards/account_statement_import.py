@@ -31,7 +31,7 @@ class AccountStatementImport(models.TransientModel):
                     ) + ':\n' + message
                     _logger.warn(log_msg)
                     return
-        super()._check_parsed_data(stmts_vals)
+        return super()._check_parsed_data(stmts_vals)
 
     def _create_bank_statements(self, stmts_vals, result):
         """
