@@ -27,7 +27,7 @@ def _ebics_config_upgrade(env, version):
         state = cfg_data['state'] == 'active' and 'confirm' or 'draft'
         cfg.write({
             'company_ids': [(6, 0, [cfg_data['company_id']])],
-            'journal_ids': [(6, 0, [journal.ids])],
+            'journal_ids': [(6, 0, journal.ids)],
             'ebics_keys': ebics_keys_root,
             'state': state,
         })
