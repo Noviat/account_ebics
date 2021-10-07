@@ -414,6 +414,7 @@ class EbicsXfer(models.TransientModel):
         """
         res = {
             'camt.xxx.cfonb120.stm': self._handle_cfonb120,
+            'camt.xxx.cfonb120.stm.rfi': self._handle_cfonb120,
             'camt.052.001.02.stm': self._handle_camt052,
             'camt.053.001.02.stm': self._handle_camt053,
         }
