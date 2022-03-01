@@ -1,4 +1,4 @@
-# Copyright 2009-2019 Noviat.
+# Copyright 2009-2022 Noviat.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 """
@@ -327,8 +327,9 @@ class EbicsXfer(models.TransientModel):
                 tb = ''.join(format_exception(*exc_info()))
                 self.note += '\n%s' % tb
 
-            if self.ebics_config_id.ebics_version == 'H003' and OrderID:
-                self.ebics_config_id._update_order_number(OrderID)
+            if self.ebics_config_id.ebics_version == 'H003':
+                OrderID = self.ebics_config_id._get_order_number()
+                self.ebics_config_id.sudo()._update_order_number(OrderID)
 
         return ebics_file
 
