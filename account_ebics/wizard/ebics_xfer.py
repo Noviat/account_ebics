@@ -329,7 +329,7 @@ class EbicsXfer(models.TransientModel):
 
             if self.ebics_config_id.ebics_version == 'H003':
                 OrderID = self.ebics_config_id._get_order_number()
-                self.ebics_config_id._update_order_number(OrderID)
+                self.ebics_config_id.sudo()._update_order_number(OrderID)
 
         return ebics_file
 
