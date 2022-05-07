@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<odoo>
+
+  <menuitem
+        id="ebics_batch_log_menu"
+        name="EBICS Batch Import Logs"
+        parent="account_ebics.ebics_processing_menu"
+        action="ebics_batch_log_action"
+        sequence="100"
+    />
+
+</odoo>
