@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ebics_batch_log,ebics.batch.log,model_ebics_batch_log,account.group_account_invoice,1,1,1,1
+access_ebics_batch_log_item,ebics.batch.log.item,model_ebics_batch_log_item,account.group_account_invoice,1,1,1,1
