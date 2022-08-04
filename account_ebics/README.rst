@@ -38,6 +38,12 @@ We also recommend to consider the installation of the following modules:
 
 |
 
+- account_ebics_batch
+
+  This module adds a cron job for the automated import of EBICS files.
+
+|
+
 - account_ebics_batch_payment
 
   Recommended if you are using the Odoo Enterprise account_batch_payment module
