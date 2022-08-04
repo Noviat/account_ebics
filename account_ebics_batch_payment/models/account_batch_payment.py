@@ -1,4 +1,4 @@
-# Copyright 2009-2021 Noviat.
+# Copyright 2009-2022 Noviat.
 # License LGPL-3 or later (http://www.gnu.org/licenses/lpgl).
 
 from odoo import _, models
@@ -13,15 +13,16 @@ class AccountBatchPayment(models.Model):
         ctx = self.env.context.copy()
 
         origin = _("Batch Payment") + ": " + self.name
-        ebics_config = self.env['ebics.config'].search([
-            ('journal_ids', '=', self.journal_id.id),
-            ('state', '=', 'confirm'),
-        ])
+        ebics_config = self.env["ebics.config"].search(
+            [
+                ("journal_ids", "=", self.journal_id.id),
+                ("state", "=", "confirm"),
+            ]
+        )
         if not ebics_config:
-            raise UserError(_(
-                "No active EBICS configuration available "
-                "for the selected bank."
-            ))
+            raise UserError(
+                _("No active EBICS configuration available " "for the selected bank.")
+            )
         if len(ebics_config) == 1:
             ctx["default_ebics_config_id"] = ebics_config.id
         ctx.update(
@@ -29,7 +30,7 @@ class AccountBatchPayment(models.Model):
                 "default_upload_data": self.export_file,
                 "default_upload_fname": self.export_filename,
                 "origin": origin,
-                'force_comany': self.journal_id.company_id.id,
+                "force_comany": self.journal_id.company_id.id,
             }
         )
 
