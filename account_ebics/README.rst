@@ -64,7 +64,7 @@ We also recommend to consider the installation of the following modules:
 
   Required to handle camt.052 and camt.054 files.
 
-  Cf. https://github.com/OCA/bank_statement_import
+  Cf. https://github.com/OCA/bank-statement-import
 
 |
 
