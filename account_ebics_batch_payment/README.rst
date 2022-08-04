@@ -22,8 +22,3 @@ Usage
 
 Create your Batch Payment and generate the bank file.
 Upload the generated file via the 'EBICS Upload' button on the batch payment.
-
-Known issues / Roadmap
-======================
-
- * Add support for multiple EBICS connections.
