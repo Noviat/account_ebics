@@ -168,44 +168,59 @@ class EbicsFile(models.Model):
             return False
         return True
 
-    def _process_result_action(self, res):
+    def _process_result_action(self, res, parser="oca"):
         notifications = []
         st_line_ids = []
         statement_ids = []
-        if res.get("context"):
-            notifications = res["context"].get("notifications", [])
-            st_line_ids = res["context"].get("statement_line_ids", [])
-        if notifications:
-            for notif in notifications:
-                parts = []
-                for k in ["type", "message", "details"]:
-                    if notif.get(k):
-                        msg = "{}: {}".format(k, notif[k])
-                        parts.append(msg)
-                self.note_process += "\n".join(parts)
+        sts_data = []
+        if parser == "oca":
+            if res.get("context"):
+                notifications = res["context"].get("notifications", [])
+                st_line_ids = res["context"].get("statement_line_ids", [])
+            if notifications:
+                for notif in notifications:
+                    parts = []
+                    for k in ["type", "message", "details"]:
+                        if notif.get(k):
+                            msg = "{}: {}".format(k, notif[k])
+                            parts.append(msg)
+                    self.note_process += "\n".join(parts)
+                    self.note_process += "\n"
                 self.note_process += "\n"
-            self.note_process += "\n"
-        if st_line_ids:
-            self.flush()
-            self.env.cr.execute(
-                """
-    SELECT DISTINCT
-        absl.statement_id,
-        abs.name, abs.date, abs.company_id,
-        rc.name AS company_name
-      FROM account_bank_statement_line absl
-      INNER JOIN account_bank_statement abs
-        ON abs.id = absl.statement_id
-      INNER JOIN res_company rc
-        ON rc.id = abs.company_id
-      WHERE absl.id IN %s
-      ORDER BY date, company_id
-                """,
-                (tuple(st_line_ids),),
-            )
-            sts_data = self.env.cr.dictfetchall()
-        else:
-            sts_data = []
+            if st_line_ids:
+                self.flush()
+                self.env.cr.execute(
+                    """
+                SELECT DISTINCT
+                    absl.statement_id,
+                    abs.name, abs.date, abs.company_id,
+                    rc.name AS company_name
+                  FROM account_bank_statement_line absl
+                  INNER JOIN account_bank_statement abs
+                    ON abs.id = absl.statement_id
+                  INNER JOIN res_company rc
+                    ON rc.id = abs.company_id
+                  WHERE absl.id IN %s
+                  ORDER BY date, company_id
+                    """,
+                    (tuple(st_line_ids),),
+                )
+                sts_data = self.env.cr.dictfetchall()
+        elif parser == "oe":
+            if res.get("res_id"):
+                st_ids = res["res_id"]
+            else:
+                st_ids = res["domain"][2]
+            statements = self.env["account.bank.statement"].browse(st_ids)
+            for statement in statements:
+                sts_data.append(
+                    {
+                        "statement_id": statement.id,
+                        "date": statement.date,
+                        "name": statement.name,
+                        "company_name": statement.company_id.name,
+                    }
+                )
         st_cnt = len(sts_data)
         if st_cnt:
             self.note_process += _("%s bank statements have been imported: ") % st_cnt
@@ -414,7 +429,7 @@ class EbicsFile(models.Model):
                     _("No financial journal found for Company Bank Account %s")
                     % bank_account
                 )
-        return self._process_result_action(res)
+        return self._process_result_action(res, parser="oe")
 
     @staticmethod
     def _unlink_camt053(self):
