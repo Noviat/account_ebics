@@ -168,15 +168,14 @@ class EbicsFile(models.Model):
             return False
         return True
 
-    def _process_result_action(self, res, parser="oca"):
+    def _process_result_action(self, res):
         notifications = []
         st_line_ids = []
         statement_ids = []
         sts_data = []
-        if parser == "oca":
-            if res.get("context"):
-                notifications = res["context"].get("notifications", [])
-                st_line_ids = res["context"].get("statement_line_ids", [])
+        if res.get("type") and res["type"] == "ir.actions.client":
+            notifications = res["context"].get("notifications", [])
+            st_line_ids = res["context"].get("statement_line_ids", [])
             if notifications:
                 for notif in notifications:
                     parts = []
@@ -206,7 +205,7 @@ class EbicsFile(models.Model):
                     (tuple(st_line_ids),),
                 )
                 sts_data = self.env.cr.dictfetchall()
-        elif parser == "oe":
+        else:
             if res.get("res_id"):
                 st_ids = res["res_id"]
             else:
@@ -429,7 +428,7 @@ class EbicsFile(models.Model):
                     _("No financial journal found for Company Bank Account %s")
                     % bank_account
                 )
-        return self._process_result_action(res, parser="oe")
+        return self._process_result_action(res)
 
     @staticmethod
     def _unlink_camt053(self):
