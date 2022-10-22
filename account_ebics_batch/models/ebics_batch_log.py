@@ -1,6 +1,3 @@
-# Copyright 2009-2022 Noviat.
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-
 from sys import exc_info
 from traceback import format_exception
 
@@ -65,9 +62,7 @@ class EbicsBatchLog(models.Model):
         self._finalise_processing(import_dict)
 
     def view_ebics_files(self):
-        action = self.env["ir.actions.actions"]._for_xml_id(
-            "account_ebics.ebics_file_action_download"
-        )
+        action = self.env.ref('account_ebics.ebics_file_action_download')
         action["domain"] = [("id", "in", self.file_ids.ids)]
         return action
 
