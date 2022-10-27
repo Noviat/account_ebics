@@ -14,10 +14,10 @@ odoo_version: 16.0
 org_name: Noviat
 org_slug: Noviat
 rebel_module_groups: []
-repo_description: 'Noviat Generic - Accounting Repository'
-repo_name: accounting
-repo_slug: accounting
-repo_website: https://picasso.noviat.com/Noviat/Noviat_Generic/accounting/
+repo_description: 'EBICS support for Odoo'
+repo_name: account_ebics
+repo_slug: account_ebics
+repo_website: https://github.com/Noviat/account_ebics
 travis_apt_packages: []
 travis_apt_sources: []
 

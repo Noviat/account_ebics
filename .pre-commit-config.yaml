@@ -19,7 +19,7 @@ exclude: |
   /TODO/
 default_language_version:
   python: python3
-  node: "16.10.0"
+  node: "16.17.0"
 repos:
   - repo: local
     hooks:
@@ -118,7 +118,7 @@ repos:
         name: flake8
         additional_dependencies: ["flake8-bugbear==20.1.4"]
   - repo: https://github.com/OCA/pylint-odoo
-    rev: v8.0.13
+    rev: 7.0.2
     hooks:
       - id: pylint_odoo
         name: pylint with optional checks
