@@ -1,4 +1,4 @@
-# Copyright 2009-2020 Noviat.
+# Copyright 2009-2022 Noviat.
 # License LGPL-3 or later (http://www.gnu.org/licenses/lpgl).
 
 import logging
@@ -43,8 +43,8 @@ class EbicsChangePassphrase(models.TransientModel):
                 passphrase=self.ebics_userid_id.ebics_passphrase,
             )
             keyring.change_passphrase(self.new_pass)
-        except ValueError as e:
-            raise UserError(str(e))
+        except ValueError as err:
+            raise UserError(str(err)) from err
         self.ebics_userid.ebics_passphrase = self.new_pass
         self.note = "The EBICS Passphrase has been changed."
 

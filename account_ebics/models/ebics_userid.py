@@ -1,4 +1,4 @@
-# Copyright 2009-2020 Noviat.
+# Copyright 2009-2022 Noviat.
 # License LGPL-3 or later (http://www.gnu.org/licenses/lpgl).
 
 import base64
@@ -75,7 +75,6 @@ class EbicsUserID(models.Model):
     # Classes A and B are not yet supported.
     signature_class = fields.Selection(
         selection=[("E", "Single signature"), ("T", "Transport signature")],
-        string="Signature Class",
         required=True,
         default="T",
         readonly=True,
@@ -157,12 +156,11 @@ class EbicsUserID(models.Model):
             ("to_verify", "Verification"),
             ("active_keys", "Active Keys"),
         ],
-        string="State",
         default="draft",
         required=True,
         readonly=True,
     )
-    active = fields.Boolean(string="Active", default=True)
+    active = fields.Boolean(default=True)
     company_ids = fields.Many2many(
         comodel_name="res.company",
         string="Companies",
@@ -243,11 +241,11 @@ class EbicsUserID(models.Model):
                 partnerid=self.ebics_config_id.ebics_partner,
                 userid=self.name,
             )
-        except Exception:
+        except Exception as err:
             exctype, value = exc_info()[:2]
             error = _("EBICS Initialisation Error:")
             error += "\n" + str(exctype) + "\n" + str(value)
-            raise UserError(error)
+            raise UserError(error) from err
 
         self.ebics_config_id._check_ebics_keys()
         if not os.path.isfile(self.ebics_keys_fn):
@@ -265,11 +263,11 @@ class EbicsUserID(models.Model):
                     keyversion=self.ebics_config_id.ebics_key_version,
                     bitlength=self.ebics_config_id.ebics_key_bitlength,
                 )
-            except Exception:
+            except Exception as err:
                 exctype, value = exc_info()[:2]
                 error = _("EBICS Initialisation Error:")
                 error += "\n" + str(exctype) + "\n" + str(value)
-                raise UserError(error)
+                raise UserError(error) from err
 
         if self.swift_3skey and not self.ebics_key_x509:
             raise UserError(
@@ -314,7 +312,7 @@ class EbicsUserID(models.Model):
             _logger.info("%s, EBICS INI command, OrderID=%s", self._name, OrderID)
             if ebics_version == "H003":
                 self.ebics_config_id._update_order_number(OrderID)
-        except URLError:
+        except URLError as err:
             exctype, value = exc_info()[:2]
             tb = "".join(format_exception(*exc_info()))
             _logger.error(
@@ -323,21 +321,22 @@ class EbicsUserID(models.Model):
                 tb,
             )
             raise UserError(
-                _("urlopen error:\n url '%s' - %s")
-                % (self.ebics_config_id.ebics_url, str(value))
-            )
-        except EbicsFunctionalError:
+                _("urlopen error:\n url '%(url)s' - %(val)s"),
+                url=self.ebics_config_id.ebics_url,
+                val=str(value),
+            ) from err
+        except EbicsFunctionalError as err:
             e = exc_info()
             error = _("EBICS Functional Error:")
             error += "\n"
             error += "{} (code: {})".format(e[1].message, e[1].code)
-            raise UserError(error)
-        except EbicsTechnicalError:
+            raise UserError(error) from err
+        except EbicsTechnicalError as err:
             e = exc_info()
             error = _("EBICS Technical Error:")
             error += "\n"
             error += "{} (code: {})".format(e[1].message, e[1].code)
-            raise UserError(error)
+            raise UserError(error) from err
 
         # Send the public authentication and encryption keys to the bank.
         if ebics_version == "H003":
@@ -411,25 +410,25 @@ class EbicsUserID(models.Model):
                 userid=self.name,
             )
             client = EbicsClient(bank, user, version=self.ebics_config_id.ebics_version)
-        except Exception:
+        except Exception as err:
             exctype, value = exc_info()[:2]
             error = _("EBICS Initialisation Error:")
             error += "\n" + str(exctype) + "\n" + str(value)
-            raise UserError(error)
+            raise UserError(error) from err
 
         try:
             public_bank_keys = client.HPB()
-        except EbicsFunctionalError:
+        except EbicsFunctionalError as err:
             e = exc_info()
             error = _("EBICS Functional Error:")
             error += "\n"
             error += "{} (code: {})".format(e[1].message, e[1].code)
-            raise UserError(error)
-        except Exception:
+            raise UserError(error) from err
+        except Exception as err:
             exctype, value = exc_info()[:2]
             error = _("EBICS Initialisation Error:")
             error += "\n" + str(exctype) + "\n" + str(value)
-            raise UserError(error)
+            raise UserError(error) from err
 
         public_bank_keys = public_bank_keys.encode()
         tmp_dir = os.path.normpath(self.ebics_config_id.ebics_files + "/tmp")
