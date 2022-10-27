@@ -46,7 +46,6 @@ class EbicsFile(models.Model):
     )
     state = fields.Selection(
         [("draft", "Draft"), ("done", "Done")],
-        string="State",
         default="draft",
         required=True,
         readonly=True,
@@ -93,8 +92,7 @@ class EbicsFile(models.Model):
 
     def process(self):
         self.ensure_one()
-        ctx = dict(self.env.context, allowed_company_ids=self.env.user.company_ids.ids)
-        self = self.with_context(ctx)
+        self = self.with_context(allowed_company_ids=self.env.user.company_ids.ids)
         self.note_process = ""
         ff_methods = self._file_format_methods()
         ff = self.format_id.download_process_method
@@ -159,11 +157,12 @@ class EbicsFile(models.Model):
             if raise_if_not_found:
                 raise UserError(
                     _(
-                        "The module to process the '%s' format is not installed "
+                        "The module to process the '%(ebics_format)s' format is not installed "
                         "on your system. "
-                        "\nPlease install module '%s'"
+                        "\nPlease install module '%(module)s'",
+                        ebics_format=self.format_id.name,
+                        module=module,
                     )
-                    % (self.format_id.name, module)
                 )
             return False
         return True
@@ -288,9 +287,12 @@ class EbicsFile(models.Model):
                 "notifications": [],
             },
         }
-        wiz_ctx = dict(self.env.context, active_model="ebics.file")
         for i, wiz_vals in enumerate(wiz_vals_list, start=1):
-            wiz = self.env[wiz_model].with_context(wiz_ctx).create(wiz_vals)
+            wiz = (
+                self.env[wiz_model]
+                .with_context(active_model="ebics.file")
+                .create(wiz_vals)
+            )
             res = wiz.import_file_button()
             ctx = res.get("context")
             if res.get("res_model") == "account.bank.statement.import.journal.creation":
@@ -360,11 +362,12 @@ class EbicsFile(models.Model):
         if not found:
             raise UserError(
                 _(
-                    "The module to process the '%s' format is not installed "
-                    "on your system. "
-                    "\nPlease install one of the following modules: \n%s."
+                    "The module to process the '%(ebics_format)s' format is "
+                    "not installed on your system. "
+                    "\nPlease install one of the following modules: \n%(modules)s.",
+                    ebics_format=self.format_id.name,
+                    modules=", ".join([x[1] for x in modules]),
                 )
-                % (self.format_id.name, ", ".join([x[1] for x in modules]))
             )
         if _src == "oca":
             self._process_camt053_oca()
@@ -386,8 +389,9 @@ class EbicsFile(models.Model):
                 "notifications": [],
             },
         }
-        wiz_ctx = dict(self.env.context, active_model="ebics.file")
-        wiz = self.env[wiz_model].with_context(wiz_ctx).create(wiz_vals)
+        wiz = (
+            self.env[wiz_model].with_context(active_model="ebics.file").create(wiz_vals)
+        )
         res = wiz.import_file_button()
         ctx = res.get("context")
         if res.get("res_model") == "account.bank.statement.import.journal.creation":
@@ -418,8 +422,9 @@ class EbicsFile(models.Model):
                 )
             ]
         }
-        ctx = dict(self.env.context, active_model="ebics.file")
-        wiz = self.env[wiz_model].with_context(ctx).create(wiz_vals)
+        wiz = (
+            self.env[wiz_model].with_context(active_model="ebics.file").create(wiz_vals)
+        )
         res = wiz.import_file()
         if res.get("res_model") == "account.bank.statement.import.journal.creation":
             if res.get("context"):

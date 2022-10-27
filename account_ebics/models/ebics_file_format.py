@@ -1,4 +1,4 @@
-# Copyright 2009-2020 Noviat.
+# Copyright 2009-2022 Noviat.
 # License LGPL-3 or later (http://www.gnu.org/licenses/lpgl).
 
 from odoo import api, fields, models
@@ -22,7 +22,6 @@ class EbicsFileFormat(models.Model):
         selection=[("down", "Download"), ("up", "Upload")], required=True
     )
     order_type = fields.Char(
-        string="Order Type",
         required=True,
         help="E.g. C53 (check your EBICS contract).\n"
         "For most banks in France you should use the "
@@ -40,7 +39,6 @@ class EbicsFileFormat(models.Model):
     # move signature_class parameter so that it can be set per EBICS config
     signature_class = fields.Selection(
         selection=[("E", "Single signature"), ("T", "Transport signature")],
-        string="Signature Class",
         help="Please doublecheck the security of your Odoo "
         "ERP system when using class 'E' to prevent unauthorised "
         "users to make supplier payments."

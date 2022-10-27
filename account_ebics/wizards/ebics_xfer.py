@@ -86,7 +86,6 @@ class EbicsXfer(models.TransientModel):
         "and 'FDL' for download.",
     )
     test_mode = fields.Boolean(
-        string="Test Mode",
         help="Select this option to test if the syntax of "
         "the upload file is correct."
         "\nThis option is only available for "
@@ -222,8 +221,11 @@ class EbicsXfer(models.TransientModel):
                     e = exc_info()
                     self.note += "\n"
                     self.note += _(
-                        "EBICS Functional Error during download of File Format %s (%s):"
-                    ) % (df.name, df.order_type)
+                        "EBICS Functional Error during download of "
+                        "File Format %(name)s (%(order_type)s):",
+                        name=df.name,
+                        order_type=df.order_type,
+                    )
                     self.note += "\n"
                     self.note += "{} (code: {})".format(e[1].message, e[1].code)
                 except EbicsTechnicalError:
@@ -231,8 +233,11 @@ class EbicsXfer(models.TransientModel):
                     e = exc_info()
                     self.note += "\n"
                     self.note += _(
-                        "EBICS Technical Error during download of File Format %s (%s):"
-                    ) % (df.name, df.order_type)
+                        "EBICS Technical Error during download of "
+                        "File Format %(name)s (%(order_type)s):",
+                        name=df.name,
+                        order_type=df.order_type,
+                    )
                     self.note += "\n"
                     self.note += "{} (code: {})".format(e[1].message, e[1].code)
                 except EbicsVerificationError:
@@ -240,23 +245,31 @@ class EbicsXfer(models.TransientModel):
                     self.note += "\n"
                     self.note += _(
                         "EBICS Verification Error during download of "
-                        "File Format %s (%s):"
-                    ) % (df.name, df.order_type)
+                        "File Format %(name)s (%(order_type)s):",
+                        name=df.name,
+                        order_type=df.order_type,
+                    )
                     self.note += "\n"
                     self.note += _("The EBICS response could not be verified.")
                 except UserError as e:
                     self.note += "\n"
                     self.note += _(
-                        "Warning during download of File Format %s (%s):"
-                    ) % (df.name, df.order_type)
+                        "Warning during download of "
+                        "File Format %(name)s (%(order_type)s):",
+                        name=df.name,
+                        order_type=df.order_type,
+                    )
                     self.note += "\n"
                     self.note += e.name
                 except Exception:
                     err_cnt += 1
                     self.note += "\n"
                     self.note += _(
-                        "Unknown Error during download of File Format %s (%s):"
-                    ) % (df.name, df.order_type)
+                        "Unknown Error during download of "
+                        "File Format %(name)s (%(order_type)s):",
+                        name=df.name,
+                        order_type=df.order_type,
+                    )
                     tb = "".join(format_exception(*exc_info()))
                     self.note += "\n%s" % tb
                 else:

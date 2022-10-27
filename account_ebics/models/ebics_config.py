@@ -22,7 +22,6 @@ class EbicsConfig(models.Model):
     _order = "name"
 
     name = fields.Char(
-        string="Name",
         readonly=True,
         states={"draft": [("readonly", False)]},
         required=True,
@@ -131,7 +130,6 @@ class EbicsConfig(models.Model):
     )
     state = fields.Selection(
         [("draft", "Draft"), ("confirm", "Confirmed")],
-        string="State",
         default="draft",
         required=True,
         readonly=True,
@@ -144,7 +142,7 @@ class EbicsConfig(models.Model):
         "\nThis number should match the following pattern : "
         "[A-Z]{1}[A-Z0-9]{3}",
     )
-    active = fields.Boolean(string="Active", default=True)
+    active = fields.Boolean(default=True)
     company_ids = fields.Many2many(
         comodel_name="res.company",
         string="Companies",
