@@ -6,7 +6,7 @@
     "version": "14.0.1.0.5",
     "license": "LGPL-3",
     "author": "Noviat",
-    "website": "www.noviat.com",
+    "website": "https://github.com/Noviat/account_ebics",
     "category": "Accounting & Finance",
     "depends": ["account"],
     "data": [
