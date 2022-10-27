@@ -5,7 +5,7 @@
     <field name="name">ebics.config.tree</field>
     <field name="model">ebics.config</field>
     <field name="arch" type="xml">
-      <tree string="EBICS Configuration" decoration-muted="state == 'draft'">
+      <tree decoration-muted="state == 'draft'">
         <field name="name" />
         <field name="ebics_host" />
         <field name="state" />

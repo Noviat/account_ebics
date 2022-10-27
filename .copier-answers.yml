@@ -17,7 +17,7 @@ rebel_module_groups: []
 repo_description: 'EBICS support for Odoo'
 repo_name: account_ebics
 repo_slug: account_ebics
-repo_website: https://github.com/Noviat/account_ebics
+repo_website: https://www.noviat.com
 travis_apt_packages: []
 travis_apt_sources: []
 

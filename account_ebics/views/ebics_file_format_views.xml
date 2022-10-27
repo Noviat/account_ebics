@@ -5,7 +5,7 @@
     <field name="name">ebics.file.format.tree</field>
     <field name="model">ebics.file.format</field>
     <field name="arch" type="xml">
-      <tree string="EBICS File Formats">
+      <tree>
         <field name="type" />
         <field name="order_type" />
         <field name="signature_class" />

@@ -5,7 +5,7 @@
     <field name="name">ebics.userid.tree</field>
     <field name="model">ebics.userid</field>
     <field name="arch" type="xml">
-      <tree string="EBICS UserID" decoration-muted="state != 'active_keys'">
+      <tree decoration-muted="state != 'active_keys'">
         <field name="name" />
         <field name="signature_class" />
         <field name="state" />
