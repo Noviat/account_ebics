@@ -32,7 +32,6 @@ class EbicsBatchLog(models.Model):
     has_draft_files = fields.Boolean(compute="_compute_ebics_files_fields")
     state = fields.Selection(
         selection=[("draft", "Draft"), ("error", "Error"), ("done", "Done")],
-        string="State",
         required=True,
         readonly=True,
         default="draft",
@@ -62,7 +61,7 @@ class EbicsBatchLog(models.Model):
         self._finalise_processing(import_dict)
 
     def view_ebics_files(self):
-        action = self.env.ref('account_ebics.ebics_file_action_download')
+        action = self.env.ref("account_ebics.ebics_file_action_download")
         action["domain"] = [("id", "in", self.file_ids.ids)]
         return action
 
@@ -76,8 +75,8 @@ class EbicsBatchLog(models.Model):
             "ebics.config"
         ].search(
             [
-                ("company_ids", "in", self.env.user.company_ids.ids),
-                ("state", "=", "confirm"),
+                ("company_id", "=", self.env.user.company_id.id),
+                ("state", "=", "active"),
             ]
         )
         log = log_model.create(
@@ -145,7 +144,7 @@ class EbicsBatchLog(models.Model):
         ctx = dict(self.env.context, ebics_download=True)
         xfer_wiz = (
             self.env["ebics.xfer"]
-            .with_context(ctx)
+            .with_context(**ctx)
             .create(
                 {
                     "ebics_config_id": config.id,
@@ -180,7 +179,6 @@ class EbicsBatchLogItem(models.Model):
     )
     state = fields.Selection(
         selection=[("draft", "Draft"), ("error", "Error"), ("done", "Done")],
-        string="State",
         required=True,
         readonly=True,
     )
