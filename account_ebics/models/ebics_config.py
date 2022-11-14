@@ -33,7 +33,6 @@ class EbicsConfig(models.Model):
         states={"draft": [("readonly", False)]},
         string="Bank Accounts",
         domain="[('type', '=', 'bank')]",
-        required=True,
     )
     ebics_host = fields.Char(
         string="EBICS HostID",
