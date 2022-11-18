@@ -6,6 +6,7 @@
     <field name="model">ebics.file.format</field>
     <field name="arch" type="xml">
       <tree>
+                  <field name="ebics_version" />
         <field name="type" />
         <field name="order_type" />
         <field name="signature_class" />
@@ -22,6 +23,7 @@
       <form string="EBICS File Format">
         <group name="main">
           <group name="main-left">
+            <field name="ebics_version" />
             <field name="type" />
             <field name="suffix" />
             <field
@@ -33,7 +35,42 @@
           </group>
           <group name="main-right">
             <field name="order_type" />
-            <field name="name" />
+            <field
+                            name="name"
+                            attrs="{'required': [('ebics_version', '=', '2')], 'invisible': [('ebics_version', '=', '3')]}"
+                        />
+            <field
+                            name="btf_service"
+                            attrs="{'required': [('ebics_version', '=', '3')], 'invisible': [('ebics_version', '=', '2')]}"
+                        />
+            <field
+                            name="btf_message"
+                            attrs="{'required': [('ebics_version', '=', '3')], 'invisible': [('ebics_version', '=', '2')]}"
+                        />
+            <field
+                            name="btf_scope"
+                            attrs="{'invisible': [('ebics_version', '=', '2')]}"
+                        />
+            <field
+                            name="btf_option"
+                            attrs="{'invisible': [('ebics_version', '=', '2')]}"
+                        />
+            <field
+                            name="btf_container"
+                            attrs="{'invisible': [('ebics_version', '=', '2')]}"
+                        />
+            <field
+                            name="btf_version"
+                            attrs="{'invisible': [('ebics_version', '=', '2')]}"
+                        />
+            <field
+                            name="btf_variant"
+                            attrs="{'invisible': [('ebics_version', '=', '2')]}"
+                        />
+            <field
+                            name="btf_format"
+                            attrs="{'invisible': [('ebics_version', '=', '2')]}"
+                        />
           </group>
         </group>
         <group name="description">
