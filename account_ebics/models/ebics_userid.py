@@ -14,8 +14,8 @@ from odoo.exceptions import UserError
 _logger = logging.getLogger(__name__)
 
 # logging.basicConfig(
-#     level=logging.DEBUG,
-#     format='[%(asctime)s] %(levelname)s - %(name)s: %(message)s')
+#    level=logging.DEBUG,
+#    format='[%(asctime)s] %(levelname)s - %(name)s: %(message)s')
 
 try:
     import fintech
@@ -173,7 +173,9 @@ class EbicsUserID(models.Model):
         for rec in self:
             keys_dir = rec.ebics_config_id.ebics_keys
             rec.ebics_keys_fn = (
-                rec.name and keys_dir and (keys_dir + "/" + rec.name + "_keys")
+                rec.name
+                and keys_dir
+                and (keys_dir + "/" + rec.name.replace(" ", "_") + "_keys")
             )
 
     @api.depends("ebics_keys_fn")
@@ -254,7 +256,7 @@ class EbicsUserID(models.Model):
                 # enable import of all type of certicates: A00x, X002, E002
                 if self.swift_3skey:
                     kwargs = {
-                        self.ebics_config_id.ebics_key_version: base64.decodestring(
+                        self.ebics_config_id.ebics_key_version: base64.decodebytes(
                             self.swift_3skey_certificate
                         ),
                     }
@@ -300,7 +302,7 @@ class EbicsUserID(models.Model):
             )
         try:
             supported_versions = client.HEV()
-            if ebics_version not in supported_versions:
+            if supported_versions and ebics_version not in supported_versions:
                 err_msg = _("EBICS version mismatch.") + "\n"
                 err_msg += _("Versions supported by your bank:")
                 for k in supported_versions:
@@ -321,9 +323,11 @@ class EbicsUserID(models.Model):
                 tb,
             )
             raise UserError(
-                _("urlopen error:\n url '%(url)s' - %(val)s"),
-                url=self.ebics_config_id.ebics_url,
-                val=str(value),
+                _(
+                    "urlopen error:\n url '%(url)s' - %(val)s",
+                    url=self.ebics_config_id.ebics_url,
+                    val=str(value),
+                )
             ) from err
         except EbicsFunctionalError as err:
             e = exc_info()
@@ -441,7 +445,7 @@ class EbicsUserID(models.Model):
         )
         self.write(
             {
-                "ebics_public_bank_keys": base64.encodestring(public_bank_keys),
+                "ebics_public_bank_keys": base64.encodebytes(public_bank_keys),
                 "ebics_public_bank_keys_fn": fn,
                 "state": "to_verify",
             }

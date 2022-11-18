@@ -51,7 +51,11 @@ class EbicsConfig(models.Model):
         help="Contact your bank to get the EBICS URL.",
     )
     ebics_version = fields.Selection(
-        selection=[("H003", "H003 (2.4)"), ("H004", "H004 (2.5)")],
+        selection=[
+            ("H003", "H003 (2.4)"),
+            ("H004", "H004 (2.5)"),
+            ("H005", "H005 (3.0)"),
+        ],
         string="EBICS protocol version",
         readonly=True,
         states={"draft": [("readonly", False)]},
