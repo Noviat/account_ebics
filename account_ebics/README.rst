@@ -194,5 +194,4 @@ You can also find this information in the doc folder of this module (file EBICS_
 Known Issues / Roadmap
 ======================
 
-- add support for EBICS 3.0
 - add support to import externally generated keys & certificates (currently only 3SKey signature certificate)

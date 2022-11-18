@@ -22,6 +22,7 @@ _logger = logging.getLogger(__name__)
 try:
     import fintech
     from fintech.ebics import (
+        BusinessTransactionFormat,
         EbicsBank,
         EbicsClient,
         EbicsFunctionalError,
@@ -81,9 +82,6 @@ class EbicsXfer(models.TransientModel):
     order_type = fields.Char(
         related="format_id.order_type",
         string="Order Type",
-        help="For most banks in France you should use the "
-        "format neutral Order Types 'FUL' for upload "
-        "and 'FDL' for download.",
     )
     test_mode = fields.Boolean(
         help="Select this option to test if the syntax of "
@@ -202,7 +200,19 @@ class EbicsXfer(models.TransientModel):
             for df in download_formats:
                 try:
                     success = False
-                    if df.order_type == "FDL":
+                    if df.order_type == "BTD":
+                        btf = BusinessTransactionFormat(
+                            df.btf_service,
+                            df.btf_message,
+                            scope=df.btf_scope or None,
+                            option=df.btf_option or None,
+                            container=df.btf_container or None,
+                            version=df.btf_version or None,
+                            variant=df.btf_variant or None,
+                            format=df.btf_format or None,
+                        )
+                        data = client.BTD(btf, start=date_from, end=date_to)
+                    elif df.order_type == "FDL":
                         data = client.FDL(df.name, date_from, date_to)
                     else:
                         params = None
@@ -323,7 +333,7 @@ class EbicsXfer(models.TransientModel):
         self.note = ""
         client = self._setup_client()
         if client:
-            upload_data = base64.decodestring(self.upload_data)
+            upload_data = base64.decodebytes(self.upload_data)
             ef_format = self.format_id
             OrderID = False
             try:
