@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+  <record id="ebics_xfer_view_form_download" model="ir.ui.view">
+    <field name="name">EBICS File Download</field>
+    <field name="model">ebics.xfer</field>
+    <field name="priority">1</field>
+    <field name="arch" type="xml">
+      <form string="EBICS File Download">
+        <group>
+          <separator string="Select your bank :" colspan="2" />
+          <field
+                        name="ebics_config_id"
+                        required="1"
+                        options="{'no_create': True, 'no_open': True}"
+                    />
+          <field
+                        name="ebics_userid_id"
+                        domain="[('ebics_config_id', '=', ebics_config_id)]"
+                        required="1"
+                        options="{'no_create': True, 'no_open': True}"
+                    />
+          <field name="date_from" />
+          <field name="date_to" />
+          <field
+                        name="format_id"
+                        domain="[('type', '=', 'down'), ('id', 'in', allowed_format_ids)]"
+                    />
+          <field name="order_type" />
+          <field name="allowed_format_ids" invisible="1" />
+        </group>
+        <footer>
+          <button
+                        name="ebics_download"
+                        string="Download Files"
+                        type="object"
+                        class="oe_highlight"
+                    />
+          or
+          <button string="Cancel" class="oe_link" special="cancel" />
+        </footer>
+      </form>
+    </field>
+  </record>
+
+  <record id="ebics_xfer_view_form_upload" model="ir.ui.view">
+    <field name="name">EBICS File Upload</field>
+    <field name="model">ebics.xfer</field>
+    <field name="priority">1</field>
+    <field name="arch" type="xml">
+      <form string="EBICS File Upload">
+        <group>
+          <separator string="Select your bank :" colspan="2" />
+          <field
+                        name="ebics_config_id"
+                        required="1"
+                        options="{'no_create': True, 'no_open': True}"
+                    />
+          <field
+                        name="ebics_userid_id"
+                        domain="[('ebics_config_id', '=', ebics_config_id)]"
+                        required="1"
+                        options="{'no_create': True, 'no_open': True}"
+                    />
+          <separator string="Select your file :" colspan="2" />
+          <field name="upload_data" filename="upload_fname" required="1" />
+          <field name="upload_fname" invisible="1" />
+          <field name="upload_fname_dummy" />
+          <field
+                        name="format_id"
+                        required="1"
+                        domain="[('type', '=', 'up'), ('id', 'in', allowed_format_ids)]"
+                    />
+          <field name="order_type" />
+          <field
+                        name="test_mode"
+                        attrs="{'invisible': [('order_type', '!=', 'FUL')]}"
+                    />
+          <field name="allowed_format_ids" invisible="1" />
+        </group>
+        <footer>
+          <button
+                        name="ebics_upload"
+                        string="Upload File"
+                        type="object"
+                        class="oe_highlight"
+                    />
+          or
+          <button string="Cancel" class="oe_link" special="cancel" />
+        </footer>
+      </form>
+    </field>
+  </record>
+
+  <record id="ebics_xfer_view_form_result" model="ir.ui.view">
+    <field name="name">EBICS File Transfer</field>
+    <field name="model">ebics.xfer</field>
+    <field name="priority">2</field>
+    <field name="arch" type="xml">
+      <form string="EBICS File Transfer">
+        <separator colspan="4" string="Results :" />
+        <field name="note" colspan="4" nolabel="1" width="850" height="400" />
+        <footer>
+          <button
+                        name="view_ebics_file"
+                        type="object"
+                        string="View EBICS File(s)"
+                        class="oe_highlight"
+                        invisible="not context.get('ebics_file_ids')"
+                    />
+          <button name="button_close" type="object" string="Close" />
+        </footer>
+      </form>
+    </field>
+  </record>
+
+  <record id="ebics_xfer_action_download" model="ir.actions.act_window">
+    <field name="name">EBICS File Transfer</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">ebics.xfer</field>
+    <field name="view_mode">form</field>
+    <field name="target">new</field>
+    <field name="context">{'ebics_download': 1}</field>
+    <field name="view_id" ref="ebics_xfer_view_form_download" />
+  </record>
+
+  <record id="ebics_xfer_action_upload" model="ir.actions.act_window">
+    <field name="name">EBICS File Transfer</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">ebics.xfer</field>
+    <field name="view_mode">form</field>
+    <field name="target">new</field>
+    <field name="context">{'ebics_upload': 1}</field>
+    <field name="view_id" ref="ebics_xfer_view_form_upload" />
+  </record>
+
+</odoo>

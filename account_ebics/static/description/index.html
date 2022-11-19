@@ -3,13 +3,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
-<title></title>
+<meta name="generator" content="Docutils 0.16: http://docutils.sourceforge.net/" />
+<title>README.rst</title>
 <style type="text/css">
 
 /*
 :Author: David Goodger (goodger@python.org)
-:Id: $Id: html4css1.css 7614 2013-02-21 15:55:51Z milde $
+:Id: $Id: html4css1.css 7952 2016-07-26 18:15:59Z milde $
 :Copyright: This stylesheet has been placed in the public domain.
 
 Default cascading style sheet for the HTML output of Docutils.
@@ -36,6 +36,14 @@ table.borderless td, table.borderless th {
 
 .hidden {
   display: none }
+
+.subscript {
+  vertical-align: sub;
+  font-size: smaller }
+
+.superscript {
+  vertical-align: super;
+  font-size: smaller }
 
 a.toc-backref {
   text-decoration: none ;
@@ -161,18 +169,23 @@ h2.subtitle {
 hr.docutils {
   width: 75% }
 
-img.align-left, .figure.align-left, object.align-left {
+img.align-left, .figure.align-left, object.align-left, table.align-left {
   clear: left ;
   float: left ;
   margin-right: 1em }
 
-img.align-right, .figure.align-right, object.align-right {
+img.align-right, .figure.align-right, object.align-right, table.align-right {
   clear: right ;
   float: right ;
   margin-left: 1em }
 
 img.align-center, .figure.align-center, object.align-center {
   display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table.align-center {
   margin-left: auto;
   margin-right: auto;
 }
@@ -193,6 +206,15 @@ div.align-right {
 
 /* div.align-center * { */
 /*   text-align: left } */
+
+.align-top    {
+  vertical-align: top }
+
+.align-middle {
+  vertical-align: middle }
+
+.align-bottom {
+  vertical-align: bottom }
 
 ol.simple, ul.simple {
   margin-bottom: 1em }
@@ -346,6 +368,9 @@ ul.auto-toc {
 <h1>EBICS banking protocol</h1>
 <p>Implementation of the  EBICS banking protocol.</p>
 <p>This module facilitates the exchange of files with banks via the EBICS protocol.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
 <div class="section" id="installation">
 <h2>Installation</h2>
 <p>The module depends upon</p>
@@ -355,6 +380,7 @@ ul.auto-toc {
 </ul>
 <p>Remark:</p>
 <p>The EBICS 'Test Mode' for uploading orders requires Fintech 4.3.4 or higher.</p>
+<p>SWIFT 3SKey support requires Fintech 6.4 or higher.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -365,6 +391,14 @@ ul.auto-toc {
 <ul>
 <li><p class="first">account_ebics_oe</p>
 <p>Required if you are running Odoo Enterprise</p>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<ul>
+<li><p class="first">account_ebics_batch</p>
+<p>This module adds a cron job for the automated import of EBICS files.</p>
 </li>
 </ul>
 <div class="line-block">
@@ -388,18 +422,29 @@ ul.auto-toc {
 <div class="line"><br /></div>
 </div>
 <ul>
-<li><p class="first">account_bank_statement_import_fr_cfonb</p>
+<li><p class="first">account_statement_import_fr_cfonb</p>
 <p>Required to handle french CFONB files.</p>
-<p>Cf. <a class="reference external" href="https://github.com/OCA/l10n_fr">https://github.com/OCA/l10n_fr</a></p>
+<p>Cf. <a class="reference external" href="https://github.com/OCA/l10n_france">https://github.com/OCA/l10n_france</a></p>
 </li>
 </ul>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
 <ul>
-<li><p class="first">account_bank_statement_import_camt_oca</p>
+<li><p class="first">account_statement_import_camt</p>
 <p>Required to handle camt.052 and camt.054 files.</p>
-<p>Cf. <a class="reference external" href="https://github.com/OCA/bank_statement_import">https://github.com/OCA/bank_statement_import</a></p>
+<p>Cf. <a class="reference external" href="https://github.com/OCA/bank-statement-import">https://github.com/OCA/bank-statement-import</a></p>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<ul>
+<li><p class="first">account_statement_import_helper</p>
+<p>Required if you are processing bank statements with local bank account numbers (e.g. french CFONB files)
+and using import parsers based upon the OCA account_statement_import module.</p>
+<p>The import helper will match the local bank account number with the IBAN number specified on the Odoo Financial journal.</p>
+<p>Cf. <a class="reference external" href="https://github.com/Noviat/noviat-apps">https://github.com/Noviat/noviat-apps</a></p>
 </li>
 </ul>
 <div class="line-block">
@@ -407,9 +452,10 @@ ul.auto-toc {
 </div>
 <ul>
 <li><p class="first">account_bank_statement_import_helper</p>
-<p>Required if you are processing bank statements with local bank account numbers (e.g. french CFONB files).</p>
+<p>Required if you are processing bank statements with local bank account numbers
+and using import parsers based upon the Odoo Enterprise account_bank_statement_import module.</p>
 <p>The import helper will match the local bank account number with the IBAN number specified on the Odoo Financial journal.</p>
-<p>Cf. <a class="reference external" href="https://github.com/noviat-apps">https://github.com/noviat-apps</a></p>
+<p>Cf. <a class="reference external" href="https://github.com/Noviat/noviat-apps">https://github.com/Noviat/noviat-apps</a></p>
 </li>
 </ul>
 <div class="line-block">
@@ -430,9 +476,23 @@ licensing parameters to the odoo server configuration file:</p>
 <ul class="simple">
 <li>fintech_register_users</li>
 </ul>
-<p>The licensed EBICS user ids. It must be a string or a list of user ids.
-You should NOT specify this parameter if your license is subsciption
+<p>The licensed EBICS user ids. It must be a string or a list of user ids.</p>
+<p>You should NOT specify this parameter if your license is subsciption
 based (with monthly recurring billing).</p>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line">Example:</div>
+<div class="line"><br /></div>
+</div>
+<pre class="literal-block">
+; fintech
+fintech_register_name = MyCompany
+fintech_register_keycode = AB1CD-E2FG-3H-IJ4K-5L
+fintech_register_users = USER1, USER2
+</pre>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
 </div>
 </div>
 <div class="section" id="configuration">
@@ -462,10 +522,16 @@ based (with monthly recurring billing).</p>
 </div>
 <p>Go to <strong>Accounting &gt; Configuration &gt; Miscellaneous &gt; EBICS &gt; EBICS Configuration</strong></p>
 <p>Configure your EBICS configuration according to the contract with your bank.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
 </div>
 <div class="section" id="usage">
 <h2>Usage</h2>
 <p>Go to <strong>Accounting &gt; Bank and Cash &gt; EBICS Processing</strong></p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
 <div class="section" id="ebics-return-codes">
 <h3>EBICS Return Codes</h3>
 <p>During the processing of your EBICS upload/download, your bank may return an Error Code, e.g.</p>
@@ -473,7 +539,17 @@ based (with monthly recurring billing).</p>
 EBICS_NO_DOWNLOAD_DATA_AVAILABLE (code: 90005)</p>
 <p>A detailled explanation of the codes can be found on <a class="reference external" href="http://www.ebics.org">http://www.ebics.org</a>.
 You can also find this information in the doc folder of this module (file EBICS_Annex1_ReturnCodes).</p>
+<div class="line-block">
+<div class="line"><br /></div>
 </div>
+</div>
+</div>
+<div class="section" id="known-issues-roadmap">
+<h2>Known Issues / Roadmap</h2>
+<ul class="simple">
+<li>add support for EBICS 3.0</li>
+<li>add support to import externally generated keys &amp; certificates (currently only 3SKey signature certificate)</li>
+</ul>
 </div>
 </div>
 </div>

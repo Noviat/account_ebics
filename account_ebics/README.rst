@@ -10,6 +10,8 @@ Implementation of the  EBICS banking protocol.
 
 This module facilitates the exchange of files with banks via the EBICS protocol.
 
+|
+
 Installation
 ============
 
@@ -22,6 +24,8 @@ Remark:
 
 The EBICS 'Test Mode' for uploading orders requires Fintech 4.3.4 or higher.
 
+SWIFT 3SKey support requires Fintech 6.4 or higher.
+
 |
 
 We also recommend to consider the installation of the following modules:
@@ -31,6 +35,12 @@ We also recommend to consider the installation of the following modules:
 - account_ebics_oe
 
   Required if you are running Odoo Enterprise
+
+|
+
+- account_ebics_batch
+
+  This module adds a cron job for the automated import of EBICS files.
 
 |
 
@@ -48,29 +58,41 @@ We also recommend to consider the installation of the following modules:
 
 |
 
-- account_bank_statement_import_fr_cfonb
+- account_statement_import_fr_cfonb
 
   Required to handle french CFONB files.
 
-  Cf. https://github.com/OCA/l10n_fr
+  Cf. https://github.com/OCA/l10n_france
 
 |
 
-- account_bank_statement_import_camt_oca
+- account_statement_import_camt
 
   Required to handle camt.052 and camt.054 files.
 
-  Cf. https://github.com/OCA/bank_statement_import
+  Cf. https://github.com/OCA/bank-statement-import
+
+|
+
+- account_statement_import_helper
+
+  Required if you are processing bank statements with local bank account numbers (e.g. french CFONB files)
+  and using import parsers based upon the OCA account_statement_import module.
+
+  The import helper will match the local bank account number with the IBAN number specified on the Odoo Financial journal.
+
+  Cf. https://github.com/Noviat/noviat-apps
 
 |
 
 - account_bank_statement_import_helper
 
-  Required if you are processing bank statements with local bank account numbers (e.g. french CFONB files).
+  Required if you are processing bank statements with local bank account numbers
+  and using import parsers based upon the Odoo Enterprise account_bank_statement_import module.
 
   The import helper will match the local bank account number with the IBAN number specified on the Odoo Financial journal.
 
-  Cf. https://github.com/noviat-apps
+  Cf. https://github.com/Noviat/noviat-apps
 
 |
 
@@ -92,8 +114,22 @@ The keycode of the licensed version.
 - fintech_register_users
 
 The licensed EBICS user ids. It must be a string or a list of user ids.
+
 You should NOT specify this parameter if your license is subsciption
 based (with monthly recurring billing).
+
+|
+| Example:
+|
+
+::
+
+ ; fintech
+ fintech_register_name = MyCompany
+ fintech_register_keycode = AB1CD-E2FG-3H-IJ4K-5L
+ fintech_register_users = USER1, USER2
+
+|
 
 Configuration
 =============
@@ -133,10 +169,14 @@ Go to **Accounting > Configuration > Miscellaneous > EBICS > EBICS Configuration
 
 Configure your EBICS configuration according to the contract with your bank.
 
+|
+
 Usage
 =====
 
 Go to **Accounting > Bank and Cash > EBICS Processing**
+
+|
 
 EBICS Return Codes
 ------------------
@@ -148,3 +188,11 @@ EBICS_NO_DOWNLOAD_DATA_AVAILABLE (code: 90005)
 
 A detailled explanation of the codes can be found on http://www.ebics.org.
 You can also find this information in the doc folder of this module (file EBICS_Annex1_ReturnCodes).
+
+|
+
+Known Issues / Roadmap
+======================
+
+- add support for EBICS 3.0
+- add support to import externally generated keys & certificates (currently only 3SKey signature certificate)
