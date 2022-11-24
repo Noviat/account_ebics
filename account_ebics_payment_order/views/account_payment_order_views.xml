@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-  <data>
 
     <record id="account_payment_order_form" model="ir.ui.view">
       <field name="name">account.payment.order.form</field>
@@ -9,15 +8,14 @@
       <field name="arch" type="xml">
         <button name="open2generated" position="after">
           <button
-                        name="ebics_upload"
-                        type="object"
-                        states="generated"
-                        string="EBICS Upload"
-                        class="oe_highlight"
-                    />
+                    name="ebics_upload"
+                    type="object"
+                    states="generated"
+                    string="EBICS Upload"
+                    class="oe_highlight"
+                />
         </button>
       </field>
     </record>
 
-  </data>
 </odoo>
