@@ -74,7 +74,7 @@
           <field name="order_type" />
           <field
                         name="test_mode"
-                        attrs="{'invisible': [('order_type', '!=', 'FUL')]}"
+                        attrs="{'invisible': [('order_type', 'not in', ('FUL', 'BTU'))]}"
                     />
           <field name="allowed_format_ids" invisible="1" />
         </group>

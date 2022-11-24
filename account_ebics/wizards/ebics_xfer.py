@@ -338,7 +338,22 @@ class EbicsXfer(models.TransientModel):
             OrderID = False
             try:
                 order_type = self.order_type
-                if order_type == "FUL":
+                if order_type == "BTU":
+                    btf = BusinessTransactionFormat(
+                        ef_format.btf_service,
+                        ef_format.btf_message,
+                        scope=ef_format.btf_scope or None,
+                        option=ef_format.btf_option or None,
+                        container=ef_format.btf_container or None,
+                        version=ef_format.btf_version or None,
+                        variant=ef_format.btf_variant or None,
+                        format=ef_format.btf_format or None,
+                    )
+                    kwargs = {}
+                    if self.test_mode:
+                        kwargs["TEST"] = "TRUE"
+                    client.BTU(btf, upload_data, **kwargs)
+                elif order_type == "FUL":
                     kwargs = {}
                     bank = self.ebics_config_id.journal_ids[0].bank_id
                     cc = bank.country.code
