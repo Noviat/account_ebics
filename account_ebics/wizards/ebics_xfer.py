@@ -352,7 +352,7 @@ class EbicsXfer(models.TransientModel):
                     kwargs = {}
                     if self.test_mode:
                         kwargs["TEST"] = "TRUE"
-                    client.BTU(btf, upload_data, **kwargs)
+                    OrderID = client.BTU(btf, upload_data, **kwargs)
                 elif order_type == "FUL":
                     kwargs = {}
                     bank = self.ebics_config_id.journal_ids[0].bank_id
