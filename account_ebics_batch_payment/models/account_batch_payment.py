@@ -34,7 +34,7 @@ class AccountBatchPayment(models.Model):
             }
         )
 
-        ebics_xfer = self.env["ebics.xfer"].with_context(ctx).create({})
+        ebics_xfer = self.env["ebics.xfer"].with_context(**ctx).create({})
         ebics_xfer._onchange_ebics_config_id()
         ebics_xfer._onchange_upload_data()
         ebics_xfer._onchange_format_id()
