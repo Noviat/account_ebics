@@ -35,7 +35,6 @@ class EbicsBatchLog(models.Model):
     has_draft_files = fields.Boolean(compute="_compute_ebics_files_fields")
     state = fields.Selection(
         selection=[("draft", "Draft"), ("error", "Error"), ("done", "Done")],
-        string="State",
         required=True,
         readonly=True,
         default="draft",
@@ -147,10 +146,9 @@ class EbicsBatchLog(models.Model):
         self.state = state
 
     def _ebics_import(self, config, date_from, date_to, import_dict):
-        ctx = dict(self.env.context, ebics_download=True)
         xfer_wiz = (
             self.env["ebics.xfer"]
-            .with_context(ctx)
+            .with_context(ebics_download=True)
             .create(
                 {
                     "ebics_config_id": config.id,
@@ -185,7 +183,6 @@ class EbicsBatchLogItem(models.Model):
     )
     state = fields.Selection(
         selection=[("draft", "Draft"), ("error", "Error"), ("done", "Done")],
-        string="State",
         required=True,
         readonly=True,
     )
