@@ -1,0 +1,118 @@
+<?xml version="1.0" ?>
+<odoo>
+
+  <record id="ebics_batch_log_view_search" model="ir.ui.view">
+    <field name="name">ebics.batch.log.search</field>
+    <field name="model">ebics.batch.log</field>
+    <field name="arch" type="xml">
+      <search string="Search EBICS Batch Import Log Files">
+        <group col="10" colspan="4">
+          <field name="create_date" />
+          <field name="state" />
+        </group>
+        <newline />
+        <group expand="0" string="Group By">
+          <filter name="group_by_state" string="State" context="{'group_by':'state'}" />
+        </group>
+      </search>
+    </field>
+  </record>
+
+  <record id="ebics_batch_log_view_tree" model="ir.ui.view">
+    <field name="name">ebics.batch.log.tree</field>
+    <field name="model">ebics.batch.log</field>
+    <field name="arch" type="xml">
+      <tree create="false">
+        <field name="create_date" />
+        <field name="file_count" />
+        <field name="state" />
+      </tree>
+    </field>
+  </record>
+
+  <record id="ebics_batch_log_view_form" model="ir.ui.view">
+    <field name="name">ebics.batch.log.form</field>
+    <field name="model">ebics.batch.log</field>
+    <field name="arch" type="xml">
+      <form string="EBICS Batch Import Log" create="false">
+        <header>
+          <button
+                        name="button_draft"
+                        states="done,error"
+                        string="Set to Draft"
+                        type="object"
+                    />
+          <button
+                        name="reprocess"
+                        string="Reprocess"
+                        help="Reprocess 'draft' EBICS Files"
+                        type="object"
+                        class="oe_highlight"
+                        attrs="{'invisible': ['|', ('state', '=', 'done'),('has_draft_files', '=', False)]}"
+                    />
+          <button
+                        name="button_done"
+                        states="draft,error"
+                        string="Mark Done"
+                        type="object"
+                    />
+          <field
+                        name="state"
+                        widget="statusbar"
+                        statusbar_visible="draft,done"
+                        statusbar_colors="{'error':'red'}"
+                    />
+        </header>
+        <sheet>
+          <div class="oe_button_box" name="button_box">
+            <button
+                            name="view_ebics_files"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-pencil-square-o"
+                            attrs="{'invisible': [('file_count', '=', 0)]}"
+                        >
+                   <field name="file_count" widget="statinfo" string="EBICS Files" />
+            </button>
+          </div>
+          <group colspan="4" col="4">
+            <field name="create_date" />
+            <field name="ebics_config_ids" widget="many2many_tags" />
+            <field name="has_draft_files" invisible="1" />
+          </group>
+          <notebook colspan="4">
+            <page string="Batch Import Logs">
+              <field name="log_ids" nolabel="1">
+                <tree>
+                  <field name="create_date" />
+                  <field name="state" />
+                  <field name="error_count" />
+                </tree>
+                <form string="Batch Import Log">
+                  <group colspan="4" col="6">
+                    <field name="create_date" />
+                    <field name="error_count" />
+                  </group>
+                  <group attrs="{'invisible':[('note', '=', False)]}">
+                    <separator colspan="4" />
+                    <field name="note" nolabel="1" colspan="4" height="360" />
+                  </group>
+                </form>
+              </field>
+            </page>
+          </notebook>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record id="ebics_batch_log_action" model="ir.actions.act_window">
+    <field name="name">EBICS Batch Import Logs</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">ebics.batch.log</field>
+    <field name="view_mode">tree,form</field>
+    <field name="view_id" ref="ebics_batch_log_view_tree" />
+    <field name="search_view_id" ref="ebics_batch_log_view_search" />
+  </record>
+
+</odoo>
