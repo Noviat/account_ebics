@@ -12,7 +12,7 @@ class AccountBankStatementImport(models.TransientModel):
     _inherit = "account.bank.statement.import"
 
     def _check_parsed_data(self, stmts_vals, account_number):
-        """ Basic and structural verifications """
+        """Basic and structural verifications"""
         if self.env.context.get("active_model") == "ebics.file":
             message = False
             if len(stmts_vals) == 0:
