@@ -68,8 +68,8 @@
                             name="order_number"
                             attrs="{'invisible': [('ebics_version', '!=', 'H003')]}"
                         />
+            <field name="company_ids" widget="many2many_tags" invisible="1" />
           </group>
-          <field name="company_ids" invisible="1" />
         </group>
         <notebook>
           <page string="EBICS Users" groups="account_ebics.group_ebics_manager">
