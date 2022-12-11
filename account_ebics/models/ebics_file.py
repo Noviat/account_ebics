@@ -245,6 +245,8 @@ class EbicsFile(models.Model):
         statement_ids = [x["statement_id"] for x in sts_data]
         if statement_ids:
             self.sudo().bank_statement_ids = [(4, x) for x in statement_ids]
+        company_ids = self.sudo().bank_statement_ids.mapped("company_id").ids
+        self.company_ids = [(6, 0, company_ids)]
         ctx = dict(self.env.context, statement_ids=statement_ids)
         module = __name__.split("addons.")[1].split(".")[0]
         result_view = self.env.ref("%s.ebics_file_view_form_result" % module)
