@@ -39,11 +39,15 @@ We also recommend to consider the installation of the following modules:
 
   Required if you are running Odoo Enterprise
 
+  Cf. https://github.com/Noviat/account_ebics
+
 |
 
 - account_ebics_batch
 
   This module adds a cron job for the automated import of EBICS files.
+
+  Cf. https://github.com/Noviat/account_ebics
 
 |
 
@@ -51,13 +55,15 @@ We also recommend to consider the installation of the following modules:
 
   Recommended if you are using the Odoo Enterprise account_batch_payment module
 
+  Cf. https://github.com/Noviat/account_ebics
+
 |
 
 - account_ebics_payment_order
 
   Recommended if you are using the OCA account_payment_order module.
 
-  Cf. https://github.com/OCA/bank-payment
+  Cf. https://github.com/Noviat/account_ebics and https://github.com/OCA/bank-payment
 
 |
 
