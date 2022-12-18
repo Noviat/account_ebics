@@ -5,7 +5,7 @@
     <field name="name">ebics.config.tree</field>
     <field name="model">ebics.config</field>
     <field name="arch" type="xml">
-      <tree string="EBICS Configuration" decoration-muted="state == 'draft'">
+      <tree decoration-muted="state == 'draft'">
         <field name="name" />
         <field name="ebics_host" />
         <field name="state" />
@@ -66,10 +66,10 @@
             <field name="ebics_key_bitlength" />
             <field
                             name="order_number"
-                            attrs="{'invisible': [('ebics_version', '=', 'H004')]}"
+                            attrs="{'invisible': [('ebics_version', '!=', 'H003')]}"
                         />
+            <field name="company_ids" widget="many2many_tags" invisible="1" />
           </group>
-          <field name="company_ids" invisible="1" />
         </group>
         <notebook>
           <page string="EBICS Users" groups="account_ebics.group_ebics_manager">

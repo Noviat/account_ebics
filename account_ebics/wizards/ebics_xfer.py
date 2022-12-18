@@ -22,6 +22,7 @@ _logger = logging.getLogger(__name__)
 try:
     import fintech
     from fintech.ebics import (
+        BusinessTransactionFormat,
         EbicsBank,
         EbicsClient,
         EbicsFunctionalError,
@@ -81,12 +82,8 @@ class EbicsXfer(models.TransientModel):
     order_type = fields.Char(
         related="format_id.order_type",
         string="Order Type",
-        help="For most banks in France you should use the "
-        "format neutral Order Types 'FUL' for upload "
-        "and 'FDL' for download.",
     )
     test_mode = fields.Boolean(
-        string="Test Mode",
         help="Select this option to test if the syntax of "
         "the upload file is correct."
         "\nThis option is only available for "
@@ -203,7 +200,19 @@ class EbicsXfer(models.TransientModel):
             for df in download_formats:
                 try:
                     success = False
-                    if df.order_type == "FDL":
+                    if df.order_type == "BTD":
+                        btf = BusinessTransactionFormat(
+                            df.btf_service,
+                            df.btf_message,
+                            scope=df.btf_scope or None,
+                            option=df.btf_option or None,
+                            container=df.btf_container or None,
+                            version=df.btf_version or None,
+                            variant=df.btf_variant or None,
+                            format=df.btf_format or None,
+                        )
+                        data = client.BTD(btf, start=date_from, end=date_to)
+                    elif df.order_type == "FDL":
                         data = client.FDL(df.name, date_from, date_to)
                     else:
                         params = None
@@ -222,8 +231,11 @@ class EbicsXfer(models.TransientModel):
                     e = exc_info()
                     self.note += "\n"
                     self.note += _(
-                        "EBICS Functional Error during download of File Format %s (%s):"
-                    ) % (df.name, df.order_type)
+                        "EBICS Functional Error during download of "
+                        "File Format %(name)s (%(order_type)s):",
+                        name=df.name,
+                        order_type=df.order_type,
+                    )
                     self.note += "\n"
                     self.note += "{} (code: {})".format(e[1].message, e[1].code)
                 except EbicsTechnicalError:
@@ -231,8 +243,11 @@ class EbicsXfer(models.TransientModel):
                     e = exc_info()
                     self.note += "\n"
                     self.note += _(
-                        "EBICS Technical Error during download of File Format %s (%s):"
-                    ) % (df.name, df.order_type)
+                        "EBICS Technical Error during download of "
+                        "File Format %(name)s (%(order_type)s):",
+                        name=df.name,
+                        order_type=df.order_type,
+                    )
                     self.note += "\n"
                     self.note += "{} (code: {})".format(e[1].message, e[1].code)
                 except EbicsVerificationError:
@@ -240,23 +255,31 @@ class EbicsXfer(models.TransientModel):
                     self.note += "\n"
                     self.note += _(
                         "EBICS Verification Error during download of "
-                        "File Format %s (%s):"
-                    ) % (df.name, df.order_type)
+                        "File Format %(name)s (%(order_type)s):",
+                        name=df.name,
+                        order_type=df.order_type,
+                    )
                     self.note += "\n"
                     self.note += _("The EBICS response could not be verified.")
                 except UserError as e:
                     self.note += "\n"
                     self.note += _(
-                        "Warning during download of File Format %s (%s):"
-                    ) % (df.name, df.order_type)
+                        "Warning during download of "
+                        "File Format %(name)s (%(order_type)s):",
+                        name=df.name,
+                        order_type=df.order_type,
+                    )
                     self.note += "\n"
                     self.note += e.name
                 except Exception:
                     err_cnt += 1
                     self.note += "\n"
                     self.note += _(
-                        "Unknown Error during download of File Format %s (%s):"
-                    ) % (df.name, df.order_type)
+                        "Unknown Error during download of "
+                        "File Format %(name)s (%(order_type)s):",
+                        name=df.name,
+                        order_type=df.order_type,
+                    )
                     tb = "".join(format_exception(*exc_info()))
                     self.note += "\n%s" % tb
                 else:
@@ -310,12 +333,27 @@ class EbicsXfer(models.TransientModel):
         self.note = ""
         client = self._setup_client()
         if client:
-            upload_data = base64.decodestring(self.upload_data)
+            upload_data = base64.decodebytes(self.upload_data)
             ef_format = self.format_id
             OrderID = False
             try:
                 order_type = self.order_type
-                if order_type == "FUL":
+                if order_type == "BTU":
+                    btf = BusinessTransactionFormat(
+                        ef_format.btf_service,
+                        ef_format.btf_message,
+                        scope=ef_format.btf_scope or None,
+                        option=ef_format.btf_option or None,
+                        container=ef_format.btf_container or None,
+                        version=ef_format.btf_version or None,
+                        variant=ef_format.btf_variant or None,
+                        format=ef_format.btf_format or None,
+                    )
+                    kwargs = {}
+                    if self.test_mode:
+                        kwargs["TEST"] = "TRUE"
+                    OrderID = client.BTU(btf, upload_data, **kwargs)
+                elif order_type == "FUL":
                     kwargs = {}
                     bank = self.ebics_config_id.journal_ids[0].bank_id
                     cc = bank.country.code
