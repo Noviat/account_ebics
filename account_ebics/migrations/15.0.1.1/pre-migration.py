@@ -11,7 +11,7 @@ def migrate(cr, version):
     for cfg_id in cfg_ids:
         cr.execute(
             """
-        SELECT aj.company_id
+        SELECT DISTINCT aj.company_id
         FROM account_journal_ebics_config_rel rel
         JOIN account_journal aj ON rel.account_journal_id = aj.id
         WHERE ebics_config_id = %s
@@ -21,7 +21,7 @@ def migrate(cr, version):
         new_cpy_ids = [x[0] for x in cr.fetchall()]
         cr.execute(
             """
-        SELECT res_company_id
+        SELECT DISTINCT res_company_id
         FROM ebics_config_res_company_rel
         WHERE ebics_config_id = %s
             """,
