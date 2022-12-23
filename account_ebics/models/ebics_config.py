@@ -163,6 +163,12 @@ class EbicsConfig(models.Model):
     def _default_ebics_keys(self):
         return "/".join(["/etc/odoo/ebics_keys", self._cr.dbname])
 
+    @api.constrains("ebics_key_bitlength")
+    def _check_ebics_key_bitlength(self):
+        for cfg in self:
+            if cfg.ebics_version == "H005" and cfg.ebics_key_bitlength < 2048:
+                raise UserError(_("EBICS key bitlength must be >= 2048."))
+
     @api.constrains("order_number")
     def _check_order_number(self):
         for cfg in self:

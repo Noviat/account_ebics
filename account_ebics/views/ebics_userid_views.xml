@@ -85,6 +85,7 @@
         <group name="main" attrs="{'readonly': [('state', '!=', 'draft')]}">
           <field name="ebics_keys_found" invisible="1" />
           <field name="ebics_keys_fn" invisible="1" />
+          <field name="ebics_version" invisible="1" />
           <group name="main-left">
             <field name="name" />
             <field
