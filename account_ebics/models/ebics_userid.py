@@ -64,6 +64,7 @@ class EbicsUserID(models.Model):
     ebics_config_id = fields.Many2one(
         comodel_name="ebics.config", string="EBICS Configuration", ondelete="cascade"
     )
+    ebics_version = fields.Selection(related="ebics_config_id.ebics_version")
     user_ids = fields.Many2many(
         comodel_name="res.users",
         string="Users",
@@ -185,11 +186,22 @@ class EbicsUserID(models.Model):
                 rec.ebics_keys_fn
             )
 
+    @api.constrains("ebics_key_x509")
+    def _check_ebics_key_x509(self):
+        for cfg in self:
+            if cfg.ebics_version == "H005" and not cfg.ebics_key_x509:
+                raise UserError(_("X.509 certificates must be used with EBICS 3.0."))
+
     @api.constrains("ebics_passphrase")
     def _check_ebics_passphrase(self):
         for rec in self:
             if not rec.ebics_passphrase or len(rec.ebics_passphrase) < 8:
                 raise UserError(_("The passphrase must be at least 8 characters long"))
+
+    @api.onchange("ebics_version")
+    def _onchange_ebics_version(self):
+        if self.ebics_version == "H005":
+            self.ebics_key_x509 = True
 
     @api.onchange("signature_class")
     def _onchange_signature_class(self):
@@ -292,7 +304,14 @@ class EbicsUserID(models.Model):
             kwargs = {k: v for k, v in dn_attrs.items() if v}
             user.create_certificates(**kwargs)
 
-        client = EbicsClient(bank, user, version=ebics_version)
+        try:
+            client = EbicsClient(bank, user, version=ebics_version)
+        except RuntimeError as err:
+            e = exc_info()
+            error = _("EBICS Initialization Error:")
+            error += "\n"
+            error += err.args[0]
+            raise UserError(error) from err
 
         # Send the public electronic signature key to the bank.
         ebics_config_bank = self.ebics_config_id.journal_ids[0].bank_id
