@@ -1,0 +1,3 @@
+EBICS support for Odoo
+======================
+

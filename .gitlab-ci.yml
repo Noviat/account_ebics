@@ -1,0 +1,16 @@
+# Only run for (updates to) merge requests and the default branch.
+workflow:
+  rules:
+    - if: $CI_MERGE_REQUEST_IID
+    - if: $CI_COMMIT_BRANCH == "16.0"
+
+include:
+  - project: "ci/gitlab-ci-templates"
+    ref: master
+    file: "/odoo-tests.template.yml"
+
+variables:
+  ODOO_CI_IMAGE: ghcr.io/oca/oca-ci/py3.10-odoo16.0:latest
+  ODOO_PRECOMMIT: "1"
+  ODOO_LINT: "0"
+  ODOO_TEST: "0"
