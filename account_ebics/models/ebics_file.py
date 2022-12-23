@@ -177,6 +177,7 @@ class EbicsFile(models.Model):
         if res_action.get("type") and res_action["type"] == "ir.actions.client":
             st_line_ids = res_action["context"].get("statement_line_ids", [])
             if st_line_ids:
+                ##TODO:  Use flush_model(), flush_recordset() or env.flush_all() ###########################
                 self.flush()
                 self.env.cr.execute(
                     """

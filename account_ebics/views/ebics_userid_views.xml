@@ -19,7 +19,7 @@
     <field name="model">ebics.userid</field>
     <field name="arch" type="xml">
       <form string="EBICS UserID">
-        <header groups="account_ebics.group_ebics_manager">
+        <header>
           <button
                         name="ebics_init_1"
                         states="draft"
