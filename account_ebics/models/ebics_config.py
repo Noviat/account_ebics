@@ -208,7 +208,7 @@ class EbicsConfig(models.Model):
         for ebics_config in self:
             if ebics_config.state == "active":
                 raise UserError(_("You cannot remove active EBICS configurations."))
-        return super(EbicsConfig, self).unlink()
+        return super().unlink()
 
     def set_to_draft(self):
         return self.write({"state": "draft"})

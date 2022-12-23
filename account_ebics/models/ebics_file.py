@@ -84,7 +84,7 @@ class EbicsFile(models.Model):
                     ff_methods[ff]["unlink"](ebics_file)
             # remove bank statements
             ebics_file.bank_statement_ids.unlink()
-        return super(EbicsFile, self).unlink()
+        return super().unlink()
 
     def set_to_draft(self):
         return self.write({"state": "draft"})
