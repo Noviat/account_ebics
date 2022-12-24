@@ -22,9 +22,12 @@ The module depends upon
 
 Remark:
 
-The EBICS 'Test Mode' for uploading orders requires Fintech 4.3.4 or higher.
+The EBICS 'Test Mode' for uploading orders requires fintech 4.3.4 or higher for EBICS 2.x
+and fintech 7.2.7 or higher for EBICS 3.0.
 
-SWIFT 3SKey support requires Fintech 6.4 or higher.
+SWIFT 3SKey support requires fintech 6.4 or higher.
+
+
 
 |
 
@@ -35,6 +38,8 @@ We also recommend to consider the installation of the following modules:
 - account_ebics_oe
 
   Required if you are running Odoo Enterprise
+  
+  Cf. https://github.com/Noviat/account_ebics
 
 |
 
@@ -42,11 +47,15 @@ We also recommend to consider the installation of the following modules:
 
   This module adds a cron job for the automated import of EBICS files.
 
+  Cf. https://github.com/Noviat/account_ebics
+
 |
 
 - account_ebics_batch_payment
 
   Recommended if you are using the Odoo Enterprise account_batch_payment module
+
+  Cf. https://github.com/Noviat/account_ebics  
 
 |
 
@@ -194,5 +203,4 @@ You can also find this information in the doc folder of this module (file EBICS_
 Known Issues / Roadmap
 ======================
 
-- add support for EBICS 3.0
 - add support to import externally generated keys & certificates (currently only 3SKey signature certificate)

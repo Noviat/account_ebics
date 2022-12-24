@@ -379,8 +379,9 @@ ul.auto-toc {
 <li><a class="reference external" href="https://pypi.python.org/pypi/cryptography">https://pypi.python.org/pypi/cryptography</a></li>
 </ul>
 <p>Remark:</p>
-<p>The EBICS 'Test Mode' for uploading orders requires Fintech 4.3.4 or higher.</p>
-<p>SWIFT 3SKey support requires Fintech 6.4 or higher.</p>
+<p>The EBICS 'Test Mode' for uploading orders requires fintech 4.3.4 or higher for EBICS 2.x
+and fintech 7.2.7 or higher for EBICS 3.0.</p>
+<p>SWIFT 3SKey support requires fintech 6.4 or higher.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -391,6 +392,7 @@ ul.auto-toc {
 <ul>
 <li><p class="first">account_ebics_oe</p>
 <p>Required if you are running Odoo Enterprise</p>
+<p>Cf. <a class="reference external" href="https://github.com/Noviat/account_ebics">https://github.com/Noviat/account_ebics</a></p>
 </li>
 </ul>
 <div class="line-block">
@@ -399,6 +401,7 @@ ul.auto-toc {
 <ul>
 <li><p class="first">account_ebics_batch</p>
 <p>This module adds a cron job for the automated import of EBICS files.</p>
+<p>Cf. <a class="reference external" href="https://github.com/Noviat/account_ebics">https://github.com/Noviat/account_ebics</a></p>
 </li>
 </ul>
 <div class="line-block">
@@ -407,6 +410,7 @@ ul.auto-toc {
 <ul>
 <li><p class="first">account_ebics_batch_payment</p>
 <p>Recommended if you are using the Odoo Enterprise account_batch_payment module</p>
+<p>Cf. <a class="reference external" href="https://github.com/Noviat/account_ebics">https://github.com/Noviat/account_ebics</a></p>
 </li>
 </ul>
 <div class="line-block">
@@ -547,7 +551,6 @@ You can also find this information in the doc folder of this module (file EBICS_
 <div class="section" id="known-issues-roadmap">
 <h2>Known Issues / Roadmap</h2>
 <ul class="simple">
-<li>add support for EBICS 3.0</li>
 <li>add support to import externally generated keys &amp; certificates (currently only 3SKey signature certificate)</li>
 </ul>
 </div>

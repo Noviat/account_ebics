@@ -22,13 +22,13 @@ class EbicsConfig(models.Model):
     _order = "name"
 
     name = fields.Char(
-        string="Name",
         readonly=True,
         states={"draft": [("readonly", False)]},
         required=True,
     )
     journal_ids = fields.Many2many(
         comodel_name="account.journal",
+        relation="account_journal_ebics_config_rel",
         readonly=True,
         states={"draft": [("readonly", False)]},
         string="Bank Accounts",
@@ -52,7 +52,11 @@ class EbicsConfig(models.Model):
         help="Contact your bank to get the EBICS URL.",
     )
     ebics_version = fields.Selection(
-        selection=[("H003", "H003 (2.4)"), ("H004", "H004 (2.5)")],
+        selection=[
+            ("H003", "H003 (2.4)"),
+            ("H004", "H004 (2.5)"),
+            ("H005", "H005 (3.0)"),
+        ],
         string="EBICS protocol version",
         readonly=True,
         states={"draft": [("readonly", False)]},
@@ -130,7 +134,6 @@ class EbicsConfig(models.Model):
     )
     state = fields.Selection(
         [("draft", "Draft"), ("confirm", "Confirmed")],
-        string="State",
         default="draft",
         required=True,
         readonly=True,
@@ -143,11 +146,12 @@ class EbicsConfig(models.Model):
         "\nThis number should match the following pattern : "
         "[A-Z]{1}[A-Z0-9]{3}",
     )
-    active = fields.Boolean(string="Active", default=True)
+    active = fields.Boolean(default=True)
     company_ids = fields.Many2many(
         comodel_name="res.company",
+        relation="ebics_config_res_company_rel",
         string="Companies",
-        required=True,
+        readonly=True,
         help="Companies sharing this EBICS contract.",
     )
 
@@ -158,6 +162,12 @@ class EbicsConfig(models.Model):
     @api.model
     def _default_ebics_keys(self):
         return "/".join(["/etc/odoo/ebics_keys", self._cr.dbname])
+
+    @api.constrains("ebics_key_bitlength")
+    def _check_ebics_key_bitlength(self):
+        for cfg in self:
+            if cfg.ebics_version == "H005" and cfg.ebics_key_bitlength < 2048:
+                raise UserError(_("EBICS key bitlength must be >= 2048."))
 
     @api.constrains("order_number")
     def _check_order_number(self):
@@ -179,9 +189,26 @@ class EbicsConfig(models.Model):
                     )
                 )
 
-    @api.onchange("journal_ids")
-    def _onchange_journal_ids(self):
-        self.company_ids = self.journal_ids.mapped("company_id")
+    def write(self, vals):
+        """
+        Due to the multi-company nature of the EBICS config we
+        need to adapt the company_ids in the write method.
+        """
+        if "journal_ids" not in vals:
+            return super().write(vals)
+        for rec in self:
+            old_company_ids = rec.journal_ids.mapped("company_id").ids
+            super(EbicsConfig, rec).write(vals)
+            new_company_ids = rec.journal_ids.mapped("company_id").ids
+            updates = []
+            for cid in new_company_ids:
+                if cid in old_company_ids:
+                    old_company_ids.remove(cid)
+                else:
+                    updates += [(4, cid)]
+            updates += [(3, x) for x in old_company_ids]
+            super(EbicsConfig, rec).write({"company_ids": updates})
+        return True
 
     def unlink(self):
         for ebics_config in self:

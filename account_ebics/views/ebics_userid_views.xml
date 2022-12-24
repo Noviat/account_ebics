@@ -5,7 +5,7 @@
     <field name="name">ebics.userid.tree</field>
     <field name="model">ebics.userid</field>
     <field name="arch" type="xml">
-      <tree string="EBICS UserID" decoration-muted="state != 'active_keys'">
+      <tree decoration-muted="state != 'active_keys'">
         <field name="name" />
         <field name="signature_class" />
         <field name="state" />
@@ -85,6 +85,7 @@
         <group name="main" attrs="{'readonly': [('state', '!=', 'draft')]}">
           <field name="ebics_keys_found" invisible="1" />
           <field name="ebics_keys_fn" invisible="1" />
+          <field name="ebics_version" invisible="1" />
           <group name="main-left">
             <field name="name" />
             <field

@@ -3,6 +3,8 @@
 
 import base64
 import logging
+from sys import exc_info
+from traceback import format_exception
 
 from odoo import _, fields, models
 from odoo.exceptions import UserError
@@ -46,7 +48,6 @@ class EbicsFile(models.Model):
     )
     state = fields.Selection(
         [("draft", "Draft"), ("done", "Done")],
-        string="State",
         default="draft",
         required=True,
         readonly=True,
@@ -93,8 +94,7 @@ class EbicsFile(models.Model):
 
     def process(self):
         self.ensure_one()
-        ctx = dict(self.env.context, allowed_company_ids=self.env.user.company_ids.ids)
-        self = self.with_context(ctx)
+        self = self.with_context(allowed_company_ids=self.env.user.company_ids.ids)
         self.note_process = ""
         ff_methods = self._file_format_methods()
         ff = self.format_id.download_process_method
@@ -159,33 +159,23 @@ class EbicsFile(models.Model):
             if raise_if_not_found:
                 raise UserError(
                     _(
-                        "The module to process the '%s' format is not installed "
-                        "on your system. "
-                        "\nPlease install module '%s'"
+                        "The module to process the '%(ebics_format)s' "
+                        "format is not installed on your system. "
+                        "\nPlease install module '%(module)s'",
+                        ebics_format=self.format_id.name,
+                        module=module,
                     )
-                    % (self.format_id.name, module)
                 )
             return False
         return True
 
-    def _process_result_action(self, res):
+    def _process_result_action(self, res_action):
         notifications = []
         st_line_ids = []
         statement_ids = []
         sts_data = []
-        if res.get("type") and res["type"] == "ir.actions.client":
-            notifications = res["context"].get("notifications", [])
-            st_line_ids = res["context"].get("statement_line_ids", [])
-            if notifications:
-                for notif in notifications:
-                    parts = []
-                    for k in ["type", "message", "details"]:
-                        if notif.get(k):
-                            msg = "{}: {}".format(k, notif[k])
-                            parts.append(msg)
-                    self.note_process += "\n".join(parts)
-                    self.note_process += "\n"
-                self.note_process += "\n"
+        if res_action.get("type") and res_action["type"] == "ir.actions.client":
+            st_line_ids = res_action["context"].get("statement_line_ids", [])
             if st_line_ids:
                 self.flush()
                 self.env.cr.execute(
@@ -206,10 +196,10 @@ class EbicsFile(models.Model):
                 )
                 sts_data = self.env.cr.dictfetchall()
         else:
-            if res.get("res_id"):
-                st_ids = res["res_id"]
+            if res_action.get("res_id"):
+                st_ids = res_action["res_id"]
             else:
-                st_ids = res["domain"][2]
+                st_ids = res_action["domain"][0][2]
             statements = self.env["account.bank.statement"].browse(st_ids)
             for statement in statements:
                 sts_data.append(
@@ -221,7 +211,29 @@ class EbicsFile(models.Model):
                     }
                 )
         st_cnt = len(sts_data)
+        warning_cnt = error_cnt = 0
+        notifications = res_action["context"].get("notifications", [])
+        if notifications:
+            for notif in notifications:
+                if notif["type"] == "error":
+                    error_cnt += 1
+                elif notif["type"] == "warning":
+                    warning_cnt += 1
+                parts = [notif[k] for k in notif if k in ("message", "details")]
+                self.note_process += "\n".join(parts)
+                self.note_process += "\n\n"
+            self.note_process += "\n"
+        if error_cnt:
+            self.note_process += (
+                _("Number of errors detected during import: %s: ") % error_cnt
+            )
+            self.note_process += "\n"
+        if warning_cnt:
+            self.note_process += (
+                _("Number of watnings detected during import: %s: ") % warning_cnt
+            )
         if st_cnt:
+            self.note_process += "\n\n"
             self.note_process += _("%s bank statements have been imported: ") % st_cnt
             self.note_process += "\n"
         for st_data in sts_data:
@@ -232,7 +244,9 @@ class EbicsFile(models.Model):
             )
         statement_ids = [x["statement_id"] for x in sts_data]
         if statement_ids:
-            self.sudo().bank_statement_ids = [(6, 0, statement_ids)]
+            self.sudo().bank_statement_ids = [(4, x) for x in statement_ids]
+        company_ids = self.sudo().bank_statement_ids.mapped("company_id").ids
+        self.company_ids = [(6, 0, company_ids)]
         ctx = dict(self.env.context, statement_ids=statement_ids)
         module = __name__.split("addons.")[1].split(".")[0]
         result_view = self.env.ref("%s.ebics_file_view_form_result" % module)
@@ -279,39 +293,73 @@ class EbicsFile(models.Model):
                     )
                 st_lines = b""
                 transactions = False
-        result = {
-            "type": "ir.actions.client",
-            "tag": "bank_statement_reconciliation_view",
-            "context": {
-                "statement_line_ids": [],
-                "company_ids": self.env.user.company_ids.ids,
-                "notifications": [],
-            },
-        }
-        wiz_ctx = dict(self.env.context, active_model="ebics.file")
+        result_action = self.env["ir.actions.act_window"]._for_xml_id(
+            "account.action_bank_statement_tree"
+        )
+        result_action["context"] = safe_eval(result_action["context"])
+        statement_ids = []
+        notifications = []
         for i, wiz_vals in enumerate(wiz_vals_list, start=1):
-            wiz = self.env[wiz_model].with_context(wiz_ctx).create(wiz_vals)
-            res = wiz.import_file_button()
-            ctx = res.get("context")
-            if res.get("res_model") == "account.bank.statement.import.journal.creation":
-                message = _("Error detected while importing statement number %s.\n") % i
-                message += _("No financial journal found.")
-                details = _("Bank account number: %s") % ctx.get(
-                    "default_bank_acc_number"
-                )
-                result["context"]["notifications"].extend(
-                    [
-                        {
-                            "type": "warning",
-                            "message": message,
-                            "details": details,
-                        }
-                    ]
-                )
-                continue
-            result["context"]["statement_line_ids"].extend(ctx["statement_line_ids"])
-            result["context"]["notifications"].extend(ctx["notifications"])
-        return self._process_result_action(result)
+            result = {
+                "statement_ids": [],
+                "notifications": [],
+            }
+            statement_filename = wiz_vals["statement_filename"]
+            wiz = (
+                self.env[wiz_model]
+                .with_context(active_model="ebics.file")
+                .create(wiz_vals)
+            )
+            try:
+                with self.env.cr.savepoint():
+                    file_data = base64.b64decode(wiz_vals["statement_file"])
+                    msg_hdr = _(
+                        "{} : Import failed for statement number %(index)s, "
+                        "filename %(fn)s:\n",
+                        index=i,
+                        fn=statement_filename,
+                    )
+                    wiz.import_single_file(file_data, result)
+                    if not result["statement_ids"]:
+                        message = msg_hdr.format(_("Warning"))
+                        message += _(
+                            "You have already imported this file, or this file "
+                            "only contains already imported transactions."
+                        )
+                        notifications += [
+                            {
+                                "type": "warning",
+                                "message": message,
+                            }
+                        ]
+                    else:
+                        statement_ids.extend(result["statement_ids"])
+                    notifications.extend(result["notifications"])
+
+            except UserError as e:
+                message = msg_hdr.format(_("Error"))
+                message += "".join(e.args)
+                notifications += [
+                    {
+                        "type": "error",
+                        "message": message,
+                    }
+                ]
+
+            except Exception:
+                tb = "".join(format_exception(*exc_info()))
+                message = msg_hdr.format(_("Error"))
+                message += tb
+                notifications += [
+                    {
+                        "type": "error",
+                        "message": message,
+                    }
+                ]
+
+        result_action["context"]["notifications"] = notifications
+        result_action["domain"] = [("id", "in", statement_ids)]
+        return self._process_result_action(result_action)
 
     @staticmethod
     def _unlink_cfonb120(self):
@@ -360,11 +408,12 @@ class EbicsFile(models.Model):
         if not found:
             raise UserError(
                 _(
-                    "The module to process the '%s' format is not installed "
-                    "on your system. "
-                    "\nPlease install one of the following modules: \n%s."
+                    "The module to process the '%(ebics_format)s' format is "
+                    "not installed on your system. "
+                    "\nPlease install one of the following modules: \n%(modules)s.",
+                    ebics_format=self.format_id.name,
+                    modules=", ".join([x[1] for x in modules]),
                 )
-                % (self.format_id.name, ", ".join([x[1] for x in modules]))
             )
         if _src == "oca":
             self._process_camt053_oca()
@@ -386,25 +435,14 @@ class EbicsFile(models.Model):
                 "notifications": [],
             },
         }
-        wiz_ctx = dict(self.env.context, active_model="ebics.file")
-        wiz = self.env[wiz_model].with_context(wiz_ctx).create(wiz_vals)
+        wiz = (
+            self.env[wiz_model].with_context(active_model="ebics.file").create(wiz_vals)
+        )
         res = wiz.import_file_button()
-        ctx = res.get("context")
-        if res.get("res_model") == "account.bank.statement.import.journal.creation":
-            message = _("Error detected while importing statement %s.\n") % self.name
-            message += _("No financial journal found.")
-            details = _("Bank account number: %s") % ctx.get("default_bank_acc_number")
-            result["context"]["notifications"].extend(
-                [
-                    {
-                        "type": "warning",
-                        "message": message,
-                        "details": details,
-                    }
-                ]
-            )
-        result["context"]["statement_line_ids"].extend(ctx["statement_line_ids"])
-        result["context"]["notifications"].extend(ctx["notifications"])
+        result["context"]["statement_line_ids"].extend(
+            res["context"]["statement_line_ids"]
+        )
+        result["context"]["notifications"].extend(res["context"]["notifications"])
         return self._process_result_action(result)
 
     def _process_camt053_oe(self):
@@ -418,8 +456,9 @@ class EbicsFile(models.Model):
                 )
             ]
         }
-        ctx = dict(self.env.context, active_model="ebics.file")
-        wiz = self.env[wiz_model].with_context(ctx).create(wiz_vals)
+        wiz = (
+            self.env[wiz_model].with_context(active_model="ebics.file").create(wiz_vals)
+        )
         res = wiz.import_file()
         if res.get("res_model") == "account.bank.statement.import.journal.creation":
             if res.get("context"):
