@@ -120,10 +120,10 @@
                     name="dn"
                     attrs="{'invisible': [('ebics_key_x509', '=', False)], 'readonly': [('state', '!=', 'draft')]}"
                 >
-          <group colspan="4" col="1">
+          <div colspan="4" col="1">
             <strong
                         >Distinguished Name attributes used to create self-signed X.509 certificates:</strong>
-          </group>
+          </div>
           <group name="dn_l" colspan="2">
             <field name="ebics_key_x509_dn_cn" />
             <field name="ebics_key_x509_dn_o" />
