@@ -84,6 +84,14 @@
       <field name="suffix">xml</field>
     </record>
 
+    <record id="ebics_ff_camt_054_001_02_rdd" model="ebics.file.format">
+      <field name="name">camt.054.001.02.rdd</field>
+      <field name="type">down</field>
+      <field name="order_type">FDL</field>
+      <field name="description">Bank Statement in Format camt.054</field>
+      <field name="suffix">c54.xml</field>
+    </record>
+
     <!--
     File format tested with the following banks:
     - CIC (France)

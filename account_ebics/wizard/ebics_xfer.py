@@ -166,7 +166,7 @@ class EbicsXfer(models.TransientModel):
                 params = {}
                 if order_type == 'FDL':
                     params['filetype'] = df.name
-                if order_type in ['FDL', 'C53']:
+                if order_type in ['FDL', 'C52', 'C53', 'C54']:
                     params.update({
                         'start': self.date_from or None,
                         'end': self.date_to or None,
