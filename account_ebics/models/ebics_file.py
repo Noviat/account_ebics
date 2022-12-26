@@ -78,7 +78,8 @@ class EbicsFile(models.Model):
             if ff in ff_methods:
                 if ff_methods[ff].get('unlink'):
                     ff_methods[ff]['unlink'](ebics_file)
-            # remove bank statements
+                elif ff[:7] == 'camt.05' and ff_methods[ff[:8]].get('unlink'):
+                    ff_methods[ff[:8]]['unlink'](self)
             ebics_file.bank_statement_ids.unlink()
         return super(EbicsFile, self).unlink()
 
@@ -99,6 +100,10 @@ class EbicsFile(models.Model):
         if ff in ff_methods:
             if ff_methods[ff].get('process'):
                 res = ff_methods[ff]['process'](self)
+                self.state = 'done'
+                return res
+            elif ff[:7] == 'camt.05' and ff_methods[ff[:8]].get('process'):
+                res = ff_methods[ff[:8]]['process'](self)
                 self.state = 'done'
                 return res
         else:
