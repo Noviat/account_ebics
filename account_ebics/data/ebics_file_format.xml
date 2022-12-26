@@ -2,6 +2,15 @@
 <odoo>
   <data noupdate="1">
 
+    <record id="ebics_ff_C52" model="ebics.file.format">
+      <field name="name">camt.052</field>
+      <field name="type">down</field>
+      <field name="order_type">C52</field>
+      <field name="download_process_method">camt.052</field>
+      <field name="description">bank to customer account report in format camt.052</field>
+      <field name="suffix">c52.xml</field>
+    </record>
+
     <!--
     File format tested with the following banks:
     - GLS Gemeinschaftsbank (Germany)
@@ -12,6 +21,15 @@
       <field name="order_type">C53</field>
       <field name="description">Bank Statement in Format camt.053</field>
       <field name="suffix">c53.xml</field>
+    </record>
+
+    <record id="ebics_ff_C54" model="ebics.file.format">
+      <field name="name">camt.054</field>
+      <field name="type">down</field>
+      <field name="order_type">C54</field>
+      <field name="download_process_method">camt.054</field>
+      <field name="description">Bank to customer debit credit notification in format camt.054</field>
+      <field name="suffix">c54.xml</field>
     </record>
 
     <!--

@@ -1,4 +1,4 @@
-# Copyright 2009-2019 Noviat.
+# Copyright 2009-2022 Noviat.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import logging
@@ -128,9 +128,15 @@ class EbicsFile(models.Model):
             'camt.xxx.cfonb120.stm':
                 {'process': self._process_cfonb120,
                  'unlink': self._unlink_cfonb120},
+            'camt.052':
+                {'process': self._process_camt052,
+                 'unlink': self._unlink_camt052},
             'camt.053.001.02.stm':
                 {'process': self._process_camt053,
                  'unlink': self._unlink_camt053},
+            'camt.054':
+                {'process': self._process_camt054,
+                 'unlink': self._unlink_camt054},
         }
         return res
 
@@ -201,6 +207,34 @@ class EbicsFile(models.Model):
     def _unlink_cfonb120(self):
         """
         Placeholder for cfonb120 specific actions before removing the
+        EBICS data file and its related bank statements.
+        """
+        pass
+
+    @staticmethod
+    def _process_camt052(self):
+        import_module = 'account_bank_statement_import_camt_oca'
+        self._check_import_module(import_module)
+        return self._process_camt053(self)
+
+    @staticmethod
+    def _unlink_camt052(self):
+        """
+        Placeholder for camt052 specific actions before removing the
+        EBICS data file and its related bank statements.
+        """
+        pass
+
+    @staticmethod
+    def _process_camt054(self):
+        import_module = 'account_bank_statement_import_camt_oca'
+        self._check_import_module(import_module)
+        return self._process_camt053(self)
+
+    @staticmethod
+    def _unlink_camt054(self):
+        """
+        Placeholder for camt054 specific actions before removing the
         EBICS data file and its related bank statements.
         """
         pass
