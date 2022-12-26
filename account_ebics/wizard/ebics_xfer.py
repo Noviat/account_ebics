@@ -1,5 +1,5 @@
 # Copyright 2009-2022 Noviat.
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+# License LGPL-3 or later (http://www.gnu.org/licenses/lpgl).
 
 """
 import logging
@@ -64,10 +64,10 @@ class EbicsXfer(models.TransientModel):
         string='EBICS File Format',
         help="Select EBICS File Format to upload/download."
              "\nLeave blank to download all available files.")
-    order_type = fields.Selection(
-        selection=lambda self: self._selection_order_type(),
+    order_type = fields.Char(
+        related='format_id.order_type',
         string='Order Type',
-        help="For most banks is France you should use the "
+        help="For most banks in France you should use the "
              "format neutral Order Types 'FUL' for upload "
              "and 'FDL' for download.")
     test_mode = fields.Boolean(
@@ -88,10 +88,6 @@ class EbicsXfer(models.TransientModel):
             return cfg
         else:
             return cfg_mod
-
-    @api.model
-    def _selection_order_type(self):
-        return self.env['ebics.file.format']._selection_order_type()
 
     @api.onchange('ebics_config_id')
     def _onchange_ebics_config_id(self):
@@ -156,25 +152,28 @@ class EbicsXfer(models.TransientModel):
         self.note = ''
         client = self._setup_client()
         if client:
-            download_formats = self.format_id \
+            download_formats = (
+                self.format_id
                 or self.ebics_config_id.ebics_file_format_ids.filtered(
-                    lambda r: r.type == 'down')
+                    lambda r: r.type == 'down'
+                )
+            )
             ebics_files = self.env['ebics.file']
             for df in download_formats:
-                success = False
-                order_type = df.order_type or 'FDL'
-                params = {}
-                if order_type == 'FDL':
-                    params['filetype'] = df.name
-                if order_type in ['FDL', 'C52', 'C53', 'C54']:
-                    params.update({
-                        'start': self.date_from or None,
-                        'end': self.date_to or None,
-                    })
-                kwargs = {k: v for k, v in params.items() if v}
                 try:
-                    method = getattr(client, order_type)
-                    data = method(**kwargs)
+                    success = False
+                    if df.order_type == 'FDL':
+                        data = client.FDL(
+                            df.name, self.date_from or None, self.date_to or None
+                        )
+                    else:
+                        params = None
+                        if self.date_from and self.date_to:
+                            params = {'DateRange': {
+                                'Start': self.date_from or None,
+                                'End': self.date_to or None,
+                            }}
+                        data = client.download(df.order_type, params=params)
                     ebics_files += self._handle_download_data(data, df)
                     success = True
                 except EbicsFunctionalError:
@@ -259,9 +258,7 @@ class EbicsXfer(models.TransientModel):
             ef_format = self.format_id
             OrderID = False
             try:
-                order_type = ef_format.order_type or 'FUL'
-                method = hasattr(client, order_type) \
-                    and getattr(client, order_type)
+                order_type = self.order_type
                 if order_type == 'FUL':
                     kwargs = {}
                     # bank = self.ebics_config_id.bank_id.bank v8.0
@@ -270,15 +267,9 @@ class EbicsXfer(models.TransientModel):
                         kwargs['country'] = bank.country.code
                     if self.test_mode:
                         kwargs['TEST'] = 'TRUE'
-                    OrderID = method(ef_format.name, upload_data, **kwargs)
-                elif order_type in ['CCT', 'CDD', 'CDB']:
-                    OrderID = method(upload_data)
-                elif order_type in ['XE2', 'XE3']:
-                    OrderID = client.upload(order_type, upload_data)
+                    OrderID = client.FUL(ef_format.name, upload_data, **kwargs)
                 else:
-                    # TODO: investigate if it makes sense to support
-                    # a generic upload for a non-predefined order_type
-                    pass
+                    OrderID = client.upload(order_type, upload_data)
                 if OrderID:
                     self.note += '\n'
                     self.note += _(

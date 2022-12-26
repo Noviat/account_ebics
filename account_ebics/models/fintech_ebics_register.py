@@ -1,5 +1,5 @@
-# Copyright 2009-2019 Noviat.
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+# Copyright 2009-2022 Noviat.
+# License LGPL-3 or later (http://www.gnu.org/licenses/lpgl).
 
 import logging
 from sys import exc_info
