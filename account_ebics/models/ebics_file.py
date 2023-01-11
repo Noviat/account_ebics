@@ -1,4 +1,4 @@
-# Copyright 2009-2022 Noviat.
+# Copyright 2009-2023 Noviat.
 # License LGPL-3 or later (http://www.gnu.org/licenses/lpgl).
 
 import base64
@@ -264,10 +264,6 @@ class EbicsFile(models.Model):
 
     @staticmethod
     def _process_cfonb120(self):
-        """
-        We do not support the standard _journal_creation_wizard since a single
-        cfonb120 file may contain statements from different legal entities.
-        """
         import_module = "account_statement_import_fr_cfonb"
         self._check_import_module(import_module)
         wiz_model = "account.statement.import"
@@ -415,34 +411,81 @@ class EbicsFile(models.Model):
                 )
             )
         if _src == "oca":
-            self._process_camt053_oca()
+            return self._process_camt053_oca()
         else:
-            self._process_camt053_oe()
+            return self._process_camt053_oe()
 
     def _process_camt053_oca(self):
+        """
+        TODO: merge common logic of this method and _process_cfonb120
+        """
         wiz_model = "account.statement.import"
         wiz_vals = {
             "statement_filename": self.name,
             "statement_file": self.data,
         }
+        result_action = self.env["ir.actions.act_window"]._for_xml_id(
+            "account.action_bank_statement_tree"
+        )
+        result_action["context"] = safe_eval(result_action["context"])
         result = {
-            "type": "ir.actions.client",
-            "tag": "bank_statement_reconciliation_view",
-            "context": {
-                "statement_line_ids": [],
-                "company_ids": self.env.user.company_ids.ids,
-                "notifications": [],
-            },
+            "statement_ids": [],
+            "notifications": [],
         }
+        statement_ids = []
+        notifications = []
         wiz = (
             self.env[wiz_model].with_context(active_model="ebics.file").create(wiz_vals)
         )
-        res = wiz.import_file_button()
-        result["context"]["statement_line_ids"].extend(
-            res["context"]["statement_line_ids"]
+        msg_hdr = _(
+            "{} : Import failed for EBICS File %(fn)s:\n",
+            fn=wiz.statement_filename,
         )
-        result["context"]["notifications"].extend(res["context"]["notifications"])
-        return self._process_result_action(result)
+        try:
+            with self.env.cr.savepoint():
+                file_data = base64.b64decode(self.data)
+                wiz.import_single_file(file_data, result)
+
+                if not result["statement_ids"]:
+                    message = msg_hdr.format(_("Warning"))
+                    message += _(
+                        "You have already imported this file, or this file "
+                        "only contains already imported transactions."
+                    )
+                    notifications += [
+                        {
+                            "type": "warning",
+                            "message": message,
+                        }
+                    ]
+                else:
+                    statement_ids.extend(result["statement_ids"])
+                notifications.extend(result["notifications"])
+
+        except UserError as e:
+            message = msg_hdr.format(_("Error"))
+            message += "".join(e.args)
+            notifications += [
+                {
+                    "type": "error",
+                    "message": message,
+                }
+            ]
+
+        except Exception:
+            tb = "".join(format_exception(*exc_info()))
+            message = msg_hdr.format(_("Error"))
+            message += tb
+            notifications += [
+                {
+                    "type": "error",
+                    "message": message,
+                }
+            ]
+
+        result_action["context"]["notifications"] = notifications
+        result_action["domain"] = [("id", "in", statement_ids)]
+        return self._process_result_action(result_action)
 
     def _process_camt053_oe(self):
         wiz_model = "account.bank.statement.import"
