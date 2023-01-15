@@ -471,6 +471,7 @@ class EbicsConfig(models.Model):
                 o_list[-i] = 'A'
                 break
             if c == 'Z':
+                o_list[-i] = '0'
                 continue
             else:
                 o_list[-i] = chr(ord(c) + 1)
