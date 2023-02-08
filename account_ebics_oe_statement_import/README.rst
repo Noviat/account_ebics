@@ -15,3 +15,8 @@ on your odoo database :
 - account_ebics_oe
 - account_bank_statement_import
 
+
+TODO
+----
+
+Adapt module for Odoo 16.0 bank statement import
