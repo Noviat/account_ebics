@@ -374,7 +374,7 @@ class EbicsXfer(models.TransientModel):
                         ef_note += "\n" + _("Origin: %s") % self._context["origin"]
                     suffix = self.format_id.suffix
                     fn = self.upload_fname
-                    if not fn.endswith(suffix):
+                    if suffix and not fn.endswith(suffix):
                         fn = ".".join([fn, suffix])
                     ef_vals = {
                         "name": self.upload_fname,
@@ -554,7 +554,10 @@ class EbicsXfer(models.TransientModel):
         if file_format.name in ff_methods:
             data = ff_methods[file_format.name](data)
 
-        fn = ".".join([base_fn, file_format.suffix])
+        fn = base_fn
+        suffix = file_format.suffix
+        if suffix and not fn.endswith(suffix):
+            fn = ".".join([fn, suffix])
         dups = self._check_duplicate_ebics_file(fn, file_format)
         if dups:
             raise UserError(

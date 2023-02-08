@@ -56,7 +56,6 @@ class EbicsFileFormat(models.Model):
     )
     description = fields.Char()
     suffix = fields.Char(
-        required=True,
         help="Specify the filename suffix for this File Format.\nE.g. c53.xml",
     )
     # EBICS 3.0 BTF
