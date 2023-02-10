@@ -116,41 +116,42 @@
           </group>
         </group>
         <group
-                    col="4"
                     name="dn"
                     attrs="{'invisible': [('ebics_key_x509', '=', False)], 'readonly': [('state', '!=', 'draft')]}"
                 >
-          <div colspan="4" col="1">
+          <div colspan="2" col="1">
             <strong
                         >Distinguished Name attributes used to create self-signed X.509 certificates:</strong>
           </div>
-          <group name="dn_l" colspan="2">
+          <group name="dn_l">
             <field name="ebics_key_x509_dn_cn" />
             <field name="ebics_key_x509_dn_o" />
             <field name="ebics_key_x509_dn_l" />
             <field name="ebics_key_x509_dn_c" />
           </group>
-          <group name="dn_r" colspan="2">
+          <group name="dn_r">
             <field name="ebics_key_x509_dn_e" />
             <field name="ebics_key_x509_dn_ou" />
             <field name="ebics_key_x509_dn_st" />
           </group>
         </group>
-        <group
-                    colspan="4"
-                    name="ebics_ini_letter"
-                    attrs="{'invisible': [('ebics_ini_letter', '=', False)]}"
-                >
-          <field name="ebics_ini_letter_fn" invisible="1" />
-          <field name="ebics_ini_letter" filename="ebics_ini_letter_fn" />
-        </group>
-        <group
-                    colspan="4"
-                    name="ebics_public_bank_keys"
-                    attrs="{'invisible': [('ebics_public_bank_keys', '=', False)]}"
-                >
-          <field name="ebics_public_bank_keys_fn" invisible="1" />
-          <field name="ebics_public_bank_keys" filename="ebics_public_bank_keys_fn" />
+        <group name="files">
+          <group
+                        colspan="2"
+                        name="ebics_ini_letter"
+                        attrs="{'invisible': [('ebics_ini_letter', '=', False)]}"
+                    >
+            <field name="ebics_ini_letter_fn" invisible="1" />
+            <field name="ebics_ini_letter" filename="ebics_ini_letter_fn" />
+          </group>
+          <group
+                        colspan="2"
+                        name="ebics_public_bank_keys"
+                        attrs="{'invisible': [('ebics_public_bank_keys', '=', False)]}"
+                    >
+            <field name="ebics_public_bank_keys_fn" invisible="1" />
+            <field name="ebics_public_bank_keys" filename="ebics_public_bank_keys_fn" />
+          </group>
         </group>
       </form>
     </field>
