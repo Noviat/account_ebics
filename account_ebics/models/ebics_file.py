@@ -3,12 +3,17 @@
 
 import base64
 import logging
+from copy import deepcopy
 from sys import exc_info
 from traceback import format_exception
+
+from lxml import etree
 
 from odoo import _, fields, models
 from odoo.exceptions import UserError
 from odoo.tools.safe_eval import safe_eval
+
+from odoo.addons.base.models.res_bank import sanitize_account_number
 
 _logger = logging.getLogger(__name__)
 
@@ -65,10 +70,14 @@ class EbicsFile(models.Model):
         readonly=True,
     )
     note = fields.Text(string="Notes")
-    note_process = fields.Text(string="Notes")
+    note_process = fields.Text(
+        string="Notes",
+        readonly=True,
+    )
     company_ids = fields.Many2many(
         comodel_name="res.company",
         string="Companies",
+        readonly=True,
         help="Companies sharing this EBICS file.",
     )
 
@@ -100,7 +109,7 @@ class EbicsFile(models.Model):
         ff = self.format_id.download_process_method
         if ff in ff_methods:
             if ff_methods[ff].get("process"):
-                res = ff_methods[ff]["process"](self)
+                res = ff_methods[ff]["process"]()
                 self.state = "done"
                 return res
         else:
@@ -111,9 +120,8 @@ class EbicsFile(models.Model):
         action = self.env["ir.actions.act_window"]._for_xml_id(
             "account.action_bank_statement_tree"
         )
-        domain = safe_eval(action.get("domain") or "[]")
-        domain += [("id", "in", self._context.get("statement_ids"))]
-        action.update({"domain": domain})
+        domain = [("id", "in", self.env.context.get("statement_ids"))]
+        action["domain"] = domain
         return action
 
     def button_close(self):
@@ -169,50 +177,26 @@ class EbicsFile(models.Model):
             return False
         return True
 
-    def _process_result_action(self, res_action):
-        notifications = []
-        st_line_ids = []
-        statement_ids = []
+    def _process_download_result(self, res):
+        statement_ids = res["statement_ids"]
+        notifications = res["notifications"]
         sts_data = []
-        if res_action.get("type") and res_action["type"] == "ir.actions.client":
-            st_line_ids = res_action["context"].get("statement_line_ids", [])
-            if st_line_ids:
-                self.env.flush_all()
-                self.env.cr.execute(
-                    """
-                SELECT DISTINCT
-                    absl.statement_id,
-                    abs.name, abs.date, abs.company_id,
-                    rc.name AS company_name
-                  FROM account_bank_statement_line absl
-                  INNER JOIN account_bank_statement abs
-                    ON abs.id = absl.statement_id
-                  INNER JOIN res_company rc
-                    ON rc.id = abs.company_id
-                  WHERE absl.id IN %s
-                  ORDER BY date, company_id
-                    """,
-                    (tuple(st_line_ids),),
-                )
-                sts_data = self.env.cr.dictfetchall()
-        else:
-            if res_action.get("res_id"):
-                st_ids = res_action["res_id"]
-            else:
-                st_ids = res_action["domain"][0][2]
-            statements = self.env["account.bank.statement"].browse(st_ids)
-            for statement in statements:
-                sts_data.append(
-                    {
-                        "statement_id": statement.id,
-                        "date": statement.date,
-                        "name": statement.name,
-                        "company_name": statement.company_id.name,
-                    }
-                )
-        st_cnt = len(sts_data)
+        if statement_ids:
+            self.env.flush_all()
+            self.env.cr.execute(
+                """
+            SELECT abs.name, abs.date, abs.company_id, rc.name AS company_name
+            FROM account_bank_statement abs
+            JOIN res_company rc ON rc.id = abs.company_id
+            WHERE abs.id in %s
+            ORDER BY abs.date, rc.id
+                """,
+                (tuple(res["statement_ids"]),),
+            )
+            sts_data = self.env.cr.dictfetchall()
+
+        st_cnt = len(statement_ids)
         warning_cnt = error_cnt = 0
-        notifications = res_action["context"].get("notifications", [])
         if notifications:
             for notif in notifications:
                 if notif["type"] == "error":
@@ -234,7 +218,11 @@ class EbicsFile(models.Model):
             )
         if st_cnt:
             self.note_process += "\n\n"
-            self.note_process += _("%s bank statements have been imported: ") % st_cnt
+            self.note_process += _(
+                "%(st_cnt)s bank statement%(sp)s been imported: ",
+                st_cnt=st_cnt,
+                sp=st_cnt == 1 and _(" has") or _("s have"),
+            )
             self.note_process += "\n"
         for st_data in sts_data:
             self.note_process += ("\n%s, %s (%s)") % (
@@ -242,7 +230,6 @@ class EbicsFile(models.Model):
                 st_data["name"],
                 st_data["company_name"],
             )
-        statement_ids = [x["statement_id"] for x in sts_data]
         if statement_ids:
             self.sudo().bank_statement_ids = [(4, x) for x in statement_ids]
         company_ids = self.sudo().bank_statement_ids.mapped("company_id").ids
@@ -262,8 +249,13 @@ class EbicsFile(models.Model):
             "type": "ir.actions.act_window",
         }
 
-    @staticmethod
     def _process_cfonb120(self):
+        """
+        Disable this code while waiting on OCA cfonb release for 16.0
+        """
+        # pylint: disable=W0101
+        raise NotImplementedError
+
         import_module = "account_statement_import_fr_cfonb"
         self._check_import_module(import_module)
         wiz_model = "account.statement.import"
@@ -356,51 +348,56 @@ class EbicsFile(models.Model):
         result_action["domain"] = [("id", "in", statement_ids)]
         return self._process_result_action(result_action)
 
-    @staticmethod
     def _unlink_cfonb120(self):
         """
         Placeholder for cfonb120 specific actions before removing the
         EBICS data file and its related bank statements.
         """
 
-    @staticmethod
     def _process_camt052(self):
         import_module = "account_statement_import_camt"
         self._check_import_module(import_module)
         return self._process_camt053(self)
 
-    @staticmethod
     def _unlink_camt052(self):
         """
         Placeholder for camt052 specific actions before removing the
         EBICS data file and its related bank statements.
         """
 
-    @staticmethod
     def _process_camt054(self):
         import_module = "account_statement_import_camt"
         self._check_import_module(import_module)
         return self._process_camt053(self)
 
-    @staticmethod
     def _unlink_camt054(self):
         """
         Placeholder for camt054 specific actions before removing the
         EBICS data file and its related bank statements.
         """
 
-    @staticmethod
-    def _process_camt053(self):
+    def _process_camt053(self):  # noqa C901
+        """
+        The Odoo standard statement import is based on manual selection
+        of a financial journal before importing the electronic statement file.
+        An EBICS download may return a single file containing a large number of
+        statements from different companies/journals.
+        Hence we need to split the CAMT file into
+        single statement CAMT files before we can call the logic
+        implemented by the Odoo OE or Community CAMT parsers.
+
+        TODO: refactor method to enable removal of noqa C901
+        """
         modules = [
             ("oca", "account_statement_import_camt"),
             ("oe", "account_bank_statement_import_camt"),
         ]
-        found = False
-        for _src, mod in modules:
-            if self._check_import_module(mod, raise_if_not_found=False):
-                found = True
+        author = False
+        for entry in modules:
+            if self._check_import_module(entry[1], raise_if_not_found=False):
+                author = entry[0]
                 break
-        if not found:
+        if not author:
             raise UserError(
                 _(
                     "The module to process the '%(ebics_format)s' format is "
@@ -410,15 +407,125 @@ class EbicsFile(models.Model):
                     modules=", ".join([x[1] for x in modules]),
                 )
             )
-        if _src == "oca":
+        res = {"statement_ids": [], "notifications": []}
+        try:
+            with self.env.cr.savepoint():
+                msg_hdr = _("{} : Import failed for file %(fn)s:\n", fn=self.name)
+                file_data = base64.b64decode(self.data)
+                root = etree.fromstring(file_data, parser=etree.XMLParser(recover=True))
+                if root is None:
+                    message = msg_hdr.format(_("Error"))
+                    message += _("Invalid XML file.")
+                    res["notifications"].append({"type": "error", "message": message})
+                ns = {k or "ns": v for k, v in root.nsmap.items()}
+                for i, stmt in enumerate(root[0].findall("ns:Stmt", ns), start=1):
+                    msg_hdr = _(
+                        "{} : Import failed for statement number %(index)s, filename %(fn)s:\n",
+                        index=i,
+                        fn=self.name,
+                    )
+                    acc_number = sanitize_account_number(
+                        stmt.xpath(
+                            "ns:Acct/ns:Id/ns:IBAN/text() | ns:Acct/ns:Id/ns:Othr/ns:Id/text()",
+                            namespaces=ns,
+                        )[0]
+                    )
+                    if not acc_number:
+                        message = msg_hdr.format(_("Error"))
+                        message += _("No bank account number found.")
+                        res["notifications"].append(
+                            {"type": "error", "message": message}
+                        )
+                        continue
+                    currency_code = stmt.xpath(
+                        "ns:Acct/ns:Ccy/text() | ns:Bal/ns:Amt/@Ccy", namespaces=ns
+                    )[0]
+                    currency = self.env["res.currency"].search(
+                        [("name", "=ilike", currency_code)], limit=1
+                    )
+                    if not currency:
+                        message = msg_hdr.format(_("Error"))
+                        message += _("Currency %(cc) not found.", cc=currency_code)
+                        res["notifications"] = {"type": "error", "message": message}
+                        continue
+                    journal = self.env["account.journal"].search(
+                        [
+                            ("type", "=", "bank"),
+                            (
+                                "bank_account_id.sanitized_acc_number",
+                                "ilike",
+                                acc_number,
+                            ),
+                        ]
+                    )
+                    journal_currency = (
+                        journal.currency_id or journal.company_id.currency_id
+                    )
+                    if journal_currency != currency:
+                        message = msg_hdr.format(_("Error"))
+                        message += _(
+                            "No financial journal found for Account Number %(nbr)s, "
+                            "Currency %(cc)",
+                            nbr=acc_number,
+                            cc=currency_code,
+                        )
+                        res["notifications"].append(
+                            {"type": "error", "message": message}
+                        )
+                        continue
+
+                    root_new = deepcopy(root)
+                    for j, el in enumerate(root_new[0].findall("ns:Stmt", ns), start=1):
+                        if j != i:
+                            el.getparent.remove(el)
+                    data = base64.b64encode(etree.tostring(root_new))
+
+                    if author == "oca":
+                        # TODO: implement _process_camt053_oca() once OCA camt is
+                        # released for 16.0
+                        raise NotImplementedError
+                    else:
+                        self.env.company = journal.company_id
+                        attachment = self.env["ir.attachment"].create(
+                            {"name": self.name, "datas": data, "store_fname": self.name}
+                        )
+                        act = journal._import_bank_statement(attachment)
+                        for entry in act["domain"]:
+                            if (
+                                isinstance(entry, tuple)
+                                and entry[0] == "statement_id"
+                                and entry[1] == "in"
+                            ):
+                                res["statement_ids"].extend(entry[2])
+                                break
+                        notifications = act["context"]["notifications"]
+                        if notifications:
+                            res["notifications"].append(act["context"]["notifications"])
+
+        except UserError as e:
+            message = msg_hdr.format(_("Error"))
+            message += "".join(e.args)
+            res["notifications"].append({"type": "error", "message": message})
+        except Exception:
+            tb = "".join(format_exception(*exc_info()))
+            message = msg_hdr.format(_("Error"))
+            message += tb
+            res["notifications"].append({"type": "error", "message": message})
+
+        if author == "oca":
+            # TODO: implement _process_camt053_oca() once OCA camt is
+            # released for 16.0
             return self._process_camt053_oca()
         else:
-            return self._process_camt053_oe()
+            return self._process_download_result(res)
 
     def _process_camt053_oca(self):
         """
-        TODO: merge common logic of this method and _process_cfonb120
+        Disable this code while waiting on OCA CAMT parser for 16.0
         """
+        # pylint: disable=W0101
+        raise NotImplementedError
+
         wiz_model = "account.statement.import"
         wiz_vals = {
             "statement_filename": self.name,
@@ -487,38 +594,12 @@ class EbicsFile(models.Model):
         result_action["domain"] = [("id", "in", statement_ids)]
         return self._process_result_action(result_action)
 
-    def _process_camt053_oe(self):
-        wiz_model = "account.bank.statement.import"
-        wiz_vals = {
-            "attachment_ids": [
-                (
-                    0,
-                    0,
-                    {"name": self.name, "datas": self.data, "store_fname": self.name},
-                )
-            ]
-        }
-        wiz = (
-            self.env[wiz_model].with_context(active_model="ebics.file").create(wiz_vals)
-        )
-        res = wiz.import_file()
-        if res.get("res_model") == "account.bank.statement.import.journal.creation":
-            if res.get("context"):
-                bank_account = res["context"].get("default_bank_acc_number")
-                raise UserError(
-                    _("No financial journal found for Company Bank Account %s")
-                    % bank_account
-                )
-        return self._process_result_action(res)
-
-    @staticmethod
     def _unlink_camt053(self):
         """
         Placeholder for camt053 specific actions before removing the
         EBICS data file and its related bank statements.
         """
 
-    @staticmethod
     def _process_pain002(self):
         """
         Placeholder for processing pain.002 files.
@@ -526,7 +607,6 @@ class EbicsFile(models.Model):
         add import logic based upon OCA 'account_payment_return_import'
         """
 
-    @staticmethod
     def _unlink_pain002(self):
         """
         Placeholder for pain.002 specific actions before removing the
