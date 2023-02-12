@@ -59,6 +59,16 @@ We also recommend to consider the installation of the following modules:
 
 |
 
+- account_usability
+
+  Recommended if you have multiple financial journals.
+  This module adds a number of accounting menu entries such as bank statement list view
+  which allows to see all statements downloaded via the ir.cron automated EBICS download.
+
+  Cf. https://github.com/OCA/account-financial-tools
+
+|
+
 - account_ebics_payment_order
 
   Recommended if you are using the OCA account_payment_order module.
@@ -204,3 +214,5 @@ Known Issues / Roadmap
 ======================
 
 - add support to import externally generated keys & certificates (currently only 3SKey signature certificate)
+- For Odoo 16.0 the interaction with the OCA payment order and bank statement import modules (e.g. french CFONB) is not yet available.
+

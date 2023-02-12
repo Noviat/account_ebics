@@ -1,4 +1,4 @@
-# Copyright 2009-2022 Noviat.
+# Copyright 2009-2023 Noviat.
 # License LGPL-3 or later (http://www.gnu.org/licenses/lpgl).
 
 {
@@ -12,5 +12,7 @@
     "data": [
         "views/account_payment_order_views.xml",
     ],
-    "installable": True,
+    # installable False unit OCA payment order becomes
+    # available for 16.0
+    "installable": False,
 }
