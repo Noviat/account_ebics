@@ -1,4 +1,4 @@
-# Copyright 2020-2022 Noviat.
+# Copyright 2020-2023 Noviat.
 # License LGPL-3 or later (http://www.gnu.org/licenses/lpgl).
 
 {
