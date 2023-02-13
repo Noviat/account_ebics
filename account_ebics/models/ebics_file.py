@@ -65,7 +65,7 @@ class EbicsFile(models.Model):
         readonly=True,
     )
     note = fields.Text(string="Notes")
-    note_process = fields.Text(string="Notes")
+    note_process = fields.Text(string="Process Notes")
     company_ids = fields.Many2many(
         comodel_name="res.company",
         string="Companies",
