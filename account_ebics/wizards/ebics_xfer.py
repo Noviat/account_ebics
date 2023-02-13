@@ -233,7 +233,7 @@ class EbicsXfer(models.TransientModel):
                     self.note += _(
                         "EBICS Functional Error during download of "
                         "File Format %(name)s (%(order_type)s):",
-                        name=df.name,
+                        name=df.name or df.description,
                         order_type=df.order_type,
                     )
                     self.note += "\n"
@@ -245,7 +245,7 @@ class EbicsXfer(models.TransientModel):
                     self.note += _(
                         "EBICS Technical Error during download of "
                         "File Format %(name)s (%(order_type)s):",
-                        name=df.name,
+                        name=df.name or df.description,
                         order_type=df.order_type,
                     )
                     self.note += "\n"
@@ -256,28 +256,29 @@ class EbicsXfer(models.TransientModel):
                     self.note += _(
                         "EBICS Verification Error during download of "
                         "File Format %(name)s (%(order_type)s):",
-                        name=df.name,
+                        name=df.name or df.description,
                         order_type=df.order_type,
                     )
                     self.note += "\n"
                     self.note += _("The EBICS response could not be verified.")
                 except UserError as e:
+                    err_cnt += 1
                     self.note += "\n"
                     self.note += _(
-                        "Warning during download of "
+                        "Error detected during download of "
                         "File Format %(name)s (%(order_type)s):",
-                        name=df.name,
+                        name=df.name or df.description,
                         order_type=df.order_type,
                     )
                     self.note += "\n"
-                    self.note += e.name
+                    self.note += " ".join(e.args)
                 except Exception:
                     err_cnt += 1
                     self.note += "\n"
                     self.note += _(
                         "Unknown Error during download of "
                         "File Format %(name)s (%(order_type)s):",
-                        name=df.name,
+                        name=df.name or df.description,
                         order_type=df.order_type,
                     )
                     tb = "".join(format_exception(*exc_info()))
