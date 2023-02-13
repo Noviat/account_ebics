@@ -71,7 +71,7 @@ class EbicsFile(models.Model):
     )
     note = fields.Text(string="Notes")
     note_process = fields.Text(
-        string="Notes",
+        string="Process Notes",
         readonly=True,
     )
     company_ids = fields.Many2many(
