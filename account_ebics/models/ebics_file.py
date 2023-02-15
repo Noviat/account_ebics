@@ -71,7 +71,7 @@ class EbicsFile(models.Model):
     )
     note = fields.Text(string="Notes")
     note_process = fields.Text(
-        string="Notes",
+        string="Process Notes",
         readonly=True,
     )
     company_ids = fields.Many2many(
@@ -90,7 +90,7 @@ class EbicsFile(models.Model):
             ff = ebics_file.format_id.download_process_method
             if ff in ff_methods:
                 if ff_methods[ff].get("unlink"):
-                    ff_methods[ff]["unlink"](ebics_file)
+                    ff_methods[ff]["unlink"]()
             # remove bank statements
             ebics_file.bank_statement_ids.unlink()
         return super().unlink()
@@ -445,8 +445,10 @@ class EbicsFile(models.Model):
                     )
                     if not currency:
                         message = msg_hdr.format(_("Error"))
-                        message += _("Currency %(cc) not found.", cc=currency_code)
-                        res["notifications"] = {"type": "error", "message": message}
+                        message += _("Currency %(cc)s not found.", cc=currency_code)
+                        res["notifications"].append(
+                            {"type": "error", "message": message}
+                        )
                         continue
                     journal = self.env["account.journal"].search(
                         [
@@ -465,7 +467,7 @@ class EbicsFile(models.Model):
                         message = msg_hdr.format(_("Error"))
                         message += _(
                             "No financial journal found for Account Number %(nbr)s, "
-                            "Currency %(cc)",
+                            "Currency %(cc)s",
                             nbr=acc_number,
                             cc=currency_code,
                         )
