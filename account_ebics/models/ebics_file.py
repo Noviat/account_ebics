@@ -209,12 +209,12 @@ class EbicsFile(models.Model):
             self.note_process += "\n"
         if error_cnt:
             self.note_process += (
-                _("Number of errors detected during import: %s: ") % error_cnt
+                _("Number of errors detected during import: %s") % error_cnt
             )
             self.note_process += "\n"
         if warning_cnt:
             self.note_process += (
-                _("Number of watnings detected during import: %s: ") % warning_cnt
+                _("Number of warnings detected during import: %s") % warning_cnt
             )
         if st_cnt:
             self.note_process += "\n\n"
@@ -410,6 +410,7 @@ class EbicsFile(models.Model):
         res = {"statement_ids": [], "notifications": []}
         try:
             with self.env.cr.savepoint():
+                transactions = False
                 msg_hdr = _("{} : Import failed for file %(fn)s:\n", fn=self.name)
                 file_data = base64.b64decode(self.data)
                 root = etree.fromstring(file_data, parser=etree.XMLParser(recover=True))
@@ -460,6 +461,19 @@ class EbicsFile(models.Model):
                             ),
                         ]
                     )
+                    if not journal:
+                        message = msg_hdr.format(_("Error"))
+                        message += _(
+                            "No financial journal found for Account Number %(nbr)s, "
+                            "Currency %(cc)s",
+                            nbr=acc_number,
+                            cc=currency_code,
+                        )
+                        res["notifications"].append(
+                            {"type": "error", "message": message}
+                        )
+                        continue
+
                     journal_currency = (
                         journal.currency_id or journal.company_id.currency_id
                     )
@@ -477,9 +491,16 @@ class EbicsFile(models.Model):
                         continue
 
                     root_new = deepcopy(root)
+                    entries = False
                     for j, el in enumerate(root_new[0].findall("ns:Stmt", ns), start=1):
                         if j != i:
-                            el.getparent.remove(el)
+                            el.getparent().remove(el)
+                        else:
+                            entries = el.findall("ns:Ntry", ns)
+                    if not entries:
+                        continue
+
+                    transactions = True
                     data = base64.b64encode(etree.tostring(root_new))
 
                     if author == "oca":
@@ -503,6 +524,12 @@ class EbicsFile(models.Model):
                         notifications = act["context"]["notifications"]
                         if notifications:
                             res["notifications"].append(act["context"]["notifications"])
+
+            if not transactions:
+                message = _(
+                    "Warning:\nNo transactions found in file %(fn)s.", fn=self.name
+                )
+                res["notifications"].append({"type": "warning", "message": message})
 
         except UserError as e:
             message = msg_hdr.format(_("Error"))
