@@ -20,6 +20,13 @@
                         required="1"
                         options="{'no_create': True, 'no_open': True}"
                     />
+          <field
+                        name="ebics_passphrase"
+                        password="True"
+                        required="1"
+                        attrs="{'invisible': [('ebics_passphrase_stored', '!=', False)]}"
+                    />
+          <field name="ebics_passphrase_stored" invisible="1" />
           <field name="date_from" />
           <field name="date_to" />
           <field
@@ -62,6 +69,13 @@
                         required="1"
                         options="{'no_create': True, 'no_open': True}"
                     />
+          <field
+                        name="ebics_passphrase"
+                        password="True"
+                        required="1"
+                        attrs="{'invisible': [('ebics_passphrase_stored', '!=', False)]}"
+                    />
+          <field name="ebics_passphrase_stored" invisible="1" />
           <separator string="Select your file :" colspan="2" />
           <field name="upload_data" filename="upload_fname" required="1" />
           <field name="upload_fname" invisible="1" />

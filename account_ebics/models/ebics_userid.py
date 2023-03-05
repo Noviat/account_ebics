@@ -87,6 +87,16 @@ class EbicsUserID(models.Model):
     ebics_keys_fn = fields.Char(compute="_compute_ebics_keys_fn")
     ebics_keys_found = fields.Boolean(compute="_compute_ebics_keys_found")
     ebics_passphrase = fields.Char(string="EBICS Passphrase")
+    ebics_passphrase_store = fields.Boolean(
+        string="Store EBICS Passphrase",
+        default=True,
+        help="When you uncheck this option the passphrase to unlock "
+        "your private key will not be stored in the database. "
+        "We recommend to use this if you want to upload signed "
+        "payment orders via EBICS.\nYou will be prompted to enter the "
+        "passphrase for every EBICS transaction, hence do not uncheck this "
+        "option on a userid for automated EBICS downloads.",
+    )
     ebics_ini_letter = fields.Binary(
         string="EBICS INI Letter",
         readonly=True,
@@ -195,7 +205,7 @@ class EbicsUserID(models.Model):
     @api.constrains("ebics_passphrase")
     def _check_ebics_passphrase(self):
         for rec in self:
-            if not rec.ebics_passphrase or len(rec.ebics_passphrase) < 8:
+            if rec.ebics_passphrase and len(rec.ebics_passphrase) < 8:
                 raise UserError(_("The passphrase must be at least 8 characters long"))
 
     @api.onchange("ebics_version")
@@ -207,6 +217,11 @@ class EbicsUserID(models.Model):
     def _onchange_signature_class(self):
         if self.signature_class == "T":
             self.swift_3skey = False
+
+    @api.onchange("ebics_passphrase_store")
+    def _onchange_ebics_passphrase_store(self):
+        if not self.ebics_passphrase_store:
+            self.ebics_passphrase = False
 
     @api.onchange("swift_3skey")
     def _onchange_swift_3skey(self):

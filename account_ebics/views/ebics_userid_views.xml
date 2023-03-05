@@ -93,6 +93,16 @@
                             password="True"
                             attrs="{'required': [('state', '=', 'draft')]}"
                         />
+            <field name="ebics_passphrase_store" />
+            <field name="active" />
+          </group>
+          <group name="main-right">
+            <field name="signature_class" />
+            <field
+                            name="user_ids"
+                            widget="many2many_tags"
+                            options="{'no_create': True}"
+                        />
             <field
                             name="swift_3skey"
                             attrs="{'invisible': [('signature_class', '=', 'T')]}"
@@ -102,15 +112,6 @@
                             name="swift_3skey_certificate"
                             filename="swift_3skey_certificate_fn"
                             attrs="{'invisible': [('swift_3skey', '=', False)], 'required': [('swift_3skey', '=', True)]}"
-                        />
-            <field name="active" />
-          </group>
-          <group name="main-right">
-            <field name="signature_class" />
-            <field
-                            name="user_ids"
-                            widget="many2many_tags"
-                            options="{'no_create': True}"
                         />
             <field name="ebics_key_x509" />
           </group>
