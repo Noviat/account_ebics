@@ -105,6 +105,15 @@ class EbicsBatchLog(models.Model):
                     )
                 )
                 continue
+            if not any(config.mapped("ebics_userid_ids.ebics_passphrase_store")):
+                import_dict["errors"].append(
+                    err_msg
+                    + _(
+                        "No EBICS UserID with stored passphrase found.\n"
+                        "You should configure such a UserID for automated downloads."
+                    )
+                )
+                continue
             try:
                 with self.env.cr.savepoint():
                     ebics_file_ids += self._ebics_import(
@@ -146,6 +155,11 @@ class EbicsBatchLog(models.Model):
         self.state = state
 
     def _ebics_import(self, config, date_from, date_to, import_dict):
+        ebics_userids = config.ebics_userid_ids.filtered(
+            lambda r: r.ebics_passphrase_store
+        )
+        t_userids = ebics_userids.filtered(lambda r: r.signature_class == "T")
+        ebics_userid = t_userids and t_userids[0] or ebics_userids[0]
         xfer_wiz = (
             self.env["ebics.xfer"]
             .with_context(ebics_download=True)
@@ -158,8 +172,9 @@ class EbicsBatchLog(models.Model):
             )
         )
         xfer_wiz._onchange_ebics_config_id()
+        xfer_wiz.ebics_userid_id = ebics_userid
         res = xfer_wiz.ebics_download()
-        file_ids = res["context"].get("ebics_file_ids")
+        file_ids = res["context"].get("ebics_file_ids", [])
         if res["context"]["err_cnt"]:
             import_dict["errors"].append(xfer_wiz.note)
         return file_ids
