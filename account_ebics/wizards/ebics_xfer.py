@@ -62,6 +62,9 @@ class EbicsXfer(models.TransientModel):
         comodel_name="ebics.userid", string="EBICS UserID"
     )
     ebics_passphrase = fields.Char(string="EBICS Passphrase")
+    ebics_passphrase_stored = fields.Char(
+        string="EBICS Stored Passphrase", related="ebics_userid_id.ebics_passphrase"
+    )
     date_from = fields.Date()
     date_to = fields.Date()
     upload_data = fields.Binary(string="File to Upload")
@@ -108,7 +111,7 @@ class EbicsXfer(models.TransientModel):
     @api.onchange("ebics_config_id")
     def _onchange_ebics_config_id(self):
         ebics_userids = self.ebics_config_id.ebics_userid_ids
-        if self._context.get("ebics_download"):
+        if self.env.context.get("ebics_download"):
             download_formats = self.ebics_config_id.ebics_file_format_ids.filtered(
                 lambda r: r.type == "down"
             )
@@ -425,9 +428,15 @@ class EbicsXfer(models.TransientModel):
     def _setup_client(self):
         self.ebics_config_id._check_ebics_keys()
         passphrase = self._get_passphrase()
-        keyring = EbicsKeyRing(
-            keys=self.ebics_userid_id.ebics_keys_fn, passphrase=passphrase
-        )
+        try:
+            keyring = EbicsKeyRing(
+                keys=self.ebics_userid_id.ebics_keys_fn, passphrase=passphrase
+            )
+        except (RuntimeError, ValueError) as err:
+            error = _("Error while accessing the EBICS Keys:")
+            error += "\n"
+            error += err.args[0]
+            raise UserError(error) from err
 
         bank = EbicsBank(
             keyring=keyring,
@@ -437,11 +446,22 @@ class EbicsXfer(models.TransientModel):
         if self.ebics_config_id.ebics_version == "H003":
             bank._order_number = self.ebics_config_id._get_order_number()
 
-        user = EbicsUser(
-            keyring=keyring,
-            partnerid=self.ebics_config_id.ebics_partner,
-            userid=self.ebics_userid_id.name,
-        )
+        try:
+            user = EbicsUser(
+                keyring=keyring,
+                partnerid=self.ebics_config_id.ebics_partner,
+                userid=self.ebics_userid_id.name,
+            )
+        except ValueError as err:
+            error = _("Error while accessing the EBICS UserID:")
+            error += "\n"
+            err_str = err.args[0]
+            error += err.args[0]
+            if err_str == "unknown key format":
+                error += "\n"
+                error += _("Doublecheck your EBICS Passphrase and UserID settings.")
+            raise UserError(error) from err
+
         signature_class = (
             self.format_id.signature_class or self.ebics_userid_id.signature_class
         )
@@ -460,24 +480,7 @@ class EbicsXfer(models.TransientModel):
         return client
 
     def _get_passphrase(self):
-        passphrase = self.ebics_userid_id.ebics_passphrase
-
-        if passphrase:
-            return passphrase
-
-        module = __name__.split("addons.")[1].split(".")[0]
-        passphrase_view = self.env.ref("%s.ebics_xfer_view_form_passphrase" % module)
-        return {
-            "name": _("EBICS file transfer"),
-            "res_id": self.id,
-            "view_type": "form",
-            "view_mode": "form",
-            "res_model": "ebics.xfer",
-            "view_id": passphrase_view.id,
-            "target": "new",
-            "context": self._context,
-            "type": "ir.actions.act_window",
-        }
+        return self.ebics_passphrase or self.ebics_userid_id.ebics_passphrase
 
     def _file_format_methods(self):
         """
