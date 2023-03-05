@@ -134,6 +134,10 @@ class EbicsXfer(models.TransientModel):
             if len(ebics_userids) == 1:
                 self.ebics_userid_id = ebics_userids
 
+    @api.onchange("ebics_userid_id")
+    def _onchange_ebics_userid_id(self):
+        self.ebics_passphrase = self.ebics_passphrase_stored
+
     @api.onchange("upload_data")
     def _onchange_upload_data(self):
         self.upload_fname_dummy = self.upload_fname
