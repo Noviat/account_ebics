@@ -114,5 +114,7 @@ class EbicsFileFormat(models.Model):
         res = []
         for rec in self:
             name = rec.ebics_version == "2" and rec.name or rec.btf_message
+            if rec.description:
+                name += " - " + rec.description
             res.append((rec.id, name))
         return res
