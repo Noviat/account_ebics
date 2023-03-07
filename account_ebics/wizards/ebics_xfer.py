@@ -152,7 +152,7 @@ class EbicsXfer(models.TransientModel):
             )
             if len(upload_formats) > 1:
                 upload_formats = upload_formats.filtered(
-                    lambda r: self.upload_fname.endswith(r.suffix)
+                    lambda r: self.upload_fname.endswith(r.suffix or "")
                 )
             if len(upload_formats) == 1:
                 self.format_id = upload_formats
