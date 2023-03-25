@@ -65,6 +65,9 @@ class EbicsXfer(models.TransientModel):
     ebics_passphrase_stored = fields.Char(
         string="EBICS Stored Passphrase", related="ebics_userid_id.ebics_passphrase"
     )
+    ebics_passphrase_store = fields.Boolean(
+        related="ebics_userid_id.ebics_passphrase_store"
+    )
     date_from = fields.Date()
     date_to = fields.Date()
     upload_data = fields.Binary(string="File to Upload")
@@ -133,10 +136,6 @@ class EbicsXfer(models.TransientModel):
                 self.format_id = upload_formats
             if len(ebics_userids) == 1:
                 self.ebics_userid_id = ebics_userids
-
-    @api.onchange("ebics_userid_id")
-    def _onchange_ebics_userid_id(self):
-        self.ebics_passphrase = self.ebics_passphrase_stored
 
     @api.onchange("upload_data")
     def _onchange_upload_data(self):
@@ -484,7 +483,7 @@ class EbicsXfer(models.TransientModel):
         return client
 
     def _get_passphrase(self):
-        return self.ebics_passphrase or self.ebics_userid_id.ebics_passphrase
+        return self.ebics_passphrase or self.ebics_passphrase_stored
 
     def _file_format_methods(self):
         """

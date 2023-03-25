@@ -91,7 +91,7 @@
             <field
                             name="ebics_passphrase"
                             password="True"
-                            attrs="{'required': [('state', '=', 'draft')]}"
+                            attrs="{'required': [('ebics_passphrase_store', '=', True)], 'invisible': [('state', '!=', 'draft')]}"
                         />
             <field name="ebics_passphrase_store" />
             <field name="active" />

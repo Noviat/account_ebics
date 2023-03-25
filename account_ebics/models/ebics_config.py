@@ -80,6 +80,7 @@ class EbicsConfig(models.Model):
     ebics_userid_ids = fields.One2many(
         comodel_name="ebics.userid",
         inverse_name="ebics_config_id",
+        string="EBICS UserID",
         readonly=True,
         states={"draft": [("readonly", False)]},
         help="Human users or a technical system that is/are "
@@ -128,7 +129,7 @@ class EbicsConfig(models.Model):
         comodel_name="ebics.file.format",
         column1="config_id",
         column2="format_id",
-        string="EBICS File Formats",
+        string="EBICS File Format",
         readonly=True,
         states={"draft": [("readonly", False)]},
     )

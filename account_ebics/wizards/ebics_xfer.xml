@@ -23,10 +23,9 @@
           <field
                         name="ebics_passphrase"
                         password="True"
-                        required="1"
-                        attrs="{'invisible': [('ebics_passphrase_stored', '!=', False)]}"
+                        attrs="{'invisible': [('ebics_passphrase_store', '=', True)], 'required': [('ebics_passphrase_store', '=', False)]}"
                     />
-          <field name="ebics_passphrase_stored" invisible="1" />
+          <field name="ebics_passphrase_store" invisible="1" />
           <field name="date_from" />
           <field name="date_to" />
           <field
@@ -72,10 +71,9 @@
           <field
                         name="ebics_passphrase"
                         password="True"
-                        required="1"
-                        attrs="{'invisible': [('ebics_passphrase_stored', '!=', False)]}"
+                        attrs="{'invisible': [('ebics_passphrase_store', '=', True)], 'required': [('ebics_passphrase_store', '=', False)]}"
                     />
-          <field name="ebics_passphrase_stored" invisible="1" />
+          <field name="ebics_passphrase_store" invisible="1" />
           <separator string="Select your file :" colspan="2" />
           <field name="upload_data" filename="upload_fname" required="1" />
           <field name="upload_fname" invisible="1" />
