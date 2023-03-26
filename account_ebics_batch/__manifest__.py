@@ -17,4 +17,5 @@
         "views/menu.xml",
     ],
     "installable": True,
+    "images": ["static/description/cover.png"],
 }
