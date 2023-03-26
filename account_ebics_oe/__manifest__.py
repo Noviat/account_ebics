@@ -16,4 +16,5 @@
     "data": ["views/account_ebics_menu.xml"],
     "installable": True,
     "auto_install": True,
+    "images": ["static/description/cover.png"],
 }
