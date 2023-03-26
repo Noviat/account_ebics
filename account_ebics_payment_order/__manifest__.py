@@ -12,4 +12,5 @@
         "views/account_payment_order.xml",
     ],
     "installable": True,
+    "images": ["static/description/cover.png"],
 }

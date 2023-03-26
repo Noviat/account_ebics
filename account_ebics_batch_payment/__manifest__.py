@@ -10,4 +10,5 @@
     "depends": ["account_ebics", "account_batch_payment"],
     "data": ["views/account_batch_payment_views.xml"],
     "installable": True,
+    "images": ["static/description/cover.png"],
 }
