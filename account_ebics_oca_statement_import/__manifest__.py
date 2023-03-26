@@ -17,4 +17,5 @@
     # available for 16.0
     "installable": False,
     "auto_install": True,
+    "images": ["static/description/cover.png"],
 }
