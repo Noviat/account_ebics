@@ -22,4 +22,5 @@
     ],
     'installable': True,
     'application': True,
+    "images": ["static/description/cover.png"],
 }
