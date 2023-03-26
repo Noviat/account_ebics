@@ -14,5 +14,6 @@
     ],
     # installable False unit OCA payment order becomes
     # available for 16.0
+    "images": ["static/description/cover.png"],
     "installable": False,
 }
