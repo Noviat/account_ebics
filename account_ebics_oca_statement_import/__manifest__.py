@@ -15,4 +15,5 @@
     ],
     "installable": True,
     "auto_install": True,
+    "images": ["static/description/cover.png"],
 }
