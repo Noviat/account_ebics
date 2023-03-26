@@ -29,4 +29,5 @@
             'cryptography',
             ]
         },
+    "images": ["static/description/cover.png"],
 }
