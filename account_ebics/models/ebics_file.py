@@ -65,7 +65,7 @@ class EbicsFile(models.Model):
         readonly=True,
     )
     note = fields.Text(string="Notes")
-    note_process = fields.Text(string="Notes")
+    note_process = fields.Text(string="Process Notes")
     company_ids = fields.Many2many(
         comodel_name="res.company",
         string="Companies",
@@ -87,7 +87,7 @@ class EbicsFile(models.Model):
         return super(EbicsFile, self).unlink()
 
     def set_to_draft(self):
-        return self.write({"state": "draft"})
+        return self.write({"state": "draft", "note": False})
 
     def set_to_done(self):
         return self.write({"state": "done"})
@@ -219,10 +219,11 @@ class EbicsFile(models.Model):
                     error_cnt += 1
                 elif notif["type"] == "warning":
                     warning_cnt += 1
-                parts = [notif[k] for k in notif if k in ("message", "details")]
+                parts = [
+                    notif[k] for k in notif if k in ("message", "details") and notif[k]
+                ]
                 self.note_process += "\n".join(parts)
                 self.note_process += "\n\n"
-            self.note_process += "\n"
         if error_cnt:
             self.note_process += (
                 _("Number of errors detected during import: %s: ") % error_cnt
@@ -233,8 +234,9 @@ class EbicsFile(models.Model):
                 _("Number of watnings detected during import: %s: ") % warning_cnt
             )
         if st_cnt:
-            self.note_process += "\n\n"
-            self.note_process += _("%s bank statements have been imported: ") % st_cnt
+            if self.note_process:
+                self.note_process += "\n\n"
+            self.note_process += _("%s bank statement(s) have been imported: ") % st_cnt
             self.note_process += "\n"
         for st_data in sts_data:
             self.note_process += ("\n%s, %s (%s)") % (
@@ -293,6 +295,8 @@ class EbicsFile(models.Model):
             "account.action_bank_statement_tree"
         )
         result_action["context"] = safe_eval(result_action["context"])
+
+        transactions = False
         statement_ids = []
         notifications = []
         for i, wiz_vals in enumerate(wiz_vals_list, start=1):
@@ -316,7 +320,10 @@ class EbicsFile(models.Model):
                         fn=statement_filename,
                     )
                     wiz.import_single_file(file_data, result)
-                    if not result["statement_ids"]:
+                    if result["statement_ids"]:
+                        transactions = True
+                        statement_ids.extend(result["statement_ids"])
+                    elif not result.get("no_transactions"):
                         message = msg_hdr.format(_("Warning"))
                         message += _(
                             "You have already imported this file, or this file "
@@ -328,8 +335,7 @@ class EbicsFile(models.Model):
                                 "message": message,
                             }
                         ]
-                    else:
-                        statement_ids.extend(result["statement_ids"])
+                        transactions = True
                     notifications.extend(result["notifications"])
 
             except UserError as e:
@@ -353,6 +359,10 @@ class EbicsFile(models.Model):
                     }
                 ]
 
+        if not transactions:
+            message = _("This file doesn't contain any transaction.")
+            notifications = [{"type": "warning", "message": message, "details": ""}]
+            self.note = message
         result_action["context"]["notifications"] = notifications
         result_action["domain"] = [("id", "in", statement_ids)]
         return self._process_result_action(result_action)
