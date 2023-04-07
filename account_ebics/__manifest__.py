@@ -21,13 +21,13 @@
         'wizards/ebics_xfer.xml',
         'views/menu.xml',
     ],
-    'installable': True,
-    'application': True,
-    'external_dependencies': {
-        'python': [
-            'fintech',
-            'cryptography',
-            ]
-        },
+    "installable": True,
+    "application": True,
+    "external_dependencies": {
+        "python": [
+            "fintech",
+            "cryptography<=39.0.2",
+        ]
+    },
     "images": ["static/description/cover.png"],
 }
