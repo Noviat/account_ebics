@@ -26,7 +26,7 @@
     "external_dependencies": {
         "python": [
             "fintech",
-            "cryptography",
+            "cryptography<=39.0.2",
         ]
     },
     "images": ["static/description/cover.png"],
