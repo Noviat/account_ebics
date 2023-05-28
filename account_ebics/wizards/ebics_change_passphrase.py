@@ -31,16 +31,24 @@ class EbicsChangePassphrase(models.TransientModel):
 
     def change_passphrase(self):
         self.ensure_one()
-        if self.old_pass != self.ebics_userid_id.ebics_passphrase:
+        if (
+            self.ebics_userid_id.ebics_passphrase_store
+            and self.old_pass != self.ebics_userid_id.ebics_passphrase
+        ):
             raise UserError(_("Incorrect old passphrase."))
         if self.new_pass != self.new_pass_check:
             raise UserError(_("New passphrase verification error."))
         if self.new_pass == self.ebics_userid_id.ebics_passphrase:
             raise UserError(_("New passphrase equal to old passphrase."))
         try:
+            passphrase = (
+                self.ebics_userid_id.ebics_passphrase_store
+                and self.ebics_userid_id.ebics_passphrase
+                or self.old_pass
+            )
             keyring = EbicsKeyRing(
                 keys=self.ebics_userid_id.ebics_keys_fn,
-                passphrase=self.ebics_userid_id.ebics_passphrase,
+                passphrase=passphrase,
             )
             keyring.change_passphrase(self.new_pass)
         except ValueError as err:

@@ -213,6 +213,6 @@ You can also find this information in the doc folder of this module (file EBICS_
 Known Issues / Roadmap
 ======================
 
-- add support to import externally generated keys & certificates (currently only 3SKey signature certificate)
+- add support to import externally generated keys & certificates (currently only 3SKey signature certificate).
 - For Odoo 16.0 the interaction with the OCA payment order and bank statement import modules (e.g. french CFONB) is not yet available.
 
