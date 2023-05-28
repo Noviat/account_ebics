@@ -215,4 +215,5 @@ Known Issues / Roadmap
 
 - add support to import externally generated keys & certificates (currently only 3SKey signature certificate).
 - For Odoo 16.0 the interaction with the OCA payment order and bank statement import modules (e.g. french CFONB) is not yet available.
+- Electronic Distributed Signature (EDS) is not supported in the current version of this module.
 
