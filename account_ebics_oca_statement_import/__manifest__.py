@@ -1,5 +1,5 @@
 # Copyright 2020-2023 Noviat.
-# License LGPL-3 or later (http://www.gnu.org/licenses/lpgl).
+# License AGPL-3 or later (http://www.gnu.org/licenses/agpl).
 
 {
     "name": "account_ebics with OCA Bank Statement Imoort",
@@ -8,7 +8,7 @@
     "author": "Noviat",
     "website": "https://www.noviat.com",
     "category": "Hidden",
-    "license": "LGPL-3",
+    "license": "AGPL-3",
     "depends": [
         "account_ebics",
         "account_statement_import",

@@ -1,10 +1,10 @@
 # Copyright 2009-2023 Noviat.
-# License LGPL-3 or later (http://www.gnu.org/licenses/lpgl).
+# License AGPL-3 or later (http://www.gnu.org/licenses/agpl).
 
 {
     "name": "Upload Payment Order via EBICS",
     "version": "16.0.1.0.0",
-    "license": "LGPL-3",
+    "license": "AGPL-3",
     "author": "Noviat",
     "website": "https://www.noviat.com",
     "category": "Accounting & Finance",
@@ -12,7 +12,7 @@
     "data": [
         "views/account_payment_order_views.xml",
     ],
-    # installable False unit OCA payment order becomes
+    # installable False until OCA payment order becomes
     # available for 16.0
     "images": ["static/description/cover.png"],
     "installable": False,
