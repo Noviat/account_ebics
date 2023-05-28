@@ -73,4 +73,13 @@
         sequence="20"
     />
 
+  <menuitem
+        id="ebics_admin_order_menu"
+        name="EBICS Administrative Orders"
+        parent="ebics_menu"
+        action="ebics_admin_order_action"
+        groups="account_ebics.group_ebics_manager"
+        sequence="30"
+    />
+
 </odoo>

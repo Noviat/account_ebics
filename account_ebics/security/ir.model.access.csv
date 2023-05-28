@@ -10,3 +10,4 @@ access_ebics_file_user,ebics_file user,model_ebics_file,account.group_account_in
 
 access_ebics_change_passphrase,access_ebics_change_passphrase,model_ebics_change_passphrase,group_ebics_manager,1,1,1,0
 access_ebics_xfer,access_ebics_xfer,model_ebics_xfer,account.group_account_invoice,1,1,1,0
+access_ebics_admin_order,access_ebics_admin_order,model_ebics_admin_order,group_ebics_manager,1,1,1,0

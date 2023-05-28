@@ -40,10 +40,15 @@
                         name="ebics_download"
                         string="Download Files"
                         type="object"
-                        class="oe_highlight"
+                        class="btn-primary"
+                        data-hotkey="q"
                     />
-          or
-          <button string="Cancel" class="oe_link" special="cancel" />
+          <button
+                        string="Cancel"
+                        class="btn-secondary"
+                        special="cancel"
+                        data-hotkey="z"
+                    />
         </footer>
       </form>
     </field>
@@ -95,10 +100,15 @@
                         name="ebics_upload"
                         string="Upload File"
                         type="object"
-                        class="oe_highlight"
+                        class="btn-primary"
+                        data-hotkey="q"
                     />
-          or
-          <button string="Cancel" class="oe_link" special="cancel" />
+          <button
+                        string="Cancel"
+                        class="btn-secondary"
+                        special="cancel"
+                        data-hotkey="z"
+                    />
         </footer>
       </form>
     </field>
@@ -117,10 +127,16 @@
                         name="view_ebics_file"
                         type="object"
                         string="View EBICS File(s)"
-                        class="oe_highlight"
+                        class="btn-primary"
                         invisible="not context.get('ebics_file_ids')"
+                        data-hotkey="q"
                     />
-          <button name="button_close" type="object" string="Close" />
+          <button
+                        string="Close"
+                        class="btn-secondary"
+                        special="cancel"
+                        data-hotkey="z"
+                    />
         </footer>
       </form>
     </field>
