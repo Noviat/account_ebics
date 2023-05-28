@@ -321,10 +321,6 @@ class EbicsXfer(models.TransientModel):
             "type": "ir.actions.act_window",
         }
 
-    def button_close(self):
-        self.ensure_one()
-        return {"type": "ir.actions.act_window_close"}
-
     def view_ebics_file(self):
         self.ensure_one()
         module = __name__.split("addons.")[1].split(".")[0]
