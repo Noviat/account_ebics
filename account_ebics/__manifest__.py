@@ -3,7 +3,7 @@
 
 {
     "name": "EBICS banking protocol",
-    "version": "16.0.1.1.0",
+    "version": "16.0.1.2.0",
     "license": "LGPL-3",
     "author": "Noviat",
     "website": "https://www.noviat.com",
@@ -18,6 +18,7 @@
         "views/ebics_userid_views.xml",
         "views/ebics_file_format_views.xml",
         "wizards/ebics_change_passphrase.xml",
+        "wizards/ebics_admin_order.xml",
         "wizards/ebics_xfer.xml",
         "views/menu.xml",
     ],
