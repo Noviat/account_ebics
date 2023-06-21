@@ -84,6 +84,17 @@ class EbicsUserID(models.Model):
         "This default can be overriden for specific "
         "EBICS transactions (cf. File Formats).",
     )
+    ui_designation = fields.Selection(
+        [
+            ("both", "Download and Upload"),
+            ("down", "Download Only"),
+            ("up", "Upload Only"),
+        ],
+        string="UI Designation",
+        default="both",
+        required=True,
+        help="Defines in what form this User will be available for selection.",
+    )
     ebics_keys_fn = fields.Char(compute="_compute_ebics_keys_fn")
     ebics_keys_found = fields.Boolean(compute="_compute_ebics_keys_found")
     ebics_passphrase = fields.Char(string="EBICS Passphrase")
