@@ -167,7 +167,7 @@ Most commonly used formats for which support is available in Odoo should be ther
 
 Please open an issue on https://github.com/Noviat/account_ebics to report missing EBICS File Formats.
 
-For File Formats of type 'Downloads' you can also specifiy a 'Download Process Method'.
+For File Formats of type 'Downloads' you can also specify a 'Download Process Method'.
 
 This is the method that will be executed when hitting the 'Process' button on the downloaded file.
 
@@ -205,7 +205,7 @@ During the processing of your EBICS upload/download, your bank may return an Err
 EBICS Functional Error:
 EBICS_NO_DOWNLOAD_DATA_AVAILABLE (code: 90005)
 
-A detailled explanation of the codes can be found on http://www.ebics.org.
+A detailed explanation of the codes can be found on http://www.ebics.org.
 You can also find this information in the doc folder of this module (file EBICS_Annex1_ReturnCodes).
 
 |
@@ -213,7 +213,7 @@ You can also find this information in the doc folder of this module (file EBICS_
 Known Issues / Roadmap
 ======================
 
-- add support to import externally generated keys & certificates (currently only 3SKey signature certificate).
+- Add support to import externally generated keys & certificates (currently only 3SKey signature certificate).
 - For Odoo 16.0 the interaction with the OCA payment order and bank statement import modules (e.g. french CFONB) is not yet available.
 - Electronic Distributed Signature (EDS) is not supported in the current version of this module.
 
