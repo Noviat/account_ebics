@@ -94,8 +94,8 @@
                             attrs="{'required': [('ebics_passphrase_store', '=', True)], 'invisible': [('state', '!=', 'draft')]}"
                         />
             <field name="ebics_passphrase_store" />
+            <field name="transaction_rights" />
             <field name="active" />
-            <field name="ui_designation" />
           </group>
           <group name="main-right">
             <field name="signature_class" />
