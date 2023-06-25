@@ -113,29 +113,40 @@ class EbicsXfer(models.TransientModel):
 
     @api.onchange("ebics_config_id")
     def _onchange_ebics_config_id(self):
-        ebics_userids = self.ebics_config_id.ebics_userid_ids
-        if self.env.context.get("ebics_download"):
-            download_formats = self.ebics_config_id.ebics_file_format_ids.filtered(
+        avail_userids = self.ebics_config_id.ebics_userid_ids.filtered(
+            lambda r: self.env.user.id in r.user_ids.ids
+        )
+
+        if self.env.context.get("ebics_download"):  # Download Form
+            avail_formats = self.ebics_config_id.ebics_file_format_ids.filtered(
                 lambda r: r.type == "down"
             )
-            if len(download_formats) == 1:
-                self.format_id = download_formats
-            if len(ebics_userids) == 1:
-                self.ebics_userid_id = ebics_userids
-            else:
-                transport_users = ebics_userids.filtered(
-                    lambda r: r.signature_class == "T"
-                )
-                if len(transport_users) == 1:
-                    self.ebics_userid_id = transport_users
-        else:
-            upload_formats = self.ebics_config_id.ebics_file_format_ids.filtered(
+            avail_userids = avail_userids.filtered(
+                lambda r: r.transaction_rights in ["both", "down"]
+            )
+        else:  # Upload Form
+            avail_formats = self.ebics_config_id.ebics_file_format_ids.filtered(
                 lambda r: r.type == "up"
             )
-            if len(upload_formats) == 1:
-                self.format_id = upload_formats
-            if len(ebics_userids) == 1:
-                self.ebics_userid_id = ebics_userids
+            avail_userids = avail_userids.filtered(
+                lambda r: r.transaction_rights in ["both", "up"]
+            )
+
+        if avail_formats and len(avail_formats) == 1:
+            self.format_id = avail_formats
+        else:
+            self.format_id = False
+        if avail_userids:
+            if len(avail_userids) == 1:
+                self.ebics_userid_id = avail_userids
+            else:
+                with_passphrs_userids = avail_userids.filtered(
+                    lambda r: r.ebics_passphrase_store
+                )
+                if len(with_passphrs_userids) == 1:
+                    self.ebics_userid_id = with_passphrs_userids
+        else:
+            self.ebics_userid_id = False
 
     @api.onchange("upload_data")
     def _onchange_upload_data(self):

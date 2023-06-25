@@ -94,6 +94,7 @@
                             attrs="{'required': [('ebics_passphrase_store', '=', True)], 'invisible': [('state', '!=', 'draft')]}"
                         />
             <field name="ebics_passphrase_store" />
+            <field name="transaction_rights" />
             <field name="active" />
           </group>
           <group name="main-right">
