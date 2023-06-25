@@ -16,7 +16,7 @@
                     />
           <field
                         name="ebics_userid_id"
-                        domain="[('ebics_config_id', '=', ebics_config_id), ('user_ids.id', '=', uid), ('ui_designation', 'in', ['both', 'down'])]"
+                        domain="[('ebics_config_id', '=', ebics_config_id), ('user_ids.id', '=', uid), ('transaction_rights', 'in', ['both', 'down'])]"
                         required="1"
                         options="{'no_create': True, 'no_open': True}"
                     />
@@ -69,7 +69,7 @@
                     />
           <field
                         name="ebics_userid_id"
-                        domain="[('ebics_config_id', '=', ebics_config_id), ('user_ids.id', '=', uid), ('ui_designation', 'in', ['both', 'up'])]"
+                        domain="[('ebics_config_id', '=', ebics_config_id), ('user_ids.id', '=', uid), ('transaction_rights', 'in', ['both', 'up'])]"
                         required="1"
                         options="{'no_create': True, 'no_open': True}"
                     />

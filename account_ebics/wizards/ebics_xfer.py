@@ -122,14 +122,14 @@ class EbicsXfer(models.TransientModel):
                 lambda r: r.type == "down"
             )
             avail_userids = avail_userids.filtered(
-                lambda r: r.ui_designation in ["both", 'down']
+                lambda r: r.transaction_rights in ["both", "down"]
             )
         else:  # Upload Form
             avail_formats = self.ebics_config_id.ebics_file_format_ids.filtered(
                 lambda r: r.type == "up"
             )
             avail_userids = avail_userids.filtered(
-                lambda r: r.ui_designation in ["both", "up"]
+                lambda r: r.transaction_rights in ["both", "up"]
             )
 
         if avail_formats and len(avail_formats) == 1:
