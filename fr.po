@@ -6,15 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-01 10:05+0000\n"
-"PO-Revision-Date: 2021-12-01 11:20+0100\n"
+"POT-Creation-Date: 2022-03-16 14:28+0000\n"
+"PO-Revision-Date: 2022-03-16 16:16+0100\n"
 "Last-Translator: Houzéfa Abbasbhay <houzefa.abba@xcg-consulting.fr>\n"
 "Language-Team: \n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 2.3\n"
 
 #. module: account_ebics
 #: code:addons/account_ebics/models/ebics_file.py:0
@@ -34,8 +34,13 @@ msgstr ""
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__swift_3skey_certificate
-msgid "3SKey Certficate"
-msgstr ""
+msgid "3SKey Certificate"
+msgstr "Certificat 3SKey"
+
+#. module: account_ebics
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__swift_3skey_certificate_fn
+msgid "3SKey Certificate Filename"
+msgstr "Nom de fichier du certificat 3SKey"
 
 #. module: account_ebics
 #: code:addons/account_ebics/models/ebics_userid.py:0
@@ -45,7 +50,9 @@ msgstr ""
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_userid_view_form
-msgid "<strong>Distinguished Name attributes used to create self-signed X.509 certificates:</strong>"
+msgid ""
+"<strong>Distinguished Name attributes used to create self-signed X.509 "
+"certificates:</strong>"
 msgstr ""
 
 #. module: account_ebics
@@ -64,7 +71,8 @@ msgid "Account activated"
 msgstr ""
 
 #. module: account_ebics
-#: model:ir.model.fields,field_description:account_ebics.field_ebics_config__active model:ir.model.fields,field_description:account_ebics.field_ebics_userid__active
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_config__active
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__active
 msgid "Active"
 msgstr ""
 
@@ -74,7 +82,8 @@ msgid "Active Keys"
 msgstr ""
 
 #. module: account_ebics
-#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_download model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_upload
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_download
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_upload
 msgid "Additional Information"
 msgstr "Informations additionnelles"
 
@@ -94,6 +103,7 @@ msgid "Bank Statement"
 msgstr ""
 
 #. module: account_ebics
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_file__bank_statement_ids
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_download
 msgid "Bank Statements"
 msgstr ""
@@ -105,7 +115,14 @@ msgid "Bank account number: %s"
 msgstr ""
 
 #. module: account_ebics
-#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_change_passphrase_view_form model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_download model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_upload
+#: model:ir.model.fields,help:account_ebics.field_ebics_file__bank_statement_ids
+msgid "Bank statements created when this downloaded file got processed."
+msgstr ""
+
+#. module: account_ebics
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_change_passphrase_view_form
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_download
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_upload
 msgid "Cancel"
 msgstr "Annuler"
 
@@ -115,12 +132,14 @@ msgid "Change EBICS keys passphrase"
 msgstr ""
 
 #. module: account_ebics
-#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_change_passphrase_view_form model_terms:ir.ui.view,arch_db:account_ebics.ebics_userid_view_form
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_change_passphrase_view_form
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_userid_view_form
 msgid "Change Passphrase"
 msgstr ""
 
 #. module: account_ebics
-#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_change_passphrase_view_form_result model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_result
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_change_passphrase_view_form_result
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_result
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_result
 msgid "Close"
 msgstr "Fermer"
@@ -131,13 +150,15 @@ msgid "Common Name [CN]"
 msgstr ""
 
 #. module: account_ebics
-#: model:ir.model.fields,field_description:account_ebics.field_ebics_config__company_ids model:ir.model.fields,field_description:account_ebics.field_ebics_file__company_ids
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_config__company_ids
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_file__company_ids
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__company_ids
 msgid "Companies"
 msgstr "Sociétés"
 
 #. module: account_ebics
-#: model:ir.model.fields,help:account_ebics.field_ebics_config__company_ids model:ir.model.fields,help:account_ebics.field_ebics_userid__company_ids
+#: model:ir.model.fields,help:account_ebics.field_ebics_config__company_ids
+#: model:ir.model.fields,help:account_ebics.field_ebics_userid__company_ids
 msgid "Companies sharing this EBICS contract."
 msgstr ""
 
@@ -160,7 +181,8 @@ msgstr ""
 #: model:ir.model.fields,help:account_ebics.field_ebics_config__ebics_host
 msgid ""
 "Contact your bank to get the EBICS HostID.\n"
-"In France the BIC is usually allocated to the HostID whereas in Germany it tends to be an institute specific string of 8 characters."
+"In France the BIC is usually allocated to the HostID whereas in Germany it "
+"tends to be an institute specific string of 8 characters."
 msgstr ""
 
 #. module: account_ebics
@@ -174,16 +196,22 @@ msgid "Country Name [C]"
 msgstr ""
 
 #. module: account_ebics
-#: model:ir.model.fields,field_description:account_ebics.field_ebics_change_passphrase__create_uid model:ir.model.fields,field_description:account_ebics.field_ebics_config__create_uid
-#: model:ir.model.fields,field_description:account_ebics.field_ebics_file__create_uid model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__create_uid
-#: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__create_uid model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__create_uid
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_change_passphrase__create_uid
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_config__create_uid
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_file__create_uid
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__create_uid
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__create_uid
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__create_uid
 msgid "Created by"
 msgstr "Créé par"
 
 #. module: account_ebics
-#: model:ir.model.fields,field_description:account_ebics.field_ebics_change_passphrase__create_date model:ir.model.fields,field_description:account_ebics.field_ebics_config__create_date
-#: model:ir.model.fields,field_description:account_ebics.field_ebics_file__create_date model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__create_date
-#: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__create_date model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__create_date
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_change_passphrase__create_date
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_config__create_date
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_file__create_date
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__create_date
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__create_date
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__create_date
 msgid "Created on"
 msgstr "Créé le"
 
@@ -193,18 +221,22 @@ msgid "Date"
 msgstr "Date"
 
 #. module: account_ebics
-#: model:ir.model.fields,field_description:account_ebics.field_ebics_file__date_from model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__date_from
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_file__date_from
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__date_from
 msgid "Date From"
 msgstr "Date de début"
 
 #. module: account_ebics
-#: model:ir.model.fields,field_description:account_ebics.field_ebics_file__date_to model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__date_to
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_file__date_to
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__date_to
 msgid "Date To"
 msgstr "Date de fin"
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_userid__signature_class
-msgid "Default signature class.This default can be overriden for specific EBICS transactions (cf. File Formats)."
+msgid ""
+"Default signature class.This default can be overriden for specific EBICS "
+"transactions (cf. File Formats)."
 msgstr ""
 
 #. module: account_ebics
@@ -213,11 +245,19 @@ msgid "Description"
 msgstr ""
 
 #. module: account_ebics
-#: model:ir.model.fields,field_description:account_ebics.field_ebics_change_passphrase__display_name model:ir.model.fields,field_description:account_ebics.field_ebics_config__display_name
-#: model:ir.model.fields,field_description:account_ebics.field_ebics_file__display_name model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__display_name
-#: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__display_name model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__display_name
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_change_passphrase__display_name
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_config__display_name
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_file__display_name
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__display_name
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__display_name
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__display_name
 msgid "Display Name"
 msgstr "Nom affiché"
+
+#. module: account_ebics
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__upload_fname_dummy
+msgid "Display Upload Filename"
+msgstr "Nom affiché du fichier envoyé"
 
 #. module: account_ebics
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_file__state__done
@@ -225,12 +265,14 @@ msgid "Done"
 msgstr "Terminé"
 
 #. module: account_ebics
-#: model:ir.model.fields.selection,name:account_ebics.selection__ebics_file_format__type__down model:ir.ui.menu,name:account_ebics.ebics_file_menu_download
+#: model:ir.model.fields.selection,name:account_ebics.selection__ebics_file_format__type__down
+#: model:ir.ui.menu,name:account_ebics.ebics_file_menu_download
 msgid "Download"
 msgstr "Téléchargement"
 
 #. module: account_ebics
-#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_download model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_tree_download
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_download
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_tree_download
 msgid "Download Date"
 msgstr "Date de téléchargement"
 
@@ -245,7 +287,8 @@ msgid "Download Process Method"
 msgstr ""
 
 #. module: account_ebics
-#: model:ir.model.fields.selection,name:account_ebics.selection__ebics_config__state__draft model:ir.model.fields.selection,name:account_ebics.selection__ebics_file__state__draft
+#: model:ir.model.fields.selection,name:account_ebics.selection__ebics_config__state__draft
+#: model:ir.model.fields.selection,name:account_ebics.selection__ebics_file__state__draft
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_userid__state__draft
 msgid "Draft"
 msgstr "Brouillon"
@@ -254,15 +297,18 @@ msgstr "Brouillon"
 #: model:ir.model.fields,help:account_ebics.field_ebics_file_format__order_type
 msgid ""
 "E.g. C53 (check your EBICS contract).\n"
-"For most banks in France you should use the format neutral Order Types 'FUL' for upload and 'FDL' for download."
+"For most banks in France you should use the format neutral Order Types 'FUL' "
+"for upload and 'FDL' for download."
 msgstr ""
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_file_format__name
 msgid ""
 "E.g. camt.xxx.cfonb120.stm, pain.001.001.03.sct.\n"
-"Specify camt.052, camt.053, camt.054 for camt Order Types such as C53, Z53, C54, Z54.\n"
-"This name has to match the 'Request Type' in your EBICS contract for Order Type 'FDL' or 'FUL'.\n"
+"Specify camt.052, camt.053, camt.054 for camt Order Types such as C53, Z53, "
+"C54, Z54.\n"
+"This name has to match the 'Request Type' in your EBICS contract for Order "
+"Type 'FDL' or 'FUL'.\n"
 msgstr ""
 
 #. module: account_ebics
@@ -271,8 +317,12 @@ msgid "EBICS"
 msgstr "EBICS"
 
 #. module: account_ebics
-#: model:ir.actions.act_window,name:account_ebics.ebics_config_action model:ir.model,name:account_ebics.model_ebics_config model:ir.model.fields,field_description:account_ebics.field_ebics_userid__ebics_config_id
-#: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__ebics_config_id model:ir.ui.menu,name:account_ebics.ebics_config_menu model_terms:ir.ui.view,arch_db:account_ebics.ebics_config_view_form
+#: model:ir.actions.act_window,name:account_ebics.ebics_config_action
+#: model:ir.model,name:account_ebics.model_ebics_config
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__ebics_config_id
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__ebics_config_id
+#: model:ir.ui.menu,name:account_ebics.ebics_config_menu
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_config_view_form
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_config_view_tree
 msgid "EBICS Configuration"
 msgstr "Configuration EBICS"
@@ -293,7 +343,8 @@ msgid "EBICS Download Files"
 msgstr "Fichiers EBICS téléchargés"
 
 #. module: account_ebics
-#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_download model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_upload
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_download
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_upload
 msgid "EBICS File"
 msgstr ""
 
@@ -309,18 +360,25 @@ msgid "EBICS File Download"
 msgstr ""
 
 #. module: account_ebics
-#: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__format_id model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_format_view_form
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__format_id
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_format_view_form
 msgid "EBICS File Format"
 msgstr "Formats de fichier EBICS"
 
 #. module: account_ebics
-#: model:ir.actions.act_window,name:account_ebics.ebics_file_format_action model:ir.model,name:account_ebics.model_ebics_file_format model:ir.model.fields,field_description:account_ebics.field_ebics_config__ebics_file_format_ids
-#: model:ir.model.fields,field_description:account_ebics.field_ebics_file__format_id model:ir.ui.menu,name:account_ebics.ebics_file_format_menu model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_format_view_tree
+#: model:ir.actions.act_window,name:account_ebics.ebics_file_format_action
+#: model:ir.model,name:account_ebics.model_ebics_file_format
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_config__ebics_file_format_ids
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_file__format_id
+#: model:ir.ui.menu,name:account_ebics.ebics_file_format_menu
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_format_view_tree
 msgid "EBICS File Formats"
 msgstr "Formats de fichier EBICS"
 
 #. module: account_ebics
-#: model:ir.actions.act_window,name:account_ebics.ebics_xfer_action_download model:ir.actions.act_window,name:account_ebics.ebics_xfer_action_upload model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_result
+#: model:ir.actions.act_window,name:account_ebics.ebics_xfer_action_download
+#: model:ir.actions.act_window,name:account_ebics.ebics_xfer_action_upload
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_result
 msgid "EBICS File Transfer"
 msgstr "Transfert de fichier EBICS"
 
@@ -340,11 +398,14 @@ msgstr ""
 #, python-format
 msgid ""
 "EBICS File with name '%s' has already been downloaded.\n"
-"Please check this file and rename in case there is no risk on duplicate transactions."
+"Please check this file and rename in case there is no risk on duplicate "
+"transactions."
 msgstr ""
 
 #. module: account_ebics
-#: model:ir.ui.menu,name:account_ebics.ebics_file_menu model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_tree_download model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_tree_upload
+#: model:ir.ui.menu,name:account_ebics.ebics_file_menu
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_tree_download
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_tree_upload
 msgid "EBICS Files"
 msgstr "Fichiers EBICS"
 
@@ -368,7 +429,8 @@ msgid "EBICS Functional Error during download of File Format %s (%s):"
 msgstr ""
 
 #. module: account_ebics
-#: code:addons/account_ebics/models/ebics_userid.py:0 code:addons/account_ebics/wizards/ebics_xfer.py:0
+#: code:addons/account_ebics/models/ebics_userid.py:0
+#: code:addons/account_ebics/wizards/ebics_xfer.py:0
 #, python-format
 msgid "EBICS Functional Error:"
 msgstr ""
@@ -390,17 +452,23 @@ msgstr ""
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_userid_view_form
-msgid "EBICS Initialisation - After the account has been activated the public bank keys must be downloaded and checked for consistency."
+msgid ""
+"EBICS Initialisation - After the account has been activated the public bank "
+"keys must be downloaded and checked for consistency."
 msgstr ""
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_userid_view_form
-msgid "EBICS Initialisation - Push this button when the account has been activated by the bank."
+msgid ""
+"EBICS Initialisation - Push this button when the account has been activated "
+"by the bank."
 msgstr ""
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_userid_view_form
-msgid "EBICS Initialisation - Push this button when the public have been checked for consistency."
+msgid ""
+"EBICS Initialisation - Push this button when the public have been checked "
+"for consistency."
 msgstr ""
 
 #. module: account_ebics
@@ -410,7 +478,9 @@ msgid "EBICS Initialisation Error:"
 msgstr ""
 
 #. module: account_ebics
-#: code:addons/account_ebics/wizards/ebics_change_passphrase.py:0 model_terms:ir.ui.view,arch_db:account_ebics.ebics_change_passphrase_view_form model_terms:ir.ui.view,arch_db:account_ebics.ebics_change_passphrase_view_form_result
+#: code:addons/account_ebics/wizards/ebics_change_passphrase.py:0
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_change_passphrase_view_form
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_change_passphrase_view_form_result
 #, python-format
 msgid "EBICS Keys Change Passphrase"
 msgstr ""
@@ -445,7 +515,8 @@ msgid "EBICS PartnerID"
 msgstr ""
 
 #. module: account_ebics
-#: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__ebics_passphrase model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__ebics_passphrase
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__ebics_passphrase
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__ebics_passphrase
 msgid "EBICS Passphrase"
 msgstr ""
 
@@ -460,7 +531,7 @@ msgid "EBICS Public Bank Keys"
 msgstr ""
 
 #. module: account_ebics
-#: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__ebics_public_bank_keys_fn model:ir.model.fields,field_description:account_ebics.field_ebics_userid__swift_3skey_certificate_fn
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__ebics_public_bank_keys_fn
 msgid "EBICS Public Bank Keys Filename"
 msgstr ""
 
@@ -476,7 +547,8 @@ msgid "EBICS Technical Error during download of File Format %s (%s):"
 msgstr ""
 
 #. module: account_ebics
-#: code:addons/account_ebics/models/ebics_userid.py:0 code:addons/account_ebics/wizards/ebics_xfer.py:0
+#: code:addons/account_ebics/models/ebics_userid.py:0
+#: code:addons/account_ebics/wizards/ebics_xfer.py:0
 #, python-format
 msgid "EBICS Technical Error:"
 msgstr ""
@@ -497,9 +569,13 @@ msgid "EBICS Upload Files"
 msgstr "Fichiers EBICS envoyés"
 
 #. module: account_ebics
-#: model:ir.model,name:account_ebics.model_ebics_userid model:ir.model.fields,field_description:account_ebics.field_ebics_change_passphrase__ebics_userid_id
-#: model:ir.model.fields,field_description:account_ebics.field_ebics_file__ebics_userid_id model:ir.model.fields,field_description:account_ebics.field_ebics_userid__name
-#: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__ebics_userid_id model_terms:ir.ui.view,arch_db:account_ebics.ebics_userid_view_form model_terms:ir.ui.view,arch_db:account_ebics.ebics_userid_view_tree
+#: model:ir.model,name:account_ebics.model_ebics_userid
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_change_passphrase__ebics_userid_id
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_file__ebics_userid_id
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__name
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__ebics_userid_id
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_userid_view_form
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_userid_view_tree
 msgid "EBICS UserID"
 msgstr ""
 
@@ -521,7 +597,8 @@ msgid "EBICS Verification Error:"
 msgstr ""
 
 #. module: account_ebics
-#: code:addons/account_ebics/wizards/ebics_xfer.py:0 model:ir.model,name:account_ebics.model_ebics_xfer
+#: code:addons/account_ebics/wizards/ebics_xfer.py:0
+#: model:ir.model,name:account_ebics.model_ebics_xfer
 #, python-format
 msgid "EBICS file transfer"
 msgstr ""
@@ -591,7 +668,10 @@ msgstr ""
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_file_format__download_process_method
-msgid "Enable processing within Odoo of the downloaded file via the 'Process' button.E.g. specify camt.053 to import a camt.053 file and create a bank statement."
+msgid ""
+"Enable processing within Odoo of the downloaded file via the 'Process' "
+"button.E.g. specify camt.053 to import a camt.053 file and create a bank "
+"statement."
 msgstr ""
 
 #. module: account_ebics
@@ -638,17 +718,14 @@ msgstr ""
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_xfer__order_type
-msgid "For most banks in France you should use the format neutral Order Types 'FUL' for upload and 'FDL' for download."
+msgid ""
+"For most banks in France you should use the format neutral Order Types 'FUL' "
+"for upload and 'FDL' for download."
 msgstr ""
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_userid_view_form
 msgid "Force Active Keys"
-msgstr ""
-
-#. module: account_ebics
-#: model:ir.model.fields,field_description:account_ebics.field_ebics_file__bank_statement_ids
-msgid "Generated Bank Statements"
 msgstr ""
 
 #. module: account_ebics
@@ -677,16 +754,23 @@ msgid "H004 (2.5)"
 msgstr ""
 
 #. module: account_ebics
-#: model:ir.model.fields,help:account_ebics.field_ebics_config__ebics_userid_ids model:ir.model.fields,help:account_ebics.field_ebics_userid__name
+#: model:ir.model.fields,help:account_ebics.field_ebics_config__ebics_userid_ids
+#: model:ir.model.fields,help:account_ebics.field_ebics_userid__name
 msgid ""
 "Human users or a technical system that is/are assigned to a customer. \n"
-"On the EBICS bank server it is identified by the combination of UserID and PartnerID. The technical subscriber serves only for the data exchange between customer and financial institution. The human user also can authorise orders."
+"On the EBICS bank server it is identified by the combination of UserID and "
+"PartnerID. The technical subscriber serves only for the data exchange "
+"between customer and financial institution. The human user also can "
+"authorise orders."
 msgstr ""
 
 #. module: account_ebics
-#: model:ir.model.fields,field_description:account_ebics.field_ebics_change_passphrase__id model:ir.model.fields,field_description:account_ebics.field_ebics_config__id
-#: model:ir.model.fields,field_description:account_ebics.field_ebics_file__id model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__id
-#: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__id model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__id
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_change_passphrase__id
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_config__id
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_file__id
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__id
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__id
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__id
 msgid "ID"
 msgstr "ID"
 
@@ -728,23 +812,32 @@ msgid "Initialise EBICS Bank Keys"
 msgstr ""
 
 #. module: account_ebics
-#: model:ir.model.fields,field_description:account_ebics.field_ebics_change_passphrase____last_update model:ir.model.fields,field_description:account_ebics.field_ebics_config____last_update
-#: model:ir.model.fields,field_description:account_ebics.field_ebics_file____last_update model:ir.model.fields,field_description:account_ebics.field_ebics_file_format____last_update
-#: model:ir.model.fields,field_description:account_ebics.field_ebics_userid____last_update model:ir.model.fields,field_description:account_ebics.field_ebics_xfer____last_update
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_change_passphrase____last_update
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_config____last_update
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_file____last_update
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_file_format____last_update
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_userid____last_update
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer____last_update
 msgid "Last Modified on"
 msgstr "Dernière modification le"
 
 #. module: account_ebics
-#: model:ir.model.fields,field_description:account_ebics.field_ebics_change_passphrase__write_uid model:ir.model.fields,field_description:account_ebics.field_ebics_config__write_uid
-#: model:ir.model.fields,field_description:account_ebics.field_ebics_file__write_uid model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__write_uid
-#: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__write_uid model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__write_uid
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_change_passphrase__write_uid
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_config__write_uid
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_file__write_uid
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__write_uid
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__write_uid
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__write_uid
 msgid "Last Updated by"
 msgstr "Dernière mise à jour par"
 
 #. module: account_ebics
-#: model:ir.model.fields,field_description:account_ebics.field_ebics_change_passphrase__write_date model:ir.model.fields,field_description:account_ebics.field_ebics_config__write_date
-#: model:ir.model.fields,field_description:account_ebics.field_ebics_file__write_date model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__write_date
-#: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__write_date model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__write_date
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_change_passphrase__write_date
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_config__write_date
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_file__write_date
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__write_date
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__write_date
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__write_date
 msgid "Last Updated on"
 msgstr "Dernière mise à jour le"
 
@@ -799,8 +892,8 @@ msgid "No financial journal found."
 msgstr ""
 
 #. module: account_ebics
-#: model:ir.model.fields,field_description:account_ebics.field_ebics_change_passphrase__note model:ir.model.fields,field_description:account_ebics.field_ebics_file__note
-#: model:ir.model.fields,field_description:account_ebics.field_ebics_file__note_process
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_change_passphrase__note
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_file__note
 msgid "Notes"
 msgstr "Notes"
 
@@ -828,7 +921,8 @@ msgid ""
 msgstr ""
 
 #. module: account_ebics
-#: model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__order_type model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__order_type
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__order_type
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__order_type
 msgid "Order Type"
 msgstr ""
 
@@ -845,9 +939,12 @@ msgstr ""
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_config__ebics_partner
 msgid ""
-"Organizational unit (company or individual) that concludes a contract with the bank. \n"
-"In this contract it will be agreed which order types (file formats) are used, which accounts are concerned, which of the customer's users (subscribers) communicate with the EBICS bank server and the authorisations that these "
-"users will possess. \n"
+"Organizational unit (company or individual) that concludes a contract with "
+"the bank. \n"
+"In this contract it will be agreed which order types (file formats) are "
+"used, which accounts are concerned, which of the customer's users "
+"(subscribers) communicate with the EBICS bank server and the authorisations "
+"that these users will possess. \n"
 "It is identified by the PartnerID."
 msgstr ""
 
@@ -860,7 +957,8 @@ msgstr ""
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_file_format__signature_class
 msgid ""
-"Please doublecheck the security of your Odoo ERP system when using class 'E' to prevent unauthorised users to make supplier payments.\n"
+"Please doublecheck the security of your Odoo ERP system when using class 'E' "
+"to prevent unauthorised users to make supplier payments.\n"
 "Leave this field empty to use the default defined for your EBICS UserID."
 msgstr ""
 
@@ -873,6 +971,11 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_result
 msgid "Process EBICS File"
 msgstr ""
+
+#. module: account_ebics
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_file__note_process
+msgid "Process notes"
+msgstr "Notes d'exécution"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_download
@@ -890,7 +993,8 @@ msgid "Request Type"
 msgstr ""
 
 #. module: account_ebics
-#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_change_passphrase_view_form_result model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_result
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_change_passphrase_view_form_result
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_result
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_result
 msgid "Results :"
 msgstr ""
@@ -925,7 +1029,8 @@ msgid ""
 msgstr ""
 
 #. module: account_ebics
-#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_download model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_upload
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_download
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_upload
 msgid "Select your bank :"
 msgstr "Sélectionnez votre banque :"
 
@@ -970,12 +1075,15 @@ msgid "Set this flag in order to work with self-signed X.509 certificates"
 msgstr ""
 
 #. module: account_ebics
-#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_download model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_upload
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_download
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_upload
 msgid "Set to Done"
 msgstr ""
 
 #. module: account_ebics
-#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_config_view_form model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_download model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_upload
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_config_view_form
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_download
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_upload
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_userid_view_form
 msgid "Set to Draft"
 msgstr ""
@@ -991,12 +1099,14 @@ msgid "Set to Draft in order to reinitialize your bank connection."
 msgstr ""
 
 #. module: account_ebics
-#: model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__signature_class model:ir.model.fields,field_description:account_ebics.field_ebics_userid__signature_class
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__signature_class
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__signature_class
 msgid "Signature Class"
 msgstr ""
 
 #. module: account_ebics
-#: model:ir.model.fields.selection,name:account_ebics.selection__ebics_file_format__signature_class__e model:ir.model.fields.selection,name:account_ebics.selection__ebics_userid__signature_class__e
+#: model:ir.model.fields.selection,name:account_ebics.selection__ebics_file_format__signature_class__e
+#: model:ir.model.fields.selection,name:account_ebics.selection__ebics_userid__signature_class__e
 msgid "Single signature"
 msgstr ""
 
@@ -1015,8 +1125,10 @@ msgid ""
 msgstr ""
 
 #. module: account_ebics
-#: model:ir.model.fields,field_description:account_ebics.field_ebics_config__state model:ir.model.fields,field_description:account_ebics.field_ebics_file__state
-#: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__state model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_search
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_config__state
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_file__state
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__state
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_search
 msgid "State"
 msgstr "État"
 
@@ -1037,7 +1149,9 @@ msgstr "Mode test"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_config_view_form
-msgid "The EBICS configuration must be confirmed before it can used for bank transactions."
+msgid ""
+"The EBICS configuration must be confirmed before it can used for bank "
+"transactions."
 msgstr ""
 
 #. module: account_ebics
@@ -1056,13 +1170,17 @@ msgstr ""
 #. module: account_ebics
 #: code:addons/account_ebics/models/ebics_file.py:0
 #, python-format
-msgid "The current version of the 'account_ebics' module has no support to automatically process EBICS files with format %s."
+msgid ""
+"The current version of the 'account_ebics' module has no support to "
+"automatically process EBICS files with format %s."
 msgstr ""
 
 #. module: account_ebics
 #: code:addons/account_ebics/models/ebics_userid.py:0
 #, python-format
-msgid "The current version of this module requires to X509 support when enabling 3SKey"
+msgid ""
+"The current version of this module requires to X509 support when enabling "
+"3SKey"
 msgstr ""
 
 #. module: account_ebics
@@ -1103,16 +1221,19 @@ msgstr ""
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_userid__swift_3skey
-msgid "Transactions for this user will be signed by means of the SWIFT 3SKey token."
+msgid ""
+"Transactions for this user will be signed by means of the SWIFT 3SKey token."
 msgstr ""
 
 #. module: account_ebics
-#: model:ir.model.fields.selection,name:account_ebics.selection__ebics_file_format__signature_class__t model:ir.model.fields.selection,name:account_ebics.selection__ebics_userid__signature_class__t
+#: model:ir.model.fields.selection,name:account_ebics.selection__ebics_file_format__signature_class__t
+#: model:ir.model.fields.selection,name:account_ebics.selection__ebics_userid__signature_class__t
 msgid "Transport signature"
 msgstr ""
 
 #. module: account_ebics
-#: model:ir.model.fields,field_description:account_ebics.field_ebics_file__type model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__type
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_file__type
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__type
 msgid "Type"
 msgstr "Type"
 
@@ -1129,12 +1250,14 @@ msgid "Unknown Error during download of File Format %s (%s):"
 msgstr ""
 
 #. module: account_ebics
-#: model:ir.model.fields.selection,name:account_ebics.selection__ebics_file_format__type__up model:ir.ui.menu,name:account_ebics.ebics_file_menu_upload
+#: model:ir.model.fields.selection,name:account_ebics.selection__ebics_file_format__type__up
+#: model:ir.ui.menu,name:account_ebics.ebics_file_menu_upload
 msgid "Upload"
 msgstr "Envoi"
 
 #. module: account_ebics
-#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_upload model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_tree_upload
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_upload
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_tree_upload
 msgid "Upload Date"
 msgstr "Date d'envoi"
 
@@ -1144,13 +1267,16 @@ msgid "Upload File"
 msgstr "Envoyer le fichier"
 
 #. module: account_ebics
-#: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__upload_fname model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__upload_fname_dummy
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__upload_fname
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_upload
 msgid "Upload Filename"
 msgstr "Nom du fichier envoyé"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_userid_view_form
-msgid "Use this button to bypass the EBICS initialization (e.g. in case you have manually transferred active EBICS keys from another system."
+msgid ""
+"Use this button to bypass the EBICS initialization (e.g. in case you have "
+"manually transferred active EBICS keys from another system."
 msgstr ""
 
 #. module: account_ebics
@@ -1159,7 +1285,8 @@ msgid "Use this button to update the EBICS certificates of your bank."
 msgstr ""
 
 #. module: account_ebics
-#: model:ir.model.fields,field_description:account_ebics.field_ebics_file__user_id model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_search
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_file__user_id
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_search
 msgid "User"
 msgstr "Utilisateur"
 
@@ -1218,7 +1345,9 @@ msgid "You cannot remove active EBICS configurations."
 msgstr ""
 
 #. module: account_ebics
-#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_change_passphrase_view_form model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_download model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_upload
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_change_passphrase_view_form
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_download
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_upload
 msgid "or"
 msgstr ""
 
