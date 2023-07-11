@@ -6,7 +6,7 @@
         name="EBICS Processing"
         parent="account.menu_finance"
         sequence="4"
-    />
+        groups="account_ebics.group_ebics_manager"/>
 
   <menuitem
         id="ebics_xfer_menu_download"
