@@ -268,7 +268,7 @@ msgstr "Terminé"
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_file_format__type__down
 #: model:ir.ui.menu,name:account_ebics.ebics_file_menu_download
 msgid "Download"
-msgstr "Téléchargement"
+msgstr "Fichiers téléchargés"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_download
@@ -1253,7 +1253,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_file_format__type__up
 #: model:ir.ui.menu,name:account_ebics.ebics_file_menu_upload
 msgid "Upload"
-msgstr "Envoi"
+msgstr "Fichiers envoyés"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_upload
