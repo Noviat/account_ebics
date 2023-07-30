@@ -11,11 +11,9 @@
     "license": "LGPL-3",
     "depends": [
         "account_ebics",
-        "account_statement_import",
+        "account_statement_import_file",
     ],
-    # installable False unit OCA statement import becomes
-    # available for 16.0
-    "installable": False,
+    "installable": True,
     "auto_install": True,
     "images": ["static/description/cover.png"],
 }
