@@ -393,28 +393,27 @@ class EbicsFile(models.Model):
             )
         res = {"statement_ids": [], "notifications": []}
         st_datas = self._split_camt(res)
-        msg_hdr = _("{} : Import failed for file %(fn)s:\n", fn=self.name)
-        try:
-            if author == "oca":
-                self._process_camt053_oca(res, st_datas)
-            else:
-                self._process_camt053_oe(res, st_datas)
-        except UserError as e:
-            message = msg_hdr.format(_("Error"))
-            message += "".join(e.args)
-            res["notifications"].append({"type": "error", "message": message})
-        except Exception:
-            tb = "".join(format_exception(*exc_info()))
-            message = msg_hdr.format(_("Error"))
-            message += tb
-            res["notifications"].append({"type": "error", "message": message})
-
+        if author == "oca":
+            self._process_camt053_oca(res, st_datas)
+        else:
+            self._process_camt053_oe(res, st_datas)
         return self._process_download_result(res)
 
     def _process_camt053_oca(self, res, st_datas):
+        msg_hdr = _("{} : Import failed for file %(fn)s:\n", fn=self.name)
         for st_data in st_datas:
-            with self.env.cr.savepoint():
-                self._create_statement_camt053_oca(res, st_data)
+            try:
+                with self.env.cr.savepoint():
+                    self._create_statement_camt053_oca(res, st_data)
+            except UserError as e:
+                message = msg_hdr.format(_("Error"))
+                message += "".join(e.args)
+                res["notifications"].append({"type": "error", "message": message})
+            except Exception:
+                tb = "".join(format_exception(*exc_info()))
+                message = msg_hdr.format(_("Error"))
+                message += tb
+                res["notifications"].append({"type": "error", "message": message})
 
     def _create_statement_camt053_oca(self, res, st_data):
         wiz = (
@@ -430,9 +429,20 @@ class EbicsFile(models.Model):
         We execute a cr.commit() after every statement import since we get a
         'savepoint does not exist' error when using 'with self.env.cr.savepoint()'.
         """
+        msg_hdr = _("{} : Import failed for file %(fn)s:\n", fn=self.name)
         for st_data in st_datas:
-            self._create_statement_camt053_oe(res, st_data)
-            self.env.cr.commit()  # pylint: disable=E8102
+            try:
+                self._create_statement_camt053_oe(res, st_data)
+                self.env.cr.commit()  # pylint: disable=E8102
+            except UserError as e:
+                message = msg_hdr.format(_("Error"))
+                message += "".join(e.args)
+                res["notifications"].append({"type": "error", "message": message})
+            except Exception:
+                tb = "".join(format_exception(*exc_info()))
+                message = msg_hdr.format(_("Error"))
+                message += tb
+                res["notifications"].append({"type": "error", "message": message})
 
     def _create_statement_camt053_oe(self, res, st_data):
         attachment = (
