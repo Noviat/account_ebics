@@ -412,7 +412,18 @@ class EbicsFile(models.Model):
         return self._process_download_result(res)
 
     def _process_camt053_oca(self, res, st_datas):
-        raise NotImplementedError
+        for st_data in st_datas:
+            with self.env.cr.savepoint():
+                self._create_statement_camt053_oca(res, st_data)
+
+    def _create_statement_camt053_oca(self, res, st_data):
+        wiz = (
+            self.env["account.statement.import"]
+            .with_company(st_data["company_id"])
+            .with_context(active_model="ebics.file")
+            .create({"statement_filename": self.name})
+        )
+        wiz.import_single_file(base64.b64decode(st_data["data"]), res)
 
     def _process_camt053_oe(self, res, st_datas):
         """

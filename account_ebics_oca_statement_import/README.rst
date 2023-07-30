@@ -6,12 +6,12 @@
 Deploy account_ebics module with OCA Bank Statement Import
 ==========================================================
 
-This module makes it possible to use OCA account_statement_import
+This module makes it possible to use the OCA account_statement_import wizard
 in combination with 'account_ebics'.
 
 This module will be installed automatically when following modules are activated
 on your odoo database :
 
 - account_ebics
-- account_statement_import
+- account_statement_import_file
 
