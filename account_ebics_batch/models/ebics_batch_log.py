@@ -126,8 +126,7 @@ class EbicsBatchLog(models.Model):
                 import_dict["errors"].append(err_msg + tb)
         log.file_ids = [(6, 0, ebics_file_ids)]
         try:
-            with self.env.cr.savepoint():
-                log._ebics_process(import_dict)
+            log._ebics_process(import_dict)
         except UserError as e:
             import_dict["errors"].append(err_msg + " ".join(e.args))
         except Exception:
