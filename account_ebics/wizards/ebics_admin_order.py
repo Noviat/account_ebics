@@ -27,7 +27,6 @@ class EbicsAdminOrder(models.TransientModel):
 
     def ebics_admin_order(self):
         self.ensure_one()
-        self.ebics_config_id._check_ebics_files()
         client = self._setup_client()
         if not client:
             self.note += (
