@@ -70,10 +70,11 @@ class EbicsXfer(models.TransientModel):
     date_from = fields.Date()
     date_to = fields.Date()
     upload_data = fields.Binary(string="File to Upload")
-    upload_fname = fields.Char(default="")
+    upload_fname = fields.Char(string="Upload Filename", default="")
     upload_fname_dummy = fields.Char(
-        related="upload_fname", string="Upload Filename", readonly=True
+        related="upload_fname", string="Display Upload Filename", readonly=True
     )
+
     format_id = fields.Many2one(
         comodel_name="ebics.file.format",
         string="EBICS File Format",

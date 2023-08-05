@@ -128,8 +128,8 @@ class EbicsUserID(models.Model):
         help="Transactions for this user will be signed "
         "by means of the SWIFT 3SKey token.",
     )
-    swift_3skey_certificate = fields.Binary(string="3SKey Certficate")
-    swift_3skey_certificate_fn = fields.Char(string="EBICS certificate name")
+    swift_3skey_certificate = fields.Binary(string="3SKey Certificate")
+    swift_3skey_certificate_fn = fields.Char(string="3SKey Certificate Filename")
     # X.509 Distinguished Name attributes used to
     # create self-signed X.509 certificates
     ebics_key_x509 = fields.Boolean(
