@@ -53,7 +53,7 @@ class AccountStatementImport(models.TransientModel):
                 self._set_statement_name(st_vals)
                 if st_vals.get("transactions"):
                     transactions = True
-                    super()._create_bank_statements(stmts_vals, result)
+                    super()._create_bank_statements([st_vals], result)
                     if result["statement_ids"] == statement_ids:
                         # no statement has been created, this is the case
                         # when all transactions have been imported already
