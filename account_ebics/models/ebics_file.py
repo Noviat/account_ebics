@@ -16,6 +16,8 @@ from odoo.addons.base.models.res_bank import sanitize_account_number
 
 _logger = logging.getLogger(__name__)
 
+DUP_CHECK_FORMATS = ["cfonb120", "camt053"]
+
 
 class EbicsFile(models.Model):
     _name = "ebics.file"
@@ -224,11 +226,21 @@ class EbicsFile(models.Model):
             res["notifications"].append({"type": "error", "message": message})
         return (currency, journal)
 
-    def _process_download_result(self, res):
+    def _process_download_result(self, res, file_format=None):
+        """
+        We perform a duplicate statement check after the creation of the bank
+        statements since we rely on Odoo Enterprise or OCA modules for the
+        bank statement creation.
+        From a development standpoint (code creation/maintenance) a check after
+        creation is the easiest way.
+        """
         statement_ids = res["statement_ids"]
         notifications = res["notifications"]
         statements = self.env["account.bank.statement"].sudo().browse(statement_ids)
-        st_cnt = len(statement_ids)
+        if statements:
+            statements.write({"import_format": file_format})
+            statements = self._statement_duplicate_check(res, statements)
+        st_cnt = len(statements)
         warning_cnt = error_cnt = 0
         if notifications:
             errors = []
@@ -270,11 +282,11 @@ class EbicsFile(models.Model):
                 date=statement.date,
                 cpy=statement.company_id.name,
             )
-        if statement_ids:
-            self.sudo().bank_statement_ids = [(4, x) for x in statement_ids]
+        if statements:
+            self.sudo().bank_statement_ids = [(4, x) for x in statements.ids]
         company_ids = self.sudo().bank_statement_ids.mapped("company_id").ids
         self.company_ids = [(6, 0, company_ids)]
-        ctx = dict(self.env.context, statement_ids=statement_ids)
+        ctx = dict(self.env.context, statement_ids=statements.ids)
         module = __name__.split("addons.")[1].split(".")[0]
         result_view = self.env.ref("%s.ebics_file_view_form_result" % module)
         return {
@@ -289,13 +301,47 @@ class EbicsFile(models.Model):
             "type": "ir.actions.act_window",
         }
 
+    def _statement_duplicate_check(self, res, statements):
+        """
+        This check is required for import modules that do not
+        set the 'unique_import_id' on the statement lines.
+        E.g. OCA camt import
+        """
+        to_unlink = self.env["account.bank.statement"]
+        for statement in statements.filtered(
+            lambda r: r.import_format in DUP_CHECK_FORMATS
+        ):
+            dup = self.env["account.bank.statement"].search_count(
+                [
+                    ("id", "!=", statement.id),
+                    ("name", "=", statement.name),
+                    ("company_id", "=", statement.company_id.id),
+                    ("date", "=", statement.date),
+                    ("import_format", "=", statement.import_format),
+                ]
+            )
+            if dup:
+                message = _(
+                    "Statement %(st_name)s dated %(date)s has already been imported.",
+                    st_name=statement.name,
+                    date=statement.date,
+                )
+                res["notifications"].append({"type": "warning", "message": message})
+                to_unlink += statement
+        res["statement_ids"] = [
+            x for x in res["statement_ids"] if x not in to_unlink.ids
+        ]
+        statements -= to_unlink
+        to_unlink.unlink()
+        return statements
+
     def _process_cfonb120(self):
         import_module = "account_statement_import_fr_cfonb"
         self._check_import_module(import_module)
         res = {"statement_ids": [], "notifications": []}
         st_datas = self._split_cfonb(res)
         self._process_bank_statement_oca(res, st_datas)
-        return self._process_download_result(res)
+        return self._process_download_result(res, file_format="cfonb120")
 
     def _unlink_cfonb120(self):
         """
@@ -341,7 +387,7 @@ class EbicsFile(models.Model):
     def _process_camt052(self):
         import_module = "account_statement_import_camt"
         self._check_import_module(import_module)
-        return self._process_camt053(self)
+        return self._process_camt053(file_format="camt052")
 
     def _unlink_camt052(self):
         """
@@ -352,7 +398,7 @@ class EbicsFile(models.Model):
     def _process_camt054(self):
         import_module = "account_statement_import_camt"
         self._check_import_module(import_module)
-        return self._process_camt053(self)
+        return self._process_camt053(file_format="camt054")
 
     def _unlink_camt054(self):
         """
@@ -360,7 +406,7 @@ class EbicsFile(models.Model):
         EBICS data file and its related bank statements.
         """
 
-    def _process_camt053(self):
+    def _process_camt053(self, file_format=None):
         """
         The Odoo standard statement import is based on manual selection
         of a financial journal before importing the electronic statement file.
@@ -395,7 +441,8 @@ class EbicsFile(models.Model):
             self._process_bank_statement_oca(res, st_datas)
         else:
             self._process_bank_statement_oe(res, st_datas)
-        return self._process_download_result(res)
+        file_format = file_format or "camt053"
+        return self._process_download_result(res, file_format=file_format)
 
     def _process_bank_statement_oca(self, res, st_datas):
         for st_data in st_datas:
