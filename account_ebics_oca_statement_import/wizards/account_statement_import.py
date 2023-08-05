@@ -46,15 +46,35 @@ class AccountStatementImport(models.TransientModel):
         show days without transactions via the bank statement list view.
         """
         if self.env.context.get("active_model") == "ebics.file":
+            messages = []
             transactions = False
             for st_vals in stmts_vals:
+                statement_ids = result["statement_ids"][:]
+                self._set_statement_name(st_vals)
                 if st_vals.get("transactions"):
                     transactions = True
-                    break
-            if not transactions:
-                message = _("This file doesn't contain any transaction.")
-                st_line_ids = []
-                notifications = {"type": "warning", "message": message, "details": ""}
-                return st_line_ids, [notifications]
+                    super()._create_bank_statements(stmts_vals, result)
+                    if result["statement_ids"] == statement_ids:
+                        # no statement has been created, this is the case
+                        # when all transactions have been imported already
+                        messages.append(
+                            _(
+                                "Statement %(st_name)s dated %(date)s "
+                                "has already been imported.",
+                                st_name=st_vals["name"],
+                                date=st_vals["date"].strftime("%Y-%m-%d"),
+                            )
+                        )
 
-        return super()._create_bank_statements(stmts_vals, result)
+            if not transactions:
+                messages.append(_("This file doesn't contain any transaction."))
+            if messages:
+                result["notifications"].append(
+                    {"type": "warning", "message": "\n".join(messages)}
+                )
+        return
+
+    def _set_statement_name(self, st_vals):
+        """
+        Inherit this method to set your own statement naming policy.
+        """
