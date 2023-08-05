@@ -82,7 +82,7 @@
           <separator string="Select your file :" colspan="2" />
           <field name="upload_data" filename="upload_fname" required="1" />
           <field name="upload_fname" invisible="1" />
-          <field name="upload_fname_dummy" />
+          <field name="upload_fname_dummy" string="Upload Filename" />
           <field
                         name="format_id"
                         required="1"
