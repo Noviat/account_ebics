@@ -52,7 +52,6 @@
             <field name="ebics_host" />
             <field name="ebics_url" />
             <field name="ebics_partner" />
-            <field name="ebics_files" />
             <field name="ebics_keys" />
           </group>
           <group name="main-right">

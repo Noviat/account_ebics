@@ -10,7 +10,6 @@ logging.basicConfig(
 
 import base64
 import logging
-import os
 from sys import exc_info
 from traceback import format_exception
 
@@ -193,7 +192,6 @@ class EbicsXfer(models.TransientModel):
 
     def ebics_download(self):
         self.ensure_one()
-        self.ebics_config_id._check_ebics_files()
         ctx = self.env.context.copy()
         self.note = ""
         err_cnt = 0
@@ -532,43 +530,17 @@ class EbicsXfer(models.TransientModel):
         return ebics_files
 
     def _create_ebics_file(self, data, file_format, docname=None):
-        """
-        Write the data as received over the EBICS connection
-        to a temporary file so that is is available for
-        analysis (e.g. in case formats are received that cannot
-        be handled in the current version of this module).
-
-        TODO: add code to clean-up /tmp on a regular basis.
-
-        After saving the data received we call the method to perform
-        file format specific processing.
-        """
-        ebics_files_root = self.ebics_config_id.ebics_files
-        tmp_dir = os.path.normpath(ebics_files_root + "/tmp")
-        if not os.path.isdir(tmp_dir):
-            os.makedirs(tmp_dir, mode=0o700)
         fn_parts = [self.ebics_config_id.ebics_host, self.ebics_config_id.ebics_partner]
         if docname:
             fn_parts.append(docname)
         else:
             fn_date = self.date_to or fields.Date.today()
             fn_parts.append(fn_date.isoformat())
-        base_fn = "_".join(fn_parts)
-        n = 1
-        full_tmp_fn = os.path.normpath(tmp_dir + "/" + base_fn)
-        while os.path.exists(full_tmp_fn):
-            n += 1
-            tmp_fn = base_fn + "_" + str(n).rjust(3, "0")
-            full_tmp_fn = os.path.normpath(tmp_dir + "/" + tmp_fn)
-
-        with open(full_tmp_fn, "wb") as f:
-            f.write(data)
-
+        fn = "_".join(fn_parts)
         ff_methods = self._file_format_methods()
         if file_format.name in ff_methods:
             data = ff_methods[file_format.name](data)
 
-        fn = base_fn
         suffix = file_format.suffix
         if suffix and not fn.endswith(suffix):
             fn = ".".join([fn, suffix])

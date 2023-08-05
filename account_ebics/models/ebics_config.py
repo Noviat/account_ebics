@@ -91,14 +91,6 @@ class EbicsConfig(models.Model):
         "between customer and financial institution. "
         "The human user also can authorise orders.",
     )
-    ebics_files = fields.Char(
-        string="EBICS Files Root",
-        required=True,
-        readonly=True,
-        states={"draft": [("readonly", False)]},
-        default=lambda self: self._default_ebics_files(),
-        help="Root Directory for EBICS File Transfer Folders.",
-    )
     # We store the EBICS keys in a separate directory in the file system.
     # This directory requires special protection to reduce fraude.
     ebics_keys = fields.Char(
@@ -249,17 +241,6 @@ class EbicsConfig(models.Model):
             raise UserError(
                 _(
                     "EBICS Keys Root Directory %s is not available."
-                    "\nPlease contact your system administrator."
-                )
-                % dirname
-            )
-
-    def _check_ebics_files(self):
-        dirname = self.ebics_files or ""
-        if not os.path.exists(dirname):
-            raise UserError(
-                _(
-                    "EBICS Files Root Directory %s is not available."
                     "\nPlease contact your system administrator."
                 )
                 % dirname

@@ -255,7 +255,6 @@ class EbicsUserID(models.Model):
         Create new keys and certificates for this user
         """
         self.ensure_one()
-        self.ebics_config_id._check_ebics_files()
         if self.state != "draft":
             raise UserError(
                 _("Set state to 'draft' before Bank Key (re)initialisation.")
@@ -442,7 +441,6 @@ class EbicsUserID(models.Model):
         must be downloaded and checked for consistency.
         """
         self.ensure_one()
-        self.ebics_config_id._check_ebics_files()
         if self.state != "get_bank_keys":
             raise UserError(_("Set state to 'Get Keys from Bank'."))
         try:
