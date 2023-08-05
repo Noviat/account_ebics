@@ -27,8 +27,6 @@ and fintech 7.2.7 or higher for EBICS 3.0.
 
 SWIFT 3SKey support requires fintech 6.4 or higher.
 
-
-
 |
 
 We also recommend to consider the installation of the following modules:
@@ -71,9 +69,17 @@ We also recommend to consider the installation of the following modules:
 
 - account_ebics_payment_order
 
-  Recommended if you are using the OCA account_payment_order module.
+  Required if you are using the OCA account_payment_order module.
 
-  Cf. https://github.com/Noviat/account_ebics and https://github.com/OCA/bank-payment
+  Cf. https://github.com/OCA/bank-payment
+
+|
+
+- account_ebics_oca_statement_import
+
+  Required if you are using the OCA Bank Statement import modules.
+
+  https://github.com/OCA/bank-statement-import
 
 |
 
@@ -93,27 +99,6 @@ We also recommend to consider the installation of the following modules:
 
 |
 
-- account_statement_import_helper
-
-  Required if you are processing bank statements with local bank account numbers (e.g. french CFONB files)
-  and using import parsers based upon the OCA account_statement_import module.
-
-  The import helper will match the local bank account number with the IBAN number specified on the Odoo Financial journal.
-
-  Cf. https://github.com/Noviat/noviat-apps
-
-|
-
-- account_bank_statement_import_helper
-
-  Required if you are processing bank statements with local bank account numbers
-  and using import parsers based upon the Odoo Enterprise account_bank_statement_import module.
-
-  The import helper will match the local bank account number with the IBAN number specified on the Odoo Financial journal.
-
-  Cf. https://github.com/Noviat/noviat-apps
-
-|
 
 Fintech license
 ---------------
@@ -130,13 +115,6 @@ The name of the licensee.
 
 The keycode of the licensed version.
 
-- fintech_register_users
-
-The licensed EBICS user ids. It must be a string or a list of user ids.
-
-You should NOT specify this parameter if your license is subsciption
-based (with monthly recurring billing).
-
 |
 | Example:
 |
@@ -146,7 +124,6 @@ based (with monthly recurring billing).
  ; fintech
  fintech_register_name = MyCompany
  fintech_register_keycode = AB1CD-E2FG-3H-IJ4K-5L
- fintech_register_users = USER1, USER2
 
 |
 
