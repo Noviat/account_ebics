@@ -22,7 +22,3 @@ Usage
 Create your Payment Order and generate the bank file.
 Upload the generated file via the 'EBICS Upload' button on the payment order.
 
-Known issues / Roadmap
-======================
-
- * Add support for multiple EBICS connections.

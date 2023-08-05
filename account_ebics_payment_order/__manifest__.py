@@ -12,8 +12,6 @@
     "data": [
         "views/account_payment_order_views.xml",
     ],
-    # installable False unit OCA payment order becomes
-    # available for 16.0
     "images": ["static/description/cover.png"],
-    "installable": False,
+    "installable": True,
 }
