@@ -6,6 +6,7 @@
     "summary": "Deploy account_ebics module on Odoo Enterprise",
     "version": "14.0.1.0.0",
     "author": "Noviat",
+    "website": "https://www.noviat.com/",
     "category": "Hidden",
     "license": "LGPL-3",
     "depends": [
