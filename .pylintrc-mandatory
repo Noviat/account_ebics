@@ -1,5 +1,4 @@
 [MASTER]
-# Add files or directories matching the regex patterns to the blacklist.
 ignore-patterns=["^.*/TODO/.*$"]
 load-plugins=pylint_odoo
 score=n
@@ -74,7 +73,7 @@ enable=anomalous-backslash-in-string,
     invalid-commit,
     manifest-maintainers-list,
     missing-newline-extrafiles,
-    missing-readme,
+    # missing-readme,
     missing-return,
     odoo-addons-relative-import,
     old-api7-method-defined,
