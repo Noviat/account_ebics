@@ -6,7 +6,7 @@
     "version": "15.0.1.1.3",
     "license": "LGPL-3",
     "author": "Noviat",
-    "website": "https://www.noviat.com",
+    "website": "https://www.noviat.com/",
     "category": "Accounting & Finance",
     "depends": ["account"],
     "data": [
