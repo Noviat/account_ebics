@@ -6,6 +6,7 @@
     "version": "14.0.1.1.0",
     "license": "LGPL-3",
     "author": "Noviat",
+    "website": "https://www.noviat.com/",
     "category": "Accounting & Finance",
     "depends": ["account_ebics", "account_batch_payment"],
     "data": ["views/account_batch_payment_views.xml"],
