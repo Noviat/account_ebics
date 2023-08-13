@@ -1,13 +1,14 @@
 # Do NOT update manually; changes here will be overwritten by Copier
-_commit: v1.1.1
-_src_path: gh:oca/oca-addons-repo-template
-dependency_installation_mode: PIP
-generate_requirements_txt: true
-include_wkhtmltopdf: false
+_commit: v1.2
+_src_path: https://picasso.noviat.com/ci/addons-repo-template.git
+ci_exclude_modules: account_asset
+ci_image: ghcr.io/oca/oca-ci/py3.6-odoo14.0:latest
+customer_slug: Noviat_Generic
+odoo_enterprise: 1
 odoo_version: 14.0
-rebel_module_groups: []
-repo_description: "TODO: add repo description."
-repo_name: web
-repo_slug: web
-travis_apt_packages: []
-travis_apt_sources: []
+org_name: Noviat
+org_slug: Noviat
+repo_name: Modules dedicated to manage the EBICS protocol
+repo_slug: accounting-ebics
+repo_website: https://www.noviat.com/
+
