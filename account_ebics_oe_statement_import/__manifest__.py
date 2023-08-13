@@ -6,7 +6,7 @@
     "summary": "Use Odoo Enterprise Bank Statement Import with account_ebics",
     "version": "15.0.1.0.0",
     "author": "Noviat",
-    "website": "https://www.noviat.com",
+    "website": "https://www.noviat.com/",
     "category": "Hidden",
     "license": "LGPL-3",
     "depends": [
