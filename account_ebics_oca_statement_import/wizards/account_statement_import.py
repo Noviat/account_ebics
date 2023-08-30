@@ -2,6 +2,7 @@
 # License LGPL-3 or later (http://www.gnu.org/licenses/lgpl).
 
 import logging
+from datetime import date, datetime
 
 from odoo import _, models
 
@@ -31,7 +32,7 @@ class AccountStatementImport(models.TransientModel):
                         + ":\n"
                         + message
                     )
-                    _logger.warn(log_msg)
+                    _logger.warning(log_msg)
                     return
         return super()._check_parsed_data(stmts_vals)
 
@@ -57,12 +58,18 @@ class AccountStatementImport(models.TransientModel):
                     if result["statement_ids"] == statement_ids:
                         # no statement has been created, this is the case
                         # when all transactions have been imported already
+                        if isinstance(st_vals["date"], date) or isinstance(
+                            st_vals["date"], datetime
+                        ):
+                            st_date = st_vals["date"].strftime("%Y-%m-%d")
+                        else:
+                            st_date = st_vals["date"]
                         messages.append(
                             _(
                                 "Statement %(st_name)s dated %(date)s "
                                 "has already been imported.",
                                 st_name=st_vals["name"],
-                                date=st_vals["date"].strftime("%Y-%m-%d"),
+                                date=st_date,
                             )
                         )
 
