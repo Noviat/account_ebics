@@ -403,7 +403,7 @@ class EbicsUserID(models.Model):
         else:
             lang = self.env.user.lang or self.env["res.lang"].search([])[0].code
             lang = lang[:2]
-        tmp_dir = os.path.normpath(self.ebics_config_id.ebics_files + "/tmp")
+        tmp_dir = os.path.normpath(self.ebics_config_id.ebics_keys + "/tmp")
         if not os.path.isdir(tmp_dir):
             os.makedirs(tmp_dir, mode=0o700)
         fn_date = fields.Date.today().isoformat()
@@ -479,7 +479,7 @@ class EbicsUserID(models.Model):
             raise UserError(error) from err
 
         public_bank_keys = public_bank_keys.encode()
-        tmp_dir = os.path.normpath(self.ebics_config_id.ebics_files + "/tmp")
+        tmp_dir = os.path.normpath(self.ebics_config_id.ebics_keys + "/tmp")
         if not os.path.isdir(tmp_dir):
             os.makedirs(tmp_dir, mode=0o700)
         fn_date = fields.Date.today().isoformat()
