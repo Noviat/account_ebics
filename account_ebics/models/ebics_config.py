@@ -149,10 +149,6 @@ class EbicsConfig(models.Model):
     )
 
     @api.model
-    def _default_ebics_files(self):
-        return "/".join(["/home/odoo/ebics_files", self._cr.dbname])
-
-    @api.model
     def _default_ebics_keys(self):
         return "/".join(["/etc/odoo/ebics_keys", self._cr.dbname])
 
