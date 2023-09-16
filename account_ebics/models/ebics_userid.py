@@ -403,23 +403,15 @@ class EbicsUserID(models.Model):
         else:
             lang = self.env.user.lang or self.env["res.lang"].search([])[0].code
             lang = lang[:2]
-        tmp_dir = os.path.normpath(self.ebics_config_id.ebics_keys + "/tmp")
-        if not os.path.isdir(tmp_dir):
-            os.makedirs(tmp_dir, mode=0o700)
         fn_date = fields.Date.today().isoformat()
         fn = "_".join([self.ebics_config_id.ebics_host, "ini_letter", fn_date]) + ".pdf"
-        full_tmp_fn = os.path.normpath(tmp_dir + "/" + fn)
-        user.create_ini_letter(
-            bankname=ebics_config_bank.name, path=full_tmp_fn, lang=lang
+        letter = user.create_ini_letter(bankname=ebics_config_bank.name, lang=lang)
+        self.write(
+            {
+                "ebics_ini_letter": base64.encodebytes(letter),
+                "ebics_ini_letter_fn": fn,
+            }
         )
-        with open(full_tmp_fn, "rb") as f:
-            letter = f.read()
-            self.write(
-                {
-                    "ebics_ini_letter": base64.encodebytes(letter),
-                    "ebics_ini_letter_fn": fn,
-                }
-            )
 
         return self.write({"state": "init"})
 
