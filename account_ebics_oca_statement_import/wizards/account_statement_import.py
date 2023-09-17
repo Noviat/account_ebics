@@ -46,7 +46,9 @@ class AccountStatementImport(models.TransientModel):
         We could also create empty bank statement (in state done) to clearly
         show days without transactions via the bank statement list view.
         """
-        if self.env.context.get("active_model") == "ebics.file":
+        if self.env.context.get("active_model") != "ebics.file":
+            return super()._create_bank_statements(stmts_vals, result)
+        else:
             messages = []
             transactions = False
             for st_vals in stmts_vals:
