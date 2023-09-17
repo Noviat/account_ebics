@@ -109,6 +109,12 @@ class EbicsUserID(models.Model):
         "passphrase for every EBICS transaction, hence do not uncheck this "
         "option on a userid for automated EBICS downloads.",
     )
+    ebics_passphrase_required = fields.Boolean(
+        compute="_compute_ebics_passphrase_view_modifiers"
+    )
+    ebics_passphrase_invisible = fields.Boolean(
+        compute="_compute_ebics_passphrase_view_modifiers"
+    )
     ebics_ini_letter = fields.Binary(
         string="EBICS INI Letter",
         readonly=True,
@@ -208,6 +214,19 @@ class EbicsUserID(models.Model):
                 rec.ebics_keys_fn
             )
 
+    @api.depends("state", "ebics_passphrase")
+    def _compute_ebics_passphrase_view_modifiers(self):
+        for rec in self:
+            if rec.state == "draft":
+                rec.ebics_passphrase_required = True
+                rec.ebics_passphrase_invisible = False
+            elif rec.state == "get_bank_keys":
+                rec.ebics_passphrase_required = not rec.ebics_passphrase
+                rec.ebics_passphrase_invisible = rec.ebics_passphrase
+            else:
+                rec.ebics_passphrase_required = False
+                rec.ebics_passphrase_invisible = True
+
     @api.constrains("ebics_key_x509")
     def _check_ebics_key_x509(self):
         for cfg in self:
@@ -247,6 +266,14 @@ class EbicsUserID(models.Model):
         return self.write({"state": "active_keys"})
 
     def set_to_get_bank_keys(self):
+        self.ensure_one()
+        if self.ebics_config_id.state != "draft":
+            raise UserError(
+                _(
+                    "Set the EBICS Configuation record to 'Draft' "
+                    "before starting the Key Renewal process."
+                )
+            )
         return self.write({"state": "get_bank_keys"})
 
     def ebics_init_1(self):  # noqa: C901
