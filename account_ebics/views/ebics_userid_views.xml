@@ -57,7 +57,7 @@
                         string="Change Passphrase"
                         type="object"
                         class="oe_highlight"
-                        attrs="{'invisible': [('ebics_keys_found', '=', False)]}"
+                        attrs="{'invisible': ['|', ('ebics_keys_found', '=', False), ('state', '!=', 'active_keys')]}"
                     />
           <button
                         name="set_to_draft"
@@ -86,12 +86,14 @@
           <field name="ebics_keys_found" invisible="1" />
           <field name="ebics_keys_fn" invisible="1" />
           <field name="ebics_version" invisible="1" />
+          <field name="ebics_passphrase_required" invisible="1" />
+          <field name="ebics_passphrase_invisible" invisible="1" />
           <group name="main-left">
             <field name="name" />
             <field
                             name="ebics_passphrase"
                             password="True"
-                            attrs="{'required': [('ebics_passphrase_store', '=', True)], 'invisible': [('state', '!=', 'draft')]}"
+                            attrs="{'required': [('ebics_passphrase_required', '=', True)], 'invisible': [('ebics_passphrase_invisible', '=', True)]}"
                         />
             <field name="ebics_passphrase_store" />
             <field name="transaction_rights" />
