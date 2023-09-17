@@ -550,6 +550,11 @@ class EbicsFile(models.Model):
             currency_code = stmt.xpath(
                 "ns:Acct/ns:Ccy/text() | ns:Bal/ns:Amt/@Ccy", namespaces=ns
             )[0]
+            # some banks (e.g. COMMERZBANK) add the currency as the last 3 digits
+            # of the bank account number hence we need to remove this since otherwise
+            # the journal matching logic fails
+            if acc_number[-3:] == currency_code:
+                acc_number = acc_number[:-3]
 
             root_new = deepcopy(root)
             entries = False
