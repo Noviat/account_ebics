@@ -169,7 +169,7 @@ class EbicsFile(models.Model):
             return False
         return True
 
-    def _process_result_action(self, res_action):
+    def _process_result_action(self, res_action):  # noqa: C901
         notifications = []
         st_line_ids = []
         statement_ids = []
@@ -219,9 +219,13 @@ class EbicsFile(models.Model):
                     error_cnt += 1
                 elif notif["type"] == "warning":
                     warning_cnt += 1
-                parts = [
-                    notif[k] for k in notif if k in ("message", "details") and notif[k]
-                ]
+                parts = []
+                if notif.get("message"):
+                    parts.append(notif["message"])
+                if notif.get("details"):
+                    for k in ("name", "model", "ids"):
+                        if notif["details"][k]:
+                            parts.append(str(notif["details"][k]))
                 self.note_process += "\n".join(parts)
                 self.note_process += "\n\n"
         if error_cnt:

@@ -1,4 +1,4 @@
-# Copyright 2009-2020 Noviat.
+# Copyright 2009-2023 Noviat.
 # License LGPL-3 or later (http://www.gnu.org/licenses/lpgl).
 
 import logging
@@ -53,8 +53,13 @@ class AccountBankStatementImport(models.TransientModel):
                     break
             if not transactions:
                 message = _("This file doesn't contain any transaction.")
+                st_ids = []
                 st_line_ids = []
-                notifications = {"type": "warning", "message": message, "details": ""}
-                return st_line_ids, [notifications]
+                notifications = {
+                    "type": "warning",
+                    "message": message,
+                    "details": {"name": "", "model": "", "ids": []},
+                }
+                return st_ids, st_line_ids, [notifications]
 
         return super()._create_bank_statements(stmts_vals)
