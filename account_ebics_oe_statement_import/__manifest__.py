@@ -1,10 +1,10 @@
-# Copyright 2020-2022 Noviat.
+# Copyright 2020-2023 Noviat.
 # License LGPL-3 or later (http://www.gnu.org/licenses/lpgl).
 
 {
     "name": "account_ebics with Odoo Enterprise Bank Statement Import",
     "summary": "Use Odoo Enterprise Bank Statement Import with account_ebics",
-    "version": "15.0.1.0.0",
+    "version": "15.0.1.0.1",
     "author": "Noviat",
     "website": "https://www.noviat.com/",
     "category": "Hidden",
