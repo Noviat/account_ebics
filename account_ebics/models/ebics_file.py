@@ -535,7 +535,14 @@ class EbicsFile(models.Model):
             message = _("Invalid XML file.")
             res["notifications"].append({"type": "error", "message": message})
         ns = {k or "ns": v for k, v in root.nsmap.items()}
-        stmts = root[0].findall("ns:Stmt", ns)
+        camt_variant = ns["ns"].split("camt.")[1][:3]
+        variant_tags = {
+            "052": "Rpt",
+            "053": "Stmt",
+            "054": "Ntfctn",
+        }
+        camt_tag = variant_tags[camt_variant]
+        stmts = root[0].findall("ns:{}".format(camt_tag), ns)
         for i, stmt in enumerate(stmts):
             acc_number = sanitize_account_number(
                 stmt.xpath(
@@ -558,7 +565,7 @@ class EbicsFile(models.Model):
 
             root_new = deepcopy(root)
             entries = False
-            for j, el in enumerate(root_new[0].findall("ns:Stmt", ns)):
+            for j, el in enumerate(root_new[0].findall("ns:{}".format(camt_tag), ns)):
                 if j != i:
                     el.getparent().remove(el)
                 else:
