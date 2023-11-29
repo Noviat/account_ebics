@@ -431,7 +431,15 @@ class EbicsXfer(models.TransientModel):
                 OrderID = self.ebics_config_id._get_order_number()
                 self.ebics_config_id.sudo()._update_order_number(OrderID)
 
+        ebics_file and self._payment_order_postprocess(ebics_file)
         return ebics_file
+
+    def _payment_order_postprocess(self, ebics_file):
+        order = self.env[self.env.context["active_model"]].browse(
+            self.env.context.get("active_id")
+        )
+        if order._name == "account.payment.order":
+            order.generated2uploaded()
 
     def _setup_client(self):
         self.ebics_config_id._check_ebics_keys()
