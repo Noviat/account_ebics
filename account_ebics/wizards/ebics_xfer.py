@@ -444,15 +444,32 @@ class EbicsXfer(models.TransientModel):
         if self.ebics_config_id.ebics_version == "H003":
             bank._order_number = self.ebics_config_id._get_order_number()
 
-        user = EbicsUser(
-            keyring=keyring,
-            partnerid=self.ebics_config_id.ebics_partner,
-            userid=self.ebics_userid_id.name,
-        )
         signature_class = (
             self.format_id.signature_class or self.ebics_userid_id.signature_class
         )
-        if signature_class == "T":
+
+        user_params = {
+            "keyring": keyring,
+            "partnerid": self.ebics_config_id.ebics_partner,
+            "userid": self.ebics_userid_id.name,
+        }
+        # manual_approval replaced by transport_only class param in fintech 7.4
+        fintech74 = hasattr(EbicsUser, "transport_only")
+        if fintech74:
+            user_params["transport_only"] = signature_class == "T" and True or False
+        try:
+            user = EbicsUser(**user_params)
+        except ValueError as err:
+            error = _("Error while accessing the EBICS UserID:")
+            error += "\n"
+            err_str = err.args[0]
+            error += err.args[0]
+            if err_str == "unknown key format":
+                error += "\n"
+                error += _("Doublecheck your EBICS Passphrase and UserID settings.")
+            raise UserError(error) from err
+        # manual_approval replaced by transport_only class param in fintech 7.4
+        if not fintech74 and signature_class == "T":
             user.manual_approval = True
 
         try:
