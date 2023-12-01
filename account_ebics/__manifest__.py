@@ -3,7 +3,7 @@
 
 {
     "name": "EBICS banking protocol",
-    "version": "15.0.1.1.4",
+    "version": "15.0.1.1.5",
     "license": "LGPL-3",
     "author": "Noviat",
     "website": "https://www.noviat.com/",
