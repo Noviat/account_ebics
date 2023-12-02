@@ -463,7 +463,7 @@ class EbicsXfer(models.TransientModel):
             "passphrase": passphrase,
         }
         if self.ebics_sig_passphrase:
-            keyring_params["sig_passphrase"] = self.ebics_sig_passphrase
+            keyring_params["sig_passphrase"] = self.ebics_sig_passphrase 
         try:
             keyring = EbicsKeyRing(**keyring_params)
         except (RuntimeError, ValueError) as err:
