@@ -88,6 +88,7 @@
           <field name="ebics_version" invisible="1" />
           <field name="ebics_passphrase_required" invisible="1" />
           <field name="ebics_passphrase_invisible" invisible="1" />
+          <field name="ebics_sig_passphrase_invisible" invisible="1" />
           <group name="main-left">
             <field name="name" />
             <field
@@ -96,6 +97,11 @@
                             attrs="{'required': [('ebics_passphrase_required', '=', True)], 'invisible': [('ebics_passphrase_invisible', '=', True)]}"
                         />
             <field name="ebics_passphrase_store" />
+            <field
+                            name="ebics_sig_passphrase"
+                            password="True"
+                            attrs="{'invisible': [('ebics_sig_passphrase_invisible', '=', True)]}"
+                        />
             <field name="transaction_rights" />
             <field name="active" />
           </group>
