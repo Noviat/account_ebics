@@ -67,6 +67,12 @@ class EbicsXfer(models.TransientModel):
     ebics_passphrase_store = fields.Boolean(
         related="ebics_userid_id.ebics_passphrase_store"
     )
+    ebics_sig_passphrase = fields.Char(
+        string="EBICS Signature Passphrase",
+    )
+    ebics_sig_passphrase_invisible = fields.Boolean(
+        compute="_compute_ebics_sig_passphrase_invisible"
+    )
     date_from = fields.Date()
     date_to = fields.Date()
     upload_data = fields.Binary(string="File to Upload")
@@ -110,6 +116,14 @@ class EbicsXfer(models.TransientModel):
         else:
             return cfg_mod
 
+    def _compute_ebics_sig_passphrase_invisible(self):
+        for rec in self:
+            rec.ebics_sig_passphrase_invisible = True
+            if fintech.__version_info__ < (7, 3, 1):
+                rec.ebics_sig_passphrase_invisible = True
+            else:
+                rec.ebics_sig_passphrase_invisible = False
+
     @api.onchange("ebics_config_id")
     def _onchange_ebics_config_id(self):
         avail_userids = self.ebics_config_id.ebics_userid_ids.filtered(
@@ -139,11 +153,11 @@ class EbicsXfer(models.TransientModel):
             if len(avail_userids) == 1:
                 self.ebics_userid_id = avail_userids
             else:
-                with_passphrs_userids = avail_userids.filtered(
+                with_passphrase_userids = avail_userids.filtered(
                     lambda r: r.ebics_passphrase_store
                 )
-                if len(with_passphrs_userids) == 1:
-                    self.ebics_userid_id = with_passphrs_userids
+                if len(with_passphrase_userids) == 1:
+                    self.ebics_userid_id = with_passphrase_userids
         else:
             self.ebics_userid_id = False
 
@@ -444,10 +458,14 @@ class EbicsXfer(models.TransientModel):
     def _setup_client(self):
         self.ebics_config_id._check_ebics_keys()
         passphrase = self._get_passphrase()
+        keyring_params = {
+            "keys": self.ebics_userid_id.ebics_keys_fn,
+            "passphrase": passphrase,
+        }
+        if self.ebics_sig_passphrase:
+            keyring_params["sig_passphrase"] = self.ebics_sig_passphrase
         try:
-            keyring = EbicsKeyRing(
-                keys=self.ebics_userid_id.ebics_keys_fn, passphrase=passphrase
-            )
+            keyring = EbicsKeyRing(**keyring_params)
         except (RuntimeError, ValueError) as err:
             error = _("Error while accessing the EBICS Keys:")
             error += "\n"
