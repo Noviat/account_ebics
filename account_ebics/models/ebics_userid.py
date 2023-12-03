@@ -115,6 +115,17 @@ class EbicsUserID(models.Model):
     ebics_passphrase_invisible = fields.Boolean(
         compute="_compute_ebics_passphrase_view_modifiers"
     )
+    ebics_sig_passphrase = fields.Char(
+        string="EBICS Signature Passphrase",
+        store=False,
+        help="You can set here a different passphrase for the EBICS "
+        "signing key. This passphrase will never be stored hence "
+        "you'll need to specify your passphrase for each transaction that "
+        "requires a digital signature.",
+    )
+    ebics_sig_passphrase_invisible = fields.Boolean(
+        compute="_compute_ebics_sig_passphrase_invisible"
+    )
     ebics_ini_letter = fields.Binary(
         string="EBICS INI Letter",
         readonly=True,
@@ -227,13 +238,22 @@ class EbicsUserID(models.Model):
                 rec.ebics_passphrase_required = False
                 rec.ebics_passphrase_invisible = True
 
+    @api.depends("state")
+    def _compute_ebics_sig_passphrase_invisible(self):
+        for rec in self:
+            rec.ebics_sig_passphrase_invisible = True
+            if fintech.__version_info__ < (7, 3, 1):
+                continue
+            if rec.transaction_rights != "down" and rec.state == "draft":
+                rec.ebics_sig_passphrase_invisible = False
+
     @api.constrains("ebics_key_x509")
     def _check_ebics_key_x509(self):
         for cfg in self:
             if cfg.ebics_version == "H005" and not cfg.ebics_key_x509:
                 raise UserError(_("X.509 certificates must be used with EBICS 3.0."))
 
-    @api.constrains("ebics_passphrase")
+    @api.constrains("ebics_passphrase", "ebics_sig_passphrase")
     def _check_ebics_passphrase(self):
         for rec in self:
             if rec.ebics_passphrase and len(rec.ebics_passphrase) < 8:
@@ -295,9 +315,13 @@ class EbicsUserID(models.Model):
 
         ebics_version = self.ebics_config_id.ebics_version
         try:
-            keyring = EbicsKeyRing(
-                keys=self.ebics_keys_fn, passphrase=self.ebics_passphrase
-            )
+            keyring_params = {
+                "keys": self.ebics_keys_fn,
+                "passphrase": self.ebics_passphrase,
+            }
+            if self.ebics_sig_passphrase:
+                keyring_params["ebics_sig_passphrase"] = self.ebics_sig_passphrase
+            keyring = EbicsKeyRing(**keyring_params)
             bank = EbicsBank(
                 keyring=keyring,
                 hostid=self.ebics_config_id.ebics_host,
@@ -536,7 +560,7 @@ class EbicsUserID(models.Model):
 
     def change_passphrase(self):
         self.ensure_one()
-        ctx = dict(self._context, default_ebics_userid_id=self.id)
+        ctx = dict(self.env.context, default_ebics_userid_id=self.id)
         module = __name__.split("addons.")[1].split(".")[0]
         view = self.env.ref("%s.ebics_change_passphrase_view_form" % module)
         return {
