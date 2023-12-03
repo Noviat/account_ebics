@@ -72,7 +72,7 @@ class EbicsUserID(models.Model):
         help="Users who are allowed to use this EBICS UserID for "
         " bank transactions.",
     )
-    # Currently only a singe signature class per user is supported
+    # Currently only a single signature class per user is supported
     # Classes A and B are not yet supported.
     signature_class = fields.Selection(
         selection=[("E", "Single signature"), ("T", "Transport signature")],
