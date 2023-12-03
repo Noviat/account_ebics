@@ -187,9 +187,18 @@ You can also find this information in the doc folder of this module (file EBICS_
 
 |
 
+Electronic Distributed Signature (EDS)
+--------------------------------------
+
+This is supported via external signing apps, e.g. BankingVEU:
+
+  https://play.google.com/store/apps/details?id=subsembly.bankingveu
+  https://apps.apple.com/de/app/bankingveu/id1578694190
+
+
 Known Issues / Roadmap
 ======================
 
 - Add support to import externally generated keys & certificates (currently only 3SKey signature certificate).
-- Electronic Distributed Signature (EDS) is not supported in the current version of this module.
+- Add support for SWIFT 3SKey signing javascript lib (SConnect, cf https://www2.swift.com/3skey/help/sconnect.html).
 
