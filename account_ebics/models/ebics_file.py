@@ -240,6 +240,13 @@ class EbicsFile(models.Model):
         if statements:
             statements.write({"import_format": file_format})
             statements = self._statement_duplicate_check(res, statements)
+        else:
+            notifications.append(
+                {
+                    "type": "warning",
+                    "message": _("This file doesn't contain any transaction."),
+                }
+            )
         st_cnt = len(statements)
         warning_cnt = error_cnt = 0
         if notifications:
