@@ -13,10 +13,6 @@ from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
 
-# logging.basicConfig(
-#    level=logging.DEBUG,
-#    format='[%(asctime)s] %(levelname)s - %(name)s: %(message)s')
-
 try:
     import fintech
     from fintech.ebics import (
