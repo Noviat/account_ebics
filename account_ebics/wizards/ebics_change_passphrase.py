@@ -89,9 +89,15 @@ class EbicsChangePassphrase(models.TransientModel):
             raise UserError(str(err)) from err
 
         if self.new_pass:
-            self.ebics_userid_id.ebics_passphrase = self.new_pass
+            self.ebics_userid_id.ebics_passphrase = (
+                self.ebics_userid_id.ebics_passphrase_store and self.new_pass
+            )
             self.note += "The EBICS Passphrase has been changed."
         if self.new_sig_pass:
+            # removing ebics_sig_passphrase from db should not be required
+            # but we do it for double safety
+            if self.ebics_userid_id.ebics_sig_passphrase:
+                self.ebics_userid_id.ebics_sig_passphrase = False
             self.note += "The EBICS Signature Passphrase has been changed."
 
         module = __name__.split("addons.")[1].split(".")[0]

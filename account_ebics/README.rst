@@ -174,6 +174,16 @@ Go to **Accounting > Bank and Cash > EBICS Processing**
 
 |
 
+Diagnostics
+===========
+
+Add the following to your Odoo config file in order to diagnose
+issues with the EBICS connection with your bank:
+
+log_handler = fintech.ebics:DEBUG
+
+|
+
 EBICS Return Codes
 ------------------
 
@@ -192,13 +202,14 @@ Electronic Distributed Signature (EDS)
 
 This is supported via external signing apps, e.g. BankingVEU:
 
-  https://play.google.com/store/apps/details?id=subsembly.bankingveu
-  https://apps.apple.com/de/app/bankingveu/id1578694190
+- https://play.google.com/store/apps/details?id=subsembly.bankingveu
+- https://apps.apple.com/de/app/bankingveu/id1578694190
 
 
 Known Issues / Roadmap
 ======================
 
+- The end user is currently not able to change his passphrases (only the users with 'EBICS Manager' rights can do so).
 - Add support to import externally generated keys & certificates (currently only 3SKey signature certificate).
 - Add support for SWIFT 3SKey signing javascript lib (SConnect, cf https://www2.swift.com/3skey/help/sconnect.html).
 

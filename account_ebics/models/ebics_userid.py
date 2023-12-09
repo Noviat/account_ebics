@@ -13,10 +13,6 @@ from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
 
-# logging.basicConfig(
-#    level=logging.DEBUG,
-#    format='[%(asctime)s] %(levelname)s - %(name)s: %(message)s')
-
 try:
     import fintech
     from fintech.ebics import (
@@ -117,7 +113,6 @@ class EbicsUserID(models.Model):
     )
     ebics_sig_passphrase = fields.Char(
         string="EBICS Signature Passphrase",
-        store=False,
         help="You can set here a different passphrase for the EBICS "
         "signing key. This passphrase will never be stored hence "
         "you'll need to specify your passphrase for each transaction that "
@@ -228,10 +223,12 @@ class EbicsUserID(models.Model):
     @api.depends("state", "ebics_passphrase")
     def _compute_ebics_passphrase_view_modifiers(self):
         for rec in self:
+            rec.ebics_passphrase_invisible = False
             if rec.state == "draft":
                 rec.ebics_passphrase_required = True
-                rec.ebics_passphrase_invisible = False
-            elif rec.state == "get_bank_keys":
+            elif rec.state == "init":
+                rec.ebics_passphrase_invisible = True
+            elif rec.state in ("get_bank_keys", "to_verify"):
                 rec.ebics_passphrase_required = not rec.ebics_passphrase
                 rec.ebics_passphrase_invisible = rec.ebics_passphrase
             else:
@@ -253,11 +250,19 @@ class EbicsUserID(models.Model):
             if cfg.ebics_version == "H005" and not cfg.ebics_key_x509:
                 raise UserError(_("X.509 certificates must be used with EBICS 3.0."))
 
-    @api.constrains("ebics_passphrase", "ebics_sig_passphrase")
+    @api.constrains("ebics_passphrase")
     def _check_ebics_passphrase(self):
         for rec in self:
             if rec.ebics_passphrase and len(rec.ebics_passphrase) < 8:
-                raise UserError(_("The passphrase must be at least 8 characters long"))
+                raise UserError(_("The Passphrase must be at least 8 characters long"))
+
+    @api.constrains("ebics_sig_passphrase")
+    def _check_ebics_sig_passphrase(self):
+        for rec in self:
+            if rec.ebics_sig_passphrase and len(rec.ebics_sig_passphrase) < 8:
+                raise UserError(
+                    _("The Signature Passphrase must be at least 8 characters long")
+                )
 
     @api.onchange("ebics_version")
     def _onchange_ebics_version(self):
@@ -271,7 +276,7 @@ class EbicsUserID(models.Model):
 
     @api.onchange("ebics_passphrase_store")
     def _onchange_ebics_passphrase_store(self):
-        if not self.ebics_passphrase_store:
+        if not self.ebics_passphrase_store and self.state == "active_keys":
             self.ebics_passphrase = False
 
     @api.onchange("swift_3skey")
@@ -320,7 +325,7 @@ class EbicsUserID(models.Model):
                 "passphrase": self.ebics_passphrase,
             }
             if self.ebics_sig_passphrase:
-                keyring_params["ebics_sig_passphrase"] = self.ebics_sig_passphrase
+                keyring_params["sig_passphrase"] = self.ebics_sig_passphrase
             keyring = EbicsKeyRing(**keyring_params)
             bank = EbicsBank(
                 keyring=keyring,
@@ -457,24 +462,35 @@ class EbicsUserID(models.Model):
         fn_date = fields.Date.today().isoformat()
         fn = "_".join([self.ebics_config_id.ebics_host, "ini_letter", fn_date]) + ".pdf"
         letter = user.create_ini_letter(bankname=ebics_config_bank.name, lang=lang)
-        self.write(
-            {
-                "ebics_ini_letter": base64.encodebytes(letter),
-                "ebics_ini_letter_fn": fn,
-            }
-        )
-
-        return self.write({"state": "init"})
+        vals = {
+            "ebics_ini_letter": base64.encodebytes(letter),
+            "ebics_ini_letter_fn": fn,
+            "state": "init",
+        }
+        # remove non-stored passphrases from db after successfull init_1
+        if not self.ebics_passphrase_store:
+            vals.update["ebics_passphrase"] = False
+        if self.ebics_sig_passphrase:
+            vals.update["ebics_sig_passphrase"] = False
+        return self.write(vals)
 
     def ebics_init_2(self):
         """
         Initialization of bank keys - Step 2:
         Activation of the account by the bank.
         """
+        self.ensure_one()
         if self.state != "init":
             raise UserError(_("Set state to 'Initialisation'."))
-        self.ensure_one()
-        return self.write({"state": "get_bank_keys"})
+        vals = {"state": "get_bank_keys"}
+        # remove non-stored passphrases from db
+        # remark: this code is here for extra safety but shouldn't
+        # have any effect since passphrases are invisible in state "init"
+        if not self.ebics_passphrase_store:
+            vals.update["ebics_passphrase"] = False
+        if self.ebics_sig_passphrase:
+            vals.update["ebics_sig_passphrase"] = False
+        return self.write(vals)
 
     def ebics_init_3(self):
         """
@@ -527,21 +543,23 @@ class EbicsUserID(models.Model):
             "_".join([self.ebics_config_id.ebics_host, "public_bank_keys", fn_date])
             + ".txt"
         )
-        self.write(
-            {
-                "ebics_public_bank_keys": base64.encodebytes(public_bank_keys),
-                "ebics_public_bank_keys_fn": fn,
-                "state": "to_verify",
-            }
-        )
-
-        return True
+        vals = {
+            "ebics_public_bank_keys": base64.encodebytes(public_bank_keys),
+            "ebics_public_bank_keys_fn": fn,
+            "state": "to_verify",
+        }
+        # remove non-stored passphrases from db
+        if not self.ebics_passphrase_store:
+            vals.update["ebics_passphrase"] = False
+        if self.ebics_sig_passphrase:
+            vals.update["ebics_sig_passphrase"] = False
+        return self.write(vals)
 
     def ebics_init_4(self):
         """
         Initialization of bank keys - Step 2:
         Confirm Verification of the public bank keys
-        and activate the bank keyu.
+        and activate the bank keys.
         """
         self.ensure_one()
         if self.state != "to_verify":
@@ -556,7 +574,13 @@ class EbicsUserID(models.Model):
             url=self.ebics_config_id.ebics_url,
         )
         bank.activate_keys()
-        return self.write({"state": "active_keys"})
+        vals = {"state": "active_keys"}
+        # remove non-stored passphrases from db
+        if not self.ebics_passphrase_store:
+            vals.update["ebics_passphrase"] = False
+        if self.ebics_sig_passphrase:
+            vals.update["ebics_sig_passphrase"] = False
+        return self.write(vals)
 
     def change_passphrase(self):
         self.ensure_one()
