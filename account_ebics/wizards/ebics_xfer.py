@@ -1,13 +1,6 @@
 # Copyright 2009-2023 Noviat.
 # License LGPL-3 or later (http://www.gnu.org/licenses/lgpl).
 
-"""
-import logging
-logging.basicConfig(
-    level=logging.DEBUG,
-    format='[%(asctime)s] %(levelname)s - %(name)s: %(message)s')
-"""
-
 import base64
 import logging
 from sys import exc_info
