@@ -1,0 +1,13 @@
+include:
+  - project: "ci/gitlabci-odoo"
+    ref: main
+    file: "/odoo-tests.template.yml"
+
+variables:
+  ODOO_CI_IMAGE: ghcr.io/oca/oca-ci/py3.10-odoo16.0:latest
+  VERSION: "16.0"
+  ODOO_BRANCH: "16.0"
+  ENTERPRISE: "1"
+  ODOO_PRECOMMIT: "1"
+  ODOO_TEST: "1"
+  EXCLUDE_MODULES: "account_asset"
