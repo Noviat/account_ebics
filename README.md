@@ -1,5 +1,5 @@
-[![pipeline status](https://picasso.noviat.com/Noviat/Noviat_Generic/accounting-ebics/badges/16.0/pipeline.svg)](https://picasso.noviat.com/Noviat/Noviat_Generic/accounting-ebics/-/commits/16.0)
-[![coverage report](https://picasso.noviat.com/Noviat/Noviat_Generic/accounting-ebics/badges/16.0/coverage.svg)](https://picasso.noviat.com/Noviat/Noviat_Generic/accounting-ebics/-/commits/16.0)
+[![pipeline status](https://picasso.noviat.com/Noviat/Noviat_Generic/accounting-ebics/badges/17.0/pipeline.svg)](https://picasso.noviat.com/Noviat/Noviat_Generic/accounting-ebics/-/commits/17.0)
+[![coverage report](https://picasso.noviat.com/Noviat/Noviat_Generic/accounting-ebics/badges/17.0/coverage.svg)](http://noviat.picasso-pages.noviat.com/Noviat_Generic/accounting-ebics)
 
 <!-- /!\ do not modify above this line -->
 

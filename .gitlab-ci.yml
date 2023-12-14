@@ -4,9 +4,9 @@ include:
     file: "/odoo-tests.template.yml"
 
 variables:
-  ODOO_CI_IMAGE: ghcr.io/oca/oca-ci/py3.10-odoo16.0:latest
-  VERSION: "16.0"
-  ODOO_BRANCH: "16.0"
+  ODOO_CI_IMAGE: ghcr.io/oca/oca-ci/py3.10-odoo17.0:latest
+  VERSION: "17.0"
+  ODOO_BRANCH: "17.0"
   ENTERPRISE: "1"
   ODOO_PRECOMMIT: "1"
   ODOO_TEST: "1"

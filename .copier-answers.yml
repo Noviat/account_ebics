@@ -1,14 +1,17 @@
 # Do NOT update manually; changes here will be overwritten by Copier
-_commit: v1.2
+_commit: v2.2
 _src_path: https://picasso.noviat.com/ci/addons-repo-template.git
 ci_exclude_modules: account_asset
-ci_image: ghcr.io/oca/oca-ci/py3.10-odoo16.0:latest
+ci_image: ghcr.io/oca/oca-ci/py3.10-odoo17.0:latest
 customer_slug: Noviat_Generic
+generate_requirements_txt: true
 odoo_enterprise: 1
-odoo_version: 16.0
+odoo_version: 17.0
 org_name: Noviat
 org_slug: Noviat
 repo_name: Modules dedicated to manage the EBICS protocol
 repo_slug: accounting-ebics
 repo_website: https://www.noviat.com/
+use_pyproject_toml: false
+use_ruff: false
 

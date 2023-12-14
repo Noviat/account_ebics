@@ -1,1 +1,3 @@
+odoo-addon-module_change_auto_install
+openupgradelib
 cryptography<37
