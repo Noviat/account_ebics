@@ -118,6 +118,7 @@
                             widget="many2many_tags"
                             options="{'no_create': True}"
                         />
+            <!-- TODO: restore these fields after implementation of SWIFT SConnect
             <field
                             name="swift_3skey"
                             attrs="{'invisible': [('signature_class', '=', 'T')]}"
@@ -128,6 +129,7 @@
                             filename="swift_3skey_certificate_fn"
                             attrs="{'invisible': [('swift_3skey', '=', False)], 'required': [('swift_3skey', '=', True)]}"
                         />
+            -->
             <field name="ebics_key_x509" />
           </group>
         </group>
