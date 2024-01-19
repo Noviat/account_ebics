@@ -82,13 +82,16 @@
                     />
           <field name="state" widget="statusbar" />
         </header>
-        <group name="main" attrs="{'readonly': [('state', '!=', 'draft')]}">
-          <field name="ebics_keys_found" invisible="1" />
-          <field name="ebics_keys_fn" invisible="1" />
-          <field name="ebics_version" invisible="1" />
-          <field name="ebics_passphrase_required" invisible="1" />
-          <field name="ebics_passphrase_invisible" invisible="1" />
+        <group name="invisible" invisible="1">
+          <field name="ebics_keys_found" />
+          <field name="ebics_keys_fn" />
+          <field name="ebics_version" />
+          <field name="ebics_passphrase_required" />
+          <field name="ebics_passphrase_invisible" />
+          <field name="ebics_passphrase_store_readonly" />
           <field name="ebics_sig_passphrase_invisible" invisible="1" />
+        </group>
+        <group name="main" attrs="{'readonly': [('state', '!=', 'draft')]}">
           <group name="main-left">
             <field name="name" />
             <field
@@ -96,7 +99,10 @@
                             password="True"
                             attrs="{'required': [('ebics_passphrase_required', '=', True)], 'invisible': [('ebics_passphrase_invisible', '=', True)]}"
                         />
-            <field name="ebics_passphrase_store" />
+            <field
+                            name="ebics_passphrase_store"
+                            attrs="{'readonly': [('ebics_passphrase_store_readonly', '=', True)]}"
+                        />
             <field
                             name="ebics_sig_passphrase"
                             password="True"
