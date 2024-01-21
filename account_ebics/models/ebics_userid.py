@@ -284,21 +284,28 @@ class EbicsUserID(models.Model):
         if self.signature_class == "T":
             self.swift_3skey = False
 
-    @api.onchange("ebics_passphrase_store")
+    @api.onchange("ebics_passphrase_store", "ebics_passphrase")
     def _onchange_ebics_passphrase_store(self):
         if self.ebics_passphrase_store:
-            # check passphrase before db store
-            keyring_params = {
-                "keys": self.ebics_keys_fn,
-                "passphrase": self.ebics_passphrase,
-            }
-            try:
-                # TODO: implement check passphrase logic
-                keyring = EbicsKeyRing(**keyring_params)  # noqa: F841
-            except Exception as err:
-                raise UserError(str(err)) from err
-        elif not self.ebics_passphrase_store and self.state != "draft":
-            self.ebics_passphrase = False
+            if self.ebics_passphrase:
+                # check passphrase before db store
+                keyring_params = {
+                    "keys": self.ebics_keys_fn,
+                    "passphrase": self.ebics_passphrase,
+                }
+                keyring = EbicsKeyRing(**keyring_params)
+                try:
+                    # fintech <= 7.4.3 does not have a call to check if a
+                    # passphrase matches with the value stored in the keyfile.
+                    # We get around this limitation as follows:
+                    # Get user keys to check for valid passphrases
+                    # It will raise a ValueError on invalid passphrases
+                    keyring["#USER"]
+                except ValueError as err:  # noqa: F841
+                    raise UserError(_("Passphrase mismatch."))  # noqa: B904
+        else:
+            if self.state != "draft":
+                self.ebics_passphrase = False
 
     @api.onchange("swift_3skey")
     def _onchange_swift_3skey(self):
