@@ -127,6 +127,10 @@ The keycode of the licensed version.
 
 |
 
+Cf. https://www.joonis.de/en/fintech/prices/
+
+|
+
 Configuration
 =============
 
