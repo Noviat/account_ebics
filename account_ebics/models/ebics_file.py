@@ -549,7 +549,7 @@ class EbicsFile(models.Model):
             "054": "Ntfctn",
         }
         camt_tag = variant_tags[camt_variant]
-        stmts = root[0].findall("ns:{}".format(camt_tag), ns)
+        stmts = root[0].findall(f"ns:{camt_tag}", ns)
         for i, stmt in enumerate(stmts):
             acc_number = sanitize_account_number(
                 stmt.xpath(
@@ -572,7 +572,7 @@ class EbicsFile(models.Model):
 
             root_new = deepcopy(root)
             entries = False
-            for j, el in enumerate(root_new[0].findall("ns:{}".format(camt_tag), ns)):
+            for j, el in enumerate(root_new[0].findall(f"ns:{camt_tag}", ns)):
                 if j != i:
                     el.getparent().remove(el)
                 else:
