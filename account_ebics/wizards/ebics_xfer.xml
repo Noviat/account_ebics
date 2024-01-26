@@ -23,7 +23,8 @@
           <field
                         name="ebics_passphrase"
                         password="True"
-                        attrs="{'invisible': [('ebics_passphrase_store', '=', True)], 'required': [('ebics_passphrase_store', '=', False)]}"
+                        invisible="ebics_passphrase_store"
+                        required="not ebics_passphrase_store"
                     />
           <field name="ebics_passphrase_store" invisible="1" />
           <field name="date_from" />
@@ -76,12 +77,13 @@
           <field
                         name="ebics_passphrase"
                         password="True"
-                        attrs="{'invisible': [('ebics_passphrase_store', '=', True)], 'required': [('ebics_passphrase_store', '=', False)]}"
+                        invisible="ebics_passphrase_store"
+                        required="not ebics_passphrase_store"
                     />
           <field
                         name="ebics_sig_passphrase"
                         password="True"
-                        attrs="{'invisible': [('ebics_sig_passphrase_invisible', '=', True)]}"
+                        invisible="ebics_sig_passphrase_invisible"
                     />
           <field name="ebics_passphrase_store" invisible="1" />
           <field name="ebics_sig_passphrase_invisible" invisible="1" />
@@ -95,10 +97,7 @@
                         domain="[('type', '=', 'up'), ('id', 'in', allowed_format_ids)]"
                     />
           <field name="order_type" />
-          <field
-                        name="test_mode"
-                        attrs="{'invisible': [('order_type', 'not in', ('FUL', 'BTU'))]}"
-                    />
+          <field name="test_mode" invisible="order_type not in ('FUL', 'BTU')" />
           <field name="allowed_format_ids" invisible="1" />
         </group>
         <footer>
