@@ -27,9 +27,7 @@ def _update_file_format(cr, ff):
         """
         SELECT res_id FROM ir_model_data
         WHERE module='account_ebics' AND name='{}'
-        """.format(
-            ff["xml_id_name"]
-        )
+        """.format(ff["xml_id_name"])
     )
     res = cr.fetchone()
     if res:
