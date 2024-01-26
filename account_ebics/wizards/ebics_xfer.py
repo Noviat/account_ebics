@@ -259,7 +259,7 @@ class EbicsXfer(models.TransientModel):
                         order_type=df.order_type,
                     )
                     self.note += "\n"
-                    self.note += "{} (code: {})".format(e[1].message, e[1].code)
+                    self.note += f"{e[1].message} (code: {e[1].code})"
                 except EbicsTechnicalError:
                     err_cnt += 1
                     e = exc_info()
@@ -271,7 +271,7 @@ class EbicsXfer(models.TransientModel):
                         order_type=df.order_type,
                     )
                     self.note += "\n"
-                    self.note += "{} (code: {})".format(e[1].message, e[1].code)
+                    self.note += f"{e[1].message} (code: {e[1].code})"
                 except EbicsVerificationError:
                     err_cnt += 1
                     self.note += "\n"
@@ -341,7 +341,7 @@ class EbicsXfer(models.TransientModel):
         self.ensure_one()
         module = __name__.split("addons.")[1].split(".")[0]
         act = self.env["ir.actions.act_window"]._for_xml_id(
-            "{}.ebics_file_action_download".format(module)
+            f"{module}.ebics_file_action_download"
         )
         act["domain"] = [("id", "in", self._context["ebics_file_ids"])]
         return act
@@ -416,13 +416,13 @@ class EbicsXfer(models.TransientModel):
                 self.note += "\n"
                 self.note += _("EBICS Functional Error:")
                 self.note += "\n"
-                self.note += "{} (code: {})".format(e[1].message, e[1].code)
+                self.note += f"{e[1].message} (code: {e[1].code})"
             except EbicsTechnicalError:
                 e = exc_info()
                 self.note += "\n"
                 self.note += _("EBICS Technical Error:")
                 self.note += "\n"
-                self.note += "{} (code: {})".format(e[1].message, e[1].code)
+                self.note += f"{e[1].message} (code: {e[1].code})"
             except EbicsVerificationError:
                 self.note += "\n"
                 self.note += _("EBICS Verification Error:")

@@ -437,7 +437,7 @@ class EbicsUserID(models.Model):
                 err_msg = _("EBICS version mismatch.") + "\n"
                 err_msg += _("Versions supported by your bank:")
                 for k in supported_versions:
-                    err_msg += "\n{}: {} ".format(k, supported_versions[k])
+                    err_msg += f"\n{k}: {supported_versions[k]} "
                 raise UserError(err_msg)
             if ebics_version == "H003":
                 bank._order_number = self.ebics_config_id._get_order_number()
@@ -464,13 +464,13 @@ class EbicsUserID(models.Model):
             e = exc_info()
             error = _("EBICS Functional Error:")
             error += "\n"
-            error += "{} (code: {})".format(e[1].message, e[1].code)
+            error += f"{e[1].message} (code: {e[1].code})"
             raise UserError(error) from err
         except EbicsTechnicalError as err:
             e = exc_info()
             error = _("EBICS Technical Error:")
             error += "\n"
-            error += "{} (code: {})".format(e[1].message, e[1].code)
+            error += f"{e[1].message} (code: {e[1].code})"
             raise UserError(error) from err
 
         # Send the public authentication and encryption keys to the bank.
@@ -549,7 +549,7 @@ class EbicsUserID(models.Model):
             e = exc_info()
             error = _("EBICS Functional Error:")
             error += "\n"
-            error += "{} (code: {})".format(e[1].message, e[1].code)
+            error += f"{e[1].message} (code: {e[1].code})"
             raise UserError(error) from err
         except Exception as err:
             exctype, value = exc_info()[:2]
