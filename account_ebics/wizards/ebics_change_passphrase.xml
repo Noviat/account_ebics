@@ -13,10 +13,7 @@
                         <field name="new_pass" password="True" />
                         <field name="new_pass_check" password="True" />
                     </group>
-                    <group
-                        name="sig_pass"
-                        attrs="{'invisible': [('ebics_sig_passphrase_invisible', '=', True)]}"
-                    >
+                    <group name="sig_pass" invisible="ebics_sig_passphrase_invisible">
                         <field name="old_sig_pass" password="True" />
                         <field name="new_sig_pass" password="True" />
                         <field name="new_sig_pass_check" password="True" />
