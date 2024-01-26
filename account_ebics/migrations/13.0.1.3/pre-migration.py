@@ -57,9 +57,7 @@ def _update_file_format(cr, ff):
         """
     SELECT id, res_id FROM ir_model_data
     WHERE module='account_ebics' AND name='{}'
-        """.format(
-            ff["old_xml_id_name"]
-        )
+        """.format(ff["old_xml_id_name"])
     )
     res = cr.fetchone()
     if res:
@@ -67,15 +65,11 @@ def _update_file_format(cr, ff):
         UPDATE ir_model_data
         SET name='{new_xml_id_name}'
         WHERE id={xml_id};
-        """.format(
-            new_xml_id_name=ff["new_xml_id_name"], xml_id=res[0]
-        )
+        """.format(new_xml_id_name=ff["new_xml_id_name"], xml_id=res[0])
         if ff.get("new_name"):
             query += """
             UPDATE ebics_file_format
             SET name='{new_name}'
             WHERE id={ff_id};
-            """.format(
-                new_name=ff["new_name"], ff_id=res[1]
-            )
+            """.format(new_name=ff["new_name"], ff_id=res[1])
         cr.execute(query)  # pylint: disable=E8103

@@ -8,7 +8,6 @@ from openupgradelib import openupgrade  # pylint: disable=W7936
 
 @openupgrade.migrate()
 def migrate(env, version):
-
     _ebics_config_upgrade(env, version)
     _noupdate_changes(env, version)
 
