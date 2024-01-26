@@ -1,4 +1,4 @@
-# Copyright 2009-2023 Noviat.
+# Copyright 2009-2024 Noviat.
 # License LGPL-3 or later (http://www.gnu.org/licenses/lgpl).
 
 from odoo import api, fields, models
@@ -110,11 +110,10 @@ class EbicsFileFormat(models.Model):
         if self.type == "up":
             self.download_process_method = False
 
-    def name_get(self):
-        res = []
+    @api.depends("ebics_version", "name", "btf_message", "description")
+    def _compute_display_name(self):
         for rec in self:
             name = rec.ebics_version == "2" and rec.name or rec.btf_message
             if rec.description:
                 name += " - " + rec.description
-            res.append((rec.id, name))
-        return res
+            rec.display_name = name
