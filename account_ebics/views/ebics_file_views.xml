@@ -64,7 +64,7 @@
         <header>
           <button
                         name="set_to_draft"
-                        states="done"
+                        invisible="state != 'done'"
                         string="Set to Draft"
                         type="object"
                         groups="account.group_account_manager"
@@ -72,7 +72,7 @@
           <button
                         name="process"
                         class="oe_highlight"
-                        states="draft"
+                        invisible="state != 'draft'"
                         string="Process"
                         type="object"
                         groups="account.group_account_invoice"
@@ -80,7 +80,7 @@
                     />
           <button
                         name="set_to_done"
-                        states="draft"
+                        invisible="state != 'draft'"
                         string="Set to Done"
                         type="object"
                         groups="account.group_account_manager"
@@ -106,10 +106,7 @@
           <page string="Additional Information">
             <field name="note" nolabel="1" />
           </page>
-          <page
-                        string="Bank Statements"
-                        attrs="{'invisible':[('bank_statement_ids','=',[])]}"
-                    >
+          <page string="Bank Statements" invisible="not bank_statement_ids">
             <field name="bank_statement_ids" nolabel="1" />
           </page>
         </notebook>
@@ -193,14 +190,14 @@
         <header>
           <button
                         name="set_to_draft"
-                        states="done"
+                        invisible="state != 'done'"
                         string="Set to Draft"
                         type="object"
                         groups="account.group_account_manager"
                     />
           <button
                         name="set_to_done"
-                        states="draft"
+                        invisible="state != 'draft'"
                         string="Set to Done"
                         type="object"
                         groups="account.group_account_manager"

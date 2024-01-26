@@ -28,7 +28,7 @@
             <field name="suffix" />
             <field
                             name="download_process_method"
-                            attrs="{'invisible': [('type', '=', 'up')]}"
+                            invisible="type == 'up'"
                             force_save="1"
                         />
             <field name="signature_class" />
@@ -37,40 +37,25 @@
             <field name="order_type" />
             <field
                             name="name"
-                            attrs="{'required': [('ebics_version', '=', '2')], 'invisible': [('ebics_version', '=', '3')]}"
+                            required="ebics_version == '2'"
+                            invisible="ebics_version == '3'"
                         />
             <field
                             name="btf_service"
-                            attrs="{'required': [('ebics_version', '=', '3')], 'invisible': [('ebics_version', '=', '2')]}"
+                            required="ebics_version == '3'"
+                            invisible="ebics_version == '2'"
                         />
             <field
                             name="btf_message"
-                            attrs="{'required': [('ebics_version', '=', '3')], 'invisible': [('ebics_version', '=', '2')]}"
+                            required="ebics_version == '3'"
+                            invisible="ebics_version == '2'"
                         />
-            <field
-                            name="btf_scope"
-                            attrs="{'invisible': [('ebics_version', '=', '2')]}"
-                        />
-            <field
-                            name="btf_option"
-                            attrs="{'invisible': [('ebics_version', '=', '2')]}"
-                        />
-            <field
-                            name="btf_container"
-                            attrs="{'invisible': [('ebics_version', '=', '2')]}"
-                        />
-            <field
-                            name="btf_version"
-                            attrs="{'invisible': [('ebics_version', '=', '2')]}"
-                        />
-            <field
-                            name="btf_variant"
-                            attrs="{'invisible': [('ebics_version', '=', '2')]}"
-                        />
-            <field
-                            name="btf_format"
-                            attrs="{'invisible': [('ebics_version', '=', '2')]}"
-                        />
+            <field name="btf_scope" invisible="ebics_version == '2'" />
+            <field name="btf_option" invisible="ebics_version == '2'" />
+            <field name="btf_container" invisible="ebics_version == '2'" />
+            <field name="btf_version" invisible="ebics_version == '2'" />
+            <field name="btf_variant" invisible="ebics_version == '2'" />
+            <field name="btf_format" invisible="ebics_version == '2'" />
           </group>
         </group>
         <group name="description">

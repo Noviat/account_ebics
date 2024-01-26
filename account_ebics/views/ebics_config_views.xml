@@ -22,7 +22,7 @@
         <header>
           <button
                         name="set_to_draft"
-                        states="confirm"
+                        invisible="state != 'confirm'"
                         string="Set to Draft"
                         type="object"
                         groups="account_ebics.group_ebics_manager"
@@ -30,7 +30,7 @@
                     />
           <button
                         name="set_to_confirm"
-                        states="draft"
+                        invisible="state != 'draft'"
                         string="Confirm"
                         type="object"
                         class="oe_highlight"
@@ -44,38 +44,40 @@
                     name="web_ribbon"
                     text="Archived"
                     bg_color="bg-danger"
-                    attrs="{'invisible': [('active', '=', True)]}"
+                    invisible="active"
                 />
         <group name="main">
           <group name="main-left">
-            <field name="name" colspan="2" />
-            <field name="ebics_host" />
-            <field name="ebics_url" />
-            <field name="ebics_partner" />
-            <field name="ebics_keys" />
+            <field name="name" readonly="state != 'draft'" colspan="2" />
+            <field name="ebics_host" readonly="state != 'draft'" />
+            <field name="ebics_url" readonly="state != 'draft'" />
+            <field name="ebics_partner" readonly="state != 'draft'" />
+            <field name="ebics_keys" readonly="state != 'draft'" />
           </group>
           <group name="main-right">
             <field
                             name="journal_ids"
+                            readonly="state != 'draft'"
                             widget="many2many_tags"
                             options="{'no_create': True}"
                         />
-            <field name="ebics_version" />
-            <field name="ebics_key_version" />
-            <field name="ebics_key_bitlength" />
+            <field name="ebics_version" readonly="state != 'draft'" />
+            <field name="ebics_key_version" readonly="state != 'draft'" />
+            <field name="ebics_key_bitlength" readonly="state != 'draft'" />
             <field
                             name="order_number"
-                            attrs="{'invisible': [('ebics_version', '!=', 'H003')]}"
+                            invisible="ebics_version != 'H003'"
+                            readonly="state != 'draft'"
                         />
             <field name="company_ids" widget="many2many_tags" invisible="1" />
           </group>
         </group>
         <notebook>
           <page string="EBICS Users" groups="account_ebics.group_ebics_manager">
-            <field name="ebics_userid_ids" />
+            <field name="ebics_userid_ids" readonly="state != 'draft'" />
           </page>
           <page string="File Formats" groups="account_ebics.group_ebics_manager">
-            <field name="ebics_file_format_ids" />
+            <field name="ebics_file_format_ids" readonly="state != 'draft'" />
           </page>
         </notebook>
       </form>

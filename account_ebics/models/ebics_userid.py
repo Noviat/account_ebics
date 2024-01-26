@@ -47,8 +47,6 @@ class EbicsUserID(models.Model):
     name = fields.Char(
         string="EBICS UserID",
         required=True,
-        readonly=True,
-        states={"draft": [("readonly", False)]},
         help="Human users or a technical system that is/are "
         "assigned to a customer. "
         "\nOn the EBICS bank server it is identified "
@@ -71,14 +69,10 @@ class EbicsUserID(models.Model):
         help="Users who are allowed to use this EBICS UserID for "
         " bank transactions.",
     )
-    # Currently only a single signature class per user is supported
-    # Classes A and B are not yet supported.
     signature_class = fields.Selection(
         selection=[("E", "Single signature"), ("T", "Transport signature")],
         required=True,
         default="T",
-        readonly=True,
-        states={"draft": [("readonly", False)]},
         help="Default signature class."
         "This default can be overriden for specific "
         "EBICS transactions (cf. File Formats).",
@@ -152,44 +146,28 @@ class EbicsUserID(models.Model):
     # create self-signed X.509 certificates
     ebics_key_x509 = fields.Boolean(
         string="X509 support",
-        readonly=True,
-        states={"draft": [("readonly", False)]},
         help="Set this flag in order to work with " "self-signed X.509 certificates",
     )
     ebics_key_x509_dn_cn = fields.Char(
         string="Common Name [CN]",
-        readonly=True,
-        states={"draft": [("readonly", False)]},
     )
     ebics_key_x509_dn_o = fields.Char(
         string="Organization Name [O]",
-        readonly=True,
-        states={"draft": [("readonly", False)]},
     )
     ebics_key_x509_dn_ou = fields.Char(
         string="Organizational Unit Name [OU]",
-        readonly=True,
-        states={"draft": [("readonly", False)]},
     )
     ebics_key_x509_dn_c = fields.Char(
         string="Country Name [C]",
-        readonly=True,
-        states={"draft": [("readonly", False)]},
     )
     ebics_key_x509_dn_st = fields.Char(
         string="State Or Province Name [ST]",
-        readonly=True,
-        states={"draft": [("readonly", False)]},
     )
     ebics_key_x509_dn_l = fields.Char(
         string="Locality Name [L]",
-        readonly=True,
-        states={"draft": [("readonly", False)]},
     )
     ebics_key_x509_dn_e = fields.Char(
         string="Email Address",
-        readonly=True,
-        states={"draft": [("readonly", False)]},
     )
     state = fields.Selection(
         [

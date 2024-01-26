@@ -1,4 +1,4 @@
-# Copyright 2009-2023 Noviat.
+# Copyright 2009-2024 Noviat.
 # License LGPL-3 or later (http://www.gnu.org/licenses/lgpl).
 
 import logging
@@ -22,23 +22,17 @@ class EbicsConfig(models.Model):
     _order = "name"
 
     name = fields.Char(
-        readonly=True,
-        states={"draft": [("readonly", False)]},
         required=True,
     )
     journal_ids = fields.Many2many(
         comodel_name="account.journal",
         relation="account_journal_ebics_config_rel",
-        readonly=True,
-        states={"draft": [("readonly", False)]},
         string="Bank Accounts",
         domain="[('type', '=', 'bank')]",
     )
     ebics_host = fields.Char(
         string="EBICS HostID",
         required=True,
-        readonly=True,
-        states={"draft": [("readonly", False)]},
         help="Contact your bank to get the EBICS HostID."
         "\nIn France the BIC is usually allocated to the HostID "
         "whereas in Germany it tends to be an institute specific string "
@@ -47,8 +41,6 @@ class EbicsConfig(models.Model):
     ebics_url = fields.Char(
         string="EBICS URL",
         required=True,
-        readonly=True,
-        states={"draft": [("readonly", False)]},
         help="Contact your bank to get the EBICS URL.",
     )
     ebics_version = fields.Selection(
@@ -58,16 +50,12 @@ class EbicsConfig(models.Model):
             ("H005", "H005 (3.0)"),
         ],
         string="EBICS protocol version",
-        readonly=True,
-        states={"draft": [("readonly", False)]},
         required=True,
         default="H004",
     )
     ebics_partner = fields.Char(
         string="EBICS PartnerID",
         required=True,
-        readonly=True,
-        states={"draft": [("readonly", False)]},
         help="Organizational unit (company or individual) "
         "that concludes a contract with the bank. "
         "\nIn this contract it will be agreed which order types "
@@ -81,8 +69,6 @@ class EbicsConfig(models.Model):
         comodel_name="ebics.userid",
         inverse_name="ebics_config_id",
         string="EBICS UserID",
-        readonly=True,
-        states={"draft": [("readonly", False)]},
         help="Human users or a technical system that is/are "
         "assigned to a customer. "
         "\nOn the EBICS bank server it is identified "
@@ -96,8 +82,6 @@ class EbicsConfig(models.Model):
     ebics_keys = fields.Char(
         string="EBICS Keys Root",
         required=True,
-        readonly=True,
-        states={"draft": [("readonly", False)]},
         default=lambda self: self._default_ebics_keys(),
         help="Root Directory for storing the EBICS Keys.",
     )
@@ -105,15 +89,11 @@ class EbicsConfig(models.Model):
         selection=[("A005", "A005 (RSASSA-PKCS1-v1_5)"), ("A006", "A006 (RSASSA-PSS)")],
         string="EBICS key version",
         default="A006",
-        readonly=True,
-        states={"draft": [("readonly", False)]},
         help="The key version of the electronic signature.",
     )
     ebics_key_bitlength = fields.Integer(
         string="EBICS key bitlength",
         default=2048,
-        readonly=True,
-        states={"draft": [("readonly", False)]},
         help="The bit length of the generated keys. "
         "\nThe value must be between 1536 and 4096.",
     )
@@ -122,19 +102,15 @@ class EbicsConfig(models.Model):
         column1="config_id",
         column2="format_id",
         string="EBICS File Format",
-        readonly=True,
-        states={"draft": [("readonly", False)]},
     )
     state = fields.Selection(
-        [("draft", "Draft"), ("confirm", "Confirmed")],
+        selection=[("draft", "Draft"), ("confirm", "Confirmed")],
         default="draft",
         required=True,
         readonly=True,
     )
     order_number = fields.Char(
         size=4,
-        readonly=True,
-        states={"draft": [("readonly", False)]},
         help="Specify the number for the next order."
         "\nThis number should match the following pattern : "
         "[A-Z]{1}[A-Z0-9]{3}",
