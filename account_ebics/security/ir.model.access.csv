@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ebics_config_manager,ebics_config manager,model_ebics_config,group_ebics_manager,1,1,1,1
+access_ebics_config_user,ebics_config user,model_ebics_config,account.group_account_invoice,1,0,0,0
+access_ebics_userid_manager,ebics_userid manager,model_ebics_userid,group_ebics_manager,1,1,1,1
+access_ebics_userid_user,ebics_userid user,model_ebics_userid,account.group_account_invoice,1,0,0,0
+access_ebics_file_format_manager,ebics_file_format manager,model_ebics_file_format,group_ebics_manager,1,1,1,1
+access_ebics_file_format_user,ebics_file_format user,model_ebics_file_format,account.group_account_invoice,1,0,0,0
+access_ebics_file_manager,ebics_file manager,model_ebics_file,group_ebics_manager,1,1,1,1
+access_ebics_file_user,ebics_file user,model_ebics_file,account.group_account_invoice,1,1,1,0
+
+access_ebics_change_passphrase,access_ebics_change_passphrase,model_ebics_change_passphrase,group_ebics_manager,1,1,1,0
+access_ebics_xfer,access_ebics_xfer,model_ebics_xfer,account.group_account_invoice,1,1,1,0
+access_ebics_admin_order,access_ebics_admin_order,model_ebics_admin_order,group_ebics_manager,1,1,1,0
