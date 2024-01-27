@@ -1,10 +1,10 @@
-# Copyright 2020-2023 Noviat.
+# Copyright 2020-2024 Noviat.
 # License LGPL-3 or later (http://www.gnu.org/licenses/lgpl).
 
 {
     "name": "account_ebics on Odoo Enterprise",
     "summary": "Deploy account_ebics module on Odoo Enterprise",
-    "version": "16.0.1.0.0",
+    "version": "17.0.1.0.0",
     "author": "Noviat",
     "website": "https://www.noviat.com",
     "category": "Hidden",
