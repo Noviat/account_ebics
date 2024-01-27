@@ -209,19 +209,18 @@ class EbicsUserID(models.Model):
     @api.depends("state", "ebics_passphrase")
     def _compute_ebics_passphrase_view_modifiers(self):
         for rec in self:
-            rec.ebics_passphrase_invisible = False
+            rec.ebics_passphrase_required = False
+            rec.ebics_passphrase_invisible = True
             rec.ebics_passphrase_store_readonly = True
             if rec.state == "draft":
                 rec.ebics_passphrase_required = True
                 rec.ebics_passphrase_store_readonly = False
             elif rec.state == "init":
+                rec.ebics_passphrase_required = False
                 rec.ebics_passphrase_invisible = True
             elif rec.state in ("get_bank_keys", "to_verify"):
                 rec.ebics_passphrase_required = not rec.ebics_passphrase
                 rec.ebics_passphrase_invisible = rec.ebics_passphrase
-            else:
-                rec.ebics_passphrase_required = False
-                rec.ebics_passphrase_invisible = True
 
     @api.depends("state")
     def _compute_ebics_sig_passphrase_invisible(self):
