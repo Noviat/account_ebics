@@ -442,7 +442,7 @@ class EbicsXfer(models.TransientModel):
         return ebics_file
 
     def _payment_order_postprocess(self, ebics_file):
-        active_model = self.env.context.get("active_model")
+        active_model = self.env.context.get("model")
         if active_model == "account.payment.order":
             order = self.env["account.payment.order"].browse(
                 self.env.context["active_id"]
