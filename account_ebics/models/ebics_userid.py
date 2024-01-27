@@ -238,7 +238,7 @@ class EbicsUserID(models.Model):
                 rec.ebics_passphrase_required = True
                 rec.ebics_passphrase_store_readonly = False
             elif rec.state == "init":
-                rec.ebics_passphrase_required = True
+                rec.ebics_passphrase_required = False
                 rec.ebics_passphrase_invisible = True
             elif rec.state in ("get_bank_keys", "to_verify"):
                 rec.ebics_passphrase_required = not rec.ebics_passphrase
