@@ -148,7 +148,7 @@ class EbicsConfig(models.Model):
                         ok = False
             if not ok:
                 raise UserError(
-                    _(
+                    _(  # pylint: disable=W8120
                         "Order Number should comply with the following pattern:"
                         "\n[A-Z]{1}[A-Z0-9]{3}"
                     )

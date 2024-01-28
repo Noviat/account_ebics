@@ -1,12 +1,11 @@
 
-
 [MASTER]
 ignore-patterns=["^.*/TODO/.*$"]
 load-plugins=pylint_odoo
 score=n
 
 [ODOOLINT]
-# readme-template-url="https://github.com/OCA/maintainer-tools/blob/master/template/module/README.rst"
+#readme-template-url="https://github.com/OCA/maintainer-tools/blob/master/template/module/README.rst"
 manifest-required-authors=Noviat
 manifest-required-keys=license
 manifest-deprecated-keys=description,active
@@ -42,7 +41,7 @@ enable=anomalous-backslash-in-string,
     license-allowed,
     manifest-author-string,
     manifest-deprecated-key,
-    manifest-required-author,
+    # manifest-required-author,
     manifest-required-key,
     manifest-version-format,
     method-compute,

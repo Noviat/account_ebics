@@ -10,4 +10,5 @@ variables:
   ENTERPRISE: "1"
   ODOO_PRECOMMIT: "1"
   ODOO_TEST: "1"
+  ODOO_GENERATE_POT: "1"
   EXCLUDE_MODULES: "account_asset"

@@ -1,11 +1,11 @@
-
 [MASTER]
+ignore-patterns=["^.*/TODO/.*$"]
 load-plugins=pylint_odoo
 score=n
 
 [ODOOLINT]
-readme-template-url="https://github.com/OCA/maintainer-tools/blob/master/template/module/README.rst"
-manifest-required-authors=Odoo Community Association (OCA)
+#readme-template-url="https://github.com/OCA/maintainer-tools/blob/master/template/module/README.rst"
+manifest-required-authors=Noviat
 manifest-required-keys=license
 manifest-deprecated-keys=description,active
 license-allowed=AGPL-3,GPL-2,GPL-2 or any later version,GPL-3,GPL-3 or any later version,LGPL-3
@@ -33,7 +33,7 @@ enable=anomalous-backslash-in-string,
     license-allowed,
     manifest-author-string,
     manifest-deprecated-key,
-    manifest-required-author,
+    # manifest-required-author,
     manifest-required-key,
     manifest-version-format,
     method-compute,
