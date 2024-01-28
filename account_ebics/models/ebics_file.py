@@ -1,4 +1,4 @@
-# Copyright 2009-2023 Noviat.
+# Copyright 2009-2024 Noviat.
 # License LGPL-3 or later (http://www.gnu.org/licenses/lgpl).
 
 import base64
@@ -168,8 +168,8 @@ class EbicsFile(models.Model):
             if raise_if_not_found:
                 raise UserError(
                     _(
-                        "The module to process the '%(ebics_format)s' format is not installed "
-                        "on your system. "
+                        "The module to process the '%(ebics_format)s' format is not "
+                        "installed on your system. "
                         "\nPlease install module '%(module)s'",
                         ebics_format=self.format_id.name,
                         module=module,
