@@ -10,7 +10,7 @@
           <button
                     name="ebics_upload"
                     type="object"
-                    attrs="{'invisible': ['|', ('file_generation_enabled', '=', False), ('state', '!=', 'sent')]}"
+                    invisible="not file_generation_enabled or state != 'sent'"
                     string="EBICS Upload"
                 />
         </button>
