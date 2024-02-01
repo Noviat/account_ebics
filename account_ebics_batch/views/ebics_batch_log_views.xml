@@ -38,7 +38,7 @@
         <header>
           <button
                         name="button_draft"
-                        states="done,error"
+                        invisible="state not in ('done', 'error')"
                         string="Set to Draft"
                         type="object"
                     />
@@ -48,11 +48,11 @@
                         help="Reprocess 'draft' EBICS Files"
                         type="object"
                         class="oe_highlight"
-                        attrs="{'invisible': ['|', ('state', '=', 'done'),('has_draft_files', '=', False)]}"
+                        invisible="state, '=', 'done' or not has_draft_files"
                     />
           <button
                         name="button_done"
-                        states="draft,error"
+                        invisible="state not in ('done', 'error')"
                         string="Mark Done"
                         type="object"
                     />
@@ -70,7 +70,7 @@
                             type="object"
                             class="oe_stat_button"
                             icon="fa-pencil-square-o"
-                            attrs="{'invisible': [('file_count', '=', 0)]}"
+                            invisible="file_count == 0"
                         >
                    <field name="file_count" widget="statinfo" string="EBICS Files" />
             </button>
@@ -93,7 +93,7 @@
                     <field name="create_date" />
                     <field name="error_count" />
                   </group>
-                  <group attrs="{'invisible':[('note', '=', False)]}">
+                  <group invisible="not note">
                     <separator colspan="4" />
                     <field name="note" nolabel="1" colspan="4" height="360" />
                   </group>
