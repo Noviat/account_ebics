@@ -1,0 +1,55 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_ebics_payment_order
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_ebics_payment_order
+#. odoo-python
+#: code:addons/account_ebics_payment_order/models/account_payment_order.py:0
+#: model_terms:ir.ui.view,arch_db:account_ebics_payment_order.account_payment_order_form
+#, python-format
+msgid "EBICS Upload"
+msgstr ""
+
+#. module: account_ebics_payment_order
+#. odoo-python
+#: code:addons/account_ebics_payment_order/models/account_payment_order.py:0
+#, python-format
+msgid "No active EBICS configuration available for the selected bank."
+msgstr ""
+
+#. module: account_ebics_payment_order
+#. odoo-python
+#: code:addons/account_ebics_payment_order/models/account_payment_order.py:0
+#: model:ir.model,name:account_ebics_payment_order.model_account_payment_order
+#, python-format
+msgid "Payment Order"
+msgstr ""
+
+#. module: account_ebics_payment_order
+#. odoo-python
+#: code:addons/account_ebics_payment_order/models/account_payment_order.py:0
+#, python-format
+msgid ""
+"This payment order contains multiple attachments.\n"
+"Please remove the obsolete attachments or upload the payment order file via the EBICS Processing > EBICS Upload menu"
+msgstr ""
+
+#. module: account_ebics_payment_order
+#. odoo-python
+#: code:addons/account_ebics_payment_order/models/account_payment_order.py:0
+#, python-format
+msgid ""
+"This payment order doesn't contains attachements.\n"
+"Please generate first the Payment Order file first."
+msgstr ""
