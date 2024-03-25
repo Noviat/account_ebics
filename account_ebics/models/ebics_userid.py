@@ -206,7 +206,7 @@ class EbicsUserID(models.Model):
                 rec.ebics_keys_fn
             )
 
-    @api.depends("state", "ebics_passphrase")
+    @api.depends("state", "ebics_passphrase", "ebics_keys_found")
     def _compute_ebics_passphrase_view_modifiers(self):
         for rec in self:
             rec.ebics_passphrase_required = False
@@ -214,6 +214,7 @@ class EbicsUserID(models.Model):
             rec.ebics_passphrase_store_readonly = True
             if rec.state == "draft":
                 rec.ebics_passphrase_required = True
+                rec.ebics_passphrase_invisible = rec.ebics_keys_found and True or False
                 rec.ebics_passphrase_store_readonly = False
             elif rec.state == "init":
                 rec.ebics_passphrase_required = False
