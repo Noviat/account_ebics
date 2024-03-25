@@ -10,7 +10,7 @@
           <button
                     name="ebics_upload"
                     type="object"
-                    states="generated"
+                    invisible="state != 'generated'"
                     string="EBICS Upload"
                     class="oe_highlight"
                 />
