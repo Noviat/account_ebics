@@ -83,6 +83,7 @@
           <field name="state" widget="statusbar" />
         </header>
         <group name="invisible" invisible="1">
+          <field name="ebics_config_id" />
           <field name="ebics_keys_found" />
           <field name="ebics_keys_fn" />
           <field name="ebics_version" />
