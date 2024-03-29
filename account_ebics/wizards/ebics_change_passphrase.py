@@ -1,4 +1,4 @@
-# Copyright 2009-2023 Noviat.
+# Copyright 2009-2024 Noviat.
 # License LGPL-3 or later (http://www.gnu.org/licenses/lgpl).
 
 import logging
@@ -76,7 +76,7 @@ class EbicsChangePassphrase(models.TransientModel):
                 "passphrase": passphrase,
             }
             if self.new_sig_pass:
-                keyring_params["sig_passphrase"] = self.old_sig_pass
+                keyring_params["sig_passphrase"] = self.old_sig_pass or None
             keyring = EbicsKeyRing(**keyring_params)
             change_params = {}
             if self.new_pass:
