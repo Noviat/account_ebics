@@ -53,7 +53,7 @@ class EbicsChangePassphrase(models.TransientModel):
             keyring.change_passphrase(self.new_pass)
         except ValueError as e:
             raise UserError(str(e))
-        self.ebics_userid_id.ebics_passphrase = self.new_pass        
+        self.ebics_userid_id.ebics_passphrase = self.new_pass
         self.note = "The EBICS Passphrase has been changed."
 
         module = __name__.split('addons.')[1].split('.')[0]

@@ -45,7 +45,10 @@
           <field name="upload_data" filename="upload_fname" required="1"/>
           <field name="upload_fname" invisible="1"/>
           <field name="upload_fname_dummy"/>
-          <field name="format_id" required="1"/>
+          <field name="upload_format_ids" invisible="1"/>
+          <field name="format_id"
+                 domain="[('id', 'in', upload_format_ids)]"
+                 required="1"/>
           <field name="order_type"/>
           <field name="test_mode" attrs="{'invisible': [('order_type', '!=', 'FUL')]}"/>
         </group>
