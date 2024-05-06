@@ -1,12 +1,5 @@
-# Copyright 2009-2023 Noviat.
+# Copyright 2009-2024 Noviat.
 # License LGPL-3 or later (http://www.gnu.org/licenses/lpgl).
-
-"""
-import logging
-logging.basicConfig(
-    level=logging.DEBUG,
-    format='[%(asctime)s] %(levelname)s - %(name)s: %(message)s')
-"""
 
 import base64
 import logging
@@ -75,6 +68,9 @@ class EbicsXfer(models.TransientModel):
         help="Select EBICS File Format to upload/download."
         "\nLeave blank to download all available files.",
     )
+    upload_format_ids = fields.Many2many(
+        comodel_name="ebics.file.format", compute="_compute_upload_format_ids"
+    )
     allowed_format_ids = fields.Many2many(
         related="ebics_config_id.ebics_file_format_ids",
         string="Allowed EBICS File Formats",
@@ -104,6 +100,17 @@ class EbicsXfer(models.TransientModel):
             return cfg
         else:
             return cfg_mod
+
+    @api.depends("ebics_config_id")
+    def _compute_upload_format_ids(self):
+        for rec in self:
+            rec.upload_format_ids = False
+            if not self.env.context.get("ebics_download"):
+                rec.upload_format_ids = (
+                    rec.ebics_config_id.ebics_file_format_ids.filtered(
+                        lambda r: r.type == "up"
+                    )
+                )
 
     @api.onchange("ebics_config_id")
     def _onchange_ebics_config_id(self):
