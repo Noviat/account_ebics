@@ -1,9 +1,9 @@
-# Copyright 2009-2022 Noviat.
+# Copyright 2009-2024 Noviat.
 # License LGPL-3 or later (http://www.gnu.org/licenses/lpgl).
 
 {
     'name': 'EBICS banking protocol',
-    'version': '13.0.1.3.3',
+    'version': '13.0.1.4.0',
     'license': 'LGPL-3',
     'author': 'Noviat',
     'website': 'www.noviat.com',
