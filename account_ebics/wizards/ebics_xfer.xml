@@ -48,7 +48,9 @@
           <field name="upload_format_ids" invisible="1"/>
           <field name="format_id"
                  domain="[('id', 'in', upload_format_ids)]"
-                 required="1"/>
+                 required="1"
+                 readonly="context.get('active_model') == 'account.payment.order'"
+          />
           <field name="order_type"/>
           <field name="test_mode" attrs="{'invisible': [('order_type', '!=', 'FUL')]}"/>
         </group>
