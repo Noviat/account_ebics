@@ -7,10 +7,7 @@
         <field name="inherit_id" ref="account_payment_mode.account_payment_mode_form" />
         <field name="arch" type="xml">
             <field name="payment_type" position="after">
-                <field
-                    name="ebics_format_id"
-                    attrs="{'invisible': [('payment_order_ok', '=', False)]}"
-                />
+                <field name="ebics_format_id" invisible="not payment_order_ok" />
             </field>
         </field>
     </record>
