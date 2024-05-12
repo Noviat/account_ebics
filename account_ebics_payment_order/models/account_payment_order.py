@@ -52,7 +52,7 @@ class AccountPaymentOrder(models.Model):
                     "default_upload_data": attach.datas,
                     "default_upload_fname": attach.name,
                     "origin": origin,
-                    "force_comany": self.company_id.id,
+                    "force_company": self.company_id.id,
                 }
             )
             ebics_xfer = self.env["ebics.xfer"].with_context(**ctx).create({})

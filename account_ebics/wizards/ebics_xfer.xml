@@ -89,10 +89,11 @@
           <field name="upload_data" filename="upload_fname" required="1" />
           <field name="upload_fname" invisible="1" />
           <field name="upload_fname_dummy" string="Upload Filename" />
+          <field name="upload_format_ids" invisible="1" />
           <field
                         name="format_id"
+                        domain="[('id', 'in', upload_format_ids)]"
                         required="1"
-                        domain="[('type', '=', 'up'), ('id', 'in', allowed_format_ids)]"
                     />
           <field name="order_type" />
           <field
