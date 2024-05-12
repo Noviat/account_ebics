@@ -141,21 +141,26 @@ class EbicsXfer(models.TransientModel):
             avail_formats = self.ebics_config_id.ebics_file_format_ids.filtered(
                 lambda r: r.type == "down"
             )
+            if avail_formats and len(avail_formats) == 1:
+                self.format_id = avail_formats
+            else:
+                self.format_id = False
             avail_userids = avail_userids.filtered(
                 lambda r: r.transaction_rights in ["both", "down"]
             )
         else:  # Upload Form
-            avail_formats = self.ebics_config_id.ebics_file_format_ids.filtered(
-                lambda r: r.type == "up"
-            )
+            if not self.env.context.get("active_model") == "account.payment.order":
+                avail_formats = self.ebics_config_id.ebics_file_format_ids.filtered(
+                    lambda r: r.type == "up"
+                )
+                if avail_formats and len(avail_formats) == 1:
+                    self.format_id = avail_formats
+                else:
+                    self.format_id = False
             avail_userids = avail_userids.filtered(
                 lambda r: r.transaction_rights in ["both", "up"]
             )
 
-        if avail_formats and len(avail_formats) == 1:
-            self.format_id = avail_formats
-        else:
-            self.format_id = False
         if avail_userids:
             if len(avail_userids) == 1:
                 self.ebics_userid_id = avail_userids
@@ -170,6 +175,8 @@ class EbicsXfer(models.TransientModel):
 
     @api.onchange("upload_data")
     def _onchange_upload_data(self):
+        if self.env.context.get("active_model") == "account.payment.order":
+            return
         self.upload_fname_dummy = self.upload_fname
         self.format_id = False
         self._detect_upload_format()
@@ -186,10 +193,6 @@ class EbicsXfer(models.TransientModel):
                 )
             if len(upload_formats) == 1:
                 self.format_id = upload_formats
-
-    @api.onchange("format_id")
-    def _onchange_format_id(self):
-        self.order_type = self.format_id.order_type
 
     def ebics_upload(self):
         self.ensure_one()
