@@ -11,6 +11,17 @@ class AccountPaymentOrder(models.Model):
     def ebics_upload(self):
         self.ensure_one()
         ctx = self._context.copy()
+        ebics_format_id = self.payment_mode_id.ebics_format_id
+        if not ebics_format_id:
+            raise UserError(
+                _("Missing EBICS File Format setting on your Payment Mode.")
+            )
+        ctx.update(
+            {
+                "active_model": self._name,
+                "default_format_id": ebics_format_id.id,
+            }
+        )
         attach = self.env["ir.attachment"].search(
             [("res_model", "=", self._name), ("res_id", "=", self.id)]
         )
