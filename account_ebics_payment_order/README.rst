@@ -16,9 +16,13 @@ This module depends upon the following modules (cf. apps.odoo.com):
 - account_ebics
 - account_payment_order
 
+Configuration
+=============
+
+Set the EBICS File Format on your Payment Modes.
+
 Usage
 =====
 
 Create your Payment Order and generate the bank file.
 Upload the generated file via the 'EBICS Upload' button on the payment order.
-
