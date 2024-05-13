@@ -3,7 +3,7 @@
 
 {
     'name': 'Upload Payment Order via EBICS',
-    'version': '13.0.1.2.0',
+    'version': '13.0.1.2.1',
     'license': 'LGPL-3',
     'author': 'Noviat',
     'category': 'Accounting & Finance',
