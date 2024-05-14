@@ -115,7 +115,6 @@ class EbicsXfer(models.TransientModel):
     @api.onchange("ebics_config_id")
     def _onchange_ebics_config_id(self):
         ebics_userids = self.ebics_config_id.ebics_userid_ids
-        domain = {"ebics_userid_id": [("id", "in", ebics_userids.ids)]}
         ctx = self.env.context
         if ctx.get("ebics_download"):
             download_formats = self.ebics_config_id.ebics_file_format_ids.filtered(
@@ -140,11 +139,6 @@ class EbicsXfer(models.TransientModel):
                 )
                 if len(upload_formats) == 1:
                     self.format_id = upload_formats
-                domain["format_id"] = [
-                    ("type", "=", "up"),
-                    ("id", "in", upload_formats.ids),
-                ]
-        return {"domain": domain}
 
     @api.onchange("upload_data")
     def _onchange_upload_data(self):
