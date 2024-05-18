@@ -14,6 +14,11 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_ebics_payment_order
+#: model:ir.model.fields,field_description:account_ebics_payment_order.field_account_payment_mode__ebics_format_id
+msgid "EBICS File Format"
+msgstr ""
+
+#. module: account_ebics_payment_order
 #. odoo-python
 #: code:addons/account_ebics_payment_order/models/account_payment_order.py:0
 #: model_terms:ir.ui.view,arch_db:account_ebics_payment_order.account_payment_order_form
@@ -25,7 +30,19 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_ebics_payment_order/models/account_payment_order.py:0
 #, python-format
+msgid "Missing EBICS File Format setting on your Payment Mode."
+msgstr ""
+
+#. module: account_ebics_payment_order
+#. odoo-python
+#: code:addons/account_ebics_payment_order/models/account_payment_order.py:0
+#, python-format
 msgid "No active EBICS configuration available for the selected bank."
+msgstr ""
+
+#. module: account_ebics_payment_order
+#: model:ir.model,name:account_ebics_payment_order.model_account_payment_mode
+msgid "Payment Modes"
 msgstr ""
 
 #. module: account_ebics_payment_order
@@ -34,6 +51,11 @@ msgstr ""
 #: model:ir.model,name:account_ebics_payment_order.model_account_payment_order
 #, python-format
 msgid "Payment Order"
+msgstr ""
+
+#. module: account_ebics_payment_order
+#: model:ir.model.fields,help:account_ebics_payment_order.field_account_payment_mode__ebics_format_id
+msgid "Select EBICS File Format to upload."
 msgstr ""
 
 #. module: account_ebics_payment_order
