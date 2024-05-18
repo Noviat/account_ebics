@@ -1,4 +1,4 @@
-# Copyright 2009-2023 Noviat.
+# Copyright 2009-2024 Noviat.
 # License LGPL-3 or later (http://www.gnu.org/licenses/lgpl).
 
 from odoo import _, models
@@ -10,6 +10,18 @@ class AccountPaymentOrder(models.Model):
 
     def ebics_upload(self):
         self.ensure_one()
+        ctx = self.env.context.copy()
+        ebics_format_id = self.payment_mode_id.ebics_format_id
+        if not ebics_format_id:
+            raise UserError(
+                _("Missing EBICS File Format setting on your Payment Mode.")
+            )
+        ctx.update(
+            {
+                "active_model": self._name,
+                "default_format_id": ebics_format_id.id,
+            }
+        )
         attach = self.env["ir.attachment"].search(
             [("res_model", "=", self._name), ("res_id", "=", self.id)]
         )
@@ -44,7 +56,6 @@ class AccountPaymentOrder(models.Model):
                         "for the selected bank."
                     )
                 )
-            ctx = self.env.context.copy()
             if len(ebics_config) == 1:
                 ctx["default_ebics_config_id"] = ebics_config.id
             ctx.update(
@@ -52,13 +63,16 @@ class AccountPaymentOrder(models.Model):
                     "default_upload_data": attach.datas,
                     "default_upload_fname": attach.name,
                     "origin": origin,
-                    "force_comany": self.company_id.id,
                 }
             )
-            ebics_xfer = self.env["ebics.xfer"].with_context(**ctx).create({})
+            ebics_xfer = (
+                self.env["ebics.xfer"]
+                .with_company(self.company_id)
+                .with_context(**ctx)
+                .create({})
+            )
             ebics_xfer._onchange_ebics_config_id()
             ebics_xfer._onchange_upload_data()
-            ebics_xfer._onchange_format_id()
             view = self.env.ref("account_ebics.ebics_xfer_view_form_upload")
             act = {
                 "name": _("EBICS Upload"),

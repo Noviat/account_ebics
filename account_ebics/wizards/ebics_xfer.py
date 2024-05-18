@@ -1,4 +1,4 @@
-# Copyright 2009-2023 Noviat.
+# Copyright 2009-2024 Noviat.
 # License LGPL-3 or later (http://www.gnu.org/licenses/lgpl).
 
 import base64
@@ -79,6 +79,9 @@ class EbicsXfer(models.TransientModel):
         help="Select EBICS File Format to upload/download."
         "\nLeave blank to download all available files.",
     )
+    upload_format_ids = fields.Many2many(
+        comodel_name="ebics.file.format", compute="_compute_upload_format_ids"
+    )
     allowed_format_ids = fields.Many2many(
         related="ebics_config_id.ebics_file_format_ids",
         string="Allowed EBICS File Formats",
@@ -117,6 +120,17 @@ class EbicsXfer(models.TransientModel):
             else:
                 rec.ebics_sig_passphrase_invisible = False
 
+    @api.depends("ebics_config_id")
+    def _compute_upload_format_ids(self):
+        for rec in self:
+            rec.upload_format_ids = False
+            if not self.env.context.get("ebics_download"):
+                rec.upload_format_ids = (
+                    rec.ebics_config_id.ebics_file_format_ids.filtered(
+                        lambda r: r.type == "up"
+                    )
+                )
+
     @api.onchange("ebics_config_id")
     def _onchange_ebics_config_id(self):
         avail_userids = self.ebics_config_id.ebics_userid_ids.filtered(
@@ -127,21 +141,26 @@ class EbicsXfer(models.TransientModel):
             avail_formats = self.ebics_config_id.ebics_file_format_ids.filtered(
                 lambda r: r.type == "down"
             )
+            if avail_formats and len(avail_formats) == 1:
+                self.format_id = avail_formats
+            else:
+                self.format_id = False
             avail_userids = avail_userids.filtered(
                 lambda r: r.transaction_rights in ["both", "down"]
             )
         else:  # Upload Form
-            avail_formats = self.ebics_config_id.ebics_file_format_ids.filtered(
-                lambda r: r.type == "up"
-            )
+            if not self.env.context.get("active_model") == "account.payment.order":
+                avail_formats = self.ebics_config_id.ebics_file_format_ids.filtered(
+                    lambda r: r.type == "up"
+                )
+                if avail_formats and len(avail_formats) == 1:
+                    self.format_id = avail_formats
+                else:
+                    self.format_id = False
             avail_userids = avail_userids.filtered(
                 lambda r: r.transaction_rights in ["both", "up"]
             )
 
-        if avail_formats and len(avail_formats) == 1:
-            self.format_id = avail_formats
-        else:
-            self.format_id = False
         if avail_userids:
             if len(avail_userids) == 1:
                 self.ebics_userid_id = avail_userids
@@ -156,6 +175,8 @@ class EbicsXfer(models.TransientModel):
 
     @api.onchange("upload_data")
     def _onchange_upload_data(self):
+        if self.env.context.get("active_model") == "account.payment.order":
+            return
         self.upload_fname_dummy = self.upload_fname
         self.format_id = False
         self._detect_upload_format()
@@ -172,10 +193,6 @@ class EbicsXfer(models.TransientModel):
                 )
             if len(upload_formats) == 1:
                 self.format_id = upload_formats
-
-    @api.onchange("format_id")
-    def _onchange_format_id(self):
-        self.order_type = self.format_id.order_type
 
     def ebics_upload(self):
         self.ensure_one()
