@@ -1646,6 +1646,12 @@ msgid "Upload Filename"
 msgstr ""
 
 #. module: account_ebics
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__upload_format_ids
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__upload_format_ids
+msgid "Upload Format"
+msgstr ""
+
+#. module: account_ebics
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_userid__transaction_rights__up
 msgid "Upload Only"
 msgstr ""
