@@ -1,4 +1,4 @@
-# Copyright 2009-2023 Noviat.
+# Copyright 2009-2024 Noviat.
 # License LGPL-3 or later (http://www.gnu.org/licenses/lgpl).
 
 from odoo import _, models
@@ -30,11 +30,15 @@ class AccountBatchPayment(models.Model):
                 "default_upload_data": self.export_file,
                 "default_upload_fname": self.export_filename,
                 "origin": origin,
-                "force_comany": self.journal_id.company_id.id,
             }
         )
 
-        ebics_xfer = self.env["ebics.xfer"].with_context(**ctx).create({})
+        ebics_xfer = (
+            self.env["ebics.xfer"]
+            .with_context(**ctx)
+            .with_company(self.journal_id.company_id)
+            .create({})
+        )
         ebics_xfer._onchange_ebics_config_id()
         ebics_xfer._onchange_upload_data()
         view = self.env.ref("account_ebics.ebics_xfer_view_form_upload")
