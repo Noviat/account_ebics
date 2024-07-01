@@ -253,14 +253,17 @@ class EbicsFile(models.Model):
             errors = []
             warnings = []
             for notif in notifications:
-                if notif["type"] == "error":
+                if isinstance(notif, dict) and notif["type"] == "error":
                     error_cnt += 1
                     parts = [notif[k] for k in notif if k in ("message", "details")]
                     errors.append("\n".join(parts))
-                elif notif["type"] == "warning":
+                elif isinstance(notif, dict) and notif["type"] == "warning":
                     warning_cnt += 1
                     parts = [notif[k] for k in notif if k in ("message", "details")]
                     warnings.append("\n".join(parts))
+                elif isinstance(notif, str):
+                    warning_cnt += 1
+                    warnings.append(notif + "\n")
 
         self.note_process += _("Process file %(fn)s results:", fn=self.name)
         if error_cnt:
