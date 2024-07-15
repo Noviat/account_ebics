@@ -1004,6 +1004,15 @@ msgstr ""
 
 #. module: account_ebics
 #. odoo-python
+#: code:addons/account_ebics/models/ebics_file.py:0
+#, python-format
+msgid ""
+"Incorrect CFONB120 file:\n"
+"the file is not divisible in 120 char lines"
+msgstr ""
+
+#. module: account_ebics
+#. odoo-python
 #: code:addons/account_ebics/wizards/ebics_change_passphrase.py:0
 #, python-format
 msgid "Incorrect old passphrase."
