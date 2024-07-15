@@ -1,4 +1,4 @@
-# Copyright 2009-2023 Noviat.
+# Copyright 2009-2024 Noviat.
 # License LGPL-3 or later (http://www.gnu.org/licenses/lgpl).
 
 import base64
@@ -240,7 +240,7 @@ class EbicsFile(models.Model):
         if statements:
             statements.write({"import_format": file_format})
             statements = self._statement_duplicate_check(res, statements)
-        else:
+        elif not notifications:
             notifications.append(
                 {
                     "type": "warning",
@@ -347,7 +347,8 @@ class EbicsFile(models.Model):
         self._check_import_module(import_module)
         res = {"statement_ids": [], "notifications": []}
         st_datas = self._split_cfonb(res)
-        self._process_bank_statement_oca(res, st_datas)
+        if st_datas:
+            self._process_bank_statement_oca(res, st_datas)
         return self._process_download_result(res, file_format="cfonb120")
 
     def _unlink_cfonb120(self):
@@ -363,7 +364,19 @@ class EbicsFile(models.Model):
         """
         datas = []
         file_data = base64.b64decode(self.data)
-        lines = file_data.split(b"\n")
+        file_data.replace(b"\n", b"").replace(b"\r", b"")
+        if len(file_data) % 120:
+            message = _(
+                "Incorrect CFONB120 file:\n"
+                "the file is not divisible in 120 char lines"
+            )
+            res["notifications"].append({"type": "error", "message": message})
+            return datas
+
+        lines = []
+        for i in range(0, len(file_data), 120):
+            lines.append(file_data[i : i + 120])
+
         st_lines = b""
         transactions = False
         for line in lines:
