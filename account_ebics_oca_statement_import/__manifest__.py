@@ -1,10 +1,10 @@
-# Copyright 2020-2023 Noviat.
+# Copyright 2020-2024 Noviat.
 # License LGPL-3 or later (http://www.gnu.org/licenses/lgpl).
 
 {
     "name": "account_ebics with OCA Bank Statement Imoort",
     "summary": "Use OCA Bank Statement Import with account_ebics",
-    "version": "16.0.1.0.2",
+    "version": "16.0.1.0.3",
     "author": "Noviat",
     "website": "https://www.noviat.com/",
     "category": "Hidden",
