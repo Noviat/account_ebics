@@ -4,7 +4,7 @@
 {
     "name": "account_ebics with OCA Bank Statement Imoort",
     "summary": "Use OCA Bank Statement Import with account_ebics",
-    "version": "17.0.1.0.0",
+    "version": "17.0.1.0.1",
     "author": "Noviat",
     "website": "https://www.noviat.com",
     "category": "Hidden",
