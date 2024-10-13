@@ -3,7 +3,7 @@
 
 {
     "name": "Upload Batch Payment via EBICS",
-    "version": "17.0.1.0.2",
+    "version": "17.0.1.0.3",
     "license": "LGPL-3",
     "author": "Noviat",
     "website": "https://www.noviat.com",
