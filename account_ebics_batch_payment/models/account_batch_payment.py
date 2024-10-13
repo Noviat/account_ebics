@@ -35,7 +35,7 @@ class AccountBatchPayment(models.Model):
 
         ebics_xfer = (
             self.env["ebics.xfer"]
-            .with_company(self.company_id)
+            .with_company(self.journal_id.company_id)
             .with_context(**ctx)
             .create({})
         )
