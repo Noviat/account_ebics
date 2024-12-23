@@ -1,16 +1,16 @@
 <?xml version="1.0" ?>
 <odoo>
 
-  <record id="ebics_userid_view_tree" model="ir.ui.view">
-    <field name="name">ebics.userid.tree</field>
+  <record id="ebics_userid_view_list" model="ir.ui.view">
+    <field name="name">ebics.userid.list</field>
     <field name="model">ebics.userid</field>
     <field name="arch" type="xml">
-      <tree decoration-muted="state != 'active_keys'">
+      <list decoration-muted="state != 'active_keys'">
         <field name="name" />
         <field name="signature_class" />
         <field name="state" />
         <field name="active" />
-      </tree>
+      </list>
     </field>
   </record>
 
@@ -82,16 +82,6 @@
                     />
           <field name="state" widget="statusbar" />
         </header>
-        <group name="invisible" invisible="1">
-          <field name="ebics_config_id" />
-          <field name="ebics_keys_found" />
-          <field name="ebics_keys_fn" />
-          <field name="ebics_version" />
-          <field name="ebics_passphrase_required" />
-          <field name="ebics_passphrase_invisible" />
-          <field name="ebics_passphrase_store_readonly" />
-          <field name="ebics_sig_passphrase_invisible" invisible="1" />
-        </group>
         <group name="main" readonly="state != 'draft'">
           <group name="main-left">
             <field name="name" readonly="state != 'draft'" />

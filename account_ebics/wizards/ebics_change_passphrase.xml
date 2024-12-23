@@ -18,9 +18,6 @@
                         <field name="new_sig_pass" password="True" />
                         <field name="new_sig_pass_check" password="True" />
                     </group>
-                    <group name="invisible" invisible="1">
-                        <field name="ebics_sig_passphrase_invisible" />
-                    </group>
                 </group>
                 <footer>
                     <button
