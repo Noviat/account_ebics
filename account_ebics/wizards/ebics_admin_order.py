@@ -3,7 +3,7 @@
 
 import pprint
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 
 
 class EbicsAdminOrder(models.TransientModel):
@@ -30,7 +30,7 @@ class EbicsAdminOrder(models.TransientModel):
         client = self._setup_client()
         if not client:
             self.note += (
-                _("EBICS client setup failed for connection '%s'")
+                self.env._("EBICS client setup failed for connection '%s'")
                 % self.ebics_config_id.name
             )
         else:
@@ -40,7 +40,7 @@ class EbicsAdminOrder(models.TransientModel):
         module = __name__.split("addons.")[1].split(".")[0]
         result_view = self.env.ref("%s.ebics_admin_order_view_form_result" % module)
         return {
-            "name": _("EBICS Administrative Order result"),
+            "name": self.env._("EBICS Administrative Order result"),
             "res_id": self.id,
             "view_type": "form",
             "view_mode": "form",

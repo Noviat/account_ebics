@@ -9,7 +9,7 @@ from traceback import format_exception
 
 from lxml import etree
 
-from odoo import _, fields, models
+from odoo import fields, models
 from odoo.exceptions import UserError
 
 from odoo.addons.base.models.res_bank import sanitize_account_number
@@ -86,7 +86,9 @@ class EbicsFile(models.Model):
         ff_methods = self._file_format_methods()
         for ebics_file in self:
             if ebics_file.state == "done":
-                raise UserError(_("You can only remove EBICS files in state 'Draft'."))
+                raise UserError(
+                    self.env._("You can only remove EBICS files in state 'Draft'.")
+                )
             # execute format specific actions
             ff = ebics_file.format_id.download_process_method
             if ff in ff_methods:
@@ -167,7 +169,7 @@ class EbicsFile(models.Model):
         if not mod:
             if raise_if_not_found:
                 raise UserError(
-                    _(
+                    self.env._(
                         "The module to process the '%(ebics_format)s' format is not "
                         "installed on your system. "
                         "\nPlease install module '%(module)s'",
@@ -184,7 +186,7 @@ class EbicsFile(models.Model):
         )
         journal = self.env["account.journal"]
         if not currency:
-            message = _("Currency %(cc)s not found.", cc=currency_code)
+            message = self.env._("Currency %(cc)s not found.", cc=currency_code)
             res["notifications"].append({"type": "error", "message": message})
             return (currency, journal)
 
@@ -199,7 +201,7 @@ class EbicsFile(models.Model):
             ]
         )
         if not journals:
-            message = _(
+            message = self.env._(
                 "No financial journal found for Account Number %(nbr)s, "
                 "Currency %(cc)s",
                 nbr=acc_number,
@@ -217,7 +219,7 @@ class EbicsFile(models.Model):
                 break
 
         if not journal:
-            message = _(
+            message = self.env._(
                 "No financial journal found for Account Number %(nbr)s, "
                 "Currency %(cc)s",
                 nbr=acc_number,
@@ -244,7 +246,7 @@ class EbicsFile(models.Model):
             notifications.append(
                 {
                     "type": "warning",
-                    "message": _("This file doesn't contain any transaction."),
+                    "message": self.env._("This file doesn't contain any transaction."),
                 }
             )
         st_cnt = len(statements)
@@ -265,28 +267,30 @@ class EbicsFile(models.Model):
                     warning_cnt += 1
                     warnings.append(notif + "\n")
 
-        self.note_process += _("Process file %(fn)s results:", fn=self.name)
+        self.note_process += self.env._("Process file %(fn)s results:", fn=self.name)
         if error_cnt:
-            self.note_process += "\n\n" + _("Errors") + ":\n"
+            self.note_process += "\n\n" + self.env._("Errors") + ":\n"
             self.note_process += "\n".join(errors)
             self.note_process += "\n\n"
-            self.note_process += _("Number of errors: %(nr)s", nr=error_cnt)
+            self.note_process += self.env._("Number of errors: %(nr)s", nr=error_cnt)
         if warning_cnt:
-            self.note_process += "\n\n" + _("Warnings") + ":\n"
+            self.note_process += "\n\n" + self.env._("Warnings") + ":\n"
             self.note_process += "\n".join(warnings)
             self.note_process += "\n\n"
-            self.note_process += _("Number of warnings: %(nr)s", nr=warning_cnt)
+            self.note_process += self.env._(
+                "Number of warnings: %(nr)s", nr=warning_cnt
+            )
             self.note_process += "\n"
         if st_cnt:
             self.note_process += "\n\n"
-            self.note_process += _(
+            self.note_process += self.env._(
                 "%(st_cnt)s bank statement%(sp)s been imported: ",
                 st_cnt=st_cnt,
-                sp=st_cnt == 1 and _(" has") or _("s have"),
+                sp=st_cnt == 1 and self.env._(" has") or self.env._("s have"),
             )
             self.note_process += "\n"
         for statement in statements:
-            self.note_process += "\n" + _(
+            self.note_process += "\n" + self.env._(
                 "Statement %(st)s dated %(date)s (Company: %(cpy)s)",
                 st=statement.name,
                 date=statement.date,
@@ -300,7 +304,7 @@ class EbicsFile(models.Model):
         module = __name__.split("addons.")[1].split(".")[0]
         result_view = self.env.ref("%s.ebics_file_view_form_result" % module)
         return {
-            "name": _("Import EBICS File"),
+            "name": self.env._("Import EBICS File"),
             "res_id": self.id,
             "view_type": "form",
             "view_mode": "form",
@@ -331,7 +335,7 @@ class EbicsFile(models.Model):
                 ]
             )
             if dup:
-                message = _(
+                message = self.env._(
                     "Statement %(st_name)s dated %(date)s has already been imported.",
                     st_name=statement.name,
                     date=statement.date,
@@ -369,7 +373,7 @@ class EbicsFile(models.Model):
         file_data = base64.b64decode(self.data)
         file_data.replace(b"\n", b"").replace(b"\r", b"")
         if len(file_data) % 120:
-            message = _(
+            message = self.env._(
                 "Incorrect CFONB120 file:\n"
                 "the file is not divisible in 120 char lines"
             )
@@ -450,7 +454,7 @@ class EbicsFile(models.Model):
                 break
         if not author:
             raise UserError(
-                _(
+                self.env._(
                     "The module to process the '%(ebics_format)s' format is "
                     "not installed on your system. "
                     "\nPlease install one of the following modules: \n%(modules)s.",
@@ -501,7 +505,7 @@ class EbicsFile(models.Model):
             except UserError as e:
                 msg = "".join(e.args)
                 msg += "\n"
-                msg += _(
+                msg += self.env._(
                     "Statement for Account Number %(nr)s has not been processed.",
                     nr=st_data["acc_number"],
                 )
@@ -555,7 +559,7 @@ class EbicsFile(models.Model):
         file_data = base64.b64decode(self.data)
         root = etree.fromstring(file_data, parser=etree.XMLParser(recover=True))
         if root is None:
-            message = _("Invalid XML file.")
+            message = self.env._("Invalid XML file.")
             res["notifications"].append({"type": "error", "message": message})
         ns = {k or "ns": v for k, v in root.nsmap.items()}
         camt_variant = ns["ns"].split("camt.")[1][:3]
@@ -574,7 +578,7 @@ class EbicsFile(models.Model):
                 )[0]
             )
             if not acc_number:
-                message = _("No bank account number found.")
+                message = self.env._("No bank account number found.")
                 res["notifications"].append({"type": "error", "message": message})
                 continue
             currency_code = stmt.xpath(
@@ -626,7 +630,7 @@ class EbicsFile(models.Model):
 
     def _process_undefined_format(self):
         raise UserError(
-            _(
+            self.env._(
                 "The current version of the 'account_ebics' module "
                 "has no support to automatically process EBICS files "
                 "with format %s."
