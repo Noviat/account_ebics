@@ -8,7 +8,7 @@ from sys import exc_info
 from traceback import format_exception
 from urllib.error import URLError
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
@@ -236,20 +236,26 @@ class EbicsUserID(models.Model):
     def _check_ebics_key_x509(self):
         for cfg in self:
             if cfg.ebics_version == "H005" and not cfg.ebics_key_x509:
-                raise UserError(_("X.509 certificates must be used with EBICS 3.0."))
+                raise UserError(
+                    self.env._("X.509 certificates must be used with EBICS 3.0.")
+                )
 
     @api.constrains("ebics_passphrase")
     def _check_ebics_passphrase(self):
         for rec in self:
             if rec.ebics_passphrase and len(rec.ebics_passphrase) < 8:
-                raise UserError(_("The Passphrase must be at least 8 characters long"))
+                raise UserError(
+                    self.env._("The Passphrase must be at least 8 characters long")
+                )
 
     @api.constrains("ebics_sig_passphrase")
     def _check_ebics_sig_passphrase(self):
         for rec in self:
             if rec.ebics_sig_passphrase and len(rec.ebics_sig_passphrase) < 8:
                 raise UserError(
-                    _("The Signature Passphrase must be at least 8 characters long")
+                    self.env._(
+                        "The Signature Passphrase must be at least 8 characters long"
+                    )
                 )
 
     @api.onchange("ebics_version")
@@ -280,7 +286,7 @@ class EbicsUserID(models.Model):
                     # It will raise a ValueError on invalid passphrases
                     keyring["#USER"]
                 except ValueError as err:  # noqa: F841
-                    raise UserError(_("Passphrase mismatch."))  # noqa: B904
+                    raise UserError(self.env._("Passphrase mismatch."))  # noqa: B904
         else:
             if self.state != "draft":
                 self.ebics_passphrase = False
@@ -302,7 +308,7 @@ class EbicsUserID(models.Model):
         self.ensure_one()
         if self.ebics_config_id.state != "draft":
             raise UserError(
-                _(
+                self.env._(
                     "Set the EBICS Configuation record to 'Draft' "
                     "before starting the Key Renewal process."
                 )
@@ -317,14 +323,14 @@ class EbicsUserID(models.Model):
         self.ensure_one()
         if self.state != "draft":
             raise UserError(
-                _("Set state to 'draft' before Bank Key (re)initialisation.")
+                self.env._("Set state to 'draft' before Bank Key (re)initialisation.")
             )
 
         if not self.ebics_passphrase:
-            raise UserError(_("Set a passphrase."))
+            raise UserError(self.env._("Set a passphrase."))
 
         if self.swift_3skey and not self.swift_3skey_certificate:
-            raise UserError(_("3SKey certificate missing."))
+            raise UserError(self.env._("3SKey certificate missing."))
 
         ebics_version = self.ebics_config_id.ebics_version
         try:
@@ -347,7 +353,7 @@ class EbicsUserID(models.Model):
             )
         except Exception as err:
             exctype, value = exc_info()[:2]
-            error = _("EBICS Initialisation Error:")
+            error = self.env._("EBICS Initialisation Error:")
             error += "\n" + str(exctype) + "\n" + str(value)
             raise UserError(error) from err
 
@@ -369,13 +375,13 @@ class EbicsUserID(models.Model):
                 )
             except Exception as err:
                 exctype, value = exc_info()[:2]
-                error = _("EBICS Initialisation Error:")
+                error = self.env._("EBICS Initialisation Error:")
                 error += "\n" + str(exctype) + "\n" + str(value)
                 raise UserError(error) from err
 
         if self.swift_3skey and not self.ebics_key_x509:
             raise UserError(
-                _(
+                self.env._(
                     "The current version of this module "
                     "requires to X509 support when enabling 3SKey"
                 )
@@ -398,7 +404,7 @@ class EbicsUserID(models.Model):
             client = EbicsClient(bank, user, version=ebics_version)
         except RuntimeError as err:
             e = exc_info()
-            error = _("EBICS Initialization Error:")
+            error = self.env._("EBICS Initialization Error:")
             error += "\n"
             error += err.args[0]
             raise UserError(error) from err
@@ -407,13 +413,15 @@ class EbicsUserID(models.Model):
         ebics_config_bank = self.ebics_config_id.journal_ids[0].bank_id
         if not ebics_config_bank:
             raise UserError(
-                _("No bank defined for the financial journal " "of the EBICS Config")
+                self.env._(
+                    "No bank defined for the financial journal " "of the EBICS Config"
+                )
             )
         try:
             supported_versions = client.HEV()
             if supported_versions and ebics_version not in supported_versions:
-                err_msg = _("EBICS version mismatch.") + "\n"
-                err_msg += _("Versions supported by your bank:")
+                err_msg = self.env._("EBICS version mismatch.") + "\n"
+                err_msg += self.env._("Versions supported by your bank:")
                 for k in supported_versions:
                     err_msg += f"\n{k}: {supported_versions[k]} "
                 raise UserError(err_msg)
@@ -432,7 +440,7 @@ class EbicsUserID(models.Model):
                 tb,
             )
             raise UserError(
-                _(
+                self.env._(
                     "urlopen error:\n url '%(url)s' - %(val)s",
                     url=self.ebics_config_id.ebics_url,
                     val=str(value),
@@ -440,13 +448,13 @@ class EbicsUserID(models.Model):
             ) from err
         except EbicsFunctionalError as err:
             e = exc_info()
-            error = _("EBICS Functional Error:")
+            error = self.env._("EBICS Functional Error:")
             error += "\n"
             error += f"{e[1].message} (code: {e[1].code})"
             raise UserError(error) from err
         except EbicsTechnicalError as err:
             e = exc_info()
-            error = _("EBICS Technical Error:")
+            error = self.env._("EBICS Technical Error:")
             error += "\n"
             error += f"{e[1].message} (code: {e[1].code})"
             raise UserError(error) from err
@@ -485,7 +493,7 @@ class EbicsUserID(models.Model):
         """
         self.ensure_one()
         if self.state != "init":
-            raise UserError(_("Set state to 'Initialisation'."))
+            raise UserError(self.env._("Set state to 'Initialisation'."))
         vals = {"state": "get_bank_keys"}
         self._update_passphrase_vals(vals)
         return self.write(vals)
@@ -499,7 +507,7 @@ class EbicsUserID(models.Model):
         """
         self.ensure_one()
         if self.state != "get_bank_keys":
-            raise UserError(_("Set state to 'Get Keys from Bank'."))
+            raise UserError(self.env._("Set state to 'Get Keys from Bank'."))
         try:
             keyring = EbicsKeyRing(
                 keys=self.ebics_keys_fn, passphrase=self.ebics_passphrase
@@ -517,7 +525,7 @@ class EbicsUserID(models.Model):
             client = EbicsClient(bank, user, version=self.ebics_config_id.ebics_version)
         except Exception as err:
             exctype, value = exc_info()[:2]
-            error = _("EBICS Initialisation Error:")
+            error = self.env._("EBICS Initialisation Error:")
             error += "\n" + str(exctype) + "\n" + str(value)
             raise UserError(error) from err
 
@@ -525,13 +533,13 @@ class EbicsUserID(models.Model):
             public_bank_keys = client.HPB()
         except EbicsFunctionalError as err:
             e = exc_info()
-            error = _("EBICS Functional Error:")
+            error = self.env._("EBICS Functional Error:")
             error += "\n"
             error += f"{e[1].message} (code: {e[1].code})"
             raise UserError(error) from err
         except Exception as err:
             exctype, value = exc_info()[:2]
-            error = _("EBICS Initialisation Error:")
+            error = self.env._("EBICS Initialisation Error:")
             error += "\n" + str(exctype) + "\n" + str(value)
             raise UserError(error) from err
 
@@ -557,7 +565,7 @@ class EbicsUserID(models.Model):
         """
         self.ensure_one()
         if self.state != "to_verify":
-            raise UserError(_("Set state to 'Verification'."))
+            raise UserError(self.env._("Set state to 'Verification'."))
 
         keyring = EbicsKeyRing(
             keys=self.ebics_keys_fn, passphrase=self.ebics_passphrase
@@ -578,7 +586,7 @@ class EbicsUserID(models.Model):
         module = __name__.split("addons.")[1].split(".")[0]
         view = self.env.ref("%s.ebics_change_passphrase_view_form" % module)
         return {
-            "name": _("EBICS keys change passphrase"),
+            "name": self.env._("EBICS keys change passphrase"),
             "view_type": "form",
             "view_mode": "form",
             "res_model": "ebics.change.passphrase",
