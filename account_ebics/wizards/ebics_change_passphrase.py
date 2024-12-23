@@ -3,7 +3,7 @@
 
 import logging
 
-from odoo import _, fields, models
+from odoo import fields, models
 from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
@@ -50,21 +50,23 @@ class EbicsChangePassphrase(models.TransientModel):
             and self.old_pass
             and self.old_pass != self.ebics_userid_id.ebics_passphrase
         ):
-            raise UserError(_("Incorrect old passphrase."))
+            raise UserError(self.env._("Incorrect old passphrase."))
         if self.new_pass != self.new_pass_check:
-            raise UserError(_("New passphrase verification error."))
+            raise UserError(self.env._("New passphrase verification error."))
         if self.new_pass and self.new_pass == self.ebics_userid_id.ebics_passphrase:
-            raise UserError(_("New passphrase equal to old passphrase."))
+            raise UserError(self.env._("New passphrase equal to old passphrase."))
         if (
             self.new_sig_pass
             and self.old_sig_pass
             and self.new_sig_pass == self.old_sig_pass
         ):
             raise UserError(
-                _("New signature passphrase equal to old signature passphrase.")
+                self.env._(
+                    "New signature passphrase equal to old signature passphrase."
+                )
             )
         if self.new_sig_pass != self.new_sig_pass_check:
-            raise UserError(_("New signature passphrase verification error."))
+            raise UserError(self.env._("New signature passphrase verification error."))
         passphrase = (
             self.ebics_userid_id.ebics_passphrase_store
             and self.ebics_userid_id.ebics_passphrase
@@ -105,7 +107,7 @@ class EbicsChangePassphrase(models.TransientModel):
             "%s.ebics_change_passphrase_view_form_result" % module
         )
         return {
-            "name": _("EBICS Keys Change Passphrase"),
+            "name": self.env._("EBICS Keys Change Passphrase"),
             "res_id": self.id,
             "view_type": "form",
             "view_mode": "form",

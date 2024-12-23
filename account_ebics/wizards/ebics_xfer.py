@@ -6,7 +6,7 @@ import logging
 from sys import exc_info
 from traceback import format_exception
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
@@ -203,7 +203,7 @@ class EbicsXfer(models.TransientModel):
         module = __name__.split("addons.")[1].split(".")[0]
         result_view = self.env.ref("%s.ebics_xfer_view_form_result" % module)
         return {
-            "name": _("EBICS file transfer result"),
+            "name": self.env._("EBICS file transfer result"),
             "res_id": self.id,
             "view_type": "form",
             "view_mode": "form",
@@ -223,7 +223,7 @@ class EbicsXfer(models.TransientModel):
         if not client:
             err_cnt += 1
             self.note += (
-                _("EBICS client setup failed for connection '%s'")
+                self.env._("EBICS client setup failed for connection '%s'")
                 % self.ebics_config_id.name
             )
         else:
@@ -269,7 +269,7 @@ class EbicsXfer(models.TransientModel):
                     err_cnt += 1
                     e = exc_info()
                     self.note += "\n"
-                    self.note += _(
+                    self.note += self.env._(
                         "EBICS Functional Error during download of "
                         "File Format %(name)s (%(order_type)s):",
                         name=df.name or df.description,
@@ -281,7 +281,7 @@ class EbicsXfer(models.TransientModel):
                     err_cnt += 1
                     e = exc_info()
                     self.note += "\n"
-                    self.note += _(
+                    self.note += self.env._(
                         "EBICS Technical Error during download of "
                         "File Format %(name)s (%(order_type)s):",
                         name=df.name or df.description,
@@ -292,18 +292,18 @@ class EbicsXfer(models.TransientModel):
                 except EbicsVerificationError:
                     err_cnt += 1
                     self.note += "\n"
-                    self.note += _(
+                    self.note += self.env._(
                         "EBICS Verification Error during download of "
                         "File Format %(name)s (%(order_type)s):",
                         name=df.name or df.description,
                         order_type=df.order_type,
                     )
                     self.note += "\n"
-                    self.note += _("The EBICS response could not be verified.")
+                    self.note += self.env._("The EBICS response could not be verified.")
                 except UserError as e:
                     err_cnt += 1
                     self.note += "\n"
-                    self.note += _(
+                    self.note += self.env._(
                         "Error detected during download of "
                         "File Format %(name)s (%(order_type)s):",
                         name=df.name or df.description,
@@ -314,7 +314,7 @@ class EbicsXfer(models.TransientModel):
                 except Exception:
                     err_cnt += 1
                     self.note += "\n"
-                    self.note += _(
+                    self.note += self.env._(
                         "Unknown Error during download of "
                         "File Format %(name)s (%(order_type)s):",
                         name=df.name or df.description,
@@ -334,7 +334,9 @@ class EbicsXfer(models.TransientModel):
                 self.note += "\n"
                 for f in ebics_files:
                     self.note += (
-                        _("EBICS File '%s' is available for further processing.")
+                        self.env._(
+                            "EBICS File '%s' is available for further processing."
+                        )
                         % f.name
                     )
                     self.note += "\n"
@@ -343,7 +345,7 @@ class EbicsXfer(models.TransientModel):
         module = __name__.split("addons.")[1].split(".")[0]
         result_view = self.env.ref("%s.ebics_xfer_view_form_result" % module)
         return {
-            "name": _("EBICS file transfer result"),
+            "name": self.env._("EBICS file transfer result"),
             "res_id": self.id,
             "view_type": "form",
             "view_mode": "form",
@@ -403,11 +405,14 @@ class EbicsXfer(models.TransientModel):
                 if OrderID:
                     self.note += "\n"
                     self.note += (
-                        _("EBICS File has been uploaded (OrderID %s).") % OrderID
+                        self.env._("EBICS File has been uploaded (OrderID %s).")
+                        % OrderID
                     )
-                    ef_note = _("EBICS OrderID: %s") % OrderID
+                    ef_note = self.env._("EBICS OrderID: %s") % OrderID
                     if self.env.context.get("origin"):
-                        ef_note += "\n" + _("Origin: %s") % self._context["origin"]
+                        ef_note += (
+                            "\n" + self.env._("Origin: %s") % self._context["origin"]
+                        )
                     suffix = self.format_id.suffix
                     fn = self.upload_fname
                     if suffix and not fn.endswith(suffix):
@@ -431,23 +436,23 @@ class EbicsXfer(models.TransientModel):
             except EbicsFunctionalError:
                 e = exc_info()
                 self.note += "\n"
-                self.note += _("EBICS Functional Error:")
+                self.note += self.env._("EBICS Functional Error:")
                 self.note += "\n"
                 self.note += f"{e[1].message} (code: {e[1].code})"
             except EbicsTechnicalError:
                 e = exc_info()
                 self.note += "\n"
-                self.note += _("EBICS Technical Error:")
+                self.note += self.env._("EBICS Technical Error:")
                 self.note += "\n"
                 self.note += f"{e[1].message} (code: {e[1].code})"
             except EbicsVerificationError:
                 self.note += "\n"
-                self.note += _("EBICS Verification Error:")
+                self.note += self.env._("EBICS Verification Error:")
                 self.note += "\n"
-                self.note += _("The EBICS response could not be verified.")
+                self.note += self.env._("The EBICS response could not be verified.")
             except Exception:
                 self.note += "\n"
-                self.note += _("Unknown Error")
+                self.note += self.env._("Unknown Error")
                 tb = "".join(format_exception(*exc_info()))
                 self.note += "\n%s" % tb
 
@@ -478,7 +483,7 @@ class EbicsXfer(models.TransientModel):
         try:
             keyring = EbicsKeyRing(**keyring_params)
         except (RuntimeError, ValueError) as err:
-            error = _("Error while accessing the EBICS Keys:")
+            error = self.env._("Error while accessing the EBICS Keys:")
             error += "\n"
             error += err.args[0]
             raise UserError(error) from err
@@ -507,13 +512,15 @@ class EbicsXfer(models.TransientModel):
         try:
             user = EbicsUser(**user_params)
         except ValueError as err:
-            error = _("Error while accessing the EBICS UserID:")
+            error = self.env._("Error while accessing the EBICS UserID:")
             error += "\n"
             err_str = err.args[0]
             error += err.args[0]
             if err_str == "unknown key format":
                 error += "\n"
-                error += _("Doublecheck your EBICS Passphrase and UserID settings.")
+                error += self.env._(
+                    "Doublecheck your EBICS Passphrase and UserID settings."
+                )
             raise UserError(error) from err
         # manual_approval replaced by transport_only class param in fintech 7.4
         if not fintech74 and signature_class == "T":
@@ -523,7 +530,7 @@ class EbicsXfer(models.TransientModel):
             client = EbicsClient(bank, user, version=self.ebics_config_id.ebics_version)
         except Exception:
             self.note += "\n"
-            self.note += _("Unknown Error")
+            self.note += self.env._("Unknown Error")
             tb = "".join(format_exception(*exc_info()))
             self.note += "\n%s" % tb
             client = False
@@ -590,7 +597,7 @@ class EbicsXfer(models.TransientModel):
         dups = self._check_duplicate_ebics_file(fn, file_format)
         if dups:
             raise UserError(
-                _(
+                self.env._(
                     "EBICS File with name '%s' has already been downloaded."
                     "\nPlease check this file and rename in case there is "
                     "no risk on duplicate transactions."
