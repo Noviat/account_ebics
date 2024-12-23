@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -16,14 +16,12 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
-#, python-format
 msgid " has"
 msgstr ""
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
-#, python-format
 msgid "%(st_cnt)s bank statement%(sp)s been imported: "
 msgstr ""
 
@@ -50,7 +48,6 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
-#, python-format
 msgid "3SKey certificate missing."
 msgstr ""
 
@@ -279,7 +276,6 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
-#, python-format
 msgid "Currency %(cc)s not found."
 msgstr ""
 
@@ -333,7 +329,6 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
-#, python-format
 msgid "Doublecheck your EBICS Passphrase and UserID settings."
 msgstr ""
 
@@ -345,7 +340,7 @@ msgstr ""
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_download
-#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_tree_download
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_list_download
 msgid "Download Date"
 msgstr ""
 
@@ -414,7 +409,6 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_admin_order.py:0
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_admin_order_view_form_result
-#, python-format
 msgid "EBICS Administrative Order result"
 msgstr ""
 
@@ -458,7 +452,6 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
-#, python-format
 msgid "EBICS File '%s' is available for further processing."
 msgstr ""
 
@@ -506,14 +499,12 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
-#, python-format
 msgid "EBICS File has been uploaded (OrderID %s)."
 msgstr ""
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
-#, python-format
 msgid ""
 "EBICS File with name '%s' has already been downloaded.\n"
 "Please check this file and rename in case there is no risk on duplicate transactions."
@@ -527,7 +518,6 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
-#, python-format
 msgid ""
 "EBICS Functional Error during download of File Format %(name)s "
 "(%(order_type)s):"
@@ -536,9 +526,7 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
-#: code:addons/account_ebics/models/ebics_userid.py:0
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
-#, python-format
 msgid "EBICS Functional Error:"
 msgstr ""
 
@@ -581,17 +569,12 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
-#: code:addons/account_ebics/models/ebics_userid.py:0
-#: code:addons/account_ebics/models/ebics_userid.py:0
-#: code:addons/account_ebics/models/ebics_userid.py:0
-#, python-format
 msgid "EBICS Initialisation Error:"
 msgstr ""
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
-#, python-format
 msgid "EBICS Initialization Error:"
 msgstr ""
 
@@ -600,7 +583,6 @@ msgstr ""
 #: code:addons/account_ebics/wizards/ebics_change_passphrase.py:0
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_change_passphrase_view_form
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_change_passphrase_view_form_result
-#, python-format
 msgid "EBICS Keys Change Passphrase"
 msgstr ""
 
@@ -612,7 +594,6 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_config.py:0
-#, python-format
 msgid ""
 "EBICS Keys Root Directory %s is not available.\n"
 "Please contact your system administrator."
@@ -626,7 +607,6 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
-#, python-format
 msgid "EBICS OrderID: %s"
 msgstr ""
 
@@ -678,7 +658,6 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
-#, python-format
 msgid ""
 "EBICS Technical Error during download of File Format %(name)s "
 "(%(order_type)s):"
@@ -688,7 +667,6 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
-#, python-format
 msgid "EBICS Technical Error:"
 msgstr ""
 
@@ -727,7 +705,6 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
-#, python-format
 msgid ""
 "EBICS Verification Error during download of File Format %(name)s "
 "(%(order_type)s):"
@@ -736,7 +713,6 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
-#, python-format
 msgid "EBICS Verification Error:"
 msgstr ""
 
@@ -744,7 +720,6 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_admin_order.py:0
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
-#, python-format
 msgid "EBICS client setup failed for connection '%s'"
 msgstr ""
 
@@ -762,8 +737,6 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
-#: code:addons/account_ebics/wizards/ebics_xfer.py:0
-#, python-format
 msgid "EBICS file transfer result"
 msgstr ""
 
@@ -775,7 +748,6 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_config.py:0
-#, python-format
 msgid "EBICS key bitlength must be >= 2048."
 msgstr ""
 
@@ -787,7 +759,6 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
-#, python-format
 msgid "EBICS keys change passphrase"
 msgstr ""
 
@@ -801,7 +772,6 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
-#, python-format
 msgid "EBICS version mismatch."
 msgstr ""
 
@@ -859,7 +829,6 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
-#, python-format
 msgid ""
 "Error detected during download of File Format %(name)s (%(order_type)s):"
 msgstr ""
@@ -867,21 +836,18 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
-#, python-format
 msgid "Error while accessing the EBICS Keys:"
 msgstr ""
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
-#, python-format
 msgid "Error while accessing the EBICS UserID:"
 msgstr ""
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
-#, python-format
 msgid "Errors"
 msgstr ""
 
@@ -993,7 +959,6 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
-#, python-format
 msgid "Import EBICS File"
 msgstr ""
 
@@ -1005,7 +970,6 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
-#, python-format
 msgid ""
 "Incorrect CFONB120 file:\n"
 "the file is not divisible in 120 char lines"
@@ -1014,7 +978,6 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_change_passphrase.py:0
-#, python-format
 msgid "Incorrect old passphrase."
 msgstr ""
 
@@ -1031,7 +994,6 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
-#, python-format
 msgid "Invalid XML file."
 msgstr ""
 
@@ -1107,50 +1069,42 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_change_passphrase.py:0
-#, python-format
 msgid "New passphrase equal to old passphrase."
 msgstr ""
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_change_passphrase.py:0
-#, python-format
 msgid "New passphrase verification error."
 msgstr ""
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_change_passphrase.py:0
-#, python-format
 msgid "New signature passphrase equal to old signature passphrase."
 msgstr ""
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_change_passphrase.py:0
-#, python-format
 msgid "New signature passphrase verification error."
 msgstr ""
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
-#, python-format
 msgid "No bank account number found."
 msgstr ""
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
-#, python-format
 msgid "No bank defined for the financial journal of the EBICS Config"
 msgstr ""
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
-#: code:addons/account_ebics/models/ebics_file.py:0
-#, python-format
 msgid "No financial journal found for Account Number %(nbr)s, Currency %(cc)s"
 msgstr ""
 
@@ -1163,14 +1117,12 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
-#, python-format
 msgid "Number of errors: %(nr)s"
 msgstr ""
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
-#, python-format
 msgid "Number of warnings: %(nr)s"
 msgstr ""
 
@@ -1202,7 +1154,6 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_config.py:0
-#, python-format
 msgid ""
 "Order Number should comply with the following pattern:\n"
 "[A-Z]{1}[A-Z0-9]{3}"
@@ -1236,14 +1187,12 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
-#, python-format
 msgid "Origin: %s"
 msgstr ""
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
-#, python-format
 msgid "Passphrase mismatch."
 msgstr ""
 
@@ -1272,7 +1221,6 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
-#, python-format
 msgid "Process file %(fn)s results:"
 msgstr ""
 
@@ -1346,42 +1294,36 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
-#, python-format
 msgid "Set a passphrase."
 msgstr ""
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
-#, python-format
 msgid "Set state to 'Get Keys from Bank'."
 msgstr ""
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
-#, python-format
 msgid "Set state to 'Initialisation'."
 msgstr ""
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
-#, python-format
 msgid "Set state to 'Verification'."
 msgstr ""
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
-#, python-format
 msgid "Set state to 'draft' before Bank Key (re)initialisation."
 msgstr ""
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
-#, python-format
 msgid ""
 "Set the EBICS Configuation record to 'Draft' before starting the Key Renewal"
 " process."
@@ -1458,21 +1400,18 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
-#, python-format
 msgid "Statement %(st)s dated %(date)s (Company: %(cpy)s)"
 msgstr ""
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
-#, python-format
 msgid "Statement %(st_name)s dated %(date)s has already been imported."
 msgstr ""
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
-#, python-format
 msgid "Statement for Account Number %(nr)s has not been processed."
 msgstr ""
 
@@ -1504,22 +1443,18 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
-#: code:addons/account_ebics/wizards/ebics_xfer.py:0
-#, python-format
 msgid "The EBICS response could not be verified."
 msgstr ""
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
-#, python-format
 msgid "The Passphrase must be at least 8 characters long"
 msgstr ""
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
-#, python-format
 msgid "The Signature Passphrase must be at least 8 characters long"
 msgstr ""
 
@@ -1533,7 +1468,6 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
-#, python-format
 msgid ""
 "The current version of the 'account_ebics' module has no support to "
 "automatically process EBICS files with format %s."
@@ -1542,7 +1476,6 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
-#, python-format
 msgid ""
 "The current version of this module requires to X509 support when enabling "
 "3SKey"
@@ -1556,7 +1489,6 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
-#, python-format
 msgid ""
 "The module to process the '%(ebics_format)s' format is not installed on your system. \n"
 "Please install module '%(module)s'"
@@ -1565,7 +1497,6 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
-#, python-format
 msgid ""
 "The module to process the '%(ebics_format)s' format is not installed on your system. \n"
 "Please install one of the following modules: \n"
@@ -1587,7 +1518,6 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
-#, python-format
 msgid "This file doesn't contain any transaction."
 msgstr ""
 
@@ -1617,15 +1547,12 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
-#: code:addons/account_ebics/wizards/ebics_xfer.py:0
-#, python-format
 msgid "Unknown Error"
 msgstr ""
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
-#, python-format
 msgid ""
 "Unknown Error during download of File Format %(name)s (%(order_type)s):"
 msgstr ""
@@ -1638,7 +1565,7 @@ msgstr ""
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_upload
-#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_tree_upload
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_list_upload
 msgid "Upload Date"
 msgstr ""
 
@@ -1708,7 +1635,6 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
-#, python-format
 msgid "Versions supported by your bank:"
 msgstr ""
 
@@ -1725,7 +1651,6 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
-#, python-format
 msgid "Warnings"
 msgstr ""
 
@@ -1741,7 +1666,6 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
-#, python-format
 msgid "X.509 certificates must be used with EBICS 3.0."
 msgstr ""
 
@@ -1753,7 +1677,6 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
-#, python-format
 msgid "You can only remove EBICS files in state 'Draft'."
 msgstr ""
 
@@ -1768,21 +1691,18 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_config.py:0
-#, python-format
 msgid "You cannot remove active EBICS configurations."
 msgstr ""
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
-#, python-format
 msgid "s have"
 msgstr ""
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
-#, python-format
 msgid ""
 "urlopen error:\n"
 " url '%(url)s' - %(val)s"
