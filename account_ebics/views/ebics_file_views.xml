@@ -34,11 +34,11 @@
 
   <!-- Download -->
 
-  <record id="ebics_file_view_tree_download" model="ir.ui.view">
-    <field name="name">ebics.file.tree</field>
+  <record id="ebics_file_view_list_download" model="ir.ui.view">
+    <field name="name">ebics.file.list</field>
     <field name="model">ebics.file</field>
     <field name="arch" type="xml">
-      <tree decoration-muted="state=='draft'" create="false">
+      <list decoration-muted="state=='draft'" create="false">
         <field name="date" string="Download Date" />
         <field name="name" />
         <field name="date_from" />
@@ -51,7 +51,7 @@
                     widget="many2many_tags"
                     groups="base.group_multi_company"
                 />
-      </tree>
+      </list>
     </field>
   </record>
 
@@ -140,16 +140,16 @@
     <field name="name">EBICS Download Files</field>
     <field name="type">ir.actions.act_window</field>
     <field name="res_model">ebics.file</field>
-    <field name="view_mode">tree,form</field>
+    <field name="view_mode">list,form</field>
     <field name="view_id" eval="False" />
     <field name="domain">[('type','=','down')]</field>
     <field name="search_view_id" ref="ebics_file_view_search" />
   </record>
 
-  <record id="ebics_file_action_download_tree" model="ir.actions.act_window.view">
+  <record id="ebics_file_action_download_list" model="ir.actions.act_window.view">
     <field eval="1" name="sequence" />
-    <field name="view_mode">tree</field>
-    <field name="view_id" ref="ebics_file_view_tree_download" />
+    <field name="view_mode">list</field>
+    <field name="view_id" ref="ebics_file_view_list_download" />
     <field name="act_window_id" ref="ebics_file_action_download" />
   </record>
 
@@ -162,11 +162,11 @@
 
   <!-- Upload -->
 
-  <record id="ebics_file_view_tree_upload" model="ir.ui.view">
-    <field name="name">ebics.file.tree</field>
+  <record id="ebics_file_view_list_upload" model="ir.ui.view">
+    <field name="name">ebics.file.list</field>
     <field name="model">ebics.file</field>
     <field name="arch" type="xml">
-      <tree decoration-muted="state=='draft'" create="false">
+      <list decoration-muted="state=='draft'" create="false">
         <field name="date" string="Upload Date" />
         <field name="name" />
         <field name="user_id" />
@@ -177,7 +177,7 @@
                     widget="many2many_tags"
                     groups="base.group_multi_company"
                 />
-      </tree>
+      </list>
     </field>
   </record>
 
@@ -230,16 +230,16 @@
     <field name="name">EBICS Upload Files</field>
     <field name="type">ir.actions.act_window</field>
     <field name="res_model">ebics.file</field>
-    <field name="view_mode">tree,form</field>
+    <field name="view_mode">list,form</field>
     <field name="view_id" eval="False" />
     <field name="domain">[('type','=','up')]</field>
     <field name="search_view_id" ref="ebics_file_view_search" />
   </record>
 
-  <record id="ebics_file_action_upload_tree" model="ir.actions.act_window.view">
+  <record id="ebics_file_action_upload_list" model="ir.actions.act_window.view">
     <field eval="1" name="sequence" />
-    <field name="view_mode">tree</field>
-    <field name="view_id" ref="ebics_file_view_tree_upload" />
+    <field name="view_mode">list</field>
+    <field name="view_id" ref="ebics_file_view_list_upload" />
     <field name="act_window_id" ref="ebics_file_action_upload" />
   </record>
 
