@@ -4,14 +4,14 @@
 {
     "name": "account_ebics on Odoo Enterprise",
     "summary": "Deploy account_ebics module on Odoo Enterprise",
-    "version": "17.0.1.0.0",
+    "version": "18.0.1.0.0",
     "author": "Noviat",
     "website": "https://www.noviat.com",
     "category": "Hidden",
     "license": "LGPL-3",
     "depends": [
         "account_ebics",
-        "account_accountant",
+        "accountant",
     ],
     "data": ["views/account_ebics_menu.xml"],
     "installable": True,
