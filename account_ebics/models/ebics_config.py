@@ -5,7 +5,7 @@ import logging
 import os
 import re
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
@@ -132,7 +132,7 @@ class EbicsConfig(models.Model):
     def _check_ebics_key_bitlength(self):
         for cfg in self:
             if cfg.ebics_version == "H005" and cfg.ebics_key_bitlength < 2048:
-                raise UserError(_("EBICS key bitlength must be >= 2048."))
+                raise UserError(self.env._("EBICS key bitlength must be >= 2048."))
 
     @api.constrains("order_number")
     def _check_order_number(self):
@@ -148,7 +148,7 @@ class EbicsConfig(models.Model):
                         ok = False
             if not ok:
                 raise UserError(
-                    _(  # pylint: disable=W8120
+                    self.env._(  # pylint: disable=W8120
                         "Order Number should comply with the following pattern:"
                         "\n[A-Z]{1}[A-Z0-9]{3}"
                     )
@@ -178,7 +178,9 @@ class EbicsConfig(models.Model):
     def unlink(self):
         for ebics_config in self:
             if ebics_config.state == "active":
-                raise UserError(_("You cannot remove active EBICS configurations."))
+                raise UserError(
+                    self.env._("You cannot remove active EBICS configurations.")
+                )
         return super().unlink()
 
     def set_to_draft(self):
@@ -211,7 +213,7 @@ class EbicsConfig(models.Model):
         dirname = self.ebics_keys or ""
         if not os.path.exists(dirname):
             raise UserError(
-                _(
+                self.env._(
                     "EBICS Keys Root Directory %s is not available."
                     "\nPlease contact your system administrator."
                 )
