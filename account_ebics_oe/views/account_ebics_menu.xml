@@ -2,7 +2,7 @@
 <odoo>
 
   <record id="account_ebics.ebics_processing_menu" model="ir.ui.menu">
-    <field name="parent_id" eval="ref('account_accountant.menu_accounting')" />
+    <field name="parent_id" eval="ref('accountant.menu_accounting')" />
   </record>
 
 </odoo>
