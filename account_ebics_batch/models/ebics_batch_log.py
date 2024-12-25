@@ -4,7 +4,7 @@
 from sys import exc_info
 from traceback import format_exception
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import UserError
 
 
@@ -49,7 +49,9 @@ class EbicsBatchLog(models.Model):
     def unlink(self):
         for log in self:
             if log.state != "draft":
-                raise UserError(_("Only log objects in state 'draft' can be deleted !"))
+                raise UserError(
+                    self.env._("Only log objects in state 'draft' can be deleted !")
+                )
         return super().unlink()
 
     def button_draft(self):
@@ -94,12 +96,13 @@ class EbicsBatchLog(models.Model):
         ebics_file_ids = []
         for config in configs:
             err_msg = (
-                _("Error while processing EBICS connection '%s' :\n") % config.name
+                self.env._("Error while processing EBICS connection '%s' :\n")
+                % config.name
             )
             if config.state == "draft":
                 import_dict["errors"].append(
                     err_msg
-                    + _(
+                    + self.env._(
                         "Please set state to 'Confirm' and "
                         "Reprocess this EBICS Import Log."
                     )
@@ -108,7 +111,7 @@ class EbicsBatchLog(models.Model):
             if not any(config.mapped("ebics_userid_ids.ebics_passphrase_store")):
                 import_dict["errors"].append(
                     err_msg
-                    + _(
+                    + self.env._(
                         "No EBICS UserID with stored passphrase found.\n"
                         "You should configure such a UserID for automated downloads."
                     )

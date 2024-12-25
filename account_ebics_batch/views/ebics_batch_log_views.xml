@@ -18,15 +18,15 @@
     </field>
   </record>
 
-  <record id="ebics_batch_log_view_tree" model="ir.ui.view">
-    <field name="name">ebics.batch.log.tree</field>
+  <record id="ebics_batch_log_view_list" model="ir.ui.view">
+    <field name="name">ebics.batch.log.list</field>
     <field name="model">ebics.batch.log</field>
     <field name="arch" type="xml">
-      <tree create="false">
+      <list create="false">
         <field name="create_date" />
         <field name="file_count" />
         <field name="state" />
-      </tree>
+      </list>
     </field>
   </record>
 
@@ -78,16 +78,15 @@
           <group colspan="4" col="4">
             <field name="create_date" />
             <field name="ebics_config_ids" widget="many2many_tags" />
-            <field name="has_draft_files" invisible="1" />
           </group>
           <notebook colspan="4">
             <page string="Batch Import Logs">
               <field name="log_ids" nolabel="1">
-                <tree>
+                <list>
                   <field name="create_date" />
                   <field name="state" />
                   <field name="error_count" />
-                </tree>
+                </list>
                 <form string="Batch Import Log">
                   <group colspan="4" col="6">
                     <field name="create_date" />
@@ -110,8 +109,8 @@
     <field name="name">EBICS Batch Import Logs</field>
     <field name="type">ir.actions.act_window</field>
     <field name="res_model">ebics.batch.log</field>
-    <field name="view_mode">tree,form</field>
-    <field name="view_id" ref="ebics_batch_log_view_tree" />
+    <field name="view_mode">list,form</field>
+    <field name="view_id" ref="ebics_batch_log_view_list" />
     <field name="search_view_id" ref="ebics_batch_log_view_search" />
   </record>
 
