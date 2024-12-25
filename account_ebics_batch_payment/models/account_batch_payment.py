@@ -1,7 +1,7 @@
-# Copyright 2009-2023 Noviat.
+# Copyright 2009-2024 Noviat.
 # License LGPL-3 or later (http://www.gnu.org/licenses/lgpl).
 
-from odoo import _, models
+from odoo import models
 from odoo.exceptions import UserError
 
 
@@ -12,7 +12,7 @@ class AccountBatchPayment(models.Model):
         self.ensure_one()
         ctx = self.env.context.copy()
 
-        origin = _("Batch Payment") + ": " + self.name
+        origin = self.env._("Batch Payment") + ": " + self.name
         ebics_config = self.env["ebics.config"].search(
             [
                 ("journal_ids", "=", self.journal_id.id),
@@ -21,7 +21,9 @@ class AccountBatchPayment(models.Model):
         )
         if not ebics_config:
             raise UserError(
-                _("No active EBICS configuration available " "for the selected bank.")
+                self.env._(
+                    "No active EBICS configuration available for the selected bank."
+                )
             )
         if len(ebics_config) == 1:
             ctx["default_ebics_config_id"] = ebics_config.id
@@ -43,7 +45,7 @@ class AccountBatchPayment(models.Model):
         ebics_xfer._onchange_upload_data()
         view = self.env.ref("account_ebics.ebics_xfer_view_form_upload")
         act = {
-            "name": _("EBICS Upload"),
+            "name": self.env._("EBICS Upload"),
             "view_type": "form",
             "view_mode": "form",
             "res_model": "ebics.xfer",
