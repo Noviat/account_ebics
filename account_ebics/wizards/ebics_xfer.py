@@ -1,4 +1,4 @@
-# Copyright 2009-2024 Noviat.
+# Copyright 2009-2025 Noviat.
 # License LGPL-3 or later (http://www.gnu.org/licenses/lgpl).
 
 import base64
@@ -612,6 +612,7 @@ class EbicsXfer(models.TransientModel):
             "date_from": self.date_from,
             "date_to": self.date_to,
             "format_id": file_format.id,
+            "state": file_format.download_process_method and "draft" or "done",
             "user_id": self._uid,
             "ebics_userid_id": self.ebics_userid_id.id,
             "company_ids": self.ebics_config_id.company_ids.ids,
