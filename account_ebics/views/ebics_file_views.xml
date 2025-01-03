@@ -1,4 +1,4 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
     <record id="ebics_file_view_search" model="ir.ui.view">
@@ -77,9 +77,10 @@
         <field name="arch" type="xml">
             <form string="EBICS File" create="false">
                 <header>
+                    <field name="download_process_method" invisible="1" />
                     <button
                         name="set_to_draft"
-                        invisible="state != 'done'"
+                        invisible="not download_process_method or state != 'done'"
                         string="Set to Draft"
                         type="object"
                         groups="account.group_account_manager"
@@ -87,7 +88,7 @@
                     <button
                         name="process"
                         class="oe_highlight"
-                        invisible="state != 'draft'"
+                        invisible="not download_process_method or state != 'draft'"
                         string="Process"
                         type="object"
                         groups="account.group_account_invoice"
@@ -95,27 +96,37 @@
                     />
                     <button
                         name="set_to_done"
-                        invisible="state != 'draft'"
+                        invisible="not download_process_method or state != 'draft'"
                         string="Set to Done"
                         type="object"
                         groups="account.group_account_manager"
                     />
-                    <field name="state" widget="statusbar" />
-                </header>
-                <group colspan="4" col="4">
-                    <field name="date" string="Download Date" />
-                    <field name="name" />
-                    <field name="data" filename="name" />
-                    <field name="format_id" />
-                    <field name="date_from" />
-                    <field name="date_to" />
-                    <field name="user_id" />
-                    <field name="ebics_userid_id" />
                     <field
-                        name="company_ids"
-                        widget="many2many_tags"
-                        groups="base.group_multi_company"
+                        name="state"
+                        widget="statusbar"
+                        invisible="not download_process_method"
                     />
+                </header>
+                <group name="main">
+                    <group name="main-full-screen" colspan="2" col="2">
+                        <field name="name" />
+                        <field name="data" filename="name" />
+                        <field name="format_id" />
+                    </group>
+                    <group name="main-left">
+                        <field name="date" string="Download Date" />
+                        <field name="user_id" />
+                        <field name="ebics_userid_id" />
+                    </group>
+                    <group name="main-right">
+                        <field name="date_from" />
+                        <field name="date_to" />
+                        <field
+                            name="company_ids"
+                            widget="many2many_tags"
+                            groups="base.group_multi_company"
+                        />
+                    </group>
                 </group>
                 <notebook>
                     <page string="Additional Information">
