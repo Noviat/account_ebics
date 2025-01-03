@@ -182,7 +182,9 @@ class EbicsBatchLog(models.Model):
         return file_ids
 
     def _ebics_process(self, import_dict):
-        to_process = self.file_ids.filtered(lambda r: r.state == "draft")
+        to_process = self.file_ids.filtered(
+            lambda r: r.download_process_method and r.state == "draft"
+        )
         for ebics_file in to_process:
             ebics_file.process()
 
