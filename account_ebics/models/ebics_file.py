@@ -1,4 +1,4 @@
-# Copyright 2009-2024 Noviat.
+# Copyright 2009-2025 Noviat.
 # License LGPL-3 or later (http://www.gnu.org/licenses/lgpl).
 
 import base64
@@ -36,7 +36,10 @@ class EbicsFile(models.Model):
     format_id = fields.Many2one(
         comodel_name="ebics.file.format", string="EBICS File Formats", readonly=True
     )
-    type = fields.Selection(related="format_id.type", readonly=True)
+    download_process_method = fields.Selection(
+        related="format_id.download_process_method"
+    )
+    type = fields.Selection(related="format_id.type")
     date_from = fields.Date(
         readonly=True, help="'Date From' as entered in the download wizard."
     )
