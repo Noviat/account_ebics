@@ -46,7 +46,6 @@ class AccountBatchPayment(models.Model):
         view = self.env.ref("account_ebics.ebics_xfer_view_form_upload")
         act = {
             "name": self.env._("EBICS Upload"),
-            "view_type": "form",
             "view_mode": "form",
             "res_model": "ebics.xfer",
             "view_id": view.id,
