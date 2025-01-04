@@ -587,7 +587,6 @@ class EbicsUserID(models.Model):
         view = self.env.ref("%s.ebics_change_passphrase_view_form" % module)
         return {
             "name": self.env._("EBICS keys change passphrase"),
-            "view_type": "form",
             "view_mode": "form",
             "res_model": "ebics.change.passphrase",
             "view_id": view.id,
