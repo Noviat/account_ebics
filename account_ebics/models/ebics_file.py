@@ -309,7 +309,6 @@ class EbicsFile(models.Model):
         return {
             "name": self.env._("Import EBICS File"),
             "res_id": self.id,
-            "view_type": "form",
             "view_mode": "form",
             "res_model": self._name,
             "view_id": result_view.id,

@@ -42,7 +42,6 @@ class EbicsAdminOrder(models.TransientModel):
         return {
             "name": self.env._("EBICS Administrative Order result"),
             "res_id": self.id,
-            "view_type": "form",
             "view_mode": "form",
             "res_model": "ebics.admin.order",
             "view_id": result_view.id,

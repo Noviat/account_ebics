@@ -205,7 +205,6 @@ class EbicsXfer(models.TransientModel):
         return {
             "name": self.env._("EBICS file transfer result"),
             "res_id": self.id,
-            "view_type": "form",
             "view_mode": "form",
             "res_model": "ebics.xfer",
             "view_id": result_view.id,
@@ -347,7 +346,6 @@ class EbicsXfer(models.TransientModel):
         return {
             "name": self.env._("EBICS file transfer result"),
             "res_id": self.id,
-            "view_type": "form",
             "view_mode": "form",
             "res_model": "ebics.xfer",
             "view_id": result_view.id,
