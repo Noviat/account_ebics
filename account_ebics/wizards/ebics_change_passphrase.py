@@ -109,7 +109,6 @@ class EbicsChangePassphrase(models.TransientModel):
         return {
             "name": self.env._("EBICS Keys Change Passphrase"),
             "res_id": self.id,
-            "view_type": "form",
             "view_mode": "form",
             "res_model": "ebics.change.passphrase",
             "view_id": result_view.id,
