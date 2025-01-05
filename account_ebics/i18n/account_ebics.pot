@@ -323,6 +323,7 @@ msgstr ""
 
 #. module: account_ebics
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_file__state__done
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_search
 msgid "Done"
 msgstr ""
 
@@ -355,6 +356,7 @@ msgid "Download Only"
 msgstr ""
 
 #. module: account_ebics
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_file__download_process_method
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__download_process_method
 msgid "Download Process Method"
 msgstr ""
@@ -368,6 +370,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_config__state__draft
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_file__state__draft
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_userid__state__draft
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_search
 msgid "Draft"
 msgstr ""
 
@@ -819,6 +822,7 @@ msgid "Enable 3SKey support"
 msgstr ""
 
 #. module: account_ebics
+#: model:ir.model.fields,help:account_ebics.field_ebics_file__download_process_method
 #: model:ir.model.fields,help:account_ebics.field_ebics_file_format__download_process_method
 msgid ""
 "Enable processing within Odoo of the downloaded file via the 'Process' "

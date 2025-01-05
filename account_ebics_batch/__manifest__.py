@@ -1,4 +1,4 @@
-# Copyright 2009-2024 Noviat.
+# Copyright 2009-2025 Noviat.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
