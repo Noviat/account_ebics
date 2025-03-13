@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-
     <record id="ebics_config_view_list" model="ir.ui.view">
         <field name="name">ebics.config.list</field>
         <field name="model">ebics.config</field>
@@ -97,5 +96,4 @@
         <field name="view_mode">list,form</field>
         <field name="context">{'active_test': False}</field>
     </record>
-
 </odoo>
