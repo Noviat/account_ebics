@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-
     <menuitem
         id="ebics_processing_menu"
         name="EBICS Processing"
@@ -81,5 +80,4 @@
         groups="account_ebics.group_ebics_manager"
         sequence="30"
     />
-
 </odoo>

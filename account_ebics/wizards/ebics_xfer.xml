@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-
     <record id="ebics_xfer_view_form_download" model="ir.ui.view">
         <field name="name">EBICS File Download</field>
         <field name="model">ebics.xfer</field>
@@ -165,5 +164,4 @@
         <field name="context">{'ebics_upload': 1}</field>
         <field name="view_id" ref="ebics_xfer_view_form_upload" />
     </record>
-
 </odoo>
