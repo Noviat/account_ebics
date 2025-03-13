@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-
     <record id="ebics_userid_view_list" model="ir.ui.view">
         <field name="name">ebics.userid.list</field>
         <field name="model">ebics.userid</field>
@@ -180,5 +179,4 @@
             </form>
         </field>
     </record>
-
 </odoo>
