@@ -1,0 +1,123 @@
+name: tests
+
+on:
+  pull_request:
+    branches:
+      - "18.0*"
+  push:
+    branches:
+      - "18.0"
+
+jobs:
+  unreleased-deps:
+    runs-on: ubuntu-latest
+    name: Detect unreleased dependencies
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          for reqfile in requirements.txt test-requirements.txt ; do
+              if [ -f ${reqfile} ] ; then
+                  result=0
+                  # reject non-comment lines that contain a / (i.e. URLs, relative paths)
+                  grep "^[^#].*/" ${reqfile} || result=$?
+                  if [ $result -eq 0 ] ; then
+                      echo "Unreleased dependencies found in ${reqfile}."
+                      exit 1
+                  fi
+              fi
+          done
+  test:
+    runs-on: ubuntu-22.04
+    container: ${{ matrix.container }}
+    name: ${{ matrix.name }}
+    permissions:
+      pull-requests: write
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - container: ghcr.io/oca/oca-ci/py3.10-odoo18.0:latest
+            name: test with Odoo Community
+            odoo_enterprise : 0
+            exclude_modules : "account_asset"
+            exclude: "account_ebics_batch_payment,account_ebics_oe"
+          - container: ghcr.io/oca/oca-ci/py3.10-odoo18.0:latest
+            name: test with Odoo Enterprise
+            odoo_enterprise : 1
+            exclude_modules : "account_asset"
+            makepot: true
+    services:
+      postgres:
+        image: postgres:12.0
+        env:
+          POSTGRES_USER: odoo
+          POSTGRES_PASSWORD: odoo
+          POSTGRES_DB: odoo
+        ports:
+          - 5432:5432
+    env:
+      INSTALL_ADDONS_DIR: "/tmp/addons-merged"
+      ADDITIONAL_ADDONS_DIR: "/tmp/additional-addons"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Add Noviat CI Tools to PATH
+        run: |
+          git clone https://${{ secrets.PRIVATE_TOKEN }}@github.com/Noviat-CI/noviat-ci-tools.git /opt/noviat-ci-tools
+          echo "/opt/noviat-ci-tools" >> $GITHUB_PATH
+      - name: Clone Odoo Enterprise
+        if: ${{ matrix.odoo_enterprise == 1 }}
+        run : |
+          git clone https://${{ secrets.PRIVATE_TOKEN }}@github.com/odoo/enterprise.git --depth 1 -b 18.0 /opt/enterprise
+      - name: Clone Noviat Dependencies
+        env:
+          PRIVATE_TOKEN: ${{ secrets.PRIVATE_TOKEN }}
+        run: clone_oca_dependencies_by_noviat
+      - name: Create addons path
+        run: |
+          mkdir -p ${{ env.INSTALL_ADDONS_DIR }}/setup
+          find $(realpath $ADDONS_DIR) $(realpath ${{ env.ADDITIONAL_ADDONS_DIR }}) -name __manifest__.py -exec sh -c 'ln -s "$(dirname "$0")" "${{ env.INSTALL_ADDONS_DIR }}"' {} \;
+          find $(realpath $ADDONS_DIR) $(realpath ${{ env.ADDITIONAL_ADDONS_DIR }}) -iwholename '*/setup/*/setup.py' -exec sh -c 'ln -s "$(dirname "$0")" "${{ env.INSTALL_ADDONS_DIR }}/setup"' {} \;
+          if [ -n ${{ matrix.exclude }} ]
+          then
+            remove_excluded_modules ${{ env.INSTALL_ADDONS_DIR }} ${{ matrix.exclude }}
+          fi
+      - name: Update addons path with enterprise
+        if: ${{ matrix.odoo_enterprise == 1 }}
+        run: |
+          echo "ADDONS_PATH=/opt/odoo/addons,/opt/enterprise,${{ env.INSTALL_ADDONS_DIR }}" >> $GITHUB_ENV
+      - name: Update addons path without enterprise
+        if: ${{ matrix.odoo_enterprise == 0 }}
+        run: |
+          echo "ADDONS_PATH=/opt/odoo/addons,${{ env.INSTALL_ADDONS_DIR }}" >> $GITHUB_ENV
+      - name: Add addons to EXCLUDE PATH
+        if: ${{ env.EXCLUDE_MODULES }}
+        run: |
+          echo "server_wide_modules = web,module_change_auto_install" >> ${ODOO_RC}
+          echo "modules_auto_install_disabled = $EXCLUDE_MODULES" >> ${ODOO_RC}
+      - name: Install addons and dependencies
+        run: |
+          (ADDONS_PATH=${ADDONS_PATH} ADDONS_DIR=${INSTALL_ADDONS_DIR} oca_install_addons)
+      - name: Initialize test db
+        run: oca_init_test_database
+      - name: Run tests
+        run: oca_run_tests
+      - name: Generate coverage files
+        run: |
+          coverage report -m
+          coverage xml -o coverage.xml
+      - name: Code Coverage Summary Report
+        uses: irongut/CodeCoverageSummary@v1.3.0
+        with:
+          filename: 'coverage.xml'
+          badge: true
+          format: 'markdown'
+          output: 'both'
+          hide_complexity: true
+      - name: Write to Job Summary
+        run: cat code-coverage-results.md >> $GITHUB_STEP_SUMMARY
+      - name: Update .pot files
+        run: noviat_export_and_push_pot https://x-access-token:${{ secrets.PRIVATE_TOKEN }}@github.com/${{ github.repository }}
+        if: ${{ matrix.makepot == 'true' && github.event_name == 'push' }}
