@@ -1,12 +1,12 @@
 # Do NOT update manually; changes here will be overwritten by Copier
-_commit: v3.1
-_src_path: https://picasso.noviat.com/ci/addons-repo-template.git
-ci_exclude_modules: account_asset
-customer_slug: Noviat_Generic
-odoo_enterprise: 1
+_commit: v4.3
+_src_path: git@github.com:Noviat-CI/addons-repo-template.git
+ci_disable_autoinstall_modules: account_asset
+odoo_test_flavor: Both
 odoo_version: 18.0
 org_slug: Noviat
+rebel_module_groups: []
 repo_name: Modules dedicated to manage the EBICS protocol
-repo_slug: accounting-ebics
-repo_type: Customer/Generic Addons
+repo_slug: account_ebics
+repo_type: customer
 
