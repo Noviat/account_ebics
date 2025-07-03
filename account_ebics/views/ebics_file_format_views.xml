@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
+    <record id="ebics_file_format_view_search" model="ir.ui.view">
+        <field name="name">ebics.file.format.search</field>
+        <field name="model">ebics.file.format</field>
+        <field name="arch" type="xml">
+            <search string="EBICS File Format">
+                <filter
+                    string="EBICS version 2"
+                    name="ebics_v2"
+                    domain="[('ebics_version', '=', '2')]"
+                />
+                <filter
+                    string="EBICS version 3"
+                    name="ebics_v3"
+                    domain="[('ebics_version', '=', '3')]"
+                />
+            </search>
+        </field>
+    </record>
+
     <record id="ebics_file_format_view_list" model="ir.ui.view">
         <field name="name">ebics.file.format.list</field>
         <field name="model">ebics.file.format</field>
@@ -49,11 +68,11 @@
                             required="ebics_version == '3'"
                             invisible="ebics_version == '2'"
                         />
+                        <field name="btf_variant" invisible="ebics_version == '2'" />
+                        <field name="btf_version" invisible="ebics_version == '2'" />
                         <field name="btf_scope" invisible="ebics_version == '2'" />
                         <field name="btf_option" invisible="ebics_version == '2'" />
                         <field name="btf_container" invisible="ebics_version == '2'" />
-                        <field name="btf_version" invisible="ebics_version == '2'" />
-                        <field name="btf_variant" invisible="ebics_version == '2'" />
                         <field name="btf_format" invisible="ebics_version == '2'" />
                     </group>
                 </group>
