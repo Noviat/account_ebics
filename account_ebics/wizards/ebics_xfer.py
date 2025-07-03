@@ -1,5 +1,5 @@
 # Copyright 2009-2025 Noviat.
-# License LGPL-3 or later (http://www.gnu.org/licenses/lgpl).
+# License LGPL-3 or later (https://www.gnu.org/licenses/lgpl).
 
 import base64
 import logging
