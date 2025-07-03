@@ -209,7 +209,6 @@
         <field name="type">up</field>
         <field name="order_type">BTU</field>
         <field name="description">SEPA credit transfer</field>
-        <field name="suffix">txt</field>
         <field name="btf_service">SCT</field>
         <field name="btf_message">pain.001</field>
         <field name="btf_scope">GLB</field>
