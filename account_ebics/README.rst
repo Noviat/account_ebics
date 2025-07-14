@@ -103,8 +103,8 @@ We also recommend to consider the installation of the following modules:
 Fintech license
 ---------------
 
-If you have a valid Fintech.ebics license, you should add the following
-licensing parameters to the odoo server configuration file:
+If you have a valid fintech.ebics license, you should add the following
+licensing parameters to the [options] section of the odoo server configuration file:
 
 
 - fintech_register_name
