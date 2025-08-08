@@ -103,9 +103,7 @@ class EbicsChangePassphrase(models.TransientModel):
             self.note += "The EBICS Signature Passphrase has been changed."
 
         module = __name__.split("addons.")[1].split(".")[0]
-        result_view = self.env.ref(
-            "%s.ebics_change_passphrase_view_form_result" % module
-        )
+        result_view = self.env.ref(f"{module}.ebics_change_passphrase_view_form_result")
         return {
             "name": self.env._("EBICS Keys Change Passphrase"),
             "res_id": self.id,

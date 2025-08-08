@@ -201,7 +201,7 @@ class EbicsXfer(models.TransientModel):
         if ebics_file:
             ctx["ebics_file_id"] = ebics_file.id
         module = __name__.split("addons.")[1].split(".")[0]
-        result_view = self.env.ref("%s.ebics_xfer_view_form_result" % module)
+        result_view = self.env.ref(f"{module}.ebics_xfer_view_form_result")
         return {
             "name": self.env._("EBICS file transfer result"),
             "res_id": self.id,
@@ -320,7 +320,7 @@ class EbicsXfer(models.TransientModel):
                         order_type=df.order_type,
                     )
                     tb = "".join(format_exception(*exc_info()))
-                    self.note += "\n%s" % tb
+                    self.note += f"\n{tb}"
                 else:
                     # mark received data so that it is not included in further
                     # downloads
@@ -342,7 +342,7 @@ class EbicsXfer(models.TransientModel):
 
         ctx["err_cnt"] = err_cnt
         module = __name__.split("addons.")[1].split(".")[0]
-        result_view = self.env.ref("%s.ebics_xfer_view_form_result" % module)
+        result_view = self.env.ref(f"{module}.ebics_xfer_view_form_result")
         return {
             "name": self.env._("EBICS file transfer result"),
             "res_id": self.id,
@@ -452,7 +452,7 @@ class EbicsXfer(models.TransientModel):
                 self.note += "\n"
                 self.note += self.env._("Unknown Error")
                 tb = "".join(format_exception(*exc_info()))
-                self.note += "\n%s" % tb
+                self.note += f"\n{tb}"
 
             if self.ebics_config_id.ebics_version == "H003":
                 OrderID = self.ebics_config_id._get_order_number()
@@ -530,7 +530,7 @@ class EbicsXfer(models.TransientModel):
             self.note += "\n"
             self.note += self.env._("Unknown Error")
             tb = "".join(format_exception(*exc_info()))
-            self.note += "\n%s" % tb
+            self.note += f"\n{tb}"
             client = False
 
         return client
