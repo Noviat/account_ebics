@@ -41,6 +41,6 @@ except RuntimeError as e:
 except Exception:
     msg = "fintech.register error"
     tb = "".join(format_exception(*exc_info()))
-    msg += "\n%s" % tb
+    msg += f"\n{tb}"
     _logger.error(msg)
     fintech.register()
