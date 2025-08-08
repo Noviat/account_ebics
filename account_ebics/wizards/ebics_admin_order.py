@@ -38,7 +38,7 @@ class EbicsAdminOrder(models.TransientModel):
             pp = pprint.PrettyPrinter()
             self.note = pp.pformat(data)
         module = __name__.split("addons.")[1].split(".")[0]
-        result_view = self.env.ref("%s.ebics_admin_order_view_form_result" % module)
+        result_view = self.env.ref(f"{module}.ebics_admin_order_view_form_result")
         return {
             "name": self.env._("EBICS Administrative Order result"),
             "res_id": self.id,

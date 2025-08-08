@@ -64,16 +64,15 @@ def _ebics_config_upgrade(env, version):
                     user_vals[fld] = cfg_data[fld]
         ebics_userid = env["ebics.userid"].create(user_vals)
         env.cr.execute(
-            """
+            f"""
             UPDATE ir_attachment
-            SET res_model = 'ebics.userid', res_id = %s
+            SET res_model = 'ebics.userid', res_id = {ebics_userid.id}
             WHERE name in ('ebics_ini_letter', 'ebics_public_bank_keys');
             """
-            % ebics_userid.id
         )
 
     if len(cfg_datas) == 1:
-        env.cr.execute("UPDATE ebics_file SET ebics_userid_id = %s" % ebics_userid.id)
+        env.cr.execute(f"UPDATE ebics_file SET ebics_userid_id = {ebics_userid.id}")
 
 
 def _noupdate_changes(env, version):

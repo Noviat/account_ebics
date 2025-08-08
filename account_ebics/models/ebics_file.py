@@ -305,7 +305,7 @@ class EbicsFile(models.Model):
         self.company_ids = [(6, 0, company_ids)]
         ctx = dict(self.env.context, statement_ids=statements.ids)
         module = __name__.split("addons.")[1].split(".")[0]
-        result_view = self.env.ref("%s.ebics_file_view_form_result" % module)
+        result_view = self.env.ref(f"{module}.ebics_file_view_form_result")
         return {
             "name": self.env._("Import EBICS File"),
             "res_id": self.id,
