@@ -584,7 +584,7 @@ class EbicsUserID(models.Model):
         self.ensure_one()
         ctx = dict(self.env.context, default_ebics_userid_id=self.id)
         module = __name__.split("addons.")[1].split(".")[0]
-        view = self.env.ref("%s.ebics_change_passphrase_view_form" % module)
+        view = self.env.ref(f"{module}.ebics_change_passphrase_view_form")
         return {
             "name": self.env._("EBICS keys change passphrase"),
             "view_mode": "form",
