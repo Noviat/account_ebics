@@ -468,6 +468,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_config__ebics_file_format_ids
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__format_id
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_format_view_form
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_format_view_search
 msgid "EBICS File Format"
 msgstr ""
 
@@ -770,6 +771,16 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__ebics_version
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__ebics_version
 msgid "EBICS protocol version"
+msgstr ""
+
+#. module: account_ebics
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_format_view_search
+msgid "EBICS version 2"
+msgstr ""
+
+#. module: account_ebics
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_format_view_search
+msgid "EBICS version 3"
 msgstr ""
 
 #. module: account_ebics
