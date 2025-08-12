@@ -11,7 +11,7 @@
     "license": "LGPL-3",
     "depends": [
         "account_ebics",
-        "accountant",
+        "account_accountant",
     ],
     "data": ["views/account_ebics_menu.xml"],
     "installable": True,
