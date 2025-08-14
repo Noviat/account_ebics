@@ -28,6 +28,8 @@ try:
 except ImportError:
     _logger.warning("Failed to import fintech")
 
+INI_LETTER_LANGS = ["en", "de", "fr"]
+
 
 class EbicsBank(EbicsBank):
     def _next_order_id(self, partnerid):
@@ -467,6 +469,8 @@ class EbicsUserID(models.Model):
         else:
             lang = self.env.user.lang or self.env["res.lang"].search([])[0].code
             lang = lang[:2]
+        lang = lang.lower()
+        lang = lang if lang in INI_LETTER_LANGS else "en"
         fn_date = fields.Date.today().isoformat()
         fn = "_".join([self.ebics_config_id.ebics_host, "ini_letter", fn_date]) + ".pdf"
         letter = user.create_ini_letter(bankname=ebics_config_bank.name, lang=lang)
