@@ -68,6 +68,7 @@ class EbicsUserID(models.Model):
         comodel_name="res.users",
         string="Users",
         required=True,
+        domain=[("share", "=", False)],
         help="Users who are allowed to use this EBICS UserID for "
         " bank transactions.",
     )
