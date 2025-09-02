@@ -1,20 +1,24 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* account_ebics_batch
+# * account_ebics_batch
 #
+# Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-08-31 23:13+0000\n"
-"PO-Revision-Date: 2025-08-31 23:13+0000\n"
-"Last-Translator: \n"
-"Language-Team: \n"
-"Language: \n"
+"PO-Revision-Date: 2025-09-02 00:02+0000\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
+"memory@weblate.org>\n"
+"Language-Team: Dutch <https://translation.noviat.com/projects/"
+"noviat-generic-account-ebics-v18/account_ebics_batch/nl/>\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #. module: account_ebics_batch
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__file_ids
@@ -46,41 +50,41 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__create_uid
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log_item__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Gemaakt door"
 
 #. module: account_ebics_batch
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__create_date
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log_item__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Gemaakt op"
 
 #. module: account_ebics_batch
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__date_from
 msgid "Date From"
-msgstr ""
+msgstr "Vanaf"
 
 #. module: account_ebics_batch
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__date_to
 msgid "Date To"
-msgstr ""
+msgstr "Tot en met"
 
 #. module: account_ebics_batch
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__display_name
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log_item__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Weergavenaam"
 
 #. module: account_ebics_batch
 #: model:ir.model.fields.selection,name:account_ebics_batch.selection__ebics_batch_log__state__done
 #: model:ir.model.fields.selection,name:account_ebics_batch.selection__ebics_batch_log_item__state__done
 msgid "Done"
-msgstr ""
+msgstr "Klaar"
 
 #. module: account_ebics_batch
 #: model:ir.model.fields.selection,name:account_ebics_batch.selection__ebics_batch_log__state__draft
 #: model:ir.model.fields.selection,name:account_ebics_batch.selection__ebics_batch_log_item__state__draft
 msgid "Draft"
-msgstr ""
+msgstr "Concept"
 
 #. module: account_ebics_batch
 #: model:ir.actions.server,name:account_ebics_batch.ir_cron_ebics_batch_import_ir_actions_server
@@ -117,7 +121,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:account_ebics_batch.selection__ebics_batch_log__state__error
 #: model:ir.model.fields.selection,name:account_ebics_batch.selection__ebics_batch_log_item__state__error
 msgid "Error"
-msgstr ""
+msgstr "Fout"
 
 #. module: account_ebics_batch
 #. odoo-python
@@ -128,7 +132,7 @@ msgstr ""
 #. module: account_ebics_batch
 #: model_terms:ir.ui.view,arch_db:account_ebics_batch.ebics_batch_log_view_search
 msgid "Group By"
-msgstr ""
+msgstr "Groepeer op"
 
 #. module: account_ebics_batch
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__has_draft_files
@@ -139,19 +143,19 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__id
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log_item__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: account_ebics_batch
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__write_uid
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log_item__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Laatst bijgewerkt door"
 
 #. module: account_ebics_batch
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__write_date
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log_item__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Laatst bijgewerkt op"
 
 #. module: account_ebics_batch
 #: model_terms:ir.ui.view,arch_db:account_ebics_batch.ebics_batch_log_view_form
@@ -211,11 +215,11 @@ msgstr ""
 #. module: account_ebics_batch
 #: model_terms:ir.ui.view,arch_db:account_ebics_batch.ebics_batch_log_view_form
 msgid "Set to Draft"
-msgstr ""
+msgstr "Zet op concept"
 
 #. module: account_ebics_batch
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__state
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log_item__state
 #: model_terms:ir.ui.view,arch_db:account_ebics_batch.ebics_batch_log_view_search
 msgid "State"
-msgstr ""
+msgstr "Status"
