@@ -4,7 +4,7 @@
         <field name="name">ebics.file.search</field>
         <field name="model">ebics.file</field>
         <field name="arch" type="xml">
-            <search string="Search EBICS Files">
+            <search>
                 <field name="date_from" />
                 <field name="date_to" />
                 <field name="name" />
@@ -42,17 +42,30 @@
         </field>
     </record>
 
-    <!-- Download -->
-
-    <record id="ebics_file_view_list_download" model="ir.ui.view">
+    <record id="ebics_file_view_list" model="ir.ui.view">
         <field name="name">ebics.file.list</field>
         <field name="model">ebics.file</field>
         <field name="arch" type="xml">
             <list decoration-muted="state=='draft'" create="false">
-                <field name="date" string="Download Date" />
+                <field
+                    name="date"
+                    string="Download Date"
+                    column_invisible="context.get('ebics_mode') != 'down'"
+                />
+                <field
+                    name="date"
+                    string="Upload Date"
+                    column_invisible="context.get('ebics_mode') == 'down'"
+                />
                 <field name="name" />
-                <field name="date_from" />
-                <field name="date_to" />
+                <field
+                    name="date_from"
+                    column_invisible="context.get('ebics_mode') != 'down'"
+                />
+                <field
+                    name="date_to"
+                    column_invisible="context.get('ebics_mode') != 'down'"
+                />
                 <field name="user_id" />
                 <field name="state" />
                 <field name="format_id" />
@@ -65,72 +78,94 @@
         </field>
     </record>
 
-    <record id="ebics_file_view_form_download" model="ir.ui.view">
+    <record id="ebics_file_view_form" model="ir.ui.view">
         <field name="name">ebics.file.form</field>
         <field name="model">ebics.file</field>
         <field name="priority">1</field>
         <field name="arch" type="xml">
-            <form string="EBICS File" create="false">
+            <form create="false">
                 <header>
-                    <field name="download_process_method" invisible="1" />
                     <button
                         name="set_to_draft"
-                        invisible="not download_process_method or state != 'done'"
                         string="Set to Draft"
                         type="object"
                         groups="account.group_account_manager"
+                        invisible="(context.get('ebics_mode') == 'down' and (not download_process_method or state != 'done')) or (context.get('ebics_mode') == 'up' and state != 'done')"
                     />
+
                     <button
                         name="process"
                         class="oe_highlight"
-                        invisible="not download_process_method or state != 'draft'"
                         string="Process"
                         type="object"
                         groups="account.group_account_invoice"
                         help="Process the EBICS File"
+                        invisible="(context.get('ebics_mode') == 'down' and (not download_process_method or state != 'draft')) or (context.get('ebics_mode') == 'up')"
                     />
+
                     <button
                         name="set_to_done"
-                        invisible="not download_process_method or state != 'draft'"
                         string="Set to Done"
                         type="object"
                         groups="account.group_account_manager"
+                        invisible="(context.get('ebics_mode') == 'down' and (not download_process_method or state != 'draft')) or (context.get('ebics_mode') == 'up' and state != 'draft')"
                     />
+
                     <field
                         name="state"
                         widget="statusbar"
-                        invisible="not download_process_method"
+                        invisible="context.get('ebics_mode') == 'down' and not download_process_method"
                     />
                 </header>
-                <group name="main">
-                    <group name="main-full-screen" colspan="2" col="2">
-                        <field name="name" />
-                        <field name="data" filename="name" />
-                        <field name="format_id" />
+                <sheet>
+                    <group name="main">
+                        <group name="main-full-screen" colspan="2" col="2">
+                            <field name="name" />
+                            <field name="data" filename="name" />
+                            <field name="format_id" />
+                        </group>
+                        <group name="main-left">
+                            <field
+                                name="date"
+                                string="Download Date"
+                                invisible="context.get('ebics_mode') != 'down'"
+                            />
+                            <field
+                                name="date"
+                                string="Upload Date"
+                                invisible="context.get('ebics_mode') == 'down'"
+                            />
+                            <field name="user_id" />
+                            <field name="ebics_userid_id" />
+                        </group>
+                        <group name="main-right">
+                            <field
+                                name="date_from"
+                                invisible="context.get('ebics_mode') != 'down'"
+                            />
+                            <field
+                                name="date_to"
+                                invisible="context.get('ebics_mode') != 'down'"
+                            />
+                            <field
+                                name="company_ids"
+                                widget="many2many_tags"
+                                groups="base.group_multi_company"
+                            />
+                        </group>
                     </group>
-                    <group name="main-left">
-                        <field name="date" string="Download Date" />
-                        <field name="user_id" />
-                        <field name="ebics_userid_id" />
-                    </group>
-                    <group name="main-right">
-                        <field name="date_from" />
-                        <field name="date_to" />
-                        <field
-                            name="company_ids"
-                            widget="many2many_tags"
-                            groups="base.group_multi_company"
-                        />
-                    </group>
-                </group>
-                <notebook>
-                    <page string="Additional Information">
-                        <field name="note" nolabel="1" />
-                    </page>
-                    <page string="Bank Statements" invisible="not bank_statement_ids">
-                        <field name="bank_statement_ids" nolabel="1" />
-                    </page>
-                </notebook>
+                    <notebook>
+                        <page string="Additional Information">
+                            <field name="note" nolabel="1" />
+                        </page>
+                        <page
+                            string="Bank Statements"
+                            invisible="not bank_statement_ids"
+                        >
+                            <field name="bank_statement_ids" nolabel="1" />
+                        </page>
+                    </notebook>
+                </sheet>
             </form>
         </field>
     </record>
@@ -138,7 +173,7 @@
     <record id="ebics_file_view_form_result" model="ir.ui.view">
         <field name="name">ebics.file.process.result</field>
         <field name="model">ebics.file</field>
-        <field name="priority">2</field>
+        <field name="priority">100</field>
         <field name="arch" type="xml">
             <form string="Process EBICS File">
                 <separator colspan="4" string="Results :" />
@@ -168,89 +203,8 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">ebics.file</field>
         <field name="view_mode">list,form</field>
-        <field name="view_id" eval="False" />
         <field name="domain">[('type', '=', 'down')]</field>
-        <field name="search_view_id" ref="ebics_file_view_search" />
-    </record>
-
-    <record id="ebics_file_action_download_list" model="ir.actions.act_window.view">
-        <field eval="1" name="sequence" />
-        <field name="view_mode">list</field>
-        <field name="view_id" ref="ebics_file_view_list_download" />
-        <field name="act_window_id" ref="ebics_file_action_download" />
-    </record>
-
-    <record id="ebics_file_action_download_form" model="ir.actions.act_window.view">
-        <field eval="2" name="sequence" />
-        <field name="view_mode">form</field>
-        <field name="view_id" ref="ebics_file_view_form_download" />
-        <field name="act_window_id" ref="ebics_file_action_download" />
-    </record>
-
-    <!-- Upload -->
-
-    <record id="ebics_file_view_list_upload" model="ir.ui.view">
-        <field name="name">ebics.file.list</field>
-        <field name="model">ebics.file</field>
-        <field name="arch" type="xml">
-            <list decoration-muted="state=='draft'" create="false">
-                <field name="date" string="Upload Date" />
-                <field name="name" />
-                <field name="user_id" />
-                <field name="state" />
-                <field name="format_id" />
-                <field
-                    name="company_ids"
-                    widget="many2many_tags"
-                    groups="base.group_multi_company"
-                />
-            </list>
-        </field>
-    </record>
-
-    <record id="ebics_file_view_form_upload" model="ir.ui.view">
-        <field name="name">ebics.file.form</field>
-        <field name="model">ebics.file</field>
-        <field name="priority">1</field>
-        <field name="arch" type="xml">
-            <form string="EBICS File" create="false">
-                <header>
-                    <button
-                        name="set_to_draft"
-                        invisible="state != 'done'"
-                        string="Set to Draft"
-                        type="object"
-                        groups="account.group_account_manager"
-                    />
-                    <button
-                        name="set_to_done"
-                        invisible="state != 'draft'"
-                        string="Set to Done"
-                        type="object"
-                        groups="account.group_account_manager"
-                    />
-                    <field name="state" widget="statusbar" />
-                </header>
-                <group colspan="4" col="4">
-                    <field name="date" string="Upload Date" />
-                    <field name="name" />
-                    <field name="data" filename="name" />
-                    <field name="format_id" />
-                    <field name="user_id" />
-                    <field name="ebics_userid_id" />
-                    <field
-                        name="company_ids"
-                        widget="many2many_tags"
-                        groups="base.group_multi_company"
-                    />
-                </group>
-                <notebook>
-                    <page string="Additional Information">
-                        <field name="note" nolabel="1" />
-                    </page>
-                </notebook>
-            </form>
-        </field>
+        <field name="context">{'ebics_mode': 'down'}</field>
     </record>
 
     <record id="ebics_file_action_upload" model="ir.actions.act_window">
@@ -258,22 +212,7 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">ebics.file</field>
         <field name="view_mode">list,form</field>
-        <field name="view_id" eval="False" />
         <field name="domain">[('type', '=', 'up')]</field>
-        <field name="search_view_id" ref="ebics_file_view_search" />
-    </record>
-
-    <record id="ebics_file_action_upload_list" model="ir.actions.act_window.view">
-        <field eval="1" name="sequence" />
-        <field name="view_mode">list</field>
-        <field name="view_id" ref="ebics_file_view_list_upload" />
-        <field name="act_window_id" ref="ebics_file_action_upload" />
-    </record>
-
-    <record id="ebics_file_action_upload_form" model="ir.actions.act_window.view">
-        <field eval="2" name="sequence" />
-        <field name="view_mode">form</field>
-        <field name="view_id" ref="ebics_file_view_form_upload" />
-        <field name="act_window_id" ref="ebics_file_action_upload" />
+        <field name="context">{'ebics_mode': 'up'}</field>
     </record>
 </odoo>
