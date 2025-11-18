@@ -11,8 +11,8 @@ msgstr ""
 "PO-Revision-Date: 2025-11-02 03:03+0000\n"
 "Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
 "memory@weblate.org>\n"
-"Language-Team: Dutch <https://translation.noviat.com/projects/"
-"noviat-generic-account-ebics-v18/account_ebics/nl/>\n"
+"Language-Team: Dutch <https://translation.noviat.com/projects/noviat-generic-"
+"account-ebics-v18/account_ebics/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -92,8 +92,7 @@ msgid "Active Keys"
 msgstr ""
 
 #. module: account_ebics
-#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_download
-#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_upload
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form
 msgid "Additional Information"
 msgstr "Bijkomende informatie"
 
@@ -180,7 +179,7 @@ msgid "Bank Statement"
 msgstr "Rekeningafschrift"
 
 #. module: account_ebics
-#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_download
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form
 msgid "Bank Statements"
 msgstr "Afschriften"
 
@@ -350,8 +349,8 @@ msgid "Download"
 msgstr "Downloaden"
 
 #. module: account_ebics
-#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_download
-#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_list_download
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_list
 msgid "Download Date"
 msgstr ""
 
@@ -458,12 +457,6 @@ msgstr ""
 #. module: account_ebics
 #: model:ir.actions.act_window,name:account_ebics.ebics_file_action_download
 msgid "EBICS Download Files"
-msgstr ""
-
-#. module: account_ebics
-#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_download
-#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_upload
-msgid "EBICS File"
 msgstr ""
 
 #. module: account_ebics
@@ -1242,7 +1235,7 @@ msgid ""
 msgstr ""
 
 #. module: account_ebics
-#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_download
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form
 msgid "Process"
 msgstr ""
 
@@ -1263,7 +1256,7 @@ msgid "Process file %(fn)s results:"
 msgstr ""
 
 #. module: account_ebics
-#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_download
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form
 msgid "Process the EBICS File"
 msgstr ""
 
@@ -1296,11 +1289,6 @@ msgid ""
 "Scope of service.\n"
 "Either an ISO-3166 ALPHA 2 country code or an issuer code of 3 alphanumeric "
 "characters [A-Z0-9]."
-msgstr ""
-
-#. module: account_ebics
-#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_search
-msgid "Search EBICS Files"
 msgstr ""
 
 #. module: account_ebics
@@ -1374,15 +1362,13 @@ msgid "Set this flag in order to work with self-signed X.509 certificates"
 msgstr ""
 
 #. module: account_ebics
-#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_download
-#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_upload
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form
 msgid "Set to Done"
 msgstr ""
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_config_view_form
-#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_download
-#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_upload
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_userid_view_form
 msgid "Set to Draft"
 msgstr "Zet op concept"
@@ -1604,8 +1590,8 @@ msgid "Upload"
 msgstr "Upload"
 
 #. module: account_ebics
-#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_upload
-#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_list_upload
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_list
 msgid "Upload Date"
 msgstr ""
 
