@@ -531,8 +531,8 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
 msgid ""
-"EBICS Functional Error during download of File Format %(name)s "
-"(%(order_type)s):"
+"EBICS Functional Error during download of File Format %(name)s (%"
+"(order_type)s):"
 msgstr ""
 
 #. module: account_ebics
@@ -671,8 +671,8 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
 msgid ""
-"EBICS Technical Error during download of File Format %(name)s "
-"(%(order_type)s):"
+"EBICS Technical Error during download of File Format %(name)s (%"
+"(order_type)s):"
 msgstr ""
 
 #. module: account_ebics
@@ -718,8 +718,8 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
 msgid ""
-"EBICS Verification Error during download of File Format %(name)s "
-"(%(order_type)s):"
+"EBICS Verification Error during download of File Format %(name)s (%"
+"(order_type)s):"
 msgstr ""
 
 #. module: account_ebics
