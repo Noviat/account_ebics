@@ -1,9 +1,17 @@
-# Copyright 2009-2024 Noviat.
+# Copyright 2024 Noviat.
 # License LGPL-3 or later (https://www.gnu.org/licenses/lgpl).
 
+import logging
 import pprint
 
 from odoo import api, fields, models
+
+_logger = logging.getLogger(__name__)
+
+try:
+    from fintech.ebics import EbicsTechnicalError
+except ImportError:
+    _logger.warning("Failed to import fintech")
 
 
 class EbicsAdminOrder(models.TransientModel):
@@ -34,9 +42,18 @@ class EbicsAdminOrder(models.TransientModel):
                 % self.ebics_config_id.name
             )
         else:
-            data = getattr(client, self.admin_order_type)(parsed=True)
-            pp = pprint.PrettyPrinter()
-            self.note = pp.pformat(data)
+            try:
+                data = getattr(client, self.admin_order_type)(parsed=True)
+                pp = pprint.PrettyPrinter()
+                self.note = pp.pformat(data)
+            except EbicsTechnicalError as e:
+                self.note = "\n"
+                self.note += self.env._(
+                    "EBICS Technical Error during execution of order %(order_type)s:",
+                    order_type=self.admin_order_type,
+                )
+                self.note += "\n"
+                self.note += f"{e.message} (code: {e.code})"
         module = __name__.split("addons.")[1].split(".")[0]
         result_view = self.env.ref(f"{module}.ebics_admin_order_view_form_result")
         return {
