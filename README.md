@@ -15,7 +15,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[account_ebics](account_ebics/) | 18.0.1.1.1 |  | EBICS banking protocol
+[account_ebics](account_ebics/) | 18.0.1.1.2 |  | EBICS banking protocol
 [account_ebics_batch](account_ebics_batch/) | 18.0.1.0.0 |  | EBICS Files automated import and processing
 [account_ebics_batch_payment](account_ebics_batch_payment/) | 18.0.1.0.0 |  | Upload Batch Payment via EBICS
 [account_ebics_oca_statement_import](account_ebics_oca_statement_import/) | 18.0.1.0.0 |  | Use OCA Bank Statement Import with account_ebics
