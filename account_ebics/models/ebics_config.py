@@ -126,7 +126,7 @@ class EbicsConfig(models.Model):
 
     @api.model
     def _default_ebics_keys(self):
-        return "/".join(["/etc/odoo/ebics_keys", self._cr.dbname])
+        return "/".join(["/etc/odoo/ebics_keys", self.env.cr.dbname])
 
     @api.constrains("ebics_key_bitlength")
     def _check_ebics_key_bitlength(self):
@@ -178,7 +178,7 @@ class EbicsConfig(models.Model):
     def unlink(self):
         for ebics_config in self:
             if ebics_config.state == "active":
-                raise UserError(
+                raise UserError(  # pylint: disable=no-raise-unlink
                     self.env._("You cannot remove active EBICS configurations.")
                 )
         return super().unlink()
@@ -214,8 +214,8 @@ class EbicsConfig(models.Model):
         if not os.path.exists(dirname):
             raise UserError(
                 self.env._(
-                    "EBICS Keys Root Directory %s is not available."
-                    "\nPlease contact your system administrator."
+                    "EBICS Keys Root Directory %(dir)s is not available."
+                    "\nPlease contact your system administrator.",
+                    dir=dirname,
                 )
-                % dirname
             )

@@ -37,9 +37,9 @@ class EbicsAdminOrder(models.TransientModel):
         self.ensure_one()
         client = self._setup_client()
         if not client:
-            self.note += (
-                self.env._("EBICS client setup failed for connection '%s'")
-                % self.ebics_config_id.name
+            self.note += self.env._(
+                "EBICS client setup failed for connection '%s'",
+                self.ebics_config_id.name,
             )
         else:
             try:

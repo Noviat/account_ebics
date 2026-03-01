@@ -23,13 +23,10 @@ class EbicsFile(models.Model):
     _name = "ebics.file"
     _description = "Object to store EBICS Data Files"
     _order = "date desc"
-    _sql_constraints = [
-        (
-            "name_uniq",
-            "unique (name, format_id)",
-            "This File has already been down- or uploaded !",
-        )
-    ]
+    _name_uniq = models.Constraint(
+        "unique (name, format_id)",
+        "This File has already been down- or uploaded !",
+    )
 
     name = fields.Char(string="Filename")
     data = fields.Binary(string="File", readonly=True)
@@ -63,7 +60,6 @@ class EbicsFile(models.Model):
     )
     user_id = fields.Many2one(
         comodel_name="res.users",
-        string="User",
         default=lambda self: self.env.user,
         readonly=True,
     )
@@ -89,7 +85,7 @@ class EbicsFile(models.Model):
         ff_methods = self._file_format_methods()
         for ebics_file in self:
             if ebics_file.state == "done":
-                raise UserError(
+                raise UserError(  # pylint: disable=no-raise-unlink
                     self.env._("You can only remove EBICS files in state 'Draft'.")
                 )
             # execute format specific actions
@@ -637,7 +633,7 @@ class EbicsFile(models.Model):
             self.env._(
                 "The current version of the 'account_ebics' module "
                 "has no support to automatically process EBICS files "
-                "with format %s."
+                "with format %s.",
+                self.format_id.name,
             )
-            % self.format_id.name
         )
