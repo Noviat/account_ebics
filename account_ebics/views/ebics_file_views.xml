@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <record id="ebics_file_view_search" model="ir.ui.view">
         <field name="name">ebics.file.search</field>
@@ -21,7 +21,7 @@
                     domain="[('state', '=', 'draft')]"
                 />
                 <filter string="Done" name="done" domain="[('state', '=', 'done')]" />
-                <group expand="0" string="Group By">
+                <group>
                     <filter
                         string="File Format"
                         name="file_format"
@@ -81,7 +81,7 @@
     <record id="ebics_file_view_form" model="ir.ui.view">
         <field name="name">ebics.file.form</field>
         <field name="model">ebics.file</field>
-        <field name="priority">1</field>
+        <field name="priority" eval="1" />
         <field name="arch" type="xml">
             <form create="false">
                 <header>
@@ -173,7 +173,7 @@
     <record id="ebics_file_view_form_result" model="ir.ui.view">
         <field name="name">ebics.file.process.result</field>
         <field name="model">ebics.file</field>
-        <field name="priority">100</field>
+        <field name="priority" eval="100" />
         <field name="arch" type="xml">
             <form string="Process EBICS File">
                 <separator colspan="4" string="Results :" />

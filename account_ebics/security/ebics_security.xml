@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <record model="res.groups" id="group_ebics_manager">
+    <record id="group_ebics_manager" model="res.groups">
         <field name="name">EBICS Manager</field>
-        <field name="category_id" ref="base.module_category_hidden" />
+        <field name="privilege_id" ref="account.res_groups_privilege_accounting" />
     </record>
 
     <data noupdate="1">
