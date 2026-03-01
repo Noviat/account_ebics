@@ -475,8 +475,7 @@ class EbicsUserID(models.Model):
         if cc in ["FR", "DE"]:
             lang = cc
         else:
-            lang = self.env.user.lang or self.env["res.lang"].search([])[0].code
-            lang = lang[:2]
+            lang = self.env.user.lang[:2]
         lang = lang.lower()
         lang = lang if lang in INI_LETTER_LANGS else "en"
         fn_date = fields.Date.today().isoformat()

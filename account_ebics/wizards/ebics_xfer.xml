@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <record id="ebics_xfer_view_form_download" model="ir.ui.view">
         <field name="name">EBICS File Download</field>
         <field name="model">ebics.xfer</field>
-        <field name="priority">1</field>
+        <field name="priority" eval="1" />
         <field name="arch" type="xml">
             <form string="EBICS File Download">
                 <group>
@@ -55,7 +55,7 @@
     <record id="ebics_xfer_view_form_upload" model="ir.ui.view">
         <field name="name">EBICS File Upload</field>
         <field name="model">ebics.xfer</field>
-        <field name="priority">1</field>
+        <field name="priority" eval="1" />
         <field name="arch" type="xml">
             <form string="EBICS File Upload">
                 <group>
@@ -120,7 +120,7 @@
     <record id="ebics_xfer_view_form_result" model="ir.ui.view">
         <field name="name">EBICS File Transfer</field>
         <field name="model">ebics.xfer</field>
-        <field name="priority">2</field>
+        <field name="priority" eval="2" />
         <field name="arch" type="xml">
             <form string="EBICS File Transfer">
                 <separator colspan="4" string="Results :" />
