@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="ebics_file_view_search" model="ir.ui.view">
+        <field name="name">ebics.file.search</field>
+        <field name="model">ebics.file</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="date_from" />
+                <field name="date_to" />
+                <field name="name" />
+                <field name="format_id" />
+                <field name="user_id" />
+                <field
+                    name="company_ids"
+                    widget="selection"
+                    groups="base.group_multi_company"
+                />
+                <filter
+                    string="Draft"
+                    name="draft"
+                    domain="[('state', '=', 'draft')]"
+                />
+                <filter string="Done" name="done" domain="[('state', '=', 'done')]" />
+                <group>
+                    <filter
+                        string="File Format"
+                        name="file_format"
+                        context="{'group_by':'format_id'}"
+                    />
+                    <filter
+                        string="State"
+                        name="state"
+                        context="{'group_by':'state'}"
+                    />
+                    <filter
+                        string="User"
+                        name="user"
+                        context="{'group_by':'user_id'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="ebics_file_view_list" model="ir.ui.view">
+        <field name="name">ebics.file.list</field>
+        <field name="model">ebics.file</field>
+        <field name="arch" type="xml">
+            <list decoration-muted="state=='draft'" create="false">
+                <field
+                    name="date"
+                    string="Download Date"
+                    column_invisible="context.get('ebics_mode') != 'down'"
+                />
+                <field
+                    name="date"
+                    string="Upload Date"
+                    column_invisible="context.get('ebics_mode') == 'down'"
+                />
+                <field name="name" />
+                <field
+                    name="date_from"
+                    column_invisible="context.get('ebics_mode') != 'down'"
+                />
+                <field
+                    name="date_to"
+                    column_invisible="context.get('ebics_mode') != 'down'"
+                />
+                <field name="user_id" />
+                <field name="state" />
+                <field name="format_id" />
+                <field
+                    name="company_ids"
+                    widget="many2many_tags"
+                    groups="base.group_multi_company"
+                />
+            </list>
+        </field>
+    </record>
+
+    <record id="ebics_file_view_form" model="ir.ui.view">
+        <field name="name">ebics.file.form</field>
+        <field name="model">ebics.file</field>
+        <field name="priority" eval="1" />
+        <field name="arch" type="xml">
+            <form create="false">
+                <header>
+                    <button
+                        name="set_to_draft"
+                        string="Set to Draft"
+                        type="object"
+                        groups="account.group_account_manager"
+                        invisible="(context.get('ebics_mode') == 'down' and (not download_process_method or state != 'done')) or (context.get('ebics_mode') == 'up' and state != 'done')"
+                    />
+
+                    <button
+                        name="process"
+                        class="oe_highlight"
+                        string="Process"
+                        type="object"
+                        groups="account.group_account_invoice"
+                        help="Process the EBICS File"
+                        invisible="(context.get('ebics_mode') == 'down' and (not download_process_method or state != 'draft')) or (context.get('ebics_mode') == 'up')"
+                    />
+
+                    <button
+                        name="set_to_done"
+                        string="Set to Done"
+                        type="object"
+                        groups="account.group_account_manager"
+                        invisible="(context.get('ebics_mode') == 'down' and (not download_process_method or state != 'draft')) or (context.get('ebics_mode') == 'up' and state != 'draft')"
+                    />
+
+                    <field
+                        name="state"
+                        widget="statusbar"
+                        invisible="context.get('ebics_mode') == 'down' and not download_process_method"
+                    />
+                </header>
+                <sheet>
+                    <group name="main">
+                        <group name="main-full-screen" colspan="2" col="2">
+                            <field name="name" />
+                            <field name="data" filename="name" />
+                            <field name="format_id" />
+                        </group>
+                        <group name="main-left">
+                            <field
+                                name="date"
+                                string="Download Date"
+                                invisible="context.get('ebics_mode') != 'down'"
+                            />
+                            <field
+                                name="date"
+                                string="Upload Date"
+                                invisible="context.get('ebics_mode') == 'down'"
+                            />
+                            <field name="user_id" />
+                            <field name="ebics_userid_id" />
+                        </group>
+                        <group name="main-right">
+                            <field
+                                name="date_from"
+                                invisible="context.get('ebics_mode') != 'down'"
+                            />
+                            <field
+                                name="date_to"
+                                invisible="context.get('ebics_mode') != 'down'"
+                            />
+                            <field
+                                name="company_ids"
+                                widget="many2many_tags"
+                                groups="base.group_multi_company"
+                            />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Additional Information">
+                            <field name="note" nolabel="1" />
+                        </page>
+                        <page
+                            string="Bank Statements"
+                            invisible="not bank_statement_ids"
+                        >
+                            <field name="bank_statement_ids" nolabel="1" />
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="ebics_file_view_form_result" model="ir.ui.view">
+        <field name="name">ebics.file.process.result</field>
+        <field name="model">ebics.file</field>
+        <field name="priority" eval="100" />
+        <field name="arch" type="xml">
+            <form string="Process EBICS File">
+                <separator colspan="4" string="Results :" />
+                <field
+                    name="note_process"
+                    colspan="4"
+                    nolabel="1"
+                    width="850"
+                    height="400"
+                />
+                <footer>
+                    <button
+                        name="action_open_bank_statements"
+                        string="View Bank Statement(s)"
+                        type="object"
+                        class="oe_highlight"
+                        invisible="not context.get('statement_ids')"
+                    />
+                    <button name="button_close" type="object" string="Close" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="ebics_file_action_download" model="ir.actions.act_window">
+        <field name="name">EBICS Download Files</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">ebics.file</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('type', '=', 'down')]</field>
+        <field name="context">{'ebics_mode': 'down'}</field>
+    </record>
+
+    <record id="ebics_file_action_upload" model="ir.actions.act_window">
+        <field name="name">EBICS Upload Files</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">ebics.file</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('type', '=', 'up')]</field>
+        <field name="context">{'ebics_mode': 'up'}</field>
+    </record>
+</odoo>
