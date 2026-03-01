@@ -69,8 +69,7 @@ class EbicsUserID(models.Model):
         string="Users",
         required=True,
         domain=[("share", "=", False)],
-        help="Users who are allowed to use this EBICS UserID for "
-        " bank transactions.",
+        help="Users who are allowed to use this EBICS UserID for  bank transactions.",
     )
     signature_class = fields.Selection(
         selection=[("E", "Single signature"), ("T", "Transport signature")],
@@ -149,7 +148,7 @@ class EbicsUserID(models.Model):
     # create self-signed X.509 certificates
     ebics_key_x509 = fields.Boolean(
         string="X509 support",
-        help="Set this flag in order to work with " "self-signed X.509 certificates",
+        help="Set this flag in order to work with self-signed X.509 certificates",
     )
     ebics_key_x509_dn_cn = fields.Char(
         string="Common Name [CN]",
@@ -417,7 +416,7 @@ class EbicsUserID(models.Model):
         if not ebics_config_bank:
             raise UserError(
                 self.env._(
-                    "No bank defined for the financial journal " "of the EBICS Config"
+                    "No bank defined for the financial journal of the EBICS Config"
                 )
             )
         try:
