@@ -196,7 +196,7 @@ class EbicsXfer(models.TransientModel):
 
     def ebics_upload(self):
         self.ensure_one()
-        ctx = self._context.copy()
+        ctx = self.env.context.copy()
         ebics_file = self._ebics_upload()
         if ebics_file:
             ctx["ebics_file_id"] = ebics_file.id
@@ -221,9 +221,9 @@ class EbicsXfer(models.TransientModel):
         client = self._setup_client()
         if not client:
             err_cnt += 1
-            self.note += (
-                self.env._("EBICS client setup failed for connection '%s'")
-                % self.ebics_config_id.name
+            self.note += self.env._(
+                "EBICS client setup failed for connection '%s'",
+                self.ebics_config_id.name,
             )
         else:
             download_formats = (
@@ -332,11 +332,8 @@ class EbicsXfer(models.TransientModel):
             if ebics_files:
                 self.note += "\n"
                 for f in ebics_files:
-                    self.note += (
-                        self.env._(
-                            "EBICS File '%s' is available for further processing."
-                        )
-                        % f.name
+                    self.note += self.env._(
+                        "EBICS File '%s' is available for further processing.", f.name
                     )
                     self.note += "\n"
 
@@ -360,7 +357,7 @@ class EbicsXfer(models.TransientModel):
         act = self.env["ir.actions.act_window"]._for_xml_id(
             f"{module}.ebics_file_action_download"
         )
-        act["domain"] = [("id", "in", self._context["ebics_file_ids"])]
+        act["domain"] = [("id", "in", self.env.context["ebics_file_ids"])]
         return act
 
     def _ebics_upload(self):
@@ -402,14 +399,13 @@ class EbicsXfer(models.TransientModel):
                     OrderID = client.upload(order_type, upload_data)
                 if OrderID:
                     self.note += "\n"
-                    self.note += (
-                        self.env._("EBICS File has been uploaded (OrderID %s).")
-                        % OrderID
+                    self.note += self.env._(
+                        "EBICS File has been uploaded (OrderID %s).", OrderID
                     )
-                    ef_note = self.env._("EBICS OrderID: %s") % OrderID
+                    ef_note = self.env._("EBICS OrderID: %s", OrderID)
                     if self.env.context.get("origin"):
-                        ef_note += (
-                            "\n" + self.env._("Origin: %s") % self._context["origin"]
+                        ef_note += "\n" + self.env._(
+                            "Origin: %s", self.env.context["origin"]
                         )
                     suffix = self.format_id.suffix
                     fn = self.upload_fname
@@ -421,7 +417,7 @@ class EbicsXfer(models.TransientModel):
                         "date": fields.Datetime.now(),
                         "format_id": self.format_id.id,
                         "state": "done",
-                        "user_id": self._uid,
+                        "user_id": self.env.uid,
                         "ebics_userid_id": self.ebics_userid_id.id,
                         "note": ef_note,
                         "company_ids": [
@@ -598,9 +594,9 @@ class EbicsXfer(models.TransientModel):
                 self.env._(
                     "EBICS File with name '%s' has already been downloaded."
                     "\nPlease check this file and rename in case there is "
-                    "no risk on duplicate transactions."
+                    "no risk on duplicate transactions.",
+                    fn,
                 )
-                % fn
             )
         data = base64.encodebytes(data)
         ef_vals = {
@@ -611,7 +607,7 @@ class EbicsXfer(models.TransientModel):
             "date_to": self.date_to,
             "format_id": file_format.id,
             "state": file_format.download_process_method and "draft" or "done",
-            "user_id": self._uid,
+            "user_id": self.env.uid,
             "ebics_userid_id": self.ebics_userid_id.id,
             "company_ids": self.ebics_config_id.company_ids.ids,
         }

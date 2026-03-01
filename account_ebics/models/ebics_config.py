@@ -126,7 +126,7 @@ class EbicsConfig(models.Model):
 
     @api.model
     def _default_ebics_keys(self):
-        return "/".join(["/etc/odoo/ebics_keys", self._cr.dbname])
+        return "/".join(["/etc/odoo/ebics_keys", self.env.cr.dbname])
 
     @api.constrains("ebics_key_bitlength")
     def _check_ebics_key_bitlength(self):
@@ -154,6 +154,13 @@ class EbicsConfig(models.Model):
                     )
                 )
 
+    @api.ondelete(at_uninstall=False)
+    def _unlink_except_confirm(self):
+        if any(rec.state == "confirm" for rec in self):
+            raise UserError(
+                self.env._("You cannot remove active EBICS configurations.")
+            )
+
     def write(self, vals):
         """
         Due to the multi-company nature of the EBICS config we
@@ -174,14 +181,6 @@ class EbicsConfig(models.Model):
             updates += [(3, x) for x in old_company_ids]
             super(EbicsConfig, rec).write({"company_ids": updates})
         return True
-
-    def unlink(self):
-        for ebics_config in self:
-            if ebics_config.state == "active":
-                raise UserError(
-                    self.env._("You cannot remove active EBICS configurations.")
-                )
-        return super().unlink()
 
     def set_to_draft(self):
         return self.write({"state": "draft"})
@@ -214,8 +213,8 @@ class EbicsConfig(models.Model):
         if not os.path.exists(dirname):
             raise UserError(
                 self.env._(
-                    "EBICS Keys Root Directory %s is not available."
-                    "\nPlease contact your system administrator."
+                    "EBICS Keys Root Directory %(dir)s is not available."
+                    "\nPlease contact your system administrator.",
+                    dir=dirname,
                 )
-                % dirname
             )
