@@ -379,8 +379,7 @@ class EbicsFile(models.Model):
         file_data = base64.b64decode(self.data).replace(b"\n", b"").replace(b"\r", b"")
         if len(file_data) % 120:
             message = self.env._(
-                "Incorrect CFONB120 file:\n"
-                "the file is not divisible in 120 char lines"
+                "Incorrect CFONB120 file:\nthe file is not divisible in 120 char lines"
             )
             res["notifications"].append({"type": "error", "message": message})
             return datas
