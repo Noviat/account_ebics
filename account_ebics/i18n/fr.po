@@ -320,6 +320,7 @@ msgid "Description"
 msgstr "Description"
 
 #. module: account_ebics
+#: model:ir.model.fields,field_description:account_ebics.field_account_bank_statement__display_name
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__display_name
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_change_passphrase__display_name
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_config__display_name
@@ -531,8 +532,8 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
 msgid ""
-"EBICS Functional Error during download of File Format %(name)s (%"
-"(order_type)s):"
+"EBICS Functional Error during download of File Format %(name)s "
+"(%(order_type)s):"
 msgstr ""
 
 #. module: account_ebics
@@ -607,7 +608,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_config.py:0
 msgid ""
-"EBICS Keys Root Directory %s is not available.\n"
+"EBICS Keys Root Directory %(dir)s is not available.\n"
 "Please contact your system administrator."
 msgstr ""
 
@@ -671,8 +672,8 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
 msgid ""
-"EBICS Technical Error during download of File Format %(name)s (%"
-"(order_type)s):"
+"EBICS Technical Error during download of File Format %(name)s "
+"(%(order_type)s):"
 msgstr ""
 
 #. module: account_ebics
@@ -724,8 +725,8 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
 msgid ""
-"EBICS Verification Error during download of File Format %(name)s (%"
-"(order_type)s):"
+"EBICS Verification Error during download of File Format %(name)s "
+"(%(order_type)s):"
 msgstr ""
 
 #. module: account_ebics
@@ -937,11 +938,6 @@ msgid "Get Keys from Bank"
 msgstr ""
 
 #. module: account_ebics
-#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_search
-msgid "Group By"
-msgstr "Regrouper par"
-
-#. module: account_ebics
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_config__ebics_version__h003
 msgid "H003 (2.4)"
 msgstr ""
@@ -968,6 +964,7 @@ msgid ""
 msgstr ""
 
 #. module: account_ebics
+#: model:ir.model.fields,field_description:account_ebics.field_account_bank_statement__id
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__id
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_change_passphrase__id
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_config__id
@@ -1742,3 +1739,6 @@ msgid ""
 "urlopen error:\n"
 " url '%(url)s' - %(val)s"
 msgstr ""
+
+#~ msgid "Group By"
+#~ msgstr "Regrouper par"
