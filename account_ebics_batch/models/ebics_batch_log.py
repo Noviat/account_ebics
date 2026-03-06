@@ -1,5 +1,5 @@
 # Copyright 2022 Noviat.
-# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 
 from sys import exc_info
 from traceback import format_exception
