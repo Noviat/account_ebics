@@ -1,4 +1,4 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <record id="ebics_batch_log_view_search" model="ir.ui.view">
         <field name="name">ebics.batch.log.search</field>
@@ -10,7 +10,7 @@
                     <field name="state" />
                 </group>
                 <newline />
-                <group expand="0" string="Group By">
+                <group>
                     <filter
                         name="group_by_state"
                         string="State"
