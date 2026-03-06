@@ -1,5 +1,5 @@
-# Copyright 2009-2024 Noviat.
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+# Copyright 2022 Noviat.
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from sys import exc_info
 from traceback import format_exception
@@ -46,13 +46,12 @@ class EbicsBatchLog(models.Model):
             rec.has_draft_files = "draft" in rec.file_ids.mapped("state")
             rec.file_count = len(rec.file_ids)
 
-    def unlink(self):
-        for log in self:
-            if log.state != "draft":
-                raise UserError(
-                    self.env._("Only log objects in state 'draft' can be deleted !")
-                )
-        return super().unlink()
+    @api.ondelete(at_uninstall=False)
+    def _unlink_unless_draft(self):
+        if any(rec.state != "draft" for rec in self):
+            raise UserError(
+                self.env._("Only log objects in state 'draft' can be deleted !")
+            )
 
     def button_draft(self):
         self.state = "draft"
@@ -95,9 +94,8 @@ class EbicsBatchLog(models.Model):
         )
         ebics_file_ids = []
         for config in configs:
-            err_msg = (
-                self.env._("Error while processing EBICS connection '%s' :\n")
-                % config.name
+            err_msg = self.env._(
+                "Error while processing EBICS connection '%s' :\n", config.name
             )
             if config.state == "draft":
                 import_dict["errors"].append(
