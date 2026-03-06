@@ -1,6 +1,6 @@
-.. image:: https://img.shields.io/badge/license-AGPL--3-blue.png
-   :target: https://www.gnu.org/licenses/agpl
-   :alt: License: AGPL-3
+.. image:: https://img.shields.io/badge/license-LGPL--3-blue.png
+   :target: https://www.gnu.org/licenses/lgpl
+   :alt: License: LGPL-3
 
 ============================================
 Module to enable batch import of EBICS files
@@ -17,7 +17,7 @@ When all EBICS Files have been imported correctly, the Batch Import Log state is
 
 |
 
-The user can reprocess the imported EBICS files in status 'draft' via the Log object 'REPROCESS' button until all errors have been cleared. 
+The user can reprocess the imported EBICS files in status 'draft' via the Log object 'REPROCESS' button until all errors have been cleared.
 
 As an alternative, the user can force the Batch Import Log state to 'done'
 (e.g. when the errors have been circumvented via manual encoding or the reprocessing of a single EBICS file).
