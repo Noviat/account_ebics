@@ -236,8 +236,8 @@ class EbicsXfer(models.TransientModel):
             date_from = self.date_from and self.date_from.isoformat() or None
             date_to = self.date_to and self.date_to.isoformat() or None
             for df in download_formats:
+                success = False
                 try:
-                    success = False
                     if df.order_type == "BTD":
                         btf = BusinessTransactionFormat(
                             df.btf_service,
@@ -321,7 +321,7 @@ class EbicsXfer(models.TransientModel):
                     )
                     tb = "".join(format_exception(*exc_info()))
                     self.note += f"\n{tb}"
-                else:
+                finally:
                     # mark received data so that it is not included in further
                     # downloads
                     trans_id = client.last_trans_id
