@@ -120,7 +120,8 @@ class EbicsConfig(models.Model):
         comodel_name="res.company",
         relation="ebics_config_res_company_rel",
         string="Companies",
-        readonly=True,
+        compute="_compute_company_ids",
+        store=True,
         help="Companies sharing this EBICS contract.",
     )
 
@@ -154,26 +155,10 @@ class EbicsConfig(models.Model):
                     )
                 )
 
-    def write(self, vals):
-        """
-        Due to the multi-company nature of the EBICS config we
-        need to adapt the company_ids in the write method.
-        """
-        if "journal_ids" not in vals:
-            return super().write(vals)
+    @api.depends("journal_ids.company_id")
+    def _compute_company_ids(self):
         for rec in self:
-            old_company_ids = rec.journal_ids.mapped("company_id").ids
-            super(EbicsConfig, rec).write(vals)
-            new_company_ids = rec.journal_ids.mapped("company_id").ids
-            updates = []
-            for cid in new_company_ids:
-                if cid in old_company_ids:
-                    old_company_ids.remove(cid)
-                else:
-                    updates += [(4, cid)]
-            updates += [(3, x) for x in old_company_ids]
-            super(EbicsConfig, rec).write({"company_ids": updates})
-        return True
+            rec.company_ids = rec.journal_ids.mapped("company_id")
 
     def unlink(self):
         for ebics_config in self:
