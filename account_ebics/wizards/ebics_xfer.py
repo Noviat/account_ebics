@@ -263,7 +263,8 @@ class EbicsXfer(models.TransientModel):
                                 }
                             }
                         data = client.download(df.order_type, params=params)
-                    ebics_files += self._handle_download_data(data, df)
+                    if not self.env.context.get("ebics_mark_as_downloaded"):
+                        ebics_files += self._handle_download_data(data, df)
                     success = True
                 except EbicsFunctionalError:
                     err_cnt += 1

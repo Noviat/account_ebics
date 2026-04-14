@@ -169,4 +169,73 @@
     <field name="view_id" ref="ebics_xfer_view_form_upload" />
   </record>
 
+    <record id="ebics_xfer_view_form_mark_as_downloaded" model="ir.ui.view">
+        <field name="name">Mark EBICS files as Downloaded</field>
+        <field name="model">ebics.xfer</field>
+        <field name="priority">1</field>
+        <field name="arch" type="xml">
+            <form string="EBICS Mark as Downloaded">
+                <div class="alert alert-warning" role="alert">
+                    The EBICS Files (Bank Statements) selected via this screen will not become available in Odoo as EBICS files but will be marked by your bank as downloaded.
+                    <br />
+                    As a consequence, these Bank Statements will not be retrieved by the next 'EBICS Batch Import' scheduled action.
+                </div>
+                <group>
+                    <separator string="Select your bank :" colspan="2" />
+                    <field
+                        name="ebics_config_id"
+                        required="1"
+                        options="{'no_create': True, 'no_open': True}"
+                    />
+                    <field
+                        name="ebics_userid_id"
+                        domain="[('ebics_config_id', '=', ebics_config_id), ('user_ids.id', '=', uid), ('transaction_rights', 'in', ['both', 'down'])]"
+                        required="1"
+                        options="{'no_create': True, 'no_open': True}"
+                    />
+                    <field
+                        name="ebics_passphrase"
+                        password="True"
+                        invisible="ebics_passphrase_store"
+                        required="not ebics_passphrase_store"
+                    />
+                    <field name="date_from" required="1" />
+                    <field name="date_to" required="1" />
+                    <field
+                        name="format_id"
+                        required="1"
+                        domain="[('type', '=', 'down'), ('id', 'in', allowed_format_ids)]"
+                    />
+                </group>
+                <footer>
+                    <button
+                        name="ebics_download"
+                        string="Mark as Downloaded"
+                        type="object"
+                        class="btn-primary"
+                        data-hotkey="q"
+                    />
+                    <button
+                        string="Cancel"
+                        class="btn-secondary"
+                        special="cancel"
+                        data-hotkey="z"
+                    />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="ebics_xfer_action_mark_as_downloaded" model="ir.actions.act_window">
+        <field name="name">Mark files as Downloaded</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">ebics.xfer</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field
+            name="context"
+        >{'ebics_download': 1, 'ebics_mark_as_downloaded': 1}</field>
+        <field name="view_id" ref="ebics_xfer_view_form_mark_as_downloaded" />
+    </record>
+
 </odoo>

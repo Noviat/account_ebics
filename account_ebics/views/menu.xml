@@ -82,4 +82,13 @@
         sequence="30"
     />
 
+    <menuitem
+        id="ebics_xfer_menu_mark_as_downloaded"
+        name="Mark files as Downloaded"
+        parent="ebics_menu"
+        action="account_ebics.ebics_xfer_action_mark_as_downloaded"
+        groups="account_ebics.group_ebics_manager"
+        sequence="40"
+    />
+
 </odoo>
