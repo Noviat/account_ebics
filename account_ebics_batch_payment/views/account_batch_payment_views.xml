@@ -7,10 +7,11 @@
       <field name="inherit_id" ref="account_batch_payment.view_batch_payment_form" />
       <field name="arch" type="xml">
         <button name="validate_batch_button" position="after">
+          <field name="hide_ebics_upload" invisible="1" />
           <button
                     name="ebics_upload"
                     type="object"
-                    invisible="not file_generation_enabled or state != 'sent'"
+                    invisible="hide_ebics_upload"
                     string="EBICS Upload"
                 />
         </button>
