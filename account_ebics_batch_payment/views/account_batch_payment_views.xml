@@ -9,7 +9,7 @@
                 <button
                     name="ebics_upload"
                     type="object"
-                    invisible="not file_generation_enabled or state != 'sent'"
+                    invisible="hide_ebics_upload"
                     string="EBICS Upload"
                 />
             </button>
