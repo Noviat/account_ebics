@@ -1,12 +1,20 @@
-# Copyright 2009-2024 Noviat.
-# License LGPL-3 or later (http://www.gnu.org/licenses/lgpl).
+# Copyright 2015 Noviat.
+# License LGPL-3 or later (https://www.gnu.org/licenses/lgpl).
 
-from odoo import _, models
+from odoo import _, fields, models
 from odoo.exceptions import UserError
 
 
 class AccountPaymentOrder(models.Model):
     _inherit = "account.payment.order"
+
+    hide_ebics_upload = fields.Boolean(compute="_compute_hide_ebics_upload")
+
+    def _compute_hide_ebics_upload(self):
+        for rec in self:
+            rec.hide_ebics_upload = (
+                not rec.journal_id.ebics_config_id or rec.state != "generated"
+            )
 
     def ebics_upload(self):
         self.ensure_one()
@@ -28,8 +36,8 @@ class AccountPaymentOrder(models.Model):
         if not attach:
             raise UserError(
                 _(
-                    "This payment order doesn't contains attachements."
-                    "\nPlease generate first the Payment Order file first."
+                    "This payment order doesn't contains attachments."
+                    "\nPlease generate first the Payment Order file."
                 )
             )
         elif len(attach) > 1:
@@ -43,23 +51,16 @@ class AccountPaymentOrder(models.Model):
             )
         else:
             origin = _("Payment Order") + ": " + self.name
-            ebics_config = self.env["ebics.config"].search(
-                [
-                    ("journal_ids", "=", self.journal_id.id),
-                    ("state", "=", "confirm"),
-                ]
-            )
-            if not ebics_config:
+            if not self.journal_id.ebics_config_id:
                 raise UserError(
                     _(
                         "No active EBICS configuration available "
                         "for the selected bank."
                     )
                 )
-            if len(ebics_config) == 1:
-                ctx["default_ebics_config_id"] = ebics_config.id
             ctx.update(
                 {
+                    "default_ebics_config_id": self.journal_id.ebics_config_id.id,
                     "default_upload_data": attach.datas,
                     "default_upload_fname": attach.name,
                     "origin": origin,

@@ -1,5 +1,5 @@
-# Copyright 2009-2024 Noviat.
-# License LGPL-3 or later (http://www.gnu.org/licenses/lgpl).
+# Copyright 2015 Noviat.
+# License LGPL-3 or later (https://www.gnu.org/licenses/lgpl).
 
 {
     "name": "Upload Payment Order via EBICS",
