@@ -26,6 +26,11 @@ msgid "EBICS Upload"
 msgstr ""
 
 #. module: account_ebics_payment_order
+#: model:ir.model.fields,field_description:account_ebics_payment_order.field_account_payment_order__hide_ebics_upload
+msgid "Hide Ebics Upload"
+msgstr ""
+
+#. module: account_ebics_payment_order
 #. odoo-python
 #: code:addons/account_ebics_payment_order/models/account_payment_order.py:0
 msgid "Missing EBICS File Format setting on your Payment Mode."
@@ -66,6 +71,6 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_ebics_payment_order/models/account_payment_order.py:0
 msgid ""
-"This payment order doesn't contains attachements.\n"
-"Please generate first the Payment Order file first."
+"This payment order doesn't contains attachments.\n"
+"Please generate first the Payment Order file."
 msgstr ""
