@@ -1,15 +1,18 @@
 # Copyright 2015 Noviat.
 # License LGPL-3 or later (https://www.gnu.org/licenses/lgpl).
 
-from odoo import fields, models
+from odoo import api, fields, models
 from odoo.exceptions import UserError
 
 
 class AccountPaymentOrder(models.Model):
     _inherit = "account.payment.order"
 
-    hide_ebics_upload = fields.Boolean(compute="_compute_hide_ebics_upload")
+    hide_ebics_upload = fields.Boolean(
+        compute="_compute_hide_ebics_upload", default=True
+    )
 
+    @api.depends("journal_id.ebics_config_id", "state")
     def _compute_hide_ebics_upload(self):
         for rec in self:
             rec.hide_ebics_upload = (
