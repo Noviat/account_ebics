@@ -1,5 +1,5 @@
 # Copyright 2015 Noviat.
-# License LGPL-3 or later (https://www.gnu.org/licenses/lpgl).
+# License LGPL-3 or later (https://www.gnu.org/licenses/lgpl).
 
 from odoo import fields, models
 
