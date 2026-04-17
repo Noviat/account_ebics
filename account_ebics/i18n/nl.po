@@ -186,6 +186,7 @@ msgstr "Afschriften"
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_change_passphrase_view_form
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_download
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_mark_as_downloaded
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_upload
 msgid "Cancel"
 msgstr "Annuleer"
@@ -321,6 +322,7 @@ msgstr "Omschrijving"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_account_bank_statement__display_name
+#: model:ir.model.fields,field_description:account_ebics.field_account_journal__display_name
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__display_name
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_change_passphrase__display_name
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_config__display_name
@@ -618,6 +620,11 @@ msgid "EBICS Manager"
 msgstr ""
 
 #. module: account_ebics
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_mark_as_downloaded
+msgid "EBICS Mark as Downloaded"
+msgstr ""
+
+#. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
 msgid "EBICS OrderID: %s"
@@ -805,6 +812,12 @@ msgid "EBICS version mismatch."
 msgstr ""
 
 #. module: account_ebics
+#: model:ir.model.fields,field_description:account_ebics.field_account_journal__ebics_config_id
+#: model:ir.model.fields,field_description:account_ebics.field_account_journal__ebics_config_ids
+msgid "Ebics Config"
+msgstr ""
+
+#. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__ebics_keys_fn
 msgid "Ebics Keys Fn"
 msgstr ""
@@ -965,6 +978,7 @@ msgstr ""
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_account_bank_statement__id
+#: model:ir.model.fields,field_description:account_ebics.field_account_journal__id
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__id
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_change_passphrase__id
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_config__id
@@ -1027,6 +1041,11 @@ msgid "Invalid XML file."
 msgstr ""
 
 #. module: account_ebics
+#: model:ir.model,name:account_ebics.model_account_journal
+msgid "Journal"
+msgstr ""
+
+#. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__write_uid
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_change_passphrase__write_uid
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_config__write_uid
@@ -1051,6 +1070,17 @@ msgstr "Laatst bijgewerkt op"
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__ebics_key_x509_dn_l
 msgid "Locality Name [L]"
+msgstr ""
+
+#. module: account_ebics
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_mark_as_downloaded
+msgid "Mark as Downloaded"
+msgstr ""
+
+#. module: account_ebics
+#: model:ir.actions.act_window,name:account_ebics.ebics_xfer_action_mark_as_downloaded
+#: model:ir.ui.menu,name:account_ebics.ebics_xfer_menu_mark_as_downloaded
+msgid "Mark files as Downloaded"
 msgstr ""
 
 #. module: account_ebics
@@ -1312,6 +1342,7 @@ msgstr ""
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_download
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_mark_as_downloaded
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_upload
 msgid "Select your bank :"
 msgstr ""
@@ -1459,6 +1490,17 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__test_mode
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__test_mode
 msgid "Test Mode"
+msgstr ""
+
+#. module: account_ebics
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_mark_as_downloaded
+msgid ""
+"The EBICS Files (Bank Statements) selected via this screen will not become "
+"available in Odoo as EBICS files but will be marked by your bank as "
+"downloaded.\n"
+"                    <br/>\n"
+"                    As a consequence, these Bank Statements will not be "
+"retrieved by the next 'EBICS Batch Import' scheduled action."
 msgstr ""
 
 #. module: account_ebics
