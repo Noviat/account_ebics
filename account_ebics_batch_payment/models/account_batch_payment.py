@@ -1,15 +1,18 @@
 # Copyright 2020 Noviat.
 # License LGPL-3 or later (http://www.gnu.org/licenses/lgpl).
 
-from odoo import fields, models
+from odoo import api, fields, models
 from odoo.exceptions import UserError
 
 
 class AccountBatchPayment(models.Model):
     _inherit = "account.batch.payment"
 
-    hide_ebics_upload = fields.Boolean(compute="_compute_hide_ebics_upload")
+    hide_ebics_upload = fields.Boolean(
+        compute="_compute_hide_ebics_upload", default=True
+    )
 
+    @api.depends("journal_id.ebics_config_id", "file_generation_enabled", "state")
     def _compute_hide_ebics_upload(self):
         for rec in self:
             rec.hide_ebics_upload = (
