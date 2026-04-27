@@ -423,6 +423,16 @@ msgid "EBICS Administrative Orders"
 msgstr ""
 
 #. module: account_ebics
+#: model:ir.model.fields,field_description:account_ebics.field_account_journal__ebics_config_id
+msgid "EBICS Config"
+msgstr ""
+
+#. module: account_ebics
+#: model:ir.model.fields,field_description:account_ebics.field_account_journal__ebics_config_ids
+msgid "EBICS Configs"
+msgstr ""
+
+#. module: account_ebics
 #: model:ir.actions.act_window,name:account_ebics.ebics_config_action
 #: model:ir.model,name:account_ebics.model_ebics_config
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__ebics_config_id
@@ -794,12 +804,6 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
 msgid "EBICS version mismatch."
-msgstr ""
-
-#. module: account_ebics
-#: model:ir.model.fields,field_description:account_ebics.field_account_journal__ebics_config_id
-#: model:ir.model.fields,field_description:account_ebics.field_account_journal__ebics_config_ids
-msgid "Ebics Config"
 msgstr ""
 
 #. module: account_ebics
