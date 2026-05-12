@@ -17,26 +17,29 @@ class AccountStatementImport(models.TransientModel):
     def _match_journal(self, account_number, currency):
         journal = self.env["account.journal"]
         sanitized_account_number = self._sanitize_account_number(account_number)
-        fin_journals = self.env["account.journal"].search(
-            [
-                ("type", "=", "bank"),
-                "|",
-                ("currency_id", "=", currency.id),
-                ("company_id.currency_id", "=", currency.id),
-            ]
-        )
-        fin_journal = fin_journals.filtered(
-            lambda r: sanitized_account_number
-            in (r.bank_account_id.sanitized_acc_number or "")
-        )
-        if len(fin_journal) == 1:
-            journal = fin_journal
+        if sanitized_account_number:
+            fin_journals = self.env["account.journal"].search(
+                [
+                    ("type", "=", "bank"),
+                    "|",
+                    ("currency_id", "=", currency.id),
+                    ("company_id.currency_id", "=", currency.id),
+                ]
+            )
+            fin_journal = fin_journals.filtered(
+                lambda r: sanitized_account_number
+                in (r.bank_account_id.sanitized_acc_number or "")
+            )
+            if len(fin_journal) == 1:
+                journal = fin_journal
         if not journal:
             journal = super()._match_journal(account_number, currency)
         return journal
 
     def _sanitize_account_number(self, account_number):
         sanitized_number = sanitize_account_number(account_number)
+        if not sanitized_number:
+            return sanitized_number
         check_curr = sanitized_number[-3:]
         if check_curr.isalpha():
             all_currencies = self.env["res.currency"].search([])
