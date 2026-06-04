@@ -9,10 +9,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-08-31 23:13+0000\n"
 "PO-Revision-Date: 2026-06-04 12:17+0000\n"
-"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
-"memory@weblate.org>\n"
-"Language-Team: Dutch <https://translation.noviat.io/projects/noviat-generic-"
-"account-ebics-v19/account_ebics/nl/>\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>\n"
+"Language-Team: Dutch <https://translation.noviat.io/projects/noviat-generic-account-ebics-v19/account_ebics/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,39 +22,39 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
 msgid " has"
-msgstr ""
+msgstr " heeft"
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
 msgid "%(st_cnt)s bank statement%(sp)s been imported: "
-msgstr ""
+msgstr "%(st_cnt)s rekeninguittreksel%(sp)s geïmporteerd: "
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_file__date_from
 msgid "'Date From' as entered in the download wizard."
-msgstr ""
+msgstr "'Datum vanaf' zoals ingevoerd in de downloadwizard."
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_file__date_to
 msgid "'Date To' as entered in the download wizard."
-msgstr ""
+msgstr "'Datum tot' zoals ingevoerd in de downloadwizard."
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__swift_3skey_certificate
 msgid "3SKey Certficate"
-msgstr ""
+msgstr "3SKey-certificaat"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__swift_3skey_certificate_fn
 msgid "3SKey Certificate Filename"
-msgstr ""
+msgstr "Bestandsnaam 3SKey-certificaat"
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
 msgid "3SKey certificate missing."
-msgstr ""
+msgstr "3SKey-certificaat ontbreekt."
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_userid_view_form
@@ -64,21 +62,23 @@ msgid ""
 "<strong>Distinguished Name attributes used to create self-signed X.509 "
 "certificates:</strong>"
 msgstr ""
+"<strong>Distinguished Name-attributen die worden gebruikt om "
+"zelfondertekende X.509-certificaten aan te maken:</strong>"
 
 #. module: account_ebics
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_config__ebics_key_version__a005
 msgid "A005 (RSASSA-PKCS1-v1_5)"
-msgstr ""
+msgstr "A005 (RSASSA-PKCS1-v1_5)"
 
 #. module: account_ebics
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_config__ebics_key_version__a006
 msgid "A006 (RSASSA-PSS)"
-msgstr ""
+msgstr "A006 (RSASSA-PSS)"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_userid_view_form
 msgid "Account activated"
-msgstr ""
+msgstr "Rekening geactiveerd"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_config__active
@@ -89,7 +89,7 @@ msgstr "Actief"
 #. module: account_ebics
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_userid__state__active_keys
 msgid "Active Keys"
-msgstr ""
+msgstr "Actieve sleutels"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form
@@ -100,68 +100,70 @@ msgstr "Bijkomende informatie"
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__allowed_format_ids
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__allowed_format_ids
 msgid "Allowed EBICS File Formats"
-msgstr ""
+msgstr "Toegestane EBICS-bestandsformaten"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__transaction_rights
 msgid "Allowed Transactions"
-msgstr ""
+msgstr "Toegestane transacties"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__btf_container
 msgid "BTF Container"
-msgstr ""
+msgstr "BTF-container"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__btf_format
 msgid "BTF Format"
-msgstr ""
+msgstr "BTF-formaat"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__btf_message
 msgid "BTF Message Name"
-msgstr ""
+msgstr "BTF-berichtnaam"
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_file_format__btf_message
 msgid ""
 "BTF Message Name\n"
-"The message name consisting of up to 10 alphanumeric characters [a-z0-9.] "
-"(eg. pain.001, pain.008, camt.053)"
+"The message name consisting of up to 10 alphanumeric characters [a-z0-9.] (eg. pain.001, pain.008, camt.053)"
 msgstr ""
+"BTF-berichtnaam\n"
+"De berichtnaam bestaande uit maximaal 10 alfanumerieke tekens [a-z0-9.] (bv. pain.001, pain.008, camt.053)"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__btf_option
 msgid "BTF Option"
-msgstr ""
+msgstr "BTF-optie"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__btf_scope
 msgid "BTF Scope"
-msgstr ""
+msgstr "BTF-bereik"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__btf_service
 msgid "BTF Service"
-msgstr ""
+msgstr "BTF-service"
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_file_format__btf_service
 msgid ""
 "BTF Service Name)\n"
-"The service code name consisting of 3 alphanumeric characters [A-Z0-9] (e.g. "
-"SCT, SDD, STM, EOP)"
+"The service code name consisting of 3 alphanumeric characters [A-Z0-9] (e.g. SCT, SDD, STM, EOP)"
 msgstr ""
+"BTF-servicenaam)\n"
+"De servicecodenaam bestaande uit 3 alfanumerieke tekens [A-Z0-9] (bv. SCT, SDD, STM, EOP)"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__btf_variant
 msgid "BTF Variant"
-msgstr ""
+msgstr "BTF-variant"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__btf_version
 msgid "BTF Version"
-msgstr ""
+msgstr "BTF-versie"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_config__journal_ids
@@ -171,7 +173,7 @@ msgstr "Bankrekeningen"
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_userid_view_form
 msgid "Bank Keys Verified"
-msgstr ""
+msgstr "Banksleutels geverifieerd"
 
 #. module: account_ebics
 #: model:ir.model,name:account_ebics.model_account_bank_statement
@@ -200,7 +202,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_change_passphrase_view_form
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_userid_view_form
 msgid "Change Passphrase"
-msgstr ""
+msgstr "Wachtwoordzin wijzigen"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_admin_order_view_form_result
@@ -213,7 +215,7 @@ msgstr "Sluiten"
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__ebics_key_x509_dn_cn
 msgid "Common Name [CN]"
-msgstr ""
+msgstr "Algemene naam [CN]"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_config__company_ids
@@ -226,12 +228,12 @@ msgstr "Bedrijven"
 #: model:ir.model.fields,help:account_ebics.field_ebics_config__company_ids
 #: model:ir.model.fields,help:account_ebics.field_ebics_userid__company_ids
 msgid "Companies sharing this EBICS contract."
-msgstr ""
+msgstr "Bedrijven die dit EBICS-contract delen."
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_file__company_ids
 msgid "Companies sharing this EBICS file."
-msgstr ""
+msgstr "Bedrijven die dit EBICS-bestand delen."
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_config_view_form
@@ -247,19 +249,20 @@ msgstr "Bevestigd"
 #: model:ir.model.fields,help:account_ebics.field_ebics_config__ebics_host
 msgid ""
 "Contact your bank to get the EBICS HostID.\n"
-"In France the BIC is usually allocated to the HostID whereas in Germany it "
-"tends to be an institute specific string of 8 characters."
+"In France the BIC is usually allocated to the HostID whereas in Germany it tends to be an institute specific string of 8 characters."
 msgstr ""
+"Neem contact op met uw bank om de EBICS HostID te verkrijgen.\n"
+"In Frankrijk wordt de BIC meestal aan de HostID toegewezen, terwijl het in Duitsland eerder een instellingsspecifieke reeks van 8 tekens is."
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_config__ebics_url
 msgid "Contact your bank to get the EBICS URL."
-msgstr ""
+msgstr "Neem contact op met uw bank om de EBICS-URL te verkrijgen."
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__ebics_key_x509_dn_c
 msgid "Country Name [C]"
-msgstr ""
+msgstr "Landnaam [C]"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__create_uid
@@ -287,7 +290,7 @@ msgstr "Gemaakt op"
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
 msgid "Currency %(cc)s not found."
-msgstr ""
+msgstr "Valuta %(cc)s niet gevonden."
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file__date
@@ -314,6 +317,8 @@ msgid ""
 "Default signature class.This default can be overriden for specific EBICS "
 "transactions (cf. File Formats)."
 msgstr ""
+"Standaard handtekeningklasse. Deze standaardwaarde kan worden overschreven "
+"voor specifieke EBICS-transacties (cf. Bestandsformaten)."
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__description
@@ -343,7 +348,7 @@ msgstr "Klaar"
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
 msgid "Doublecheck your EBICS Passphrase and UserID settings."
-msgstr ""
+msgstr "Controleer uw EBICS-wachtwoordzin en UserID-instellingen nogmaals."
 
 #. module: account_ebics
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_file_format__type__down
@@ -355,28 +360,28 @@ msgstr "Downloaden"
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_list
 msgid "Download Date"
-msgstr ""
+msgstr "Downloaddatum"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_download
 msgid "Download Files"
-msgstr ""
+msgstr "Bestanden downloaden"
 
 #. module: account_ebics
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_userid__transaction_rights__down
 msgid "Download Only"
-msgstr ""
+msgstr "Alleen downloaden"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file__download_process_method
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__download_process_method
 msgid "Download Process Method"
-msgstr ""
+msgstr "Verwerkingsmethode voor downloaden"
 
 #. module: account_ebics
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_userid__transaction_rights__both
 msgid "Download and Upload"
-msgstr ""
+msgstr "Downloaden en uploaden"
 
 #. module: account_ebics
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_config__state__draft
@@ -390,22 +395,23 @@ msgstr "Concept"
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__upload_fname_dummy
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__upload_fname_dummy
 msgid "Dummy Upload Filename"
-msgstr ""
+msgstr "Dummy uploadbestandsnaam"
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_file_format__name
 msgid ""
 "E.g. camt.xxx.cfonb120.stm, pain.001.001.03.sct.\n"
-"Specify camt.052, camt.053, camt.054 for camt Order Types such as C53, Z53, "
-"C54, Z54.\n"
-"This name has to match the 'Request Type' in your EBICS contract for Order "
-"Type 'FDL' or 'FUL'.\n"
+"Specify camt.052, camt.053, camt.054 for camt Order Types such as C53, Z53, C54, Z54.\n"
+"This name has to match the 'Request Type' in your EBICS contract for Order Type 'FDL' or 'FUL'.\n"
 msgstr ""
+"Bijv. camt.xxx.cfonb120.stm, pain.001.001.03.sct.\n"
+"Geef camt.052, camt.053, camt.054 op voor camt-ordertypes zoals C53, Z53, C54, Z54.\n"
+"Deze naam moet overeenkomen met het 'Request Type' in uw EBICS-contract voor ordertype 'FDL' of 'FUL'.\n"
 
 #. module: account_ebics
 #: model:ir.ui.menu,name:account_ebics.ebics_menu
 msgid "EBICS"
-msgstr ""
+msgstr "EBICS"
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_admin_order__order_type
@@ -413,38 +419,38 @@ msgstr ""
 #: model:ir.model.fields,help:account_ebics.field_ebics_xfer__order_type
 msgid ""
 "EBICS 3.0: BTD (download) or BTU (upload).\n"
-"EBICS 2.0: E.g. C53 (check your EBICS contract). For most banks in France "
-"you should use the format neutral Order Types 'FUL' for upload and 'FDL' for "
-"download."
+"EBICS 2.0: E.g. C53 (check your EBICS contract). For most banks in France you should use the format neutral Order Types 'FUL' for upload and 'FDL' for download."
 msgstr ""
+"EBICS 3.0: BTD (download) of BTU (upload).\n"
+"EBICS 2.0: Bijv. C53 (controleer uw EBICS-contract). Voor de meeste banken in Frankrijk moet u de formaatneutrale ordertypes 'FUL' voor upload en 'FDL' voor download gebruiken."
 
 #. module: account_ebics
 #: model:ir.actions.act_window,name:account_ebics.ebics_admin_order_action
 #: model:ir.model,name:account_ebics.model_ebics_admin_order
 msgid "EBICS Administrative Order"
-msgstr ""
+msgstr "EBICS administratieve order"
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_admin_order.py:0
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_admin_order_view_form_result
 msgid "EBICS Administrative Order result"
-msgstr ""
+msgstr "Resultaat EBICS administratieve order"
 
 #. module: account_ebics
 #: model:ir.ui.menu,name:account_ebics.ebics_admin_order_menu
 msgid "EBICS Administrative Orders"
-msgstr ""
+msgstr "EBICS administratieve orders"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_account_journal__ebics_config_id
 msgid "EBICS Config"
-msgstr ""
+msgstr "EBICS-configuratie"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_account_journal__ebics_config_ids
 msgid "EBICS Configs"
-msgstr ""
+msgstr "EBICS-configuraties"
 
 #. module: account_ebics
 #: model:ir.actions.act_window,name:account_ebics.ebics_config_action
@@ -455,33 +461,33 @@ msgstr ""
 #: model:ir.ui.menu,name:account_ebics.ebics_config_menu
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_config_view_form
 msgid "EBICS Configuration"
-msgstr ""
+msgstr "EBICS-configuratie"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_account_bank_statement__ebics_file_id
 msgid "EBICS Data File"
-msgstr ""
+msgstr "EBICS-gegevensbestand"
 
 #. module: account_ebics
 #: model:ir.ui.menu,name:account_ebics.ebics_xfer_menu_download
 msgid "EBICS Download"
-msgstr ""
+msgstr "EBICS-download"
 
 #. module: account_ebics
 #: model:ir.actions.act_window,name:account_ebics.ebics_file_action_download
 msgid "EBICS Download Files"
-msgstr ""
+msgstr "EBICS-downloadbestanden"
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
 msgid "EBICS File '%s' is available for further processing."
-msgstr ""
+msgstr "EBICS-bestand '%s' is beschikbaar voor verdere verwerking."
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_download
 msgid "EBICS File Download"
-msgstr ""
+msgstr "EBICS-bestandsdownload"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__format_id
@@ -490,7 +496,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_format_view_form
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_format_view_search
 msgid "EBICS File Format"
-msgstr ""
+msgstr "EBICS-bestandsformaat"
 
 #. module: account_ebics
 #: model:ir.actions.act_window,name:account_ebics.ebics_file_format_action
@@ -498,47 +504,48 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file__format_id
 #: model:ir.ui.menu,name:account_ebics.ebics_file_format_menu
 msgid "EBICS File Formats"
-msgstr ""
+msgstr "EBICS-bestandsformaten"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_result
 msgid "EBICS File Transfer"
-msgstr ""
+msgstr "EBICS-bestandsoverdracht"
 
 #. module: account_ebics
 #: model:ir.actions.act_window,name:account_ebics.ebics_xfer_action_download
 msgid "EBICS File Transfer - Download"
-msgstr ""
+msgstr "EBICS-bestandsoverdracht - Download"
 
 #. module: account_ebics
 #: model:ir.actions.act_window,name:account_ebics.ebics_xfer_action_upload
 msgid "EBICS File Transfer - Upload"
-msgstr ""
+msgstr "EBICS-bestandsoverdracht - Upload"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_upload
 msgid "EBICS File Upload"
-msgstr ""
+msgstr "EBICS-bestandsupload"
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
 msgid "EBICS File has been uploaded (OrderID %s)."
-msgstr ""
+msgstr "EBICS-bestand is geüpload (OrderID %s)."
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
 msgid ""
 "EBICS File with name '%s' has already been downloaded.\n"
-"Please check this file and rename in case there is no risk on duplicate "
-"transactions."
+"Please check this file and rename in case there is no risk on duplicate transactions."
 msgstr ""
+"EBICS-bestand met naam '%s' is al gedownload.\n"
+"Controleer dit bestand en hernoem het als er geen risico op dubbele transacties is."
 
 #. module: account_ebics
 #: model:ir.ui.menu,name:account_ebics.ebics_file_menu
 msgid "EBICS Files"
-msgstr ""
+msgstr "EBICS-bestanden"
 
 #. module: account_ebics
 #. odoo-python
@@ -547,28 +554,30 @@ msgid ""
 "EBICS Functional Error during download of File Format %(name)s "
 "(%(order_type)s):"
 msgstr ""
+"EBICS functionele fout tijdens het downloaden van bestandsformaat %(name)s "
+"(%(order_type)s):"
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
 msgid "EBICS Functional Error:"
-msgstr ""
+msgstr "EBICS functionele fout:"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_config__ebics_host
 msgid "EBICS HostID"
-msgstr ""
+msgstr "EBICS HostID"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__ebics_ini_letter
 msgid "EBICS INI Letter"
-msgstr ""
+msgstr "EBICS INI-brief"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_userid_view_form
 msgid "EBICS Initialisation"
-msgstr ""
+msgstr "EBICS-initialisatie"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_userid_view_form
@@ -576,6 +585,8 @@ msgid ""
 "EBICS Initialisation - After the account has been activated the public bank "
 "keys must be downloaded and checked for consistency."
 msgstr ""
+"EBICS-initialisatie - Nadat de rekening is geactiveerd, moeten de openbare "
+"banksleutels worden gedownload en op consistentie gecontroleerd."
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_userid_view_form
@@ -583,6 +594,8 @@ msgid ""
 "EBICS Initialisation - Push this button when the account has been activated "
 "by the bank."
 msgstr ""
+"EBICS-initialisatie - Druk op deze knop wanneer de rekening door de bank is "
+"geactiveerd."
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_userid_view_form
@@ -590,18 +603,20 @@ msgid ""
 "EBICS Initialisation - Push this button when the public have been checked "
 "for consistency."
 msgstr ""
+"EBICS-initialisatie - Druk op deze knop wanneer de openbare sleutels op "
+"consistentie zijn gecontroleerd."
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
 msgid "EBICS Initialisation Error:"
-msgstr ""
+msgstr "EBICS-initialisatiefout:"
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
 msgid "EBICS Initialization Error:"
-msgstr ""
+msgstr "EBICS-initialisatiefout:"
 
 #. module: account_ebics
 #. odoo-python
@@ -609,12 +624,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_change_passphrase_view_form
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_change_passphrase_view_form_result
 msgid "EBICS Keys Change Passphrase"
-msgstr ""
+msgstr "Wachtwoordzin van EBICS-sleutels wijzigen"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_config__ebics_keys
 msgid "EBICS Keys Root"
-msgstr ""
+msgstr "Hoofdmap EBICS-sleutels"
 
 #. module: account_ebics
 #. odoo-python
@@ -623,67 +638,71 @@ msgid ""
 "EBICS Keys Root Directory %(dir)s is not available.\n"
 "Please contact your system administrator."
 msgstr ""
+"De hoofdmap voor EBICS-sleutels %(dir)s is niet beschikbaar.\n"
+"Neem contact op met uw systeembeheerder."
 
 #. module: account_ebics
 #: model:res.groups,name:account_ebics.group_ebics_manager
 msgid "EBICS Manager"
-msgstr ""
+msgstr "EBICS-beheerder"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_mark_as_downloaded
 msgid "EBICS Mark as Downloaded"
-msgstr ""
+msgstr "EBICS markeren als gedownload"
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
 msgid "EBICS OrderID: %s"
-msgstr ""
+msgstr "EBICS-order-ID: %s"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_config__ebics_partner
 msgid "EBICS PartnerID"
-msgstr ""
+msgstr "EBICS PartnerID"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__ebics_passphrase
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__ebics_passphrase
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__ebics_passphrase
 msgid "EBICS Passphrase"
-msgstr ""
+msgstr "EBICS-wachtwoordzin"
 
 #. module: account_ebics
 #: model:ir.ui.menu,name:account_ebics.ebics_processing_menu
 msgid "EBICS Processing"
-msgstr ""
+msgstr "EBICS-verwerking"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__ebics_public_bank_keys
 msgid "EBICS Public Bank Keys"
-msgstr ""
+msgstr "Openbare EBICS-banksleutels"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__ebics_public_bank_keys_fn
 msgid "EBICS Public Bank Keys Filename"
-msgstr ""
+msgstr "Bestandsnaam openbare EBICS-banksleutels"
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_userid__ebics_public_bank_keys
 msgid "EBICS Public Bank Keys to be checked for consistency."
 msgstr ""
+"Openbare EBICS-banksleutels waarvan de consistentie moet worden "
+"gecontroleerd."
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__ebics_sig_passphrase
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__ebics_sig_passphrase
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__ebics_sig_passphrase
 msgid "EBICS Signature Passphrase"
-msgstr ""
+msgstr "EBICS-handtekeningwachtwoordzin"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__ebics_passphrase_stored
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__ebics_passphrase_stored
 msgid "EBICS Stored Passphrase"
-msgstr ""
+msgstr "Opgeslagen EBICS-wachtwoordzin"
 
 #. module: account_ebics
 #. odoo-python
@@ -692,34 +711,36 @@ msgid ""
 "EBICS Technical Error during download of File Format %(name)s "
 "(%(order_type)s):"
 msgstr ""
+"Technische EBICS-fout tijdens het downloaden van bestandsformaat %(name)s "
+"(%(order_type)s):"
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_admin_order.py:0
 msgid "EBICS Technical Error during execution of order %(order_type)s:"
-msgstr ""
+msgstr "Technische EBICS-fout tijdens de uitvoering van order %(order_type)s:"
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
 msgid "EBICS Technical Error:"
-msgstr ""
+msgstr "Technische EBICS-fout:"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_config__ebics_url
 msgid "EBICS URL"
-msgstr ""
+msgstr "EBICS-URL"
 
 #. module: account_ebics
 #: model:ir.ui.menu,name:account_ebics.ebics_xfer_menu_upload
 msgid "EBICS Upload"
-msgstr ""
+msgstr "EBICS-upload"
 
 #. module: account_ebics
 #: model:ir.actions.act_window,name:account_ebics.ebics_file_action_upload
 msgid "EBICS Upload Files"
-msgstr ""
+msgstr "EBICS-bestanden uploaden"
 
 #. module: account_ebics
 #: model:ir.model,name:account_ebics.model_ebics_userid
@@ -731,12 +752,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__ebics_userid_id
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_userid_view_form
 msgid "EBICS UserID"
-msgstr ""
+msgstr "EBICS UserID"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_config_view_form
 msgid "EBICS Users"
-msgstr ""
+msgstr "EBICS-gebruikers"
 
 #. module: account_ebics
 #. odoo-python
@@ -745,19 +766,21 @@ msgid ""
 "EBICS Verification Error during download of File Format %(name)s "
 "(%(order_type)s):"
 msgstr ""
+"EBICS-verificatiefout tijdens het downloaden van bestandsformaat %(name)s "
+"(%(order_type)s):"
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
 msgid "EBICS Verification Error:"
-msgstr ""
+msgstr "EBICS-verificatiefout:"
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_admin_order.py:0
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
 msgid "EBICS client setup failed for connection '%s'"
-msgstr ""
+msgstr "Configuratie van EBICS-client mislukt voor verbinding '%s'"
 
 #. module: account_ebics
 #: model:ir.model,name:account_ebics.model_ebics_xfer
@@ -768,83 +791,83 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__note
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__note
 msgid "EBICS file transfer Log"
-msgstr ""
+msgstr "Logboek EBICS-bestandsoverdracht"
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
 msgid "EBICS file transfer result"
-msgstr ""
+msgstr "Resultaat EBICS-bestandsoverdracht"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_config__ebics_key_bitlength
 msgid "EBICS key bitlength"
-msgstr ""
+msgstr "Bitlengte van EBICS-sleutel"
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_config.py:0
 msgid "EBICS key bitlength must be >= 2048."
-msgstr ""
+msgstr "De bitlengte van de EBICS-sleutel moet >= 2048 zijn."
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_config__ebics_key_version
 msgid "EBICS key version"
-msgstr ""
+msgstr "EBICS-sleutelversie"
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
 msgid "EBICS keys change passphrase"
-msgstr ""
+msgstr "Wachtwoordzin van EBICS-sleutels wijzigen"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_config__ebics_version
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__ebics_version
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__ebics_version
 msgid "EBICS protocol version"
-msgstr ""
+msgstr "EBICS-protocolversie"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_format_view_search
 msgid "EBICS version 2"
-msgstr ""
+msgstr "EBICS versie 2"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_format_view_search
 msgid "EBICS version 3"
-msgstr ""
+msgstr "EBICS versie 3"
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
 msgid "EBICS version mismatch."
-msgstr ""
+msgstr "EBICS-versie komt niet overeen."
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__ebics_keys_fn
 msgid "Ebics Keys Fn"
-msgstr ""
+msgstr "Bestandsnaam EBICS-sleutels"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__ebics_keys_found
 msgid "Ebics Keys Found"
-msgstr ""
+msgstr "EBICS-sleutels gevonden"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__ebics_passphrase_invisible
 msgid "Ebics Passphrase Invisible"
-msgstr ""
+msgstr "EBICS-wachtwoordzin onzichtbaar"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__ebics_passphrase_required
 msgid "Ebics Passphrase Required"
-msgstr ""
+msgstr "EBICS-wachtwoordzin vereist"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__ebics_passphrase_store_readonly
 msgid "Ebics Passphrase Store Readonly"
-msgstr ""
+msgstr "Opslag EBICS-wachtwoordzin alleen-lezen"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__ebics_sig_passphrase_invisible
@@ -852,17 +875,17 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__ebics_sig_passphrase_invisible
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__ebics_sig_passphrase_invisible
 msgid "Ebics Sig Passphrase Invisible"
-msgstr ""
+msgstr "EBICS-handtekeningwachtwoordzin onzichtbaar"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__ebics_key_x509_dn_e
 msgid "Email Address"
-msgstr ""
+msgstr "E-mailadres"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__swift_3skey
 msgid "Enable 3SKey support"
-msgstr ""
+msgstr "3SKey-ondersteuning inschakelen"
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_file__download_process_method
@@ -872,6 +895,9 @@ msgid ""
 "button.E.g. specify camt.053 to import a camt.053 file and create a bank "
 "statement."
 msgstr ""
+"De verwerking binnen Odoo van het gedownloade bestand inschakelen via de "
+"knop 'Verwerken'. Geef bijv. camt.053 op om een camt.053-bestand te "
+"importeren en een rekeninguittreksel aan te maken."
 
 #. module: account_ebics
 #. odoo-python
@@ -879,24 +905,26 @@ msgstr ""
 msgid ""
 "Error detected during download of File Format %(name)s (%(order_type)s):"
 msgstr ""
+"Fout gedetecteerd tijdens het downloaden van bestandsformaat %(name)s "
+"(%(order_type)s):"
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
 msgid "Error while accessing the EBICS Keys:"
-msgstr ""
+msgstr "Fout bij toegang tot de EBICS-sleutels:"
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
 msgid "Error while accessing the EBICS UserID:"
-msgstr ""
+msgstr "Fout bij toegang tot de EBICS UserID:"
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
 msgid "Errors"
-msgstr ""
+msgstr "Fouten"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_admin_order_view_form
@@ -911,23 +939,23 @@ msgstr "Bestand"
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_search
 msgid "File Format"
-msgstr ""
+msgstr "Bestandsformaat"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_config_view_form
 msgid "File Formats"
-msgstr ""
+msgstr "Bestandsformaten"
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_file__date
 msgid "File Upload/Download date"
-msgstr ""
+msgstr "Datum bestandsupload/-download"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__upload_data
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__upload_data
 msgid "File to Upload"
-msgstr ""
+msgstr "Te uploaden bestand"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file__name
@@ -937,48 +965,47 @@ msgstr "Bestandsnaam"
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_userid_view_form
 msgid "Force Active Keys"
-msgstr ""
+msgstr "Actieve sleutels forceren"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file__bank_statement_ids
 msgid "Generated Bank Statements"
-msgstr ""
+msgstr "Gegenereerde rekeninguittreksels"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_userid_view_form
 msgid "Get Bank Keys"
-msgstr ""
+msgstr "Banksleutels ophalen"
 
 #. module: account_ebics
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_userid__state__get_bank_keys
 msgid "Get Keys from Bank"
-msgstr ""
+msgstr "Sleutels ophalen van de bank"
 
 #. module: account_ebics
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_config__ebics_version__h003
 msgid "H003 (2.4)"
-msgstr ""
+msgstr "H003 (2.4)"
 
 #. module: account_ebics
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_config__ebics_version__h004
 msgid "H004 (2.5)"
-msgstr ""
+msgstr "H004 (2.5)"
 
 #. module: account_ebics
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_config__ebics_version__h005
 msgid "H005 (3.0)"
-msgstr ""
+msgstr "H005 (3.0)"
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_config__ebics_userid_ids
 #: model:ir.model.fields,help:account_ebics.field_ebics_userid__name
 msgid ""
 "Human users or a technical system that is/are assigned to a customer. \n"
-"On the EBICS bank server it is identified by the combination of UserID and "
-"PartnerID. The technical subscriber serves only for the data exchange "
-"between customer and financial institution. The human user also can "
-"authorise orders."
+"On the EBICS bank server it is identified by the combination of UserID and PartnerID. The technical subscriber serves only for the data exchange between customer and financial institution. The human user also can authorise orders."
 msgstr ""
+"Menselijke gebruikers of een technisch systeem die aan een klant is/zijn toegewezen. \n"
+"Op de EBICS-bankserver wordt deze geïdentificeerd door de combinatie van UserID en PartnerID. De technische abonnee dient enkel voor de gegevensuitwisseling tussen klant en financiële instelling. De menselijke gebruiker kan ook opdrachten autoriseren."
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_account_bank_statement__id
@@ -996,23 +1023,23 @@ msgstr "ID"
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__ebics_ini_letter_fn
 msgid "INI-letter Filename"
-msgstr ""
+msgstr "Bestandsnaam INI-brief"
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_userid__ebics_ini_letter
 msgid "INI-letter PDF document to be sent to your bank."
-msgstr ""
+msgstr "PDF-document van de INI-brief dat naar uw bank moet worden gestuurd."
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
 msgid "Import EBICS File"
-msgstr ""
+msgstr "EBICS-bestand importeren"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_account_bank_statement__import_format
 msgid "Import Format"
-msgstr ""
+msgstr "Importformaat"
 
 #. module: account_ebics
 #. odoo-python
@@ -1021,28 +1048,30 @@ msgid ""
 "Incorrect CFONB120 file:\n"
 "the file is not divisible in 120 char lines"
 msgstr ""
+"Onjuist CFONB120-bestand:\n"
+"het bestand is niet deelbaar in regels van 120 tekens"
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_change_passphrase.py:0
 msgid "Incorrect old passphrase."
-msgstr ""
+msgstr "Onjuiste oude wachtwoordzin."
 
 #. module: account_ebics
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_userid__state__init
 msgid "Initialisation"
-msgstr ""
+msgstr "Initialisatie"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_userid_view_form
 msgid "Initialise EBICS Bank Keys"
-msgstr ""
+msgstr "EBICS-banksleutels initialiseren"
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
 msgid "Invalid XML file."
-msgstr ""
+msgstr "Ongeldig XML-bestand."
 
 #. module: account_ebics
 #: model:ir.model,name:account_ebics.model_account_journal
@@ -1074,18 +1103,18 @@ msgstr "Laatst bijgewerkt op"
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__ebics_key_x509_dn_l
 msgid "Locality Name [L]"
-msgstr ""
+msgstr "Naam van de plaats [L]"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_mark_as_downloaded
 msgid "Mark as Downloaded"
-msgstr ""
+msgstr "Markeren als gedownload"
 
 #. module: account_ebics
 #: model:ir.actions.act_window,name:account_ebics.ebics_xfer_action_mark_as_downloaded
 #: model:ir.ui.menu,name:account_ebics.ebics_xfer_menu_mark_as_downloaded
 msgid "Mark files as Downloaded"
-msgstr ""
+msgstr "Bestanden markeren als gedownload"
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_file_format__btf_format
@@ -1093,16 +1122,18 @@ msgid ""
 "Message format consisting of 1-4 alphanumeric characters [A-Z0-9] (eg. XML, "
 "JSON, PDF)."
 msgstr ""
+"Berichtformaat bestaande uit 1-4 alfanumerieke tekens [A-Z0-9] (bv. XML, "
+"JSON, PDF)."
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_file_format__btf_variant
 msgid "Message variant consisting of 3 numeric characters [0-9] (eg. 001)."
-msgstr ""
+msgstr "Berichtvariant bestaande uit 3 numerieke tekens [0-9] (bv. 001)."
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_file_format__btf_version
 msgid "Message version consisting of 2 numeric characters [0-9] (eg. 03)."
-msgstr ""
+msgstr "Berichtversie bestaande uit 2 numerieke tekens [0-9] (bv. 03)."
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_config__name
@@ -1112,64 +1143,68 @@ msgstr "Naam"
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_change_passphrase__new_pass
 msgid "New Passphrase"
-msgstr ""
+msgstr "Nieuwe wachtwoordzin"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_change_passphrase__new_pass_check
 msgid "New Passphrase (verification)"
-msgstr ""
+msgstr "Nieuwe wachtwoordzin (verificatie)"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_change_passphrase__new_sig_pass
 msgid "New Signature Passphrase"
-msgstr ""
+msgstr "Nieuwe handtekening-wachtwoordzin"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_change_passphrase__new_sig_pass_check
 msgid "New Signature Passphrase (verification)"
-msgstr ""
+msgstr "Nieuwe handtekening-wachtwoordzin (verificatie)"
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_change_passphrase.py:0
 msgid "New passphrase equal to old passphrase."
-msgstr ""
+msgstr "Nieuwe wachtwoordzin gelijk aan oude wachtwoordzin."
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_change_passphrase.py:0
 msgid "New passphrase verification error."
-msgstr ""
+msgstr "Verificatiefout van de nieuwe wachtwoordzin."
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_change_passphrase.py:0
 msgid "New signature passphrase equal to old signature passphrase."
 msgstr ""
+"Nieuwe handtekening-wachtwoordzin gelijk aan oude handtekening-"
+"wachtwoordzin."
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_change_passphrase.py:0
 msgid "New signature passphrase verification error."
-msgstr ""
+msgstr "Verificatiefout van de nieuwe handtekening-wachtwoordzin."
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
 msgid "No bank account number found."
-msgstr ""
+msgstr "Geen bankrekeningnummer gevonden."
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
 msgid "No bank defined for the financial journal of the EBICS Config"
 msgstr ""
+"Geen bank gedefinieerd voor het financiële dagboek van de EBICS-config"
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
 msgid "No financial journal found for Account Number %(nbr)s, Currency %(cc)s"
 msgstr ""
+"Geen financieel dagboek gevonden voor rekeningnummer %(nbr)s, valuta %(cc)s"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_change_passphrase__note
@@ -1181,13 +1216,13 @@ msgstr "Opmerkingen"
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
 msgid "Number of errors: %(nr)s"
-msgstr ""
+msgstr "Aantal fouten: %(nr)s"
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
 msgid "Number of warnings: %(nr)s"
-msgstr ""
+msgstr "Aantal waarschuwingen: %(nr)s"
 
 #. module: account_ebics
 #: model:ir.model,name:account_ebics.model_ebics_file
@@ -1197,12 +1232,12 @@ msgstr ""
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_change_passphrase__old_pass
 msgid "Old Passphrase"
-msgstr ""
+msgstr "Oude wachtwoordzin"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_change_passphrase__old_sig_pass
 msgid "Old Signature Passphrase"
-msgstr ""
+msgstr "Oude handtekening-wachtwoordzin"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__admin_order_type
@@ -1212,7 +1247,7 @@ msgstr "Order"
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_config__order_number
 msgid "Order Number"
-msgstr ""
+msgstr "Ordernummer"
 
 #. module: account_ebics
 #. odoo-python
@@ -1221,91 +1256,93 @@ msgid ""
 "Order Number should comply with the following pattern:\n"
 "[A-Z]{1}[A-Z0-9]{3}"
 msgstr ""
+"Het ordernummer moet voldoen aan het volgende patroon:\n"
+"[A-Z]{1}[A-Z0-9]{3}"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__order_type
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__order_type
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__order_type
 msgid "Order Type"
-msgstr ""
+msgstr "Ordertype"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__ebics_key_x509_dn_o
 msgid "Organization Name [O]"
-msgstr ""
+msgstr "Organisatienaam [O]"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__ebics_key_x509_dn_ou
 msgid "Organizational Unit Name [OU]"
-msgstr ""
+msgstr "Naam organisatie-eenheid [OU]"
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_config__ebics_partner
 msgid ""
-"Organizational unit (company or individual) that concludes a contract with "
-"the bank. \n"
-"In this contract it will be agreed which order types (file formats) are "
-"used, which accounts are concerned, which of the customer's users "
-"(subscribers) communicate with the EBICS bank server and the authorisations "
-"that these users will possess. \n"
+"Organizational unit (company or individual) that concludes a contract with the bank. \n"
+"In this contract it will be agreed which order types (file formats) are used, which accounts are concerned, which of the customer's users (subscribers) communicate with the EBICS bank server and the authorisations that these users will possess. \n"
 "It is identified by the PartnerID."
 msgstr ""
+"Organisatie-eenheid (bedrijf of persoon) die een contract sluit met de bank. \n"
+"In dit contract wordt afgesproken welke ordertypes (bestandsformaten) worden gebruikt, welke rekeningen betrokken zijn, welke van de gebruikers van de klant (abonnees) communiceren met de EBICS-bankserver en welke machtigingen deze gebruikers zullen bezitten. \n"
+"Deze wordt geïdentificeerd door de PartnerID."
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
 msgid "Origin: %s"
-msgstr ""
+msgstr "Oorsprong: %s"
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
 msgid "Passphrase mismatch."
-msgstr ""
+msgstr "Wachtwoordzinnen komen niet overeen."
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_file_format__signature_class
 msgid ""
-"Please doublecheck the security of your Odoo ERP system when using class 'E' "
-"to prevent unauthorised users to make supplier payments.\n"
+"Please doublecheck the security of your Odoo ERP system when using class 'E' to prevent unauthorised users to make supplier payments.\n"
 "Leave this field empty to use the default defined for your EBICS UserID."
 msgstr ""
+"Controleer de beveiliging van uw Odoo ERP-systeem zorgvuldig wanneer u klasse 'E' gebruikt om te voorkomen dat onbevoegde gebruikers leveranciersbetalingen uitvoeren.\n"
+"Laat dit veld leeg om de standaardwaarde te gebruiken die is gedefinieerd voor uw EBICS UserID."
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form
 msgid "Process"
-msgstr ""
+msgstr "Verwerken"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_result
 msgid "Process EBICS File"
-msgstr ""
+msgstr "EBICS-bestand verwerken"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file__note_process
 msgid "Process Notes"
-msgstr ""
+msgstr "Verwerkingsnotities"
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
 msgid "Process file %(fn)s results:"
-msgstr ""
+msgstr "Resultaten verwerking bestand %(fn)s:"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form
 msgid "Process the EBICS File"
-msgstr ""
+msgstr "Het EBICS-bestand verwerken"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_userid_view_form
 msgid "Renew Bank Keys"
-msgstr ""
+msgstr "Bankkeys vernieuwen"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__name
 msgid "Request Type"
-msgstr ""
+msgstr "Type aanvraag"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_admin_order_view_form_result
@@ -1318,15 +1355,16 @@ msgstr "Resultaat :"
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_config__ebics_keys
 msgid "Root Directory for storing the EBICS Keys."
-msgstr ""
+msgstr "Hoofdmap voor het opslaan van de EBICS-keys."
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_file_format__btf_scope
 msgid ""
 "Scope of service.\n"
-"Either an ISO-3166 ALPHA 2 country code or an issuer code of 3 alphanumeric "
-"characters [A-Z0-9]."
+"Either an ISO-3166 ALPHA 2 country code or an issuer code of 3 alphanumeric characters [A-Z0-9]."
 msgstr ""
+"Bereik van de dienst.\n"
+"Ofwel een ISO-3166 ALPHA 2-landcode, ofwel een uitgevercode van 3 alfanumerieke tekens [A-Z0-9]."
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_admin_order__format_id
@@ -1335,6 +1373,8 @@ msgid ""
 "Select EBICS File Format to upload/download.\n"
 "Leave blank to download all available files."
 msgstr ""
+"Selecteer het EBICS-bestandsformaat om te uploaden/downloaden.\n"
+"Laat leeg om alle beschikbare bestanden te downloaden."
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_admin_order__test_mode
@@ -1343,13 +1383,15 @@ msgid ""
 "Select this option to test if the syntax of the upload file is correct.\n"
 "This option is only available for Order Type 'FUL'."
 msgstr ""
+"Selecteer deze optie om te testen of de syntaxis van het uploadbestand correct is.\n"
+"Deze optie is alleen beschikbaar voor ordertype 'FUL'."
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_download
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_mark_as_downloaded
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_upload
 msgid "Select your bank :"
-msgstr ""
+msgstr "Selecteer uw bank:"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_upload
@@ -1360,49 +1402,52 @@ msgstr "Selecteer uw bestand:"
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
 msgid "Set a passphrase."
-msgstr ""
+msgstr "Stel een wachtwoordzin in."
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
 msgid "Set state to 'Get Keys from Bank'."
-msgstr ""
+msgstr "Status instellen op 'Keys ophalen bij bank'."
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
 msgid "Set state to 'Initialisation'."
-msgstr ""
+msgstr "Status instellen op 'Initialisatie'."
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
 msgid "Set state to 'Verification'."
-msgstr ""
+msgstr "Status instellen op 'Verificatie'."
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
 msgid "Set state to 'draft' before Bank Key (re)initialisation."
-msgstr ""
+msgstr "Status instellen op 'concept' vóór (her)initialisatie van de bankkey."
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
 msgid ""
-"Set the EBICS Configuation record to 'Draft' before starting the Key Renewal "
-"process."
+"Set the EBICS Configuation record to 'Draft' before starting the Key Renewal"
+" process."
 msgstr ""
+"Zet het EBICS-configuratierecord op 'Concept' voordat u het "
+"keyvernieuwingsproces start."
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_userid__ebics_key_x509
 msgid "Set this flag in order to work with self-signed X.509 certificates"
 msgstr ""
+"Stel deze vlag in om met zelfondertekende X.509-certificaten te werken"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form
 msgid "Set to Done"
-msgstr ""
+msgstr "Op Klaar zetten"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_config_view_form
@@ -1414,24 +1459,24 @@ msgstr "Zet op concept"
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_config_view_form
 msgid "Set to Draft in order to change the EBICS configuration parameters."
-msgstr ""
+msgstr "Zet op Concept om de EBICS-configuratieparameters te wijzigen."
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_userid_view_form
 msgid "Set to Draft in order to reinitialize your bank connection."
-msgstr ""
+msgstr "Zet op Concept om uw bankverbinding opnieuw te initialiseren."
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__signature_class
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__signature_class
 msgid "Signature Class"
-msgstr ""
+msgstr "Handtekeningklasse"
 
 #. module: account_ebics
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_file_format__signature_class__e
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_userid__signature_class__e
 msgid "Single signature"
-msgstr ""
+msgstr "Enkele handtekening"
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_file_format__suffix
@@ -1439,6 +1484,8 @@ msgid ""
 "Specify the filename suffix for this File Format.\n"
 "E.g. c53.xml"
 msgstr ""
+"Geef het achtervoegsel van de bestandsnaam voor dit bestandsformaat op.\n"
+"Bijv. c53.xml"
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_config__order_number
@@ -1446,6 +1493,8 @@ msgid ""
 "Specify the number for the next order.\n"
 "This number should match the following pattern : [A-Z]{1}[A-Z0-9]{3}"
 msgstr ""
+"Geef het nummer voor de volgende order op.\n"
+"Dit nummer moet overeenkomen met het volgende patroon: [A-Z]{1}[A-Z0-9]{3}"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_config__state
@@ -1458,54 +1507,54 @@ msgstr "Status"
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__ebics_key_x509_dn_st
 msgid "State Or Province Name [ST]"
-msgstr ""
+msgstr "Naam van staat of provincie [ST]"
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
 msgid "Statement %(st)s dated %(date)s (Company: %(cpy)s)"
-msgstr ""
+msgstr "Uittreksel %(st)s gedateerd %(date)s (Bedrijf: %(cpy)s)"
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
 msgid "Statement %(st_name)s dated %(date)s has already been imported."
-msgstr ""
+msgstr "Uittreksel %(st_name)s gedateerd %(date)s is al geïmporteerd."
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
 msgid "Statement for Account Number %(nr)s has not been processed."
-msgstr ""
+msgstr "Uittreksel voor rekeningnummer %(nr)s is niet verwerkt."
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__ebics_passphrase_store
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__ebics_passphrase_store
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__ebics_passphrase_store
 msgid "Store EBICS Passphrase"
-msgstr ""
+msgstr "EBICS-wachtwoordzin opslaan"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__suffix
 msgid "Suffix"
-msgstr ""
+msgstr "Achtervoegsel"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__test_mode
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__test_mode
 msgid "Test Mode"
-msgstr ""
+msgstr "Testmodus"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_mark_as_downloaded
 msgid ""
-"The EBICS Files (Bank Statements) selected via this screen will not become "
-"available in Odoo as EBICS files but will be marked by your bank as "
-"downloaded.\n"
+"The EBICS Files (Bank Statements) selected via this screen will not become available in Odoo as EBICS files but will be marked by your bank as downloaded.\n"
 "                    <br/>\n"
-"                    As a consequence, these Bank Statements will not be "
-"retrieved by the next 'EBICS Batch Import' scheduled action."
+"                    As a consequence, these Bank Statements will not be retrieved by the next 'EBICS Batch Import' scheduled action."
 msgstr ""
+"De via dit scherm geselecteerde EBICS-bestanden (rekeninguittreksels) worden niet beschikbaar in Odoo als EBICS-bestanden maar worden door uw bank gemarkeerd als gedownload.\n"
+"                    <br/>\n"
+"                    Bijgevolg worden deze rekeninguittreksels niet opgehaald door de volgende geplande actie 'EBICS-batchimport'."
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_config_view_form
@@ -1513,24 +1562,26 @@ msgid ""
 "The EBICS configuration must be confirmed before it can used for bank "
 "transactions."
 msgstr ""
+"De EBICS-configuratie moet worden bevestigd voordat deze kan worden gebruikt"
+" voor banktransacties."
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
 msgid "The EBICS response could not be verified."
-msgstr ""
+msgstr "Het EBICS-antwoord kon niet worden geverifieerd."
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
 msgid "The Passphrase must be at least 8 characters long"
-msgstr ""
+msgstr "De wachtwoordzin moet minstens 8 tekens lang zijn"
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
 msgid "The Signature Passphrase must be at least 8 characters long"
-msgstr ""
+msgstr "De handtekeningwachtwoordzin moet minstens 8 tekens lang zijn"
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_config__ebics_key_bitlength
@@ -1538,6 +1589,8 @@ msgid ""
 "The bit length of the generated keys. \n"
 "The value must be between 1536 and 4096."
 msgstr ""
+"De bitlengte van de gegenereerde sleutels. \n"
+"De waarde moet tussen 1536 en 4096 liggen."
 
 #. module: account_ebics
 #. odoo-python
@@ -1546,6 +1599,8 @@ msgid ""
 "The current version of the 'account_ebics' module has no support to "
 "automatically process EBICS files with format %s."
 msgstr ""
+"De huidige versie van de module 'account_ebics' biedt geen ondersteuning "
+"voor het automatisch verwerken van EBICS-bestanden met formaat %s."
 
 #. module: account_ebics
 #. odoo-python
@@ -1554,30 +1609,35 @@ msgid ""
 "The current version of this module requires to X509 support when enabling "
 "3SKey"
 msgstr ""
+"De huidige versie van deze module vereist X509-ondersteuning bij het "
+"inschakelen van 3SKey"
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_config__ebics_key_version
 msgid "The key version of the electronic signature."
-msgstr ""
+msgstr "De sleutelversie van de elektronische handtekening."
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
 msgid ""
-"The module to process the '%(ebics_format)s' format is not installed on your "
-"system. \n"
+"The module to process the '%(ebics_format)s' format is not installed on your system. \n"
 "Please install module '%(module)s'"
 msgstr ""
+"De module om het formaat '%(ebics_format)s' te verwerken is niet geïnstalleerd op uw systeem. \n"
+"Installeer de module '%(module)s'"
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
 msgid ""
-"The module to process the '%(ebics_format)s' format is not installed on your "
-"system. \n"
+"The module to process the '%(ebics_format)s' format is not installed on your system. \n"
 "Please install one of the following modules: \n"
 "%(modules)s."
 msgstr ""
+"De module om het formaat '%(ebics_format)s' te verwerken is niet geïnstalleerd op uw systeem. \n"
+"Installeer een van de volgende modules: \n"
+"%(modules)s."
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_file_format__btf_option
@@ -1585,29 +1645,32 @@ msgid ""
 "The service option code consisting of 3-10 alphanumeric characters [A-Z0-9] "
 "(eg. COR, B2B)"
 msgstr ""
+"De service-optiecode bestaande uit 3-10 alfanumerieke tekens [A-Z0-9] (bijv."
+" COR, B2B)"
 
 #. module: account_ebics
 #: model:ir.model.constraint,message:account_ebics.constraint_ebics_file_name_uniq
 msgid "This File has already been down- or uploaded !"
-msgstr ""
+msgstr "Dit bestand is al gedownload of geüpload!"
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
 msgid "This file doesn't contain any transaction."
-msgstr ""
+msgstr "Dit bestand bevat geen enkele transactie."
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_userid__swift_3skey
 msgid ""
 "Transactions for this user will be signed by means of the SWIFT 3SKey token."
 msgstr ""
+"Transacties voor deze gebruiker worden ondertekend met de SWIFT 3SKey-token."
 
 #. module: account_ebics
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_file_format__signature_class__t
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_userid__signature_class__t
 msgid "Transport signature"
-msgstr ""
+msgstr "Transporthandtekening"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file__type
@@ -1618,19 +1681,22 @@ msgstr "Soort"
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_file_format__btf_container
 msgid "Type of container consisting of 3 characters [A-Z] (eg. XML, ZIP)."
-msgstr ""
+msgstr "Type container bestaande uit 3 tekens [A-Z] (bijv. XML, ZIP)."
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
 msgid "Unknown Error"
-msgstr ""
+msgstr "Onbekende fout"
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
-msgid "Unknown Error during download of File Format %(name)s (%(order_type)s):"
+msgid ""
+"Unknown Error during download of File Format %(name)s (%(order_type)s):"
 msgstr ""
+"Onbekende fout tijdens het downloaden van bestandsformaat %(name)s "
+"(%(order_type)s):"
 
 #. module: account_ebics
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_file_format__type__up
@@ -1642,30 +1708,30 @@ msgstr "Upload"
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_list
 msgid "Upload Date"
-msgstr ""
+msgstr "Uploaddatum"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_upload
 msgid "Upload File"
-msgstr ""
+msgstr "Bestand uploaden"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__upload_fname
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__upload_fname
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_upload
 msgid "Upload Filename"
-msgstr ""
+msgstr "Bestandsnaam upload"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__upload_format_ids
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__upload_format_ids
 msgid "Upload Format"
-msgstr ""
+msgstr "Uploadformaat"
 
 #. module: account_ebics
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_userid__transaction_rights__up
 msgid "Upload Only"
-msgstr ""
+msgstr "Alleen uploaden"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_userid_view_form
@@ -1673,11 +1739,13 @@ msgid ""
 "Use this button to bypass the EBICS initialization (e.g. in case you have "
 "manually transferred active EBICS keys from another system."
 msgstr ""
+"Gebruik deze knop om de EBICS-initialisatie te omzeilen (bijv. als u "
+"handmatig actieve EBICS-sleutels van een ander systeem hebt overgedragen."
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_userid_view_form
 msgid "Use this button to update the EBICS certificates of your bank."
-msgstr ""
+msgstr "Gebruik deze knop om de EBICS-certificaten van uw bank bij te werken."
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_userid__transaction_rights
@@ -1685,6 +1753,8 @@ msgid ""
 "Use this parameter to limit the transactions for this User to downloads or "
 "uploads."
 msgstr ""
+"Gebruik deze parameter om de transacties voor deze gebruiker te beperken tot"
+" downloads of uploads."
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file__user_id
@@ -1701,6 +1771,7 @@ msgstr "Gebruikers"
 #: model:ir.model.fields,help:account_ebics.field_ebics_userid__user_ids
 msgid "Users who are allowed to use this EBICS UserID for  bank transactions."
 msgstr ""
+"Gebruikers die deze EBICS-UserID mogen gebruiken voor  banktransacties."
 
 #. module: account_ebics
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_userid__state__to_verify
@@ -1711,7 +1782,7 @@ msgstr "Controle"
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
 msgid "Versions supported by your bank:"
-msgstr ""
+msgstr "Versies die door uw bank worden ondersteund:"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_result
@@ -1721,7 +1792,7 @@ msgstr "Bekijk bankafschrift(en)"
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_result
 msgid "View EBICS File(s)"
-msgstr ""
+msgstr "EBICS-bestand(en) bekijken"
 
 #. module: account_ebics
 #. odoo-python
@@ -1734,49 +1805,52 @@ msgstr "Waarschuwingen"
 #: model:ir.model.fields,help:account_ebics.field_ebics_userid__ebics_passphrase_store
 #: model:ir.model.fields,help:account_ebics.field_ebics_xfer__ebics_passphrase_store
 msgid ""
-"When you uncheck this option the passphrase to unlock your private key will "
-"not be stored in the database. We recommend to use this if you want to "
-"upload signed payment orders via EBICS.\n"
-"You will be prompted to enter the passphrase for every EBICS transaction, "
-"hence do not uncheck this option on a userid for automated EBICS downloads."
+"When you uncheck this option the passphrase to unlock your private key will not be stored in the database. We recommend to use this if you want to upload signed payment orders via EBICS.\n"
+"You will be prompted to enter the passphrase for every EBICS transaction, hence do not uncheck this option on a userid for automated EBICS downloads."
 msgstr ""
+"Wanneer u deze optie uitschakelt, wordt de wachtwoordzin om uw privésleutel te ontgrendelen niet opgeslagen in de database. We raden aan dit te gebruiken als u ondertekende betalingsopdrachten via EBICS wilt uploaden.\n"
+"U wordt gevraagd de wachtwoordzin in te voeren voor elke EBICS-transactie, schakel deze optie dus niet uit op een userid voor geautomatiseerde EBICS-downloads."
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
 msgid "X.509 certificates must be used with EBICS 3.0."
-msgstr ""
+msgstr "X.509-certificaten moeten worden gebruikt met EBICS 3.0."
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__ebics_key_x509
 msgid "X509 support"
-msgstr ""
+msgstr "X509-ondersteuning"
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
 msgid "You can only remove EBICS files in state 'Draft'."
-msgstr ""
+msgstr "U kunt alleen EBICS-bestanden met de status 'Concept' verwijderen."
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_userid__ebics_sig_passphrase
 msgid ""
 "You can set here a different passphrase for the EBICS signing key. This "
-"passphrase will never be stored hence you'll need to specify your passphrase "
-"for each transaction that requires a digital signature."
+"passphrase will never be stored hence you'll need to specify your passphrase"
+" for each transaction that requires a digital signature."
 msgstr ""
+"U kunt hier een andere wachtwoordzin instellen voor de EBICS-"
+"ondertekeningssleutel. Deze wachtwoordzin wordt nooit opgeslagen, dus u moet"
+" uw wachtwoordzin opgeven voor elke transactie die een digitale handtekening"
+" vereist."
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_config.py:0
 msgid "You cannot remove active EBICS configurations."
-msgstr ""
+msgstr "U kunt geen actieve EBICS-configuraties verwijderen."
 
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
 msgid "s have"
-msgstr ""
+msgstr "s hebben"
 
 #. module: account_ebics
 #. odoo-python
@@ -1785,6 +1859,8 @@ msgid ""
 "urlopen error:\n"
 " url '%(url)s' - %(val)s"
 msgstr ""
+"urlopen-fout:\n"
+" url '%(url)s' - %(val)s"
 
 #~ msgid "Group By"
 #~ msgstr "Groepeer op"
