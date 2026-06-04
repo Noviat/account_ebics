@@ -1,0 +1,78 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_ebics_payment_order
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: fr\n"
+
+#. module: account_ebics_payment_order
+#: model:ir.model.fields,field_description:account_ebics_payment_order.field_account_payment_mode__ebics_format_id
+msgid "EBICS File Format"
+msgstr ""
+
+#. module: account_ebics_payment_order
+#. odoo-python
+#: code:addons/account_ebics_payment_order/models/account_payment_order.py:0
+#: model_terms:ir.ui.view,arch_db:account_ebics_payment_order.account_payment_order_form
+msgid "EBICS Upload"
+msgstr ""
+
+#. module: account_ebics_payment_order
+#: model:ir.model.fields,field_description:account_ebics_payment_order.field_account_payment_order__hide_ebics_upload
+msgid "Hide Ebics Upload"
+msgstr ""
+
+#. module: account_ebics_payment_order
+#. odoo-python
+#: code:addons/account_ebics_payment_order/models/account_payment_order.py:0
+msgid "Missing EBICS File Format setting on your Payment Mode."
+msgstr ""
+
+#. module: account_ebics_payment_order
+#. odoo-python
+#: code:addons/account_ebics_payment_order/models/account_payment_order.py:0
+msgid "No active EBICS configuration available for the selected bank."
+msgstr ""
+
+#. module: account_ebics_payment_order
+#: model:ir.model,name:account_ebics_payment_order.model_account_payment_mode
+msgid "Payment Modes"
+msgstr ""
+
+#. module: account_ebics_payment_order
+#. odoo-python
+#: code:addons/account_ebics_payment_order/models/account_payment_order.py:0
+#: model:ir.model,name:account_ebics_payment_order.model_account_payment_order
+msgid "Payment Order"
+msgstr ""
+
+#. module: account_ebics_payment_order
+#: model:ir.model.fields,help:account_ebics_payment_order.field_account_payment_mode__ebics_format_id
+msgid "Select EBICS File Format to upload."
+msgstr ""
+
+#. module: account_ebics_payment_order
+#. odoo-python
+#: code:addons/account_ebics_payment_order/models/account_payment_order.py:0
+msgid ""
+"This payment order contains multiple attachments.\n"
+"Please remove the obsolete attachments or upload the payment order file via "
+"the EBICS Processing > EBICS Upload menu"
+msgstr ""
+
+#. module: account_ebics_payment_order
+#. odoo-python
+#: code:addons/account_ebics_payment_order/models/account_payment_order.py:0
+msgid ""
+"This payment order doesn't contains attachments.\n"
+"Please generate first the Payment Order file."
+msgstr ""
