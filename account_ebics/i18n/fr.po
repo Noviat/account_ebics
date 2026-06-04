@@ -2,23 +2,23 @@
 # This file contains the translation of the following modules:
 # * account_ebics
 #
-# Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2025.
+# Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-08-31 23:02+0000\n"
-"PO-Revision-Date: 2025-11-02 03:03+0000\n"
+"PO-Revision-Date: 2026-06-04 12:17+0000\n"
 "Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
 "memory@weblate.org>\n"
-"Language-Team: French <https://translation.noviat.com/projects/noviat-"
-"generic-account-ebics-v18/account_ebics/fr/>\n"
+"Language-Team: French <https://translation.noviat.io/projects/noviat-generic-"
+"account-ebics-v19/account_ebics/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.13.3\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #. module: account_ebics
 #. odoo-python
@@ -1047,7 +1047,7 @@ msgstr ""
 #. module: account_ebics
 #: model:ir.model,name:account_ebics.model_account_journal
 msgid "Journal"
-msgstr ""
+msgstr "Journal"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__write_uid
