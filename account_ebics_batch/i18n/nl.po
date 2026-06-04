@@ -9,10 +9,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-08-31 23:13+0000\n"
 "PO-Revision-Date: 2025-09-02 00:02+0000\n"
-"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
-"memory@weblate.org>\n"
-"Language-Team: Dutch <https://translation.noviat.com/projects/noviat-generic-"
-"account-ebics-v18/account_ebics_batch/nl/>\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>\n"
+"Language-Team: Dutch <https://translation.noviat.com/projects/noviat-generic-account-ebics-v18/account_ebics_batch/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,28 +21,28 @@ msgstr ""
 #. module: account_ebics_batch
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__file_ids
 msgid "Batch Import EBICS Files"
-msgstr ""
+msgstr "EBICS-bestanden batchgewijs importeren"
 
 #. module: account_ebics_batch
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log_item__note
 #: model_terms:ir.ui.view,arch_db:account_ebics_batch.ebics_batch_log_view_form
 msgid "Batch Import Log"
-msgstr ""
+msgstr "Batchimportlog"
 
 #. module: account_ebics_batch
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__log_ids
 msgid "Batch Import Log Items"
-msgstr ""
+msgstr "Batchimportlogregels"
 
 #. module: account_ebics_batch
 #: model_terms:ir.ui.view,arch_db:account_ebics_batch.ebics_batch_log_view_form
 msgid "Batch Import Logs"
-msgstr ""
+msgstr "Batchimportlogs"
 
 #. module: account_ebics_batch
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log_item__log_id
 msgid "Batch Object"
-msgstr ""
+msgstr "Batchobject"
 
 #. module: account_ebics_batch
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__create_uid
@@ -89,33 +87,33 @@ msgstr "Concept"
 #. module: account_ebics_batch
 #: model:ir.actions.server,name:account_ebics_batch.ir_cron_ebics_batch_import_ir_actions_server
 msgid "EBICS Batch Import"
-msgstr ""
+msgstr "EBICS batchimport"
 
 #. module: account_ebics_batch
 #: model_terms:ir.ui.view,arch_db:account_ebics_batch.ebics_batch_log_view_form
 msgid "EBICS Batch Import Log"
-msgstr ""
+msgstr "EBICS batchimportlog"
 
 #. module: account_ebics_batch
 #: model:ir.actions.act_window,name:account_ebics_batch.ebics_batch_log_action
 #: model:ir.ui.menu,name:account_ebics_batch.ebics_batch_log_menu
 msgid "EBICS Batch Import Logs"
-msgstr ""
+msgstr "EBICS batchimportlogs"
 
 #. module: account_ebics_batch
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__ebics_config_ids
 msgid "EBICS Configurations"
-msgstr ""
+msgstr "EBICS-configuraties"
 
 #. module: account_ebics_batch
 #: model_terms:ir.ui.view,arch_db:account_ebics_batch.ebics_batch_log_view_form
 msgid "EBICS Files"
-msgstr ""
+msgstr "EBICS-bestanden"
 
 #. module: account_ebics_batch
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__file_count
 msgid "EBICS Files Count"
-msgstr ""
+msgstr "Aantal EBICS-bestanden"
 
 #. module: account_ebics_batch
 #: model:ir.model.fields.selection,name:account_ebics_batch.selection__ebics_batch_log__state__error
@@ -127,12 +125,12 @@ msgstr "Fout"
 #. odoo-python
 #: code:addons/account_ebics_batch/models/ebics_batch_log.py:0
 msgid "Error while processing EBICS connection '%s' :\n"
-msgstr ""
+msgstr "Fout bij het verwerken van EBICS-verbinding '%s':\n"
 
 #. module: account_ebics_batch
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__has_draft_files
 msgid "Has Draft Files"
-msgstr ""
+msgstr "Heeft conceptbestanden"
 
 #. module: account_ebics_batch
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__id
@@ -155,7 +153,7 @@ msgstr "Laatst bijgewerkt op"
 #. module: account_ebics_batch
 #: model_terms:ir.ui.view,arch_db:account_ebics_batch.ebics_batch_log_view_form
 msgid "Mark Done"
-msgstr ""
+msgstr "Markeren als gedaan"
 
 #. module: account_ebics_batch
 #. odoo-python
@@ -164,11 +162,13 @@ msgid ""
 "No EBICS UserID with stored passphrase found.\n"
 "You should configure such a UserID for automated downloads."
 msgstr ""
+"Geen EBICS UserID met opgeslagen wachtwoordzin gevonden.\n"
+"U dient een dergelijke UserID te configureren voor geautomatiseerde downloads."
 
 #. module: account_ebics_batch
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log_item__error_count
 msgid "Number of Errors"
-msgstr ""
+msgstr "Aantal fouten"
 
 #. module: account_ebics_batch
 #: model:ir.model,name:account_ebics_batch.model_ebics_batch_log_item
@@ -184,28 +184,29 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_ebics_batch/models/ebics_batch_log.py:0
 msgid "Only log objects in state 'draft' can be deleted !"
-msgstr ""
+msgstr "Alleen logobjecten met status 'concept' kunnen worden verwijderd!"
 
 #. module: account_ebics_batch
 #. odoo-python
 #: code:addons/account_ebics_batch/models/ebics_batch_log.py:0
 msgid "Please set state to 'Confirm' and Reprocess this EBICS Import Log."
 msgstr ""
+"Stel de status in op 'Bevestigen' en verwerk dit EBICS-importlog opnieuw."
 
 #. module: account_ebics_batch
 #: model_terms:ir.ui.view,arch_db:account_ebics_batch.ebics_batch_log_view_form
 msgid "Reprocess"
-msgstr ""
+msgstr "Opnieuw verwerken"
 
 #. module: account_ebics_batch
 #: model_terms:ir.ui.view,arch_db:account_ebics_batch.ebics_batch_log_view_form
 msgid "Reprocess 'draft' EBICS Files"
-msgstr ""
+msgstr "EBICS-bestanden in 'concept' opnieuw verwerken"
 
 #. module: account_ebics_batch
 #: model_terms:ir.ui.view,arch_db:account_ebics_batch.ebics_batch_log_view_search
 msgid "Search EBICS Batch Import Log Files"
-msgstr ""
+msgstr "EBICS-batchimport-logbestanden zoeken"
 
 #. module: account_ebics_batch
 #: model_terms:ir.ui.view,arch_db:account_ebics_batch.ebics_batch_log_view_form
