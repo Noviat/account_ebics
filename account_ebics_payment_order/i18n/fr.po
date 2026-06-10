@@ -1,35 +1,40 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* account_ebics_payment_order
+# * account_ebics_payment_order
 #
+# Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-06-10 02:54+0000\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
+"memory@weblate.org>\n"
+"Language-Team: French <https://translation.noviat.io/projects/noviat-generic-"
+"account-ebics-v18/account_ebics_payment_order/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #. module: account_ebics_payment_order
 #: model:ir.model.fields,field_description:account_ebics_payment_order.field_account_payment_mode__ebics_format_id
 msgid "EBICS File Format"
-msgstr ""
+msgstr "Format de fichier EBICS"
 
 #. module: account_ebics_payment_order
 #. odoo-python
 #: code:addons/account_ebics_payment_order/models/account_payment_order.py:0
 #: model_terms:ir.ui.view,arch_db:account_ebics_payment_order.account_payment_order_form
 msgid "EBICS Upload"
-msgstr ""
+msgstr "Téléversement EBICS"
 
 #. module: account_ebics_payment_order
 #: model:ir.model.fields,field_description:account_ebics_payment_order.field_account_payment_order__hide_ebics_upload
 msgid "Hide Ebics Upload"
-msgstr ""
+msgstr "Masquer le téléversement Ebics"
 
 #. module: account_ebics_payment_order
 #. odoo-python
@@ -42,6 +47,7 @@ msgstr ""
 #: code:addons/account_ebics_payment_order/models/account_payment_order.py:0
 msgid "No active EBICS configuration available for the selected bank."
 msgstr ""
+"Aucune configuration EBICS active disponible pour la banque sélectionnée."
 
 #. module: account_ebics_payment_order
 #: model:ir.model,name:account_ebics_payment_order.model_account_payment_mode
