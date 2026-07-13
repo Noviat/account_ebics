@@ -15,25 +15,25 @@ class AccountStatementImport(models.TransientModel):
     _inherit = "account.statement.import"
 
     def _match_journal(self, account_number, currency):
-        journal = self.env["account.journal"]
+        if not account_number:
+            return super()._match_journal(account_number, currency)
         sanitized_account_number = self._sanitize_account_number(account_number)
-        fin_journals = self.env["account.journal"].search(
+        fin_journal = self.env["account.journal"].search(
             [
                 ("type", "=", "bank"),
+                (
+                    "bank_account_id.sanitized_acc_number",
+                    "like",
+                    sanitized_account_number,
+                ),
                 "|",
                 ("currency_id", "=", currency.id),
                 ("company_id.currency_id", "=", currency.id),
             ]
         )
-        fin_journal = fin_journals.filtered(
-            lambda r: sanitized_account_number
-            in (r.bank_account_id.sanitized_acc_number or "")
-        )
         if len(fin_journal) == 1:
-            journal = fin_journal
-        if not journal:
-            journal = super()._match_journal(account_number, currency)
-        return journal
+            return fin_journal
+        return super()._match_journal(account_number, currency)
 
     def _sanitize_account_number(self, account_number):
         sanitized_number = sanitize_account_number(account_number)
