@@ -57,8 +57,7 @@ class AccountPaymentOrder(models.Model):
             if not self.journal_id.ebics_config_id:
                 raise UserError(
                     self.env._(
-                        "No active EBICS configuration available "
-                        "for the selected bank."
+                        "No active EBICS configuration available for the selected bank."
                     )
                 )
             ctx.update(
