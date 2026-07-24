@@ -20,6 +20,12 @@ msgstr ""
 "X-Generator: Weblate 5.15.1\n"
 
 #. module: account_ebics_payment_order
+#: model:ir.model.fields,field_description:account_ebics_payment_order.field_account_payment_mode__display_name
+#: model:ir.model.fields,field_description:account_ebics_payment_order.field_account_payment_order__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_ebics_payment_order
 #: model:ir.model.fields,field_description:account_ebics_payment_order.field_account_payment_mode__ebics_format_id
 msgid "EBICS File Format"
 msgstr "Format de fichier EBICS"
@@ -35,6 +41,12 @@ msgstr "Téléversement EBICS"
 #: model:ir.model.fields,field_description:account_ebics_payment_order.field_account_payment_order__hide_ebics_upload
 msgid "Hide Ebics Upload"
 msgstr "Masquer le téléversement Ebics"
+
+#. module: account_ebics_payment_order
+#: model:ir.model.fields,field_description:account_ebics_payment_order.field_account_payment_mode__id
+#: model:ir.model.fields,field_description:account_ebics_payment_order.field_account_payment_order__id
+msgid "ID"
+msgstr ""
 
 #. module: account_ebics_payment_order
 #. odoo-python

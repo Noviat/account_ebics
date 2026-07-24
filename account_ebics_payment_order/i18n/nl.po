@@ -20,6 +20,12 @@ msgstr ""
 "X-Generator: Weblate 5.15.1\n"
 
 #. module: account_ebics_payment_order
+#: model:ir.model.fields,field_description:account_ebics_payment_order.field_account_payment_mode__display_name
+#: model:ir.model.fields,field_description:account_ebics_payment_order.field_account_payment_order__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_ebics_payment_order
 #: model:ir.model.fields,field_description:account_ebics_payment_order.field_account_payment_mode__ebics_format_id
 msgid "EBICS File Format"
 msgstr "EBICS-bestandsformaat"
@@ -37,6 +43,12 @@ msgid "Hide Ebics Upload"
 msgstr "Ebics-upload verbergen"
 
 #. module: account_ebics_payment_order
+#: model:ir.model.fields,field_description:account_ebics_payment_order.field_account_payment_mode__id
+#: model:ir.model.fields,field_description:account_ebics_payment_order.field_account_payment_order__id
+msgid "ID"
+msgstr ""
+
+#. module: account_ebics_payment_order
 #. odoo-python
 #: code:addons/account_ebics_payment_order/models/account_payment_order.py:0
 msgid "Missing EBICS File Format setting on your Payment Mode."
@@ -46,7 +58,8 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_ebics_payment_order/models/account_payment_order.py:0
 msgid "No active EBICS configuration available for the selected bank."
-msgstr "Geen actieve EBICS-configuratie beschikbaar voor de geselecteerde bank."
+msgstr ""
+"Geen actieve EBICS-configuratie beschikbaar voor de geselecteerde bank."
 
 #. module: account_ebics_payment_order
 #: model:ir.model,name:account_ebics_payment_order.model_account_payment_mode
