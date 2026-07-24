@@ -19,6 +19,7 @@ addon | version | maintainers | summary
 [account_ebics_batch](account_ebics_batch/) | 19.0.1.0.0 |  | EBICS Files automated import and processing
 [account_ebics_batch_payment](account_ebics_batch_payment/) | 19.0.1.1.0 |  | Upload Batch Payment via EBICS
 [account_ebics_oe](account_ebics_oe/) | 19.0.1.0.0 |  | Deploy account_ebics module on Odoo Enterprise
+[account_ebics_payment_order](account_ebics_payment_order/) | 19.0.1.0.0 |  | Upload Payment Order via EBICS
 
 [//]: # (end addons)
 
