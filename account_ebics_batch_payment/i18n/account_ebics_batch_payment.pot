@@ -22,7 +22,15 @@ msgstr ""
 
 #. module: account_ebics_batch_payment
 #: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_batch_payment__display_name
+#: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_payment_method__display_name
+#: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_payment_method_line__display_name
 msgid "Display Name"
+msgstr ""
+
+#. module: account_ebics_batch_payment
+#: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_payment_method__ebics_file_format_id
+#: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_payment_method_line__ebics_file_format_id
+msgid "EBICS File Format"
 msgstr ""
 
 #. module: account_ebics_batch_payment
@@ -33,12 +41,22 @@ msgid "EBICS Upload"
 msgstr ""
 
 #. module: account_ebics_batch_payment
+#: model:ir.model.fields,help:account_ebics_batch_payment.field_account_payment_method__ebics_file_format_id
+#: model:ir.model.fields,help:account_ebics_batch_payment.field_account_payment_method_line__ebics_file_format_id
+msgid ""
+"EBICS file format to pre-select when uploading a batch payment that uses "
+"this payment method."
+msgstr ""
+
+#. module: account_ebics_batch_payment
 #: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_batch_payment__hide_ebics_upload
 msgid "Hide Ebics Upload"
 msgstr ""
 
 #. module: account_ebics_batch_payment
 #: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_batch_payment__id
+#: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_payment_method__id
+#: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_payment_method_line__id
 msgid "ID"
 msgstr ""
 
@@ -46,4 +64,10 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_ebics_batch_payment/models/account_batch_payment.py:0
 msgid "No active EBICS configuration available for the selected bank."
+msgstr ""
+
+#. module: account_ebics_batch_payment
+#: model:ir.model,name:account_ebics_batch_payment.model_account_payment_method
+#: model:ir.model,name:account_ebics_batch_payment.model_account_payment_method_line
+msgid "Payment Methods"
 msgstr ""
