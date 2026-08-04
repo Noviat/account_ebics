@@ -6,7 +6,7 @@ import logging
 from sys import exc_info
 from traceback import format_exception
 
-from odoo import api, fields, models
+from odoo import SUPERUSER_ID, api, fields, models
 from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
@@ -133,9 +133,12 @@ class EbicsXfer(models.TransientModel):
 
     @api.onchange("ebics_config_id")
     def _onchange_ebics_config_id(self):
-        avail_userids = self.ebics_config_id.ebics_userid_ids.filtered(
-            lambda r: self.env.user.id in r.user_ids.ids
-        )
+        if self.env.uid == SUPERUSER_ID:
+            avail_userids = self.ebics_config_id.ebics_userid_ids
+        else:
+            avail_userids = self.ebics_config_id.ebics_userid_ids.filtered(
+                lambda r: self.env.user.id in r.user_ids.ids
+            )
 
         if self.env.context.get("ebics_download"):  # Download Form
             avail_formats = self.ebics_config_id.ebics_file_format_ids.filtered(
