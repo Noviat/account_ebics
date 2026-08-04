@@ -49,6 +49,8 @@ class AccountBatchPayment(models.Model):
         )
         ebics_xfer._onchange_ebics_config_id()
         ebics_xfer._onchange_upload_data()
+        if not ebics_xfer.format_id and self.payment_method_id.ebics_file_format_id:
+            ebics_xfer.format_id = self.payment_method_id.ebics_file_format_id
         view = self.env.ref("account_ebics.ebics_xfer_view_form_upload")
         act = {
             "name": self.env._("EBICS Upload"),
