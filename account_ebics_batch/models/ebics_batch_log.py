@@ -4,7 +4,7 @@
 from sys import exc_info
 from traceback import format_exception
 
-from odoo import api, fields, models
+from odoo import SUPERUSER_ID, api, fields, models
 from odoo.exceptions import UserError
 
 
@@ -77,14 +77,12 @@ class EbicsBatchLog(models.Model):
         """
         log_model = self.env["ebics.batch.log"]
         import_dict = {"errors": []}
-        configs = self.env["ebics.config"].browse(ebics_config_ids) or self.env[
-            "ebics.config"
-        ].search(
-            [
-                ("company_ids", "in", self.env.user.company_ids.ids),
-                ("state", "=", "confirm"),
-            ]
-        )
+        configs = self.env["ebics.config"].browse(ebics_config_ids)
+        if not configs:
+            domain = [("state", "=", "confirm")]
+            if self.env.uid != SUPERUSER_ID:
+                domain.insert(0, ("company_ids", "in", self.env.user.company_ids.ids))
+            configs = self.env["ebics.config"].sudo().search(domain)
         log = log_model.create(
             {
                 "ebics_config_ids": [(6, 0, configs.ids)],
