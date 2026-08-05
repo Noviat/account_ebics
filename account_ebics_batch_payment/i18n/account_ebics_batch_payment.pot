@@ -22,6 +22,7 @@ msgstr ""
 
 #. module: account_ebics_batch_payment
 #: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_batch_payment__display_name
+#: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_journal__display_name
 #: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_payment_method__display_name
 #: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_payment_method_line__display_name
 msgid "Display Name"
@@ -49,15 +50,26 @@ msgid ""
 msgstr ""
 
 #. module: account_ebics_batch_payment
+#: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_journal__ebics_file_format_ids
+msgid "Ebics File Format"
+msgstr ""
+
+#. module: account_ebics_batch_payment
 #: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_batch_payment__hide_ebics_upload
 msgid "Hide Ebics Upload"
 msgstr ""
 
 #. module: account_ebics_batch_payment
 #: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_batch_payment__id
+#: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_journal__id
 #: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_payment_method__id
 #: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_payment_method_line__id
 msgid "ID"
+msgstr ""
+
+#. module: account_ebics_batch_payment
+#: model:ir.model,name:account_ebics_batch_payment.model_account_journal
+msgid "Journal"
 msgstr ""
 
 #. module: account_ebics_batch_payment
