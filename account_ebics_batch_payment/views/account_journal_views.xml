@@ -13,6 +13,7 @@
                     name="ebics_file_format_id"
                     optional="hide"
                     options="{'no_create': True}"
+                    domain="[('id', 'in', parent.ebics_file_format_ids), ('type', '=', 'up')]"
                 />
             </xpath>
             <xpath
@@ -23,6 +24,7 @@
                     name="ebics_file_format_id"
                     optional="hide"
                     options="{'no_create': True}"
+                    domain="[('id', 'in', parent.ebics_file_format_ids), ('type', '=', 'up')]"
                 />
             </xpath>
         </field>
