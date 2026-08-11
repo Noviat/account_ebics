@@ -363,9 +363,12 @@ ul.auto-toc {
 
 
 <a class="reference external image-reference" href="https://www.gnu.org/licenses/lgpl"><img alt="License: LGPL-3" src="https://img.shields.io/badge/license-LGPL--3-blue.png" /></a>
-<div class="section" id="module-to-enable-batch-import-of-ebics-files">
-<h1>Module to enable batch import of EBICS files</h1>
-<p>This module adds a cron job for the automated import of EBICS files.</p>
+<div class="section" id="ebics-automated-file-import">
+<h1>EBICS automated file import</h1>
+<p><strong>Your statements arrive without anyone asking for them.</strong></p>
+<p>This module adds a cron job that downloads and processes EBICS files automatically, on all
+confirmed EBICS connections. This is what turns EBICS from a manual download into
+something your morning no longer depends on.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -399,6 +402,27 @@ If errors have been detected, the Batch Import Log state is set to 'error'.</p>
 <pre class="code python literal-block">
 <span class="name">_batch_import</span><span class="punctuation">(</span><span class="name">ebics_config_ids</span><span class="operator">=</span><span class="punctuation">[</span><span class="literal number integer">1</span><span class="punctuation">,</span><span class="literal number integer">3</span><span class="punctuation">])</span>
 </pre>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="part-of-the-ebics-suite">
+<h2>Part of the EBICS suite</h2>
+<p>This module extends <strong>account_ebics</strong>, the EBICS banking protocol implementation for Odoo,
+developed and maintained by <a class="reference external" href="https://www.noviat.com">Noviat</a> since 2015.</p>
+<p>Start with account_ebics if you have not installed it yet:
+<a class="reference external" href="https://github.com/Noviat/account_ebics">https://github.com/Noviat/account_ebics</a></p>
+<p>What EBICS is and what it changes, in plain language, with screen recordings of the flow:
+<a class="reference external" href="https://www.noviat.com/ebics">noviat.com/ebics</a>.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="credits">
+<h2>Credits</h2>
+<p>Developed and maintained by <a class="reference external" href="https://www.noviat.com">Noviat</a>, an Odoo partner in Belgium
+specialised in accounting and finance since 2009. We configure the connection with your
+banks and support you through the first cycles.</p>
 </div>
 </div>
 </div>

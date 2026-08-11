@@ -362,16 +362,18 @@ ul.auto-toc {
 <div class="document">
 
 
-<a class="reference external image-reference" href="https://www.gnu.org/licenses/lgpl"><object data="https://img.shields.io/badge/licence-LGPL--3-blue.svg" type="image/svg+xml">License: AGPL-3</object></a>
-<div class="section" id="upload-payment-order-via-ebics">
-<h1>Upload Payment Order via EBICS</h1>
-<p>This module allows to upload a Payment Order to the bank via the EBICS protocol.</p>
+<a class="reference external image-reference" href="https://www.gnu.org/licenses/lgpl"><img alt="License: LGPL-3" src="https://img.shields.io/badge/license-LGPL--3-blue.png" /></a>
+<div class="section" id="ebics-upload-for-payment-orders">
+<h1>EBICS upload for payment orders</h1>
+<p><strong>Send an OCA payment order to the bank from Odoo, without touching a file.</strong></p>
+<p>This module allows to upload a payment order created with the OCA account_payment_order
+module to the bank via the EBICS protocol.</p>
 <div class="section" id="installation">
 <h2>Installation</h2>
-<p>This module depends upon the following modules (cf. apps.odoo.com):</p>
+<p>This module depends upon the following modules:</p>
 <ul class="simple">
-<li>account_ebics</li>
-<li>account_payment_order</li>
+<li>account_ebics (cf. <a class="reference external" href="https://github.com/Noviat/account_ebics">https://github.com/Noviat/account_ebics</a>)</li>
+<li>account_payment_order (cf. <a class="reference external" href="https://github.com/OCA/bank-payment">https://github.com/OCA/bank-payment</a>)</li>
 </ul>
 </div>
 <div class="section" id="configuration">
@@ -382,6 +384,27 @@ ul.auto-toc {
 <h2>Usage</h2>
 <p>Create your Payment Order and generate the bank file.
 Upload the generated file via the 'EBICS Upload' button on the payment order.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="part-of-the-ebics-suite">
+<h2>Part of the EBICS suite</h2>
+<p>This module extends <strong>account_ebics</strong>, the EBICS banking protocol implementation for Odoo,
+developed and maintained by <a class="reference external" href="https://www.noviat.com">Noviat</a> since 2015.</p>
+<p>Start with account_ebics if you have not installed it yet:
+<a class="reference external" href="https://github.com/Noviat/account_ebics">https://github.com/Noviat/account_ebics</a></p>
+<p>What EBICS is and what it changes, in plain language, with screen recordings of the flow:
+<a class="reference external" href="https://www.noviat.com/ebics">noviat.com/ebics</a>.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="credits">
+<h2>Credits</h2>
+<p>Developed and maintained by <a class="reference external" href="https://www.noviat.com">Noviat</a>, an Odoo partner in Belgium
+specialised in accounting and finance since 2009. We configure the connection with your
+banks and support you through the first cycles.</p>
 </div>
 </div>
 </div>

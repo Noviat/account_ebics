@@ -1,20 +1,23 @@
-.. image:: https://img.shields.io/badge/licence-LGPL--3-blue.svg
+.. image:: https://img.shields.io/badge/license-LGPL--3-blue.png
    :target: https://www.gnu.org/licenses/lgpl
-   :alt: License: AGPL-3
+   :alt: License: LGPL-3
 
-==============================
-Upload Payment Order via EBICS
-==============================
+===============================
+EBICS upload for payment orders
+===============================
 
-This module allows to upload a Payment Order to the bank via the EBICS protocol.
+**Send an OCA payment order to the bank from Odoo, without touching a file.**
+
+This module allows to upload a payment order created with the OCA account_payment_order
+module to the bank via the EBICS protocol.
 
 Installation
 ============
 
-This module depends upon the following modules (cf. apps.odoo.com):
+This module depends upon the following modules:
 
-- account_ebics
-- account_payment_order
+- account_ebics (cf. https://github.com/Noviat/account_ebics)
+- account_payment_order (cf. https://github.com/OCA/bank-payment)
 
 Configuration
 =============
@@ -26,3 +29,26 @@ Usage
 
 Create your Payment Order and generate the bank file.
 Upload the generated file via the 'EBICS Upload' button on the payment order.
+
+|
+
+Part of the EBICS suite
+=======================
+
+This module extends **account_ebics**, the EBICS banking protocol implementation for Odoo,
+developed and maintained by `Noviat <https://www.noviat.com>`_ since 2015.
+
+Start with account_ebics if you have not installed it yet:
+https://github.com/Noviat/account_ebics
+
+What EBICS is and what it changes, in plain language, with screen recordings of the flow:
+`noviat.com/ebics <https://www.noviat.com/ebics>`_.
+
+|
+
+Credits
+=======
+
+Developed and maintained by `Noviat <https://www.noviat.com>`_, an Odoo partner in Belgium
+specialised in accounting and finance since 2009. We configure the connection with your
+banks and support you through the first cycles.
