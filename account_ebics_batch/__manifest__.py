@@ -2,13 +2,13 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 
 {
-    "name": "EBICS Files batch import",
+    "name": "EBICS - Scheduled File Import",
     "version": "19.0.1.0.1",
     "license": "LGPL-3",
     "author": "Noviat",
     "website": "https://www.noviat.com/",
     "category": "Accounting & Finance",
-    "summary": "EBICS Files automated import and processing",
+    "summary": "Download and process your EBICS files automatically, on a schedule",
     "depends": ["account_ebics"],
     "data": [
         "security/ir.model.access.csv",
@@ -16,5 +16,5 @@
         "views/ebics_batch_log_views.xml",
         "views/menu.xml",
     ],
-    "images": ["static/description/cover.png"],
+    "images": ["static/description/banner.png"],
 }
