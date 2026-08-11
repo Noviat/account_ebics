@@ -2,8 +2,8 @@
 # License LGPL-3 or later (https://www.gnu.org/licenses/lgpl).
 
 {
-    "name": "account_ebics on Odoo Enterprise",
-    "summary": "Deploy account_ebics module on Odoo Enterprise",
+    "name": "EBICS - Odoo Enterprise Integration",
+    "summary": "Place the EBICS menus in the Odoo Enterprise accounting application",
     "version": "19.0.1.0.0",
     "author": "Noviat",
     "website": "https://www.noviat.com/",
@@ -15,5 +15,5 @@
     ],
     "data": ["views/account_ebics_menu.xml"],
     "auto_install": True,
-    "images": ["static/description/cover.png"],
+    "images": ["static/description/banner.png"],
 }
