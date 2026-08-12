@@ -15,7 +15,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[account_ebics](account_ebics/) | 19.0.1.1.1 |  | EBICS banking protocol
+[account_ebics](account_ebics/) | 19.0.1.2.0 |  | EBICS banking protocol
 [account_ebics_batch](account_ebics_batch/) | 19.0.1.0.1 |  | EBICS Files automated import and processing
 [account_ebics_batch_payment](account_ebics_batch_payment/) | 19.0.1.2.0 |  | Upload Batch Payment via EBICS
 [account_ebics_oe](account_ebics_oe/) | 19.0.1.0.0 |  | Deploy account_ebics module on Odoo Enterprise
