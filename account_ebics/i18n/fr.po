@@ -571,11 +571,11 @@ msgstr "Fichiers EBICS"
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
 msgid ""
-"EBICS Functional Error during download of File Format %(name)s "
-"(%(order_type)s):"
+"EBICS Functional Error during download of File Format %(name)s (%"
+"(order_type)s):"
 msgstr ""
-"Erreur fonctionnelle EBICS lors du téléchargement du format de fichier "
-"%(name)s (%(order_type)s) :"
+"Erreur fonctionnelle EBICS lors du téléchargement du format de fichier %"
+"(name)s (%(order_type)s) :"
 
 #. module: account_ebics
 #. odoo-python
@@ -726,8 +726,8 @@ msgstr "Phrase secrète EBICS enregistrée"
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
 msgid ""
-"EBICS Technical Error during download of File Format %(name)s "
-"(%(order_type)s):"
+"EBICS Technical Error during download of File Format %(name)s (%"
+"(order_type)s):"
 msgstr ""
 "Erreur technique EBICS lors du téléchargement du format de fichier %(name)s "
 "(%(order_type)s) :"
@@ -782,11 +782,11 @@ msgstr "Utilisateurs EBICS"
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
 msgid ""
-"EBICS Verification Error during download of File Format %(name)s "
-"(%(order_type)s):"
+"EBICS Verification Error during download of File Format %(name)s (%"
+"(order_type)s):"
 msgstr ""
-"Erreur de vérification EBICS lors du téléchargement du format de fichier "
-"%(name)s (%(order_type)s) :"
+"Erreur de vérification EBICS lors du téléchargement du format de fichier %"
+"(name)s (%(order_type)s) :"
 
 #. module: account_ebics
 #. odoo-python
@@ -924,8 +924,8 @@ msgstr ""
 msgid ""
 "Error detected during download of File Format %(name)s (%(order_type)s):"
 msgstr ""
-"Erreur détectée lors du téléchargement du format de fichier %(name)s "
-"(%(order_type)s) :"
+"Erreur détectée lors du téléchargement du format de fichier %(name)s (%"
+"(order_type)s) :"
 
 #. module: account_ebics
 #. odoo-python
@@ -1227,8 +1227,8 @@ msgstr "Aucune banque définie pour le journal financier de la config EBICS"
 #: code:addons/account_ebics/models/ebics_file.py:0
 msgid "No financial journal found for Account Number %(nbr)s, Currency %(cc)s"
 msgstr ""
-"Aucun journal financier trouvé pour le numéro de compte %(nbr)s, devise "
-"%(cc)s"
+"Aucun journal financier trouvé pour le numéro de compte %(nbr)s, devise %"
+"(cc)s"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_change_passphrase__note
@@ -1746,8 +1746,8 @@ msgstr "Erreur inconnue"
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
 msgid "Unknown Error during download of File Format %(name)s (%(order_type)s):"
 msgstr ""
-"Erreur inconnue lors du téléchargement du format de fichier %(name)s "
-"(%(order_type)s) :"
+"Erreur inconnue lors du téléchargement du format de fichier %(name)s (%"
+"(order_type)s) :"
 
 #. module: account_ebics
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_file_format__type__up
