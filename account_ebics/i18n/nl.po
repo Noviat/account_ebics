@@ -570,11 +570,11 @@ msgstr "EBICS-bestanden"
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
 msgid ""
-"EBICS Functional Error during download of File Format %(name)s "
-"(%(order_type)s):"
+"EBICS Functional Error during download of File Format %(name)s (%"
+"(order_type)s):"
 msgstr ""
-"EBICS functionele fout tijdens het downloaden van bestandsformaat %(name)s "
-"(%(order_type)s):"
+"EBICS functionele fout tijdens het downloaden van bestandsformaat %(name)s (%"
+"(order_type)s):"
 
 #. module: account_ebics
 #. odoo-python
@@ -727,11 +727,11 @@ msgstr "Opgeslagen EBICS-wachtwoordzin"
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
 msgid ""
-"EBICS Technical Error during download of File Format %(name)s "
-"(%(order_type)s):"
+"EBICS Technical Error during download of File Format %(name)s (%"
+"(order_type)s):"
 msgstr ""
-"Technische EBICS-fout tijdens het downloaden van bestandsformaat %(name)s "
-"(%(order_type)s):"
+"Technische EBICS-fout tijdens het downloaden van bestandsformaat %(name)s (%"
+"(order_type)s):"
 
 #. module: account_ebics
 #. odoo-python
@@ -782,11 +782,11 @@ msgstr "EBICS-gebruikers"
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
 msgid ""
-"EBICS Verification Error during download of File Format %(name)s "
-"(%(order_type)s):"
+"EBICS Verification Error during download of File Format %(name)s (%"
+"(order_type)s):"
 msgstr ""
-"EBICS-verificatiefout tijdens het downloaden van bestandsformaat %(name)s "
-"(%(order_type)s):"
+"EBICS-verificatiefout tijdens het downloaden van bestandsformaat %(name)s (%"
+"(order_type)s):"
 
 #. module: account_ebics
 #. odoo-python
@@ -924,8 +924,8 @@ msgstr ""
 msgid ""
 "Error detected during download of File Format %(name)s (%(order_type)s):"
 msgstr ""
-"Fout gedetecteerd tijdens het downloaden van bestandsformaat %(name)s "
-"(%(order_type)s):"
+"Fout gedetecteerd tijdens het downloaden van bestandsformaat %(name)s (%"
+"(order_type)s):"
 
 #. module: account_ebics
 #. odoo-python
@@ -1742,8 +1742,8 @@ msgstr "Onbekende fout"
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
 msgid "Unknown Error during download of File Format %(name)s (%(order_type)s):"
 msgstr ""
-"Onbekende fout tijdens het downloaden van bestandsformaat %(name)s "
-"(%(order_type)s):"
+"Onbekende fout tijdens het downloaden van bestandsformaat %(name)s (%"
+"(order_type)s):"
 
 #. module: account_ebics
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_file_format__type__up
