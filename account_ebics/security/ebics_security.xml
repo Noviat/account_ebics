@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
+    <record id="res_groups_privilege_ebics_manager" model="res.groups.privilege">
+        <field name="name">EBICS</field>
+        <field name="category_id" ref="base.module_category_accounting" />
+    </record>
     <record id="group_ebics_manager" model="res.groups">
         <field name="name">EBICS Manager</field>
-        <field name="privilege_id" ref="account.res_groups_privilege_accounting" />
+        <field name="privilege_id" ref="res_groups_privilege_ebics_manager" />
     </record>
 
     <data noupdate="1">
