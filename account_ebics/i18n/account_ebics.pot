@@ -392,6 +392,7 @@ msgstr ""
 
 #. module: account_ebics
 #: model:ir.ui.menu,name:account_ebics.ebics_menu
+#: model:res.groups.privilege,name:account_ebics.res_groups_privilege_ebics_manager
 msgid "EBICS"
 msgstr ""
 
