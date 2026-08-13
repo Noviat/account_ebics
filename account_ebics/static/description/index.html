@@ -365,18 +365,83 @@ ul.auto-toc {
 <a class="reference external image-reference" href="https://www.gnu.org/licenses/lgpl"><img alt="License: LGPL-3" src="https://img.shields.io/badge/license-LGPL--3-blue.png" /></a>
 <div class="section" id="ebics-banking-protocol">
 <h1>EBICS banking protocol</h1>
-<p>Implementation of the  EBICS banking protocol.</p>
-<p>This module facilitates the exchange of files with banks via the EBICS protocol.</p>
+<p><strong>Exchange files directly with your banks from Odoo, with no portal and nobody logging in.</strong></p>
+<p>EBICS, the Electronic Banking Internet Communication Standard, is the channel European
+banks open to companies that want their software to talk to the bank. Bank statements are
+downloaded on a schedule and payment files are uploaded from Odoo, authenticated by your
+own cryptographic keys instead of a login page.</p>
+<p>This module implements that protocol in Odoo. It has been developed and maintained by
+Noviat since 2015, on every major version of Odoo from 8.0 onwards.</p>
+<p>If you are still working out whether EBICS is the right channel for you, we explain it
+without the jargon, with screen recordings of the flow in Odoo, on
+<a class="reference external" href="https://www.noviat.com/ebics">noviat.com/ebics</a>.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<div class="section" id="installation">
-<h2>Installation</h2>
+<img alt="Statements come down as camt or MT940 files, payment files go up as pain.001 or pain.008, and your keys stay on your own server" src="https://raw.githubusercontent.com/Noviat/account_ebics/19.0/account_ebics/static/description/ebics_flow.png" style="width: 100%;" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<div class="section" id="what-you-get">
+<h2>What you get</h2>
+<ul class="simple">
+<li><strong>Statements that arrive on their own.</strong> A scheduled task collects the files your bank
+publishes, for every account, and processes them into bank statements.</li>
+<li><strong>Payments that leave the same way.</strong> A payment batch or a payment order is uploaded to
+the bank in the format the bank expects, without exporting a file and re-uploading it
+somewhere else.</li>
+<li><strong>A test mode.</strong> Uploads can be validated against the bank before anything counts as a
+real payment.</li>
+<li><strong>Distributed signature (EDS).</strong> More than one person can be required to approve a
+payment, from an external signing application. Odoo holds no signing credentials.</li>
+<li><strong>A trace of every exchange.</strong> Each download and each upload is a record, with the file
+it carried, the moment it happened and the user behind it.</li>
+</ul>
+<p>Both <strong>EBICS 2.5</strong> and <strong>EBICS 3.0</strong> are supported.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="which-banks">
+<h2>Which banks</h2>
+<p>Any bank that publishes an EBICS access point can be connected. The standard is owned by
+EBICS SC, a company held by the German, French, Swiss and Austrian banking bodies
+(DK, CFONB, SIX and PSA), and it is the ordinary corporate channel in those countries.</p>
+<p>To check a specific bank before you start, joonis publishes a public directory at
+<a class="reference external" href="https://www.joonis.de/en/fintech/banks/">joonis.de/en/fintech/banks</a>. Enter a BIC and it
+returns the SEPA services the bank offers, the EBICS versions it supports and its Host-ID.
+Use the BIC rather than the IBAN: IBAN lookup is only evaluated for Germany, Austria and
+Switzerland.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="what-it-costs">
+<h2>What it costs</h2>
+<p><strong>This module is free software</strong>, published under LGPL-3. There is no licence fee, no
+subscription and no per-connection charge from Noviat.</p>
+<p>It does however rely on the <a class="reference external" href="https://pypi.python.org/pypi/fintech">fintech</a> library from
+joonis, and that library requires a <strong>commercial licence for production use</strong>: as soon as
+you upload SEPA files with more than five transactions, retrieve statements older than the
+last three days, or use the distributed signature. The licence is contracted directly with
+joonis, not with Noviat.</p>
+<p>At the time of writing, joonis charges a one-off setup fee plus a monthly fee per EBICS
+user id. Current pricing is published on
+<a class="reference external" href="https://www.joonis.de/en/fintech/prices/">joonis.de</a>.</p>
+<p>We prefer to state this up front rather than have you discover it during the project.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="requirements">
+<h2>Requirements</h2>
 <p>The module depends upon</p>
 <ul class="simple">
 <li><a class="reference external" href="https://pypi.python.org/pypi/fintech">https://pypi.python.org/pypi/fintech</a></li>
 <li><a class="reference external" href="https://pypi.python.org/pypi/cryptography">https://pypi.python.org/pypi/cryptography</a></li>
 </ul>
+<p>Because the connection needs a Python library and your key files on the server, it runs on
+<strong>Odoo.sh</strong> or on an <strong>on-premise</strong> installation.</p>
 <p>Remark:</p>
 <p>The EBICS 'Test Mode' for uploading orders requires fintech 4.3.4 or higher for EBICS 2.x
 and fintech 7.2.7 or higher for EBICS 3.0.</p>
@@ -384,7 +449,35 @@ and fintech 7.2.7 or higher for EBICS 3.0.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>We also recommend to consider the installation of the following modules:</p>
+<div class="section" id="fintech-license">
+<h3>Fintech license</h3>
+<p>If you have a valid fintech.ebics license, you should add the following
+licensing parameters to the [options] section of the odoo server configuration file:</p>
+<ul class="simple">
+<li>fintech_register_name</li>
+</ul>
+<p>The name of the licensee.</p>
+<ul class="simple">
+<li>fintech_register_keycode</li>
+</ul>
+<p>The keycode of the licensed version.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line">Example:</div>
+<div class="line"><br /></div>
+</div>
+<pre class="literal-block">
+; fintech
+fintech_register_name = MyCompany
+fintech_register_keycode = AB1CD-E2FG-3H-IJ4K-5L
+</pre>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+</div>
+<div class="section" id="companion-modules">
+<h2>Companion modules</h2>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -416,20 +509,20 @@ and fintech 7.2.7 or higher for EBICS 3.0.</p>
 <div class="line"><br /></div>
 </div>
 <ul>
-<li><p class="first">account_usability</p>
-<p>Recommended if you have multiple financial journals.
-This module adds a number of accounting menu entries such as bank statement list view
-which allows to see all statements downloaded via the ir.cron automated EBICS download.</p>
-<p>Cf. <a class="reference external" href="https://github.com/OCA/account-financial-tools">https://github.com/OCA/account-financial-tools</a></p>
+<li><p class="first">account_ebics_payment_order</p>
+<p>Required if you are using the OCA account_payment_order module.</p>
+<p>Cf. <a class="reference external" href="https://github.com/OCA/bank-payment">https://github.com/OCA/bank-payment</a></p>
 </li>
 </ul>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
 <ul>
-<li><p class="first">account_ebics_payment_order</p>
-<p>Required if you are using the OCA account_payment_order module.</p>
-<p>Cf. <a class="reference external" href="https://github.com/OCA/bank-payment">https://github.com/OCA/bank-payment</a></p>
+<li><p class="first">account_usability</p>
+<p>Recommended if you have multiple financial journals.
+This module adds a number of accounting menu entries such as bank statement list view
+which allows to see all statements downloaded via the ir.cron automated EBICS download.</p>
+<p>Cf. <a class="reference external" href="https://github.com/OCA/account-financial-tools">https://github.com/OCA/account-financial-tools</a></p>
 </li>
 </ul>
 <div class="line-block">
@@ -462,36 +555,6 @@ which allows to see all statements downloaded via the ir.cron automated EBICS do
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<div class="section" id="fintech-license">
-<h3>Fintech license</h3>
-<p>If you have a valid fintech.ebics license, you should add the following
-licensing parameters to the [options] section of the odoo server configuration file:</p>
-<ul class="simple">
-<li>fintech_register_name</li>
-</ul>
-<p>The name of the licensee.</p>
-<ul class="simple">
-<li>fintech_register_keycode</li>
-</ul>
-<p>The keycode of the licensed version.</p>
-<div class="line-block">
-<div class="line"><br /></div>
-<div class="line">Example:</div>
-<div class="line"><br /></div>
-</div>
-<pre class="literal-block">
-; fintech
-fintech_register_name = MyCompany
-fintech_register_keycode = AB1CD-E2FG-3H-IJ4K-5L
-</pre>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p>Cf. <a class="reference external" href="https://www.joonis.de/en/fintech/prices/">https://www.joonis.de/en/fintech/prices/</a></p>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-</div>
 </div>
 <div class="section" id="configuration">
 <h2>Configuration</h2>
@@ -513,7 +576,7 @@ fintech_register_keycode = AB1CD-E2FG-3H-IJ4K-5L
 <li>camt.052</li>
 <li>camt.054</li>
 </ul>
-<p>All these methods require complimentary modules to be installed (cf. Installation section supra).</p>
+<p>All these methods require complimentary modules to be installed (cf. Companion modules supra).</p>
 <p>You'll get an error message when the required module is not installed on your Odoo instance.</p>
 <div class="line-block">
 <div class="line"><br /></div>
@@ -523,10 +586,33 @@ fintech_register_keycode = AB1CD-E2FG-3H-IJ4K-5L
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
+<img alt="A downloaded camt.053 statement file in Odoo, before processing" src="https://raw.githubusercontent.com/Noviat/account_ebics/19.0/account_ebics/static/description/ebics_download.png" style="width: 100%;" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
 </div>
 <div class="section" id="usage">
 <h2>Usage</h2>
 <p>Go to <strong>Accounting &gt; Bank and Cash &gt; EBICS Processing</strong></p>
+<p>Downloaded files are listed there and can be processed into bank statements. Uploads are
+launched from the payment batch or payment order, and the file, its format and the order
+type are taken from the EBICS configuration rather than chosen by the user.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<img alt="Uploading a pain.001 SEPA credit transfer file over EBICS 3.0, with the test mode option" src="https://raw.githubusercontent.com/Noviat/account_ebics/19.0/account_ebics/static/description/ebics_upload.png" style="width: 100%;" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="getting-your-bank-online">
+<h2>Getting your bank online</h2>
+<p>The technical configuration in Odoo takes hours. What sets the pace of a project is the
+bank: your keys are registered with the INI and HIA order types, both of which produce
+initialisation letters that have to be printed, signed and sent to the bank. Once the bank
+has activated the access you retrieve its public keys with HPB and compare the hash values
+with the letter it sent you.</p>
+<p>Count in weeks per bank rather than days, and start the paperwork early.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -557,15 +643,30 @@ You can also find this information in the doc folder of this module (file EBICS_
 <li><a class="reference external" href="https://play.google.com/store/apps/details?id=subsembly.bankingveu">https://play.google.com/store/apps/details?id=subsembly.bankingveu</a></li>
 <li><a class="reference external" href="https://apps.apple.com/de/app/bankingveu/id1578694190">https://apps.apple.com/de/app/bankingveu/id1578694190</a></li>
 </ul>
+<div class="line-block">
+<div class="line"><br /></div>
 </div>
 </div>
-<div class="section" id="known-issues-roadmap">
-<h2>Known Issues / Roadmap</h2>
+</div>
+<div class="section" id="roadmap">
+<h2>Roadmap</h2>
 <ul class="simple">
 <li>The end user is currently not able to change his passphrases (only the users with 'EBICS Manager' rights can do so).</li>
 <li>Add support to import externally generated keys &amp; certificates (currently only 3SKey signature certificate).</li>
 <li>Add support for SWIFT 3SKey signing javascript lib (SConnect, cf <a class="reference external" href="https://www2.swift.com/3skey/help/sconnect.html">https://www2.swift.com/3skey/help/sconnect.html</a>).</li>
 </ul>
+<p>Issues and pull requests are welcome on <a class="reference external" href="https://github.com/Noviat/account_ebics">https://github.com/Noviat/account_ebics</a>.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="credits">
+<h2>Credits</h2>
+<p>This module is developed and maintained by <a class="reference external" href="https://www.noviat.com">Noviat</a>, an Odoo
+partner in Belgium specialised in accounting and finance since 2009.</p>
+<p>We implement it, we configure the connection with your banks and we support you through
+the first cycles. If you want help getting a bank online, tell us which banks you use on
+<a class="reference external" href="https://www.noviat.com/ebics">noviat.com/ebics</a> and we will tell you what it takes.</p>
 </div>
 </div>
 </div>

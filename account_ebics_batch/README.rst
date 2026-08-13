@@ -2,11 +2,15 @@
    :target: https://www.gnu.org/licenses/lgpl
    :alt: License: LGPL-3
 
-============================================
-Module to enable batch import of EBICS files
-============================================
+===========================
+EBICS automated file import
+===========================
 
-This module adds a cron job for the automated import of EBICS files.
+**Your statements arrive without anyone asking for them.**
+
+This module adds a cron job that downloads and processes EBICS files automatically, on all
+confirmed EBICS connections. This is what turns EBICS from a manual download into
+something your morning no longer depends on.
 
 |
 
@@ -48,3 +52,26 @@ You can limit the automated operation to a subset of your EBICS connections via 
 
   _batch_import(ebics_config_ids=[1,3])
 
+
+|
+
+Part of the EBICS suite
+=======================
+
+This module extends **account_ebics**, the EBICS banking protocol implementation for Odoo,
+developed and maintained by `Noviat <https://www.noviat.com>`_ since 2015.
+
+Start with account_ebics if you have not installed it yet:
+https://github.com/Noviat/account_ebics
+
+What EBICS is and what it changes, in plain language, with screen recordings of the flow:
+`noviat.com/ebics <https://www.noviat.com/ebics>`_.
+
+|
+
+Credits
+=======
+
+Developed and maintained by `Noviat <https://www.noviat.com>`_, an Odoo partner in Belgium
+specialised in accounting and finance since 2009. We configure the connection with your
+banks and support you through the first cycles.
