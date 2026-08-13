@@ -41,16 +41,16 @@ What you get
 - **A trace of every exchange.** Each download and each upload is a record, with the file
   it carried, the moment it happened and the user behind it.
 
-Both **EBICS 2.5** and **EBICS 3.0** are supported.
+**EBICS 2.4**, **EBICS 2.5** and **EBICS 3.0** are supported.
 
 |
 
 Which banks
 ===========
 
-Any bank that publishes an EBICS access point can be connected. The standard is owned by
+Any bank that publishes an EBICS access point can be connected. The standard is maintained by
 EBICS SC, a company held by the German, French, Swiss and Austrian banking bodies
-(DK, CFONB, SIX and PSA), and it is the ordinary corporate channel in those countries.
+(DK, CFONB, SIX and PSA), and it is the standard corporate channel in those countries.
 
 To check a specific bank before you start, joonis publishes a public directory at
 `joonis.de/en/fintech/banks <https://www.joonis.de/en/fintech/banks/>`_.

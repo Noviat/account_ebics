@@ -4,7 +4,7 @@
 {
     "name": "EBICS banking protocol",
     "summary": "Download bank statements and upload payment "
-    "files directly from Odoo, over the European EBICS standard",
+    "files directly from Odoo, using the European EBICS standard",
     "version": "19.0.1.2.0",
     "license": "LGPL-3",
     "author": "Noviat",
