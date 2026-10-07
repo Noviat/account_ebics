@@ -586,9 +586,19 @@ class EbicsFile(models.Model):
                 message = self.env._("No bank account number found.")
                 res["notifications"].append({"type": "error", "message": message})
                 continue
-            currency_code = stmt.xpath(
-                "ns:Acct/ns:Ccy/text() | ns:Bal/ns:Amt/@Ccy", namespaces=ns
-            )[0]
+            # camt.054 notifications usually have neither Acct/Ccy nor Bal,
+            # hence fall back on the currency of the entries
+            currency_codes = stmt.xpath(
+                "ns:Acct/ns:Ccy/text() | ns:Bal/ns:Amt/@Ccy | ns:Ntry/ns:Amt/@Ccy",
+                namespaces=ns,
+            )
+            if not currency_codes:
+                message = self.env._(
+                    "No currency found for Account Number %(nr)s.", nr=acc_number
+                )
+                res["notifications"].append({"type": "error", "message": message})
+                continue
+            currency_code = currency_codes[0]
             # some banks (e.g. COMMERZBANK) add the currency as the last 3 digits
             # of the bank account number hence we need to remove this since otherwise
             # the journal matching logic fails
