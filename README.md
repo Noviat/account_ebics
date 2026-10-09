@@ -15,7 +15,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[account_ebics](account_ebics/) | 18.0.1.2.1 |  | Download bank statements and upload payment files directly from Odoo, using the European EBICS standard
+[account_ebics](account_ebics/) | 18.0.1.2.2 |  | Download bank statements and upload payment files directly from Odoo, using the European EBICS standard
 [account_ebics_batch](account_ebics_batch/) | 18.0.1.0.1 |  | Download and process your EBICS files automatically, on a schedule
 [account_ebics_batch_payment](account_ebics_batch_payment/) | 18.0.1.2.0 |  | Send an Odoo Enterprise batch payment to the bank over EBICS
 [account_ebics_oca_statement_import](account_ebics_oca_statement_import/) | 18.0.1.0.1 |  | Process EBICS statement files with the OCA bank statement import

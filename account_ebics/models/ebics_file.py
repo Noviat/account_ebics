@@ -586,9 +586,21 @@ class EbicsFile(models.Model):
                 message = self.env._("No bank account number found.")
                 res["notifications"].append({"type": "error", "message": message})
                 continue
-            currency_code = stmt.xpath(
+            if not stmt.findall("ns:Ntry", ns):
+                continue
+            currency_codes = stmt.xpath(
                 "ns:Acct/ns:Ccy/text() | ns:Bal/ns:Amt/@Ccy", namespaces=ns
-            )[0]
+            )
+            if not currency_codes and camt_variant == "054":
+                currency_codes = stmt.xpath("ns:Ntry/ns:Amt/@Ccy", namespaces=ns)
+            if not currency_codes:
+                message = self.env._(
+                    "No currency found in statement for Account Number %(nbr)s.",
+                    nbr=acc_number,
+                )
+                res["notifications"].append({"type": "error", "message": message})
+                continue
+            currency_code = currency_codes[0]
             # some banks (e.g. COMMERZBANK) add the currency as the last 3 digits
             # of the bank account number hence we need to remove this since otherwise
             # the journal matching logic fails
@@ -596,26 +608,20 @@ class EbicsFile(models.Model):
                 acc_number = acc_number[:-3]
 
             root_new = deepcopy(root)
-            entries = False
             for j, el in enumerate(root_new[0].findall(f"ns:{camt_tag}", ns)):
                 if j != i:
                     el.getparent().remove(el)
-                else:
-                    entries = el.findall("ns:Ntry", ns)
-            if not entries:
+            currency, journal = self._lookup_journal(res, acc_number, currency_code)
+            if not (currency and journal):
                 continue
-            else:
-                currency, journal = self._lookup_journal(res, acc_number, currency_code)
-                if not (currency and journal):
-                    continue
-                datas.append(
-                    {
-                        "acc_number": acc_number,
-                        "journal_id": journal.id,
-                        "company_id": journal.company_id.id,
-                        "data": base64.b64encode(etree.tostring(root_new)),
-                    }
-                )
+            datas.append(
+                {
+                    "acc_number": acc_number,
+                    "journal_id": journal.id,
+                    "company_id": journal.company_id.id,
+                    "data": base64.b64encode(etree.tostring(root_new)),
+                }
+            )
 
         return datas
 
