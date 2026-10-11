@@ -86,7 +86,8 @@ bank to another and is billed by the bank, separately from anything on the Odoo 
 <p>Because the connection needs a Python library and your key files on the server, it runs on
 <strong>Odoo.sh</strong> or on an <strong>on-premise</strong> installation.</p>
 <p>The EBICS test mode for uploads requires fintech 4.3.4 or higher for EBICS 2.x and fintech
-7.2.7 or higher for EBICS 3.0. SWIFT 3SKey support requires fintech 6.4 or higher.</p>
+7.2.7 or higher for EBICS 3.0. SWIFT 3SKey support requires fintech 6.4 or higher, and the signature passphrase
+fintech 7.3.1 or higher.</p>
 <div class="section" id="fintech-licence">
 <h3>Fintech licence</h3>
 <p>With a fintech licence, add its parameters to the <tt class="docutils literal">[options]</tt> section of the Odoo server
@@ -150,6 +151,8 @@ the bank supports the test flag, otherwise as a real transfer of a small amount.
 </div>
 <div class="section" id="configuration">
 <h2>Configuration</h2>
+<p>The menus are those of Odoo Enterprise; on Odoo Community, the application is called
+<em>Invoicing</em> instead of <em>Accounting</em>.</p>
 <p><strong>Who may configure.</strong> In <em>Settings &gt; Users</em>, add the users who maintain the EBICS
 configuration to the <strong>EBICS Manager</strong> group.</p>
 <p><strong>File formats.</strong> In <em>Accounting &gt; Configuration &gt; EBICS &gt; EBICS File Formats</em>, check that the
@@ -157,21 +160,19 @@ formats you exchange with your banks are defined; the common ones are created at
 installation. A missing format can be reported on
 <a class="reference external" href="https://github.com/Noviat/account_ebics/issues">GitHub</a>.</p>
 <p>A download format can carry a <strong>Download Process Method</strong>, run by the <em>Process</em> button of a
-downloaded file: <tt class="docutils literal">camt.053</tt>, <tt class="docutils literal">camt.052</tt>, <tt class="docutils literal">camt.054</tt>, <tt class="docutils literal">cfonb120</tt> and <tt class="docutils literal">pain.002</tt> (the
-payment status report returned by the bank). Each needs the module of its format (see
-Companion modules); Odoo tells you which one when it is missing.</p>
+downloaded file: <tt class="docutils literal">camt.053</tt>, <tt class="docutils literal">camt.052</tt>, <tt class="docutils literal">camt.054</tt> and <tt class="docutils literal">cfonb120</tt>. Each needs the
+module of its format (see Companion modules); Odoo tells you which one when it is missing.</p>
 <p><strong>Bank connections.</strong> In <em>Accounting &gt; Configuration &gt; EBICS &gt; EBICS Configuration</em>, create one
 connection per bank contract, with the identifiers your bank sent you.</p>
 <img alt="A downloaded camt.053 statement file in Odoo, before processing" src="ebics_download.png" style="width: 100%;" />
 </div>
 <div class="section" id="usage">
 <h2>Usage</h2>
-<p>The <strong>EBICS Processing</strong> menu of the accounting application lists the downloaded and uploaded
-files, and offers manual downloads and uploads. With Odoo Enterprise it sits under
-<em>Accounting &gt; Accounting</em>.</p>
+<p>The <strong>EBICS Processing</strong> menu, in the top bar of the Accounting application, lists the
+downloaded and uploaded files and offers manual downloads and uploads.</p>
 <p>Downloaded files are processed into bank statements. Uploads are launched from the payment
-batch or the payment order: the file, its format and the order type come from the
-configuration, not from the person clicking.</p>
+batch or the payment order, with the format set in the configuration: on the payment
+mode for a payment order, on the journal's payment method for a batch payment.</p>
 <img alt="Uploading a pain.001 SEPA credit transfer file over EBICS 3.0, with the test mode option" src="ebics_upload.png" style="width: 100%;" />
 </div>
 <div class="section" id="diagnostics">
