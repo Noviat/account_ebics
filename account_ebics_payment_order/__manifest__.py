@@ -4,7 +4,7 @@
 {
     "name": "EBICS - Payment Orders (OCA)",
     "summary": "Send an OCA payment order to the bank over EBICS",
-    "version": "18.0.1.2.1",
+    "version": "18.0.1.3.0",
     "license": "LGPL-3",
     "author": "Noviat",
     "website": "https://www.noviat.com/",
