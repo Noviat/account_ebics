@@ -48,6 +48,8 @@ msgid ""
 "EBICS file format to pre-select when uploading a batch payment that uses "
 "this payment method."
 msgstr ""
+"Format de fichier EBICS à présélectionner lors du téléversement d'un "
+"paiement groupé utilisant ce mode de paiement."
 
 #. module: account_ebics_batch_payment
 #: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_batch_payment__hide_ebics_upload

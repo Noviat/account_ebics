@@ -49,7 +49,7 @@
                         string="Bank Keys Verified"
                         type="object"
                         class="oe_highlight"
-                        help="EBICS Initialisation - Push this button when the public have been checked for consistency."
+                        help="EBICS Initialisation - Push this button when the public bank keys have been checked for consistency."
                     />
                     <button
                         name="change_passphrase"

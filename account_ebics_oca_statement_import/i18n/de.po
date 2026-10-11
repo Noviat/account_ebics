@@ -19,7 +19,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_ebics_oca_statement_import/wizards/account_statement_import.py:0
 msgid "Error detected while processing and EBICS File"
-msgstr ""
+msgstr "Fehler bei der Verarbeitung einer EBICS-Datei festgestellt"
 
 #. module: account_ebics_oca_statement_import
 #: model:ir.model,name:account_ebics_oca_statement_import.model_account_statement_import
@@ -30,16 +30,16 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_ebics_oca_statement_import/wizards/account_statement_import.py:0
 msgid "Statement %(st_name)s dated %(date)s has already been imported."
-msgstr ""
+msgstr "Kontoauszug %(st_name)s vom %(date)s wurde bereits importiert."
 
 #. module: account_ebics_oca_statement_import
 #. odoo-python
 #: code:addons/account_ebics_oca_statement_import/wizards/account_statement_import.py:0
 msgid "This file doesn't contain any statement."
-msgstr ""
+msgstr "Diese Datei enthält keinen Kontoauszug."
 
 #. module: account_ebics_oca_statement_import
 #. odoo-python
 #: code:addons/account_ebics_oca_statement_import/wizards/account_statement_import.py:0
 msgid "This file doesn't contain any transaction."
-msgstr ""
+msgstr "Diese Datei enthält keine Transaktionen."

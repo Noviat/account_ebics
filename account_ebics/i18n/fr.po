@@ -645,6 +645,8 @@ msgid ""
 "EBICS Keys Root Directory %s is not available.\n"
 "Please contact your system administrator."
 msgstr ""
+"Le répertoire racine des clés EBICS %s n'est pas disponible.\n"
+"Veuillez contacter votre administrateur système."
 
 #. module: account_ebics
 #: model:res.groups,name:account_ebics.group_ebics_manager
@@ -851,12 +853,12 @@ msgstr "Incompatibilité de version EBICS."
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_account_journal__ebics_config_id
 msgid "Ebics Config"
-msgstr ""
+msgstr "Configuration EBICS"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_account_journal__ebics_config_ids
 msgid "Ebics Configs"
-msgstr ""
+msgstr "Configurations EBICS"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__ebics_keys_fn

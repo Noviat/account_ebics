@@ -34,7 +34,7 @@
                         type="object"
                         class="oe_highlight"
                         groups="account_ebics.group_ebics_manager"
-                        help="The EBICS configuration must be confirmed before it can used for bank transactions."
+                        help="The EBICS configuration must be confirmed before it can be used for bank transactions."
                     />
                     <field name="state" widget="statusbar" />
                 </header>

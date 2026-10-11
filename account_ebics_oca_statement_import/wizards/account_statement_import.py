@@ -60,7 +60,7 @@ class AccountStatementImport(models.TransientModel):
                     message = _("This file doesn't contain any transaction.")
                 if message:
                     log_msg = (
-                        _("Error detected while processing and EBICS File")
+                        _("Error detected while processing an EBICS File")
                         + ":\n"
                         + message
                     )
