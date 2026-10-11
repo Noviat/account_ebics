@@ -39,7 +39,7 @@ msgstr "EBICS-bestandsformaat"
 #. module: account_ebics_payment_order
 #: model:ir.model.fields,field_description:account_ebics_payment_order.field_account_payment_order__ebics_order_number
 msgid "EBICS OrderID"
-msgstr ""
+msgstr "EBICS-order-ID"
 
 #. module: account_ebics_payment_order
 #. odoo-python
@@ -51,12 +51,12 @@ msgstr "EBICS-upload"
 #. module: account_ebics_payment_order
 #: model:ir.model.fields,field_description:account_ebics_payment_order.field_account_payment_order__ebics_file_id
 msgid "EBICS Upload File"
-msgstr ""
+msgstr "EBICS-uploadbestand"
 
 #. module: account_ebics_payment_order
 #: model_terms:ir.ui.view,arch_db:account_ebics_payment_order.account_payment_order_form
 msgid "EBICS upload info"
-msgstr ""
+msgstr "EBICS-uploadinfo"
 
 #. module: account_ebics_payment_order
 #: model:ir.model.fields,field_description:account_ebics_payment_order.field_account_payment_order__hide_ebics_upload
