@@ -70,6 +70,12 @@ class EbicsFile(models.Model):
         readonly=True,
     )
     note = fields.Text(string="Notes")
+    ebics_order_number = fields.Char(string="EBICS OrderID", readonly=True)
+    pain_state = fields.Selection(
+        [("draft", "Draft"), ("uploaded", "Uploaded"), ("error", "Error")],
+        default="draft",
+        readonly=True,
+    )
     note_process = fields.Text(
         string="Process Notes",
         readonly=True,
