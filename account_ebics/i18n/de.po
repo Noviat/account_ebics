@@ -3,13 +3,13 @@
 # * account_ebics
 #
 # Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2026.
+# Jérémy Didderen <jeremy.didderen@noviat.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-10-11 20:25+0000\n"
-"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
-"memory@weblate.org>\n"
+"PO-Revision-Date: 2026-10-11 21:14+0000\n"
+"Last-Translator: Jérémy Didderen <jeremy.didderen@noviat.com>\n"
 "Language-Team: German <https://translation.noviat.io/projects/noviat-generic-"
 "account-ebics-v18/account_ebics/de/>\n"
 "Language: de\n"
@@ -44,7 +44,7 @@ msgstr "'Enddatum', wie im Download-Assistenten eingegeben."
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__swift_3skey_certificate
 msgid "3SKey Certificate"
-msgstr ""
+msgstr "3SKey-Zertifikat"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__swift_3skey_certificate_fn
@@ -325,6 +325,8 @@ msgid ""
 "Default signature class.This default can be overridden for specific EBICS "
 "transactions (cf. File Formats)."
 msgstr ""
+"Standard-Unterschriftsklasse. Dieser Standard kann für bestimmte EBICS-"
+"Transaktionen übersteuert werden (vgl. Dateiformate)."
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__description
@@ -440,7 +442,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:account_ebics.ebics_admin_order_action
 #: model:ir.model,name:account_ebics.model_ebics_admin_order
 msgid "EBICS Administrative Order"
-msgstr ""
+msgstr "EBICS-Verwaltungsauftrag"
 
 #. module: account_ebics
 #. odoo-python
@@ -463,7 +465,7 @@ msgstr "EBICS-Verwaltungsaufträge"
 #: model:ir.ui.menu,name:account_ebics.ebics_config_menu
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_config_view_form
 msgid "EBICS Configuration"
-msgstr ""
+msgstr "EBICS-Konfiguration"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_account_bank_statement__ebics_file_id
@@ -506,7 +508,7 @@ msgstr "EBICS-Dateiformat"
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file__format_id
 #: model:ir.ui.menu,name:account_ebics.ebics_file_format_menu
 msgid "EBICS File Formats"
-msgstr ""
+msgstr "EBICS-Dateiformate"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_result
@@ -608,6 +610,8 @@ msgid ""
 "EBICS Initialisation - Push this button when the public bank keys have been "
 "checked for consistency."
 msgstr ""
+"EBICS-Initialisierung - Klicken Sie auf diese Schaltfläche, wenn die "
+"öffentlichen Schlüssel auf Übereinstimmung geprüft wurden."
 
 #. module: account_ebics
 #. odoo-python
@@ -756,7 +760,7 @@ msgstr "EBICS-Dateien hochladen"
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__ebics_userid_id
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_userid_view_form
 msgid "EBICS UserID"
-msgstr ""
+msgstr "EBICS-Benutzer-ID"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_config_view_form
@@ -1473,6 +1477,8 @@ msgid ""
 "Set the EBICS Configuration record to 'Draft' before starting the Key "
 "Renewal process."
 msgstr ""
+"Setzen Sie den EBICS-Konfigurationsdatensatz auf 'Entwurf', bevor Sie den "
+"Schlüsselerneuerungsprozess starten."
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_userid__ebics_key_x509
@@ -1606,6 +1612,8 @@ msgid ""
 "The EBICS configuration must be confirmed before it can be used for bank "
 "transactions."
 msgstr ""
+"Die EBICS-Konfiguration muss bestätigt werden, bevor sie für "
+"Banktransaktionen verwendet werden kann."
 
 #. module: account_ebics
 #. odoo-python
@@ -1650,6 +1658,8 @@ msgstr ""
 msgid ""
 "The current version of this module requires X509 support when enabling 3SKey"
 msgstr ""
+"Die aktuelle Version dieses Moduls erfordert X509-Unterstützung, wenn 3SKey "
+"aktiviert wird"
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_config__ebics_key_version
