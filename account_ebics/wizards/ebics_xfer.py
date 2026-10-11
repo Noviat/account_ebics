@@ -406,11 +406,9 @@ class EbicsXfer(models.TransientModel):
                     self.note += self.env._(
                         "EBICS File has been uploaded (OrderID %s).", OrderID
                     )
-                    ef_note = self.env._("EBICS OrderID: %s", OrderID)
+                    ef_note = ""
                     if self.env.context.get("origin"):
-                        ef_note += "\n" + self.env._(
-                            "Origin: %s", self.env.context["origin"]
-                        )
+                        ef_note = self.env._("Origin: %s", self.env.context["origin"])
                     suffix = self.format_id.suffix
                     fn = self.upload_fname
                     if suffix and not fn.endswith(suffix):
@@ -430,6 +428,9 @@ class EbicsXfer(models.TransientModel):
                     }
                     self._update_ef_vals(ef_vals)
                     ebics_file = self.env["ebics.file"].create(ef_vals)
+                    ebics_file.write(
+                        {"ebics_order_number": OrderID, "pain_state": "uploaded"}
+                    )
 
             except EbicsFunctionalError:
                 e = exc_info()
@@ -458,16 +459,32 @@ class EbicsXfer(models.TransientModel):
                 OrderID = self.ebics_config_id._get_order_number()
                 self.ebics_config_id.sudo()._update_order_number(OrderID)
 
-        ebics_file and self._payment_order_postprocess(ebics_file)
+        ebics_file and self._payment_upload_postprocess(ebics_file)
         return ebics_file
 
-    def _payment_order_postprocess(self, ebics_file):
-        active_model = self.env.context.get("model")
+    def _payment_upload_postprocess(self, ebics_file):
+        ctx = self.env.context
+        active_model = ctx.get("model")
+        active_id = ctx.get("id")
+        payment_doc = None
         if active_model == "account.payment.order":
-            order = self.env["account.payment.order"].browse(
-                self.env.context["active_id"]
+            payment_doc = self.env["account.payment.order"].browse(active_id)
+            payment_doc.generated2uploaded()
+        elif active_model == "account.batch.payment":
+            payment_doc = self.env["account.batch.payment"].browse(active_id)
+        if payment_doc:
+            payment_doc.ebics_file_id = ebics_file
+            self._payment_upload_chatter_message(payment_doc, ebics_file)
+
+    def _payment_upload_chatter_message(self, payment_doc, ebics_file):
+        payment_doc.message_post(
+            body=self.env._(
+                "'%(filename)s' has been uploaded via EBICS"
+                " (OrderID: %(order_number)s).",
+                filename=ebics_file.name,
+                order_number=ebics_file.ebics_order_number,
             )
-            order.generated2uploaded()
+        )
 
     def _setup_client(self):
         self.ebics_config_id._check_ebics_keys()
