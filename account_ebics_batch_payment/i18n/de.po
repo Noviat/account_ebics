@@ -37,7 +37,7 @@ msgstr "Anzeigename"
 #. module: account_ebics_batch_payment
 #: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_batch_payment__ebics_config_id
 msgid "EBICS Config"
-msgstr ""
+msgstr "EBICS-Konfiguration"
 
 #. module: account_ebics_batch_payment
 #: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_payment_method__ebics_file_format_id
@@ -48,7 +48,7 @@ msgstr "EBICS-Dateiformat"
 #. module: account_ebics_batch_payment
 #: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_batch_payment__ebics_order_number
 msgid "EBICS OrderID"
-msgstr ""
+msgstr "EBICS-Auftrags-ID"
 
 #. module: account_ebics_batch_payment
 #. odoo-python
@@ -60,12 +60,12 @@ msgstr "EBICS-Upload"
 #. module: account_ebics_batch_payment
 #: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_batch_payment__ebics_file_id
 msgid "EBICS Upload File"
-msgstr ""
+msgstr "EBICS-Upload-Datei"
 
 #. module: account_ebics_batch_payment
 #: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_batch_payment__ebics_pain_state
 msgid "EBICS Upload Status"
-msgstr ""
+msgstr "EBICS-Upload-Status"
 
 #. module: account_ebics_batch_payment
 #: model:ir.model.fields,help:account_ebics_batch_payment.field_account_payment_method__ebics_file_format_id
@@ -80,12 +80,12 @@ msgstr ""
 #. module: account_ebics_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_ebics_batch_payment.view_batch_payment_form
 msgid "EBICS upload info"
-msgstr ""
+msgstr "EBICS-Upload-Info"
 
 #. module: account_ebics_batch_payment
 #: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_journal__ebics_file_format_ids
 msgid "Ebics File Format"
-msgstr ""
+msgstr "EBICS-Dateiformat"
 
 #. module: account_ebics_batch_payment
 #: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_batch_payment__hide_ebics_upload
@@ -125,4 +125,4 @@ msgstr "Datei hochladen"
 #. module: account_ebics_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_ebics_batch_payment.view_batch_payment_form
 msgid "Upload Status"
-msgstr ""
+msgstr "Upload-Status"

@@ -49,7 +49,7 @@ msgstr "EBICS-bestandsformaat"
 #. module: account_ebics_batch_payment
 #: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_batch_payment__ebics_order_number
 msgid "EBICS OrderID"
-msgstr ""
+msgstr "EBICS-order-ID"
 
 #. module: account_ebics_batch_payment
 #. odoo-python
@@ -61,12 +61,12 @@ msgstr "EBICS-upload"
 #. module: account_ebics_batch_payment
 #: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_batch_payment__ebics_file_id
 msgid "EBICS Upload File"
-msgstr ""
+msgstr "EBICS-uploadbestand"
 
 #. module: account_ebics_batch_payment
 #: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_batch_payment__ebics_pain_state
 msgid "EBICS Upload Status"
-msgstr ""
+msgstr "EBICS-uploadstatus"
 
 #. module: account_ebics_batch_payment
 #: model:ir.model.fields,help:account_ebics_batch_payment.field_account_payment_method__ebics_file_format_id
@@ -81,12 +81,12 @@ msgstr ""
 #. module: account_ebics_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_ebics_batch_payment.view_batch_payment_form
 msgid "EBICS upload info"
-msgstr ""
+msgstr "EBICS-uploadinfo"
 
 #. module: account_ebics_batch_payment
 #: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_journal__ebics_file_format_ids
 msgid "Ebics File Format"
-msgstr ""
+msgstr "EBICS-bestandsformaat"
 
 #. module: account_ebics_batch_payment
 #: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_batch_payment__hide_ebics_upload
@@ -127,4 +127,4 @@ msgstr "Bestand uploaden"
 #. module: account_ebics_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_ebics_batch_payment.view_batch_payment_form
 msgid "Upload Status"
-msgstr ""
+msgstr "Uploadstatus"
