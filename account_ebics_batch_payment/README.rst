@@ -24,10 +24,10 @@ This module depends on:
 Configuration
 =============
 
-On the bank journal, in the incoming and outgoing payment methods, set the **EBICS File
-Format** used for each payment method, for example pain.001 for SEPA credit transfers and
-pain.008 for direct debits. Only the formats of the journal's active EBICS connections are
-offered.
+On the bank journal, in the incoming and outgoing payment methods, show the optional
+**EBICS File Format** column and set the format of each payment method, for example
+pain.001 for SEPA credit transfers and pain.008 for direct debits. The formats offered are
+those of the journal's confirmed EBICS connection.
 
 Usage
 =====

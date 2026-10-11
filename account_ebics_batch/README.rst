@@ -22,8 +22,8 @@ Configuration
 =============
 
 The scheduled action **EBICS Batch Import** is created **inactive** at installation, with a
-daily interval. Activate it in *Settings > Technical > Scheduled Actions*, and adapt its
-interval if needed.
+daily interval. Activate it in *Settings > Technical > Automation > Scheduled Actions* (developer
+mode), and adapt its interval if needed.
 
 It calls the following method, on all confirmed connections::
 
