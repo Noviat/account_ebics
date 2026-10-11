@@ -71,7 +71,7 @@
         <field name="model">ebics.file</field>
         <field name="priority">1</field>
         <field name="arch" type="xml">
-            <form string="EBICS File" create="false">
+            < string="EBICS File" create="false">
                 <header>
                     <field name="download_process_method" invisible="1" />
                     <button
@@ -103,11 +103,46 @@
                         invisible="not download_process_method"
                     />
                 </header>
-                <group name="main">
-                    <group name="main-full-screen" colspan="2" col="2">
-                        <field name="name" />
-                        <field name="data" filename="name" />
-                        <field name="format_id" />
+                <sheet>
+                    <group name="main">
+                        <group name="main-full-screen" colspan="2" col="2">
+                            <field name="name" />
+                            <field name="data" filename="name" />
+                            <field name="format_id" />
+                        </group>
+                        <group name="main-left">
+                            <field
+                                name="date"
+                                string="Download Date"
+                                invisible="context.get('ebics_mode') != 'down'"
+                            />
+                            <field
+                                name="date"
+                                string="Upload Date"
+                                invisible="context.get('ebics_mode') == 'down'"
+                            />
+                            <field
+                                name="ebics_order_number"
+                                invisible="context.get('ebics_mode') != 'up'"
+                            />
+                            <field name="user_id" />
+                            <field name="ebics_userid_id" />
+                        </group>
+                        <group name="main-right">
+                            <field
+                                name="date_from"
+                                invisible="context.get('ebics_mode') != 'down'"
+                            />
+                            <field
+                                name="date_to"
+                                invisible="context.get('ebics_mode') != 'down'"
+                            />
+                            <field
+                                name="company_ids"
+                                widget="many2many_tags"
+                                groups="base.group_multi_company"
+                            />
+                        </group>
                     </group>
                     <group name="main-left">
                         <field name="date" string="Download Date" />
@@ -132,6 +167,7 @@
                         <field name="bank_statement_ids" nolabel="1" />
                     </page>
                 </notebook>
+            </sheet>
             </form>
         </field>
     </record>

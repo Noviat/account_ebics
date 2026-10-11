@@ -4,7 +4,7 @@
 {
     "name": "EBICS - Batch Payments (Odoo Enterprise)",
     "summary": "Send an Odoo Enterprise batch payment to the bank over EBICS",
-    "version": "17.0.1.1.0",
+    "version": "17.0.1.2.0",
     "license": "LGPL-3",
     "author": "Noviat",
     "website": "https://www.noviat.com/",
