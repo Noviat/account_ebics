@@ -103,7 +103,8 @@ Because the connection needs a Python library and your key files on the server, 
 **Odoo.sh** or on an **on-premise** installation.
 
 The EBICS test mode for uploads requires fintech 4.3.4 or higher for EBICS 2.x and fintech
-7.2.7 or higher for EBICS 3.0. SWIFT 3SKey support requires fintech 6.4 or higher.
+7.2.7 or higher for EBICS 3.0. SWIFT 3SKey support requires fintech 6.4 or higher, and the signature passphrase
+fintech 7.3.1 or higher.
 
 Fintech licence
 ---------------
@@ -170,6 +171,9 @@ Count in weeks per bank rather than days, and start the contract and the paperwo
 Configuration
 =============
 
+The menus are those of Odoo Enterprise; on Odoo Community, the application is called
+*Invoicing* instead of *Accounting*.
+
 **Who may configure.** In *Settings > Users*, add the users who maintain the EBICS
 configuration to the **EBICS Manager** group.
 
@@ -179,9 +183,8 @@ installation. A missing format can be reported on
 `GitHub <https://github.com/Noviat/account_ebics/issues>`_.
 
 A download format can carry a **Download Process Method**, run by the *Process* button of a
-downloaded file: ``camt.053``, ``camt.052``, ``camt.054``, ``cfonb120`` and ``pain.002`` (the
-payment status report returned by the bank). Each needs the module of its format (see
-Companion modules); Odoo tells you which one when it is missing.
+downloaded file: ``camt.053``, ``camt.052``, ``camt.054`` and ``cfonb120``. Each needs the
+module of its format (see Companion modules); Odoo tells you which one when it is missing.
 
 **Bank connections.** In *Accounting > Configuration > EBICS > EBICS Configuration*, create one
 connection per bank contract, with the identifiers your bank sent you.
@@ -193,13 +196,12 @@ connection per bank contract, with the identifiers your bank sent you.
 Usage
 =====
 
-The **EBICS Processing** menu of the accounting application lists the downloaded and uploaded
-files, and offers manual downloads and uploads. With Odoo Enterprise it sits under
-*Accounting > Accounting*.
+The **EBICS Processing** menu, in the top bar of the Accounting application, lists the
+downloaded and uploaded files and offers manual downloads and uploads.
 
 Downloaded files are processed into bank statements. Uploads are launched from the payment
-batch or the payment order: the file, its format and the order type come from the
-configuration, not from the person clicking.
+batch or the payment order, with the format set in the configuration: on the payment
+mode for a payment order, on the journal's payment method for a batch payment.
 
 .. image:: https://raw.githubusercontent.com/Noviat/account_ebics/19.0/account_ebics/static/description/ebics_upload.png
    :alt: Uploading a pain.001 SEPA credit transfer file over EBICS 3.0, with the test mode option
