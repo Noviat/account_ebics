@@ -17,6 +17,18 @@
                     class="oe_highlight"
                 />
             </button>
+            <notebook position="inside">
+                <page
+                    string="EBICS upload info"
+                    name="ebics"
+                    invisible="not ebics_config_id"
+                >
+                    <group name="ebics_info">
+                        <field name="ebics_file_id" string="Upload File" />
+                        <field name="ebics_order_number" />
+                    </group>
+                </page>
+            </notebook>
         </field>
     </record>
 </odoo>
