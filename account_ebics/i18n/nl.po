@@ -44,8 +44,8 @@ msgstr "'Datum tot' zoals ingevoerd in de downloadwizard."
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__swift_3skey_certificate
-msgid "3SKey Certficate"
-msgstr "3SKey-certificaat"
+msgid "3SKey Certificate"
+msgstr ""
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__swift_3skey_certificate_fn
@@ -322,11 +322,9 @@ msgstr "Tot en met"
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_userid__signature_class
 msgid ""
-"Default signature class.This default can be overriden for specific EBICS "
+"Default signature class.This default can be overridden for specific EBICS "
 "transactions (cf. File Formats)."
 msgstr ""
-"Standaard handtekeningklasse. Deze standaardwaarde kan worden overschreven "
-"voor specifieke EBICS-transacties (cf. Bestandsformaten)."
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__description
@@ -557,11 +555,11 @@ msgstr "EBICS-bestanden"
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
 msgid ""
-"EBICS Functional Error during download of File Format %(name)s (%"
-"(order_type)s):"
+"EBICS Functional Error during download of File Format %(name)s "
+"(%(order_type)s):"
 msgstr ""
-"EBICS functionele fout tijdens het downloaden van bestandsformaat %(name)s (%"
-"(order_type)s):"
+"EBICS functionele fout tijdens het downloaden van bestandsformaat %(name)s "
+"(%(order_type)s):"
 
 #. module: account_ebics
 #. odoo-python
@@ -606,11 +604,9 @@ msgstr ""
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_userid_view_form
 msgid ""
-"EBICS Initialisation - Push this button when the public have been checked "
-"for consistency."
+"EBICS Initialisation - Push this button when the public bank keys have been "
+"checked for consistency."
 msgstr ""
-"EBICS-initialisatie - Druk op deze knop wanneer de openbare sleutels op "
-"consistentie zijn gecontroleerd."
 
 #. module: account_ebics
 #. odoo-python
@@ -714,11 +710,11 @@ msgstr "Opgeslagen EBICS-wachtwoordzin"
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
 msgid ""
-"EBICS Technical Error during download of File Format %(name)s (%"
-"(order_type)s):"
+"EBICS Technical Error during download of File Format %(name)s "
+"(%(order_type)s):"
 msgstr ""
-"Technische EBICS-fout tijdens het downloaden van bestandsformaat %(name)s (%"
-"(order_type)s):"
+"Technische EBICS-fout tijdens het downloaden van bestandsformaat %(name)s "
+"(%(order_type)s):"
 
 #. module: account_ebics
 #. odoo-python
@@ -769,11 +765,11 @@ msgstr "EBICS-gebruikers"
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
 msgid ""
-"EBICS Verification Error during download of File Format %(name)s (%"
-"(order_type)s):"
+"EBICS Verification Error during download of File Format %(name)s "
+"(%(order_type)s):"
 msgstr ""
-"EBICS-verificatiefout tijdens het downloaden van bestandsformaat %(name)s (%"
-"(order_type)s):"
+"EBICS-verificatiefout tijdens het downloaden van bestandsformaat %(name)s "
+"(%(order_type)s):"
 
 #. module: account_ebics
 #. odoo-python
@@ -921,8 +917,8 @@ msgstr ""
 msgid ""
 "Error detected during download of File Format %(name)s (%(order_type)s):"
 msgstr ""
-"Fout gedetecteerd tijdens het downloaden van bestandsformaat %(name)s (%"
-"(order_type)s):"
+"Fout gedetecteerd tijdens het downloaden van bestandsformaat %(name)s "
+"(%(order_type)s):"
 
 #. module: account_ebics
 #. odoo-python
@@ -1311,8 +1307,8 @@ msgid ""
 "that these users will possess. \n"
 "It is identified by the PartnerID."
 msgstr ""
-"Organisatie-eenheid (bedrijf of persoon) die een contract sluit met de bank. "
-"\n"
+"Organisatie-eenheid (bedrijf of persoon) die een contract sluit met de "
+"bank. \n"
 "In dit contract wordt afgesproken welke ordertypes (bestandsformaten) worden "
 "gebruikt, welke rekeningen betrokken zijn, welke van de gebruikers van de "
 "klant (abonnees) communiceren met de EBICS-bankserver en welke machtigingen "
@@ -1471,11 +1467,9 @@ msgstr "Status instellen op 'concept' vóór (her)initialisatie van de bankkey."
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
 msgid ""
-"Set the EBICS Configuation record to 'Draft' before starting the Key Renewal "
-"process."
+"Set the EBICS Configuration record to 'Draft' before starting the Key "
+"Renewal process."
 msgstr ""
-"Zet het EBICS-configuratierecord op 'Concept' voordat u het "
-"keyvernieuwingsproces start."
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_userid__ebics_key_x509
@@ -1603,11 +1597,9 @@ msgstr ""
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_config_view_form
 msgid ""
-"The EBICS configuration must be confirmed before it can used for bank "
+"The EBICS configuration must be confirmed before it can be used for bank "
 "transactions."
 msgstr ""
-"De EBICS-configuratie moet worden bevestigd voordat deze kan worden gebruikt "
-"voor banktransacties."
 
 #. module: account_ebics
 #. odoo-python
@@ -1650,11 +1642,8 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
 msgid ""
-"The current version of this module requires to X509 support when enabling "
-"3SKey"
+"The current version of this module requires X509 support when enabling 3SKey"
 msgstr ""
-"De huidige versie van deze module vereist X509-ondersteuning bij het "
-"inschakelen van 3SKey"
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_config__ebics_key_version
@@ -1742,8 +1731,8 @@ msgstr "Onbekende fout"
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
 msgid "Unknown Error during download of File Format %(name)s (%(order_type)s):"
 msgstr ""
-"Onbekende fout tijdens het downloaden van bestandsformaat %(name)s (%"
-"(order_type)s):"
+"Onbekende fout tijdens het downloaden van bestandsformaat %(name)s "
+"(%(order_type)s):"
 
 #. module: account_ebics
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_file_format__type__up
@@ -1817,7 +1806,8 @@ msgstr "Gebruikers"
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_userid__user_ids
 msgid "Users who are allowed to use this EBICS UserID for  bank transactions."
-msgstr "Gebruikers die deze EBICS-UserID mogen gebruiken voor  banktransacties."
+msgstr ""
+"Gebruikers die deze EBICS-UserID mogen gebruiken voor  banktransacties."
 
 #. module: account_ebics
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_userid__state__to_verify
@@ -1914,3 +1904,41 @@ msgid ""
 msgstr ""
 "urlopen-fout:\n"
 " url '%(url)s' - %(val)s"
+
+#~ msgid "3SKey Certficate"
+#~ msgstr "3SKey-certificaat"
+
+#~ msgid ""
+#~ "Default signature class.This default can be overriden for specific EBICS "
+#~ "transactions (cf. File Formats)."
+#~ msgstr ""
+#~ "Standaard handtekeningklasse. Deze standaardwaarde kan worden "
+#~ "overschreven voor specifieke EBICS-transacties (cf. Bestandsformaten)."
+
+#~ msgid ""
+#~ "EBICS Initialisation - Push this button when the public have been checked "
+#~ "for consistency."
+#~ msgstr ""
+#~ "EBICS-initialisatie - Druk op deze knop wanneer de openbare sleutels op "
+#~ "consistentie zijn gecontroleerd."
+
+#~ msgid ""
+#~ "Set the EBICS Configuation record to 'Draft' before starting the Key "
+#~ "Renewal process."
+#~ msgstr ""
+#~ "Zet het EBICS-configuratierecord op 'Concept' voordat u het "
+#~ "keyvernieuwingsproces start."
+
+#~ msgid ""
+#~ "The EBICS configuration must be confirmed before it can used for bank "
+#~ "transactions."
+#~ msgstr ""
+#~ "De EBICS-configuratie moet worden bevestigd voordat deze kan worden "
+#~ "gebruikt voor banktransacties."
+
+#~ msgid ""
+#~ "The current version of this module requires to X509 support when enabling "
+#~ "3SKey"
+#~ msgstr ""
+#~ "De huidige versie van deze module vereist X509-ondersteuning bij het "
+#~ "inschakelen van 3SKey"

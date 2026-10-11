@@ -37,7 +37,7 @@ msgstr ""
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__swift_3skey_certificate
-msgid "3SKey Certficate"
+msgid "3SKey Certificate"
 msgstr ""
 
 #. module: account_ebics
@@ -301,7 +301,7 @@ msgstr ""
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_userid__signature_class
 msgid ""
-"Default signature class.This default can be overriden for specific EBICS "
+"Default signature class.This default can be overridden for specific EBICS "
 "transactions (cf. File Formats)."
 msgstr ""
 
@@ -560,8 +560,8 @@ msgstr ""
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_userid_view_form
 msgid ""
-"EBICS Initialisation - Push this button when the public have been checked "
-"for consistency."
+"EBICS Initialisation - Push this button when the public bank keys have been "
+"checked for consistency."
 msgstr ""
 
 #. module: account_ebics
@@ -1367,8 +1367,8 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
 msgid ""
-"Set the EBICS Configuation record to 'Draft' before starting the Key Renewal"
-" process."
+"Set the EBICS Configuration record to 'Draft' before starting the Key "
+"Renewal process."
 msgstr ""
 
 #. module: account_ebics
@@ -1484,7 +1484,7 @@ msgstr ""
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_config_view_form
 msgid ""
-"The EBICS configuration must be confirmed before it can used for bank "
+"The EBICS configuration must be confirmed before it can be used for bank "
 "transactions."
 msgstr ""
 
@@ -1525,8 +1525,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_userid.py:0
 msgid ""
-"The current version of this module requires to X509 support when enabling "
-"3SKey"
+"The current version of this module requires X509 support when enabling 3SKey"
 msgstr ""
 
 #. module: account_ebics
