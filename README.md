@@ -20,7 +20,7 @@ addon | version | maintainers | summary
 [account_ebics_batch_payment](account_ebics_batch_payment/) | 17.0.1.2.0 |  | Send an Odoo Enterprise batch payment to the bank over EBICS
 [account_ebics_oca_statement_import](account_ebics_oca_statement_import/) | 17.0.1.0.1 |  | Process EBICS statement files with the OCA bank statement import
 [account_ebics_oe](account_ebics_oe/) | 17.0.1.0.0 |  | Place the EBICS menus in the Odoo Enterprise accounting application
-[account_ebics_payment_order](account_ebics_payment_order/) | 17.0.1.2.1 |  | Send an OCA payment order to the bank over EBICS
+[account_ebics_payment_order](account_ebics_payment_order/) | 17.0.1.3.0 |  | Send an OCA payment order to the bank over EBICS
 
 [//]: # (end addons)
 

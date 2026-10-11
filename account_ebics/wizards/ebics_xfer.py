@@ -408,7 +408,7 @@ class EbicsXfer(models.TransientModel):
                     )
                     ef_note = ""
                     if self.env.context.get("origin"):
-                        ef_note = self.env._("Origin: %s", self.env.context["origin"])
+                        ef_note = _("Origin: %s") % self.env.context["origin"]
                     suffix = self.format_id.suffix
                     fn = self.upload_fname
                     if suffix and not fn.endswith(suffix):
@@ -478,12 +478,11 @@ class EbicsXfer(models.TransientModel):
 
     def _payment_upload_chatter_message(self, payment_doc, ebics_file):
         payment_doc.message_post(
-            body=self.env._(
-                "'%(filename)s' has been uploaded via EBICS"
-                " (OrderID: %(order_number)s).",
-                filename=ebics_file.name,
-                order_number=ebics_file.ebics_order_number,
-            )
+            body=_("'%(fn)s' has been uploaded via EBICS (OrderID: %(order_number)s).")
+            % {
+                "fn": ebics_file.name,
+                "order_number": ebics_file.ebics_order_number,
+            }
         )
 
     def _setup_client(self):

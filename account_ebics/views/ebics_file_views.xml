@@ -71,7 +71,7 @@
         <field name="model">ebics.file</field>
         <field name="priority">1</field>
         <field name="arch" type="xml">
-            < string="EBICS File" create="false">
+            <form string="EBICS File" create="false">
                 <header>
                     <field name="download_process_method" invisible="1" />
                     <button
@@ -144,30 +144,18 @@
                             />
                         </group>
                     </group>
-                    <group name="main-left">
-                        <field name="date" string="Download Date" />
-                        <field name="user_id" />
-                        <field name="ebics_userid_id" />
-                    </group>
-                    <group name="main-right">
-                        <field name="date_from" />
-                        <field name="date_to" />
-                        <field
-                            name="company_ids"
-                            widget="many2many_tags"
-                            groups="base.group_multi_company"
-                        />
-                    </group>
-                </group>
-                <notebook>
-                    <page string="Additional Information">
-                        <field name="note" nolabel="1" />
-                    </page>
-                    <page string="Bank Statements" invisible="not bank_statement_ids">
-                        <field name="bank_statement_ids" nolabel="1" />
-                    </page>
-                </notebook>
-            </sheet>
+                    <notebook>
+                        <page string="Additional Information">
+                            <field name="note" nolabel="1" />
+                        </page>
+                        <page
+                            string="Bank Statements"
+                            invisible="not bank_statement_ids"
+                        >
+                            <field name="bank_statement_ids" nolabel="1" />
+                        </page>
+                    </notebook>
+                </sheet>
             </form>
         </field>
     </record>
