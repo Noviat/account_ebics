@@ -4,8 +4,8 @@ EBICS - Odoo Enterprise Integration
 
 **Glue module. Install it and forget it.**
 
-On Odoo Enterprise, this module places the **EBICS Processing** menu in the Accounting
-application, under *Accounting > Accounting*.
+On Odoo Enterprise, this module places the **EBICS Processing** menu in the top bar of
+the Accounting application.
 
 It is installed automatically when both of these modules are installed:
 
