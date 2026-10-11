@@ -41,6 +41,7 @@ msgstr "Masquer le téléversement Ebics"
 #: code:addons/account_ebics_payment_order/models/account_payment_order.py:0
 msgid "Missing EBICS File Format setting on your Payment Mode."
 msgstr ""
+"Paramètre de format de fichier EBICS manquant sur votre mode de paiement."
 
 #. module: account_ebics_payment_order
 #. odoo-python
@@ -64,7 +65,7 @@ msgstr "Ordre de paiement"
 #. module: account_ebics_payment_order
 #: model:ir.model.fields,help:account_ebics_payment_order.field_account_payment_mode__ebics_format_id
 msgid "Select EBICS File Format to upload."
-msgstr ""
+msgstr "Sélectionnez le format de fichier EBICS à téléverser."
 
 #. module: account_ebics_payment_order
 #. odoo-python
@@ -74,6 +75,8 @@ msgid ""
 "Please remove the obsolete attachments or upload the payment order file via "
 "the EBICS Processing > EBICS Upload menu"
 msgstr ""
+"Cet ordre de paiement contient plusieurs pièces jointes.\n"
+"Veuillez supprimer les pièces jointes obsolètes ou téléverser le fichier de l'ordre de paiement via le menu EBICS Processing > EBICS Upload"
 
 #. module: account_ebics_payment_order
 #. odoo-python
@@ -82,3 +85,5 @@ msgid ""
 "This payment order doesn't contains attachments.\n"
 "Please generate first the Payment Order file."
 msgstr ""
+"Cet ordre de paiement ne contient aucune pièce jointe.\n"
+"Veuillez d'abord générer le fichier de l'ordre de paiement."

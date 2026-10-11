@@ -31,14 +31,14 @@ msgstr "Sammelzahlung"
 #: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_payment_method__ebics_file_format_id
 #: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_payment_method_line__ebics_file_format_id
 msgid "EBICS File Format"
-msgstr ""
+msgstr "EBICS-Dateiformat"
 
 #. module: account_ebics_batch_payment
 #. odoo-python
 #: code:addons/account_ebics_batch_payment/models/account_batch_payment.py:0
 #: model_terms:ir.ui.view,arch_db:account_ebics_batch_payment.view_batch_payment_form
 msgid "EBICS Upload"
-msgstr ""
+msgstr "EBICS-Upload"
 
 #. module: account_ebics_batch_payment
 #: model:ir.model.fields,help:account_ebics_batch_payment.field_account_payment_method__ebics_file_format_id
@@ -47,11 +47,13 @@ msgid ""
 "EBICS file format to pre-select when uploading a batch payment that uses "
 "this payment method."
 msgstr ""
+"EBICS-Dateiformat, das beim Hochladen einer Stapelzahlung mit dieser "
+"Zahlungsmethode vorausgewählt wird."
 
 #. module: account_ebics_batch_payment
 #: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_batch_payment__hide_ebics_upload
 msgid "Hide Ebics Upload"
-msgstr ""
+msgstr "EBICS-Upload ausblenden"
 
 #. module: account_ebics_batch_payment
 #: model:ir.model,name:account_ebics_batch_payment.model_account_journal
@@ -62,7 +64,7 @@ msgstr "Journal"
 #. odoo-python
 #: code:addons/account_ebics_batch_payment/models/account_batch_payment.py:0
 msgid "No active EBICS configuration available for the selected bank."
-msgstr ""
+msgstr "Keine aktive EBICS-Konfiguration für die ausgewählte Bank verfügbar."
 
 #. module: account_ebics_batch_payment
 #: model:ir.model,name:account_ebics_batch_payment.model_account_payment_method

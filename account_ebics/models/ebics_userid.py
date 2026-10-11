@@ -77,7 +77,7 @@ class EbicsUserID(models.Model):
         required=True,
         default="T",
         help="Default signature class."
-        "This default can be overriden for specific "
+        "This default can be overridden for specific "
         "EBICS transactions (cf. File Formats).",
     )
     transaction_rights = fields.Selection(
@@ -143,7 +143,7 @@ class EbicsUserID(models.Model):
         help="Transactions for this user will be signed "
         "by means of the SWIFT 3SKey token.",
     )
-    swift_3skey_certificate = fields.Binary(string="3SKey Certficate")
+    swift_3skey_certificate = fields.Binary(string="3SKey Certificate")
     swift_3skey_certificate_fn = fields.Char(string="3SKey Certificate Filename")
     # X.509 Distinguished Name attributes used to
     # create self-signed X.509 certificates
@@ -312,7 +312,7 @@ class EbicsUserID(models.Model):
         if self.ebics_config_id.state != "draft":
             raise UserError(
                 self.env._(
-                    "Set the EBICS Configuation record to 'Draft' "
+                    "Set the EBICS Configuration record to 'Draft' "
                     "before starting the Key Renewal process."
                 )
             )
@@ -386,7 +386,7 @@ class EbicsUserID(models.Model):
             raise UserError(
                 self.env._(
                     "The current version of this module "
-                    "requires to X509 support when enabling 3SKey"
+                    "requires X509 support when enabling 3SKey"
                 )
             )
 

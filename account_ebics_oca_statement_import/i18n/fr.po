@@ -24,7 +24,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_ebics_oca_statement_import/wizards/account_statement_import.py:0
 msgid "Error detected while processing and EBICS File"
-msgstr ""
+msgstr "Erreur détectée lors du traitement d'un fichier EBICS"
 
 #. module: account_ebics_oca_statement_import
 #: model:ir.model,name:account_ebics_oca_statement_import.model_account_statement_import
@@ -41,7 +41,7 @@ msgstr "Le relevé %(st_name)s daté du %(date)s a déjà été importé."
 #. odoo-python
 #: code:addons/account_ebics_oca_statement_import/wizards/account_statement_import.py:0
 msgid "This file doesn't contain any statement."
-msgstr ""
+msgstr "Ce fichier ne contient aucun relevé."
 
 #. module: account_ebics_oca_statement_import
 #. odoo-python

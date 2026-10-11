@@ -39,7 +39,7 @@ class AccountPaymentOrder(models.Model):
         if not attach:
             raise UserError(
                 self.env._(
-                    "This payment order doesn't contains attachments."
+                    "This payment order doesn't contain attachments."
                     "\nPlease generate first the Payment Order file."
                 )
             )
