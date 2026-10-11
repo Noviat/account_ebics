@@ -2,7 +2,8 @@
 # License LGPL-3 or later (https://www.gnu.org/licenses/lgpl).
 
 {
-    "name": "Upload Payment Order via EBICS",
+    "name": "EBICS - Payment Orders (OCA)",
+    "summary": "Send an OCA payment order to the bank over EBICS",
     "version": "18.0.1.2.0",
     "license": "LGPL-3",
     "author": "Noviat",
@@ -13,6 +14,6 @@
         "views/account_payment_order_views.xml",
         "views/account_payment_mode_views.xml",
     ],
-    "images": ["static/description/cover.png"],
+    "images": ["static/description/banner.png"],
     "installable": True,
 }

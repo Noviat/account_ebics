@@ -1,50 +1,51 @@
-.. image:: https://img.shields.io/badge/license-AGPL--3-blue.png
-   :target: https://www.gnu.org/licenses/agpl
-   :alt: License: AGPL-3
+=============================
+EBICS - Scheduled File Import
+=============================
 
-============================================
-Module to enable batch import of EBICS files
-============================================
+**Your statements arrive without anyone asking for them.**
 
-This module adds a cron job for the automated import of EBICS files.
+This module adds a scheduled action that downloads and processes the EBICS files of every
+confirmed connection. This is what turns EBICS from a manual download into something your
+morning no longer depends on.
 
-|
+.. image:: https://raw.githubusercontent.com/Noviat/account_ebics/18.0/account_ebics_batch/static/description/ebics_download.png
+   :alt: A downloaded camt.053 statement file in Odoo, ready to be processed
+   :width: 100%
 
-A Log is created during the import in order to document import errors.
-If errors have been detected, the Batch Import Log state is set to 'error'.
-
-When all EBICS Files have been imported correctly, the Batch Import Log state is set to 'done'.
-
-|
-
-The user can reprocess the imported EBICS files in status 'draft' via the Log object 'REPROCESS' button until all errors have been cleared. 
-
-As an alternative, the user can force the Batch Import Log state to 'done'
-(e.g. when the errors have been circumvented via manual encoding or the reprocessing of a single EBICS file).
-
-|
+Each run creates a **Batch Import Log**. When a file cannot be processed, the log is set to
+*error* and records why; when every file is processed, it is set to *done*. From the log,
+**Reprocess** retries the files still in draft until the errors are cleared. A log can also be
+set to *done* by hand, for instance after a file was processed on its own or the movements
+were entered manually.
 
 Configuration
 =============
 
-Adapt the 'EBICS Batch Import' ir.cron job created during the module installation.
+The scheduled action **EBICS Batch Import** is created **inactive** at installation, with a
+daily interval. Activate it in *Settings > Technical > Automation > Scheduled Actions* (developer
+mode), and adapt its interval if needed.
 
-The cron job calls the following python method:
+It calls the following method, on all confirmed connections::
 
-|
+  model._batch_import()
 
-.. code-block:: python
+To limit it to some connections, pass their ids::
 
-  _batch_import()
+  model._batch_import(ebics_config_ids=[1, 3])
 
+Part of the EBICS suite
+=======================
 
-The EBICS download will be performed on all confirmed EBICS connections.
+This module extends **EBICS Banking Protocol** (``account_ebics``), the EBICS implementation
+for Odoo developed and maintained by Noviat. Install it first:
+https://github.com/Noviat/account_ebics
 
-You can limit the automated operation to a subset of your EBICS connections via the ebics_config_ids parameter, e.g.
+What EBICS is and what it changes, in plain language, with screen recordings of the flow:
+https://www.noviat.com/ebics
 
-|
+Credits
+=======
 
-.. code-block:: python
-
-  _batch_import(ebics_config_ids=[1,3])
-
+Developed and maintained by `Noviat <https://www.noviat.com>`_, Odoo integrator in Belgium,
+specialised in accounting and finance since 2009. We configure the connection with your banks
+and support you through the first cycles.
