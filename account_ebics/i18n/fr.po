@@ -37,6 +37,8 @@ msgstr "%(st_cnt)s relevé bancaire%(sp)s été importé : "
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
 msgid "'%(filename)s' has been uploaded via EBICS (OrderID: %(order_number)s)."
 msgstr ""
+"'%(filename)s' a été téléversé via EBICS (ID de commande : "
+"%(order_number)s)."
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_file__date_from
@@ -681,7 +683,7 @@ msgstr "Marquer EBICS comme téléchargé"
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file__ebics_order_number
 msgid "EBICS OrderID"
-msgstr ""
+msgstr "ID de commande EBICS"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_config__ebics_partner
@@ -1339,7 +1341,7 @@ msgstr "Origine : %s"
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file__pain_state
 msgid "Pain State"
-msgstr ""
+msgstr "Statut pain"
 
 #. module: account_ebics
 #. odoo-python
