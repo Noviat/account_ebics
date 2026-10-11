@@ -76,14 +76,20 @@ msgid ""
 "the EBICS Processing > EBICS Upload menu"
 msgstr ""
 "Cet ordre de paiement contient plusieurs pièces jointes.\n"
-"Veuillez supprimer les pièces jointes obsolètes ou téléverser le fichier de l'ordre de paiement via le menu EBICS Processing > EBICS Upload"
+"Veuillez supprimer les pièces jointes obsolètes ou téléverser le fichier de "
+"l'ordre de paiement via le menu EBICS Processing > EBICS Upload"
 
 #. module: account_ebics_payment_order
 #. odoo-python
 #: code:addons/account_ebics_payment_order/models/account_payment_order.py:0
 msgid ""
-"This payment order doesn't contains attachments.\n"
+"This payment order doesn't contain attachments.\n"
 "Please generate first the Payment Order file."
 msgstr ""
-"Cet ordre de paiement ne contient aucune pièce jointe.\n"
-"Veuillez d'abord générer le fichier de l'ordre de paiement."
+
+#~ msgid ""
+#~ "This payment order doesn't contains attachments.\n"
+#~ "Please generate first the Payment Order file."
+#~ msgstr ""
+#~ "Cet ordre de paiement ne contient aucune pièce jointe.\n"
+#~ "Veuillez d'abord générer le fichier de l'ordre de paiement."

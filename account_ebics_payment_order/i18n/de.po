@@ -36,8 +36,7 @@ msgstr "EBICS-Upload ausblenden"
 #. odoo-python
 #: code:addons/account_ebics_payment_order/models/account_payment_order.py:0
 msgid "Missing EBICS File Format setting on your Payment Mode."
-msgstr ""
-"Fehlende Einstellung für das EBICS-Dateiformat in Ihrem Zahlungsmodus."
+msgstr "Fehlende Einstellung für das EBICS-Dateiformat in Ihrem Zahlungsmodus."
 
 #. module: account_ebics_payment_order
 #. odoo-python
@@ -67,17 +66,24 @@ msgstr "Wählen Sie das hochzuladende EBICS-Dateiformat."
 #: code:addons/account_ebics_payment_order/models/account_payment_order.py:0
 msgid ""
 "This payment order contains multiple attachments.\n"
-"Please remove the obsolete attachments or upload the payment order file via the EBICS Processing > EBICS Upload menu"
+"Please remove the obsolete attachments or upload the payment order file via "
+"the EBICS Processing > EBICS Upload menu"
 msgstr ""
 "Dieser Zahlungsauftrag enthält mehrere Anhänge.\n"
-"Bitte entfernen Sie die veralteten Anhänge oder laden Sie die Zahlungsauftragsdatei über das Menü EBICS Processing > EBICS Upload hoch"
+"Bitte entfernen Sie die veralteten Anhänge oder laden Sie die "
+"Zahlungsauftragsdatei über das Menü EBICS Processing > EBICS Upload hoch"
 
 #. module: account_ebics_payment_order
 #. odoo-python
 #: code:addons/account_ebics_payment_order/models/account_payment_order.py:0
 msgid ""
-"This payment order doesn't contains attachments.\n"
+"This payment order doesn't contain attachments.\n"
 "Please generate first the Payment Order file."
 msgstr ""
-"Dieser Zahlungsauftrag enthält keine Anhänge.\n"
-"Bitte erstellen Sie zuerst die Zahlungsauftragsdatei."
+
+#~ msgid ""
+#~ "This payment order doesn't contains attachments.\n"
+#~ "Please generate first the Payment Order file."
+#~ msgstr ""
+#~ "Dieser Zahlungsauftrag enthält keine Anhänge.\n"
+#~ "Bitte erstellen Sie zuerst die Zahlungsauftragsdatei."

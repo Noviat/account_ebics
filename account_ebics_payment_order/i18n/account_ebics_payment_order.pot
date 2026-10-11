@@ -71,6 +71,6 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_ebics_payment_order/models/account_payment_order.py:0
 msgid ""
-"This payment order doesn't contains attachments.\n"
+"This payment order doesn't contain attachments.\n"
 "Please generate first the Payment Order file."
 msgstr ""

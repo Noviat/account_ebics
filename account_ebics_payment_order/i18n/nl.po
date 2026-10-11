@@ -46,7 +46,8 @@ msgstr "Instelling EBICS-bestandsformaat ontbreekt op uw betaalwijze."
 #. odoo-python
 #: code:addons/account_ebics_payment_order/models/account_payment_order.py:0
 msgid "No active EBICS configuration available for the selected bank."
-msgstr "Geen actieve EBICS-configuratie beschikbaar voor de geselecteerde bank."
+msgstr ""
+"Geen actieve EBICS-configuratie beschikbaar voor de geselecteerde bank."
 
 #. module: account_ebics_payment_order
 #: model:ir.model,name:account_ebics_payment_order.model_account_payment_mode
@@ -74,14 +75,20 @@ msgid ""
 "the EBICS Processing > EBICS Upload menu"
 msgstr ""
 "Deze betalingsopdracht bevat meerdere bijlagen.\n"
-"Verwijder de verouderde bijlagen of upload het betalingsopdrachtbestand via het menu EBICS Processing > EBICS Upload"
+"Verwijder de verouderde bijlagen of upload het betalingsopdrachtbestand via "
+"het menu EBICS Processing > EBICS Upload"
 
 #. module: account_ebics_payment_order
 #. odoo-python
 #: code:addons/account_ebics_payment_order/models/account_payment_order.py:0
 msgid ""
-"This payment order doesn't contains attachments.\n"
+"This payment order doesn't contain attachments.\n"
 "Please generate first the Payment Order file."
 msgstr ""
-"Deze betalingsopdracht bevat geen bijlagen.\n"
-"Genereer eerst het betalingsopdrachtbestand."
+
+#~ msgid ""
+#~ "This payment order doesn't contains attachments.\n"
+#~ "Please generate first the Payment Order file."
+#~ msgstr ""
+#~ "Deze betalingsopdracht bevat geen bijlagen.\n"
+#~ "Genereer eerst het betalingsopdrachtbestand."
