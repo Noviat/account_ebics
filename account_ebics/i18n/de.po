@@ -38,6 +38,7 @@ msgstr "%(st_cnt)s Kontoauszug%(sp)s importiert: "
 msgid ""
 "'%(filename)s' has been uploaded via EBICS (OrderID: %(order_number)s)."
 msgstr ""
+"'%(filename)s' wurde über EBICS hochgeladen (Auftrags-ID: %(order_number)s)."
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_file__date_from
@@ -464,12 +465,12 @@ msgstr "EBICS-Verwaltungsaufträge"
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_account_journal__ebics_config_id
 msgid "EBICS Config"
-msgstr ""
+msgstr "EBICS-Konfiguration"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_account_journal__ebics_config_ids
 msgid "EBICS Configs"
-msgstr ""
+msgstr "EBICS-Konfigurationen"
 
 #. module: account_ebics
 #: model:ir.actions.act_window,name:account_ebics.ebics_config_action
@@ -659,6 +660,8 @@ msgid ""
 "EBICS Keys Root Directory %(dir)s is not available.\n"
 "Please contact your system administrator."
 msgstr ""
+"Das EBICS-Schlüssel-Stammverzeichnis %(dir)s ist nicht verfügbar.\n"
+"Bitte wenden Sie sich an Ihren Systemadministrator."
 
 #. module: account_ebics
 #: model:res.groups,name:account_ebics.group_ebics_manager
@@ -673,7 +676,7 @@ msgstr "EBICS als heruntergeladen markieren"
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file__ebics_order_number
 msgid "EBICS OrderID"
-msgstr ""
+msgstr "EBICS-Auftrags-ID"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_config__ebics_partner
@@ -1325,7 +1328,7 @@ msgstr "Herkunft: %s"
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file__pain_state
 msgid "Pain State"
-msgstr ""
+msgstr "Pain-Status"
 
 #. module: account_ebics
 #. odoo-python

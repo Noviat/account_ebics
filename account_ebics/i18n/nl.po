@@ -36,7 +36,7 @@ msgstr "%(st_cnt)s rekeninguittreksel%(sp)s geïmporteerd: "
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
 msgid "'%(filename)s' has been uploaded via EBICS (OrderID: %(order_number)s)."
-msgstr ""
+msgstr "'%(filename)s' is geüpload via EBICS (order-ID: %(order_number)s)."
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_file__date_from
@@ -680,7 +680,7 @@ msgstr "EBICS markeren als gedownload"
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file__ebics_order_number
 msgid "EBICS OrderID"
-msgstr ""
+msgstr "EBICS-order-ID"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_config__ebics_partner
@@ -1339,7 +1339,7 @@ msgstr "Oorsprong: %s"
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file__pain_state
 msgid "Pain State"
-msgstr ""
+msgstr "Pain-status"
 
 #. module: account_ebics
 #. odoo-python
