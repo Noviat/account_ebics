@@ -135,6 +135,10 @@
                                 string="Upload Date"
                                 invisible="context.get('ebics_mode') == 'down'"
                             />
+                            <field
+                                name="ebics_order_number"
+                                invisible="context.get('ebics_mode') != 'up'"
+                            />
                             <field name="user_id" />
                             <field name="ebics_userid_id" />
                         </group>
