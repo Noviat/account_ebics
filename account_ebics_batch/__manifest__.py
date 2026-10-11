@@ -2,13 +2,13 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
-    "name": "EBICS Files batch import",
+    "name": "EBICS - Scheduled File Import",
     "version": "17.0.1.0.1",
     "license": "AGPL-3",
     "author": "Noviat",
     "website": "https://www.noviat.com/",
     "category": "Accounting & Finance",
-    "summary": "EBICS Files automated import and processing",
+    "summary": "Download and process your EBICS files automatically, on a schedule",
     "depends": ["account_ebics"],
     "data": [
         "security/ir.model.access.csv",
@@ -17,5 +17,5 @@
         "views/menu.xml",
     ],
     "installable": True,
-    "images": ["static/description/cover.png"],
+    "images": ["static/description/banner.png"],
 }
