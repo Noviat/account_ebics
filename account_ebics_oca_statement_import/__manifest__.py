@@ -2,8 +2,8 @@
 # License LGPL-3 or later (http://www.gnu.org/licenses/lgpl).
 
 {
-    "name": "account_ebics with OCA Bank Statement Imoort",
-    "summary": "Use OCA Bank Statement Import with account_ebics",
+    "name": "EBICS - Bank Statement Import (OCA)",
+    "summary": "Process EBICS statement files with the OCA bank statement import",
     "version": "17.0.1.0.1",
     "author": "Noviat",
     "website": "https://www.noviat.com/",
@@ -15,5 +15,5 @@
     ],
     "installable": True,
     "auto_install": True,
-    "images": ["static/description/cover.png"],
+    "images": ["static/description/banner.png"],
 }
