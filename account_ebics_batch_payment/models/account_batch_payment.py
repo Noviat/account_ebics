@@ -8,18 +8,46 @@ from odoo.exceptions import UserError
 class AccountBatchPayment(models.Model):
     _inherit = "account.batch.payment"
 
+    ebics_config_id = fields.Many2one(
+        comodel_name="ebics.config",
+        related="journal_id.ebics_config_id",
+    )
+    ebics_file_id = fields.Many2one(
+        comodel_name="ebics.file",
+        string="EBICS Upload File",
+        readonly=True,
+    )
+    ebics_pain_state = fields.Selection(
+        related="ebics_file_id.pain_state",
+        string="EBICS Upload Status",
+    )
+    ebics_order_number = fields.Char(
+        related="ebics_file_id.ebics_order_number",
+        string="EBICS OrderID",
+    )
     hide_ebics_upload = fields.Boolean(
         compute="_compute_hide_ebics_upload", default=True
     )
 
-    @api.depends("journal_id.ebics_config_id", "file_generation_enabled", "state")
+    @api.depends(
+        "journal_id.ebics_config_id",
+        "file_generation_enabled",
+        "state",
+        "ebics_file_id.pain_state",
+    )
     def _compute_hide_ebics_upload(self):
         for rec in self:
             rec.hide_ebics_upload = (
-                not rec.journal_id.ebics_config_id
+                self.env.neutralized
+                or not rec.journal_id.ebics_config_id
                 or not rec.file_generation_enabled
                 or rec.state != "sent"
+                or rec.ebics_pain_state == "uploaded"
             )
+
+    def export_batch_payment(self):
+        self.filtered("ebics_file_id").write({"ebics_file_id": False})
+        return super().export_batch_payment()
 
     def ebics_upload(self):
         self.ensure_one()
@@ -38,6 +66,8 @@ class AccountBatchPayment(models.Model):
                 "default_upload_data": self.export_file,
                 "default_upload_fname": self.export_filename,
                 "origin": origin,
+                "model": self._name,
+                "id": self.id,
             }
         )
 

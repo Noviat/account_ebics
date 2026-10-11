@@ -29,7 +29,8 @@ class AccountPaymentOrder(models.Model):
             )
         ctx.update(
             {
-                "active_model": self._name,
+                "model": self._name,
+                "id": self.id,
                 "default_format_id": ebics_format_id.id,
             }
         )
