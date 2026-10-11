@@ -29,9 +29,19 @@ msgid "Display Name"
 msgstr ""
 
 #. module: account_ebics_batch_payment
+#: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_batch_payment__ebics_config_id
+msgid "EBICS Config"
+msgstr ""
+
+#. module: account_ebics_batch_payment
 #: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_payment_method__ebics_file_format_id
 #: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_payment_method_line__ebics_file_format_id
 msgid "EBICS File Format"
+msgstr ""
+
+#. module: account_ebics_batch_payment
+#: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_batch_payment__ebics_order_number
+msgid "EBICS OrderID"
 msgstr ""
 
 #. module: account_ebics_batch_payment
@@ -42,11 +52,26 @@ msgid "EBICS Upload"
 msgstr ""
 
 #. module: account_ebics_batch_payment
+#: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_batch_payment__ebics_file_id
+msgid "EBICS Upload File"
+msgstr ""
+
+#. module: account_ebics_batch_payment
+#: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_batch_payment__ebics_pain_state
+msgid "EBICS Upload Status"
+msgstr ""
+
+#. module: account_ebics_batch_payment
 #: model:ir.model.fields,help:account_ebics_batch_payment.field_account_payment_method__ebics_file_format_id
 #: model:ir.model.fields,help:account_ebics_batch_payment.field_account_payment_method_line__ebics_file_format_id
 msgid ""
 "EBICS file format to pre-select when uploading a batch payment that uses "
 "this payment method."
+msgstr ""
+
+#. module: account_ebics_batch_payment
+#: model_terms:ir.ui.view,arch_db:account_ebics_batch_payment.view_batch_payment_form
+msgid "EBICS upload info"
 msgstr ""
 
 #. module: account_ebics_batch_payment
@@ -82,4 +107,14 @@ msgstr ""
 #: model:ir.model,name:account_ebics_batch_payment.model_account_payment_method
 #: model:ir.model,name:account_ebics_batch_payment.model_account_payment_method_line
 msgid "Payment Methods"
+msgstr ""
+
+#. module: account_ebics_batch_payment
+#: model_terms:ir.ui.view,arch_db:account_ebics_batch_payment.view_batch_payment_form
+msgid "Upload File"
+msgstr ""
+
+#. module: account_ebics_batch_payment
+#: model_terms:ir.ui.view,arch_db:account_ebics_batch_payment.view_batch_payment_form
+msgid "Upload Status"
 msgstr ""
