@@ -1,19 +1,23 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* account_ebics
+# * account_ebics
 #
+# Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-10-11 19:58+0000\n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"PO-Revision-Date: 2026-10-11 20:25+0000\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
+"memory@weblate.org>\n"
+"Language-Team: German <https://translation.noviat.io/projects/noviat-generic-"
+"account-ebics-v18/account_ebics/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2026.9.1\n"
 
 #. module: account_ebics
 #. odoo-python
@@ -79,7 +83,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_config__active
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__active
 msgid "Active"
-msgstr ""
+msgstr "Aktiv"
 
 #. module: account_ebics
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_userid__state__active_keys
@@ -89,7 +93,7 @@ msgstr ""
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form
 msgid "Additional Information"
-msgstr ""
+msgstr "Zusätzliche Informationen"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__allowed_format_ids
@@ -159,7 +163,7 @@ msgstr ""
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_config__journal_ids
 msgid "Bank Accounts"
-msgstr ""
+msgstr "Bankkonten"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_userid_view_form
@@ -169,12 +173,12 @@ msgstr ""
 #. module: account_ebics
 #: model:ir.model,name:account_ebics.model_account_bank_statement
 msgid "Bank Statement"
-msgstr ""
+msgstr "Kontoauszug"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form
 msgid "Bank Statements"
-msgstr ""
+msgstr "Kontoauszüge"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_change_passphrase_view_form
@@ -182,7 +186,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_mark_as_downloaded
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_upload
 msgid "Cancel"
-msgstr ""
+msgstr "Abbrechen"
 
 #. module: account_ebics
 #: model:ir.model,name:account_ebics.model_ebics_change_passphrase
@@ -201,7 +205,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_result
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_result
 msgid "Close"
-msgstr ""
+msgstr "Schließen"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__ebics_key_x509_dn_cn
@@ -213,7 +217,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file__company_ids
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__company_ids
 msgid "Companies"
-msgstr ""
+msgstr "Unternehmen"
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_config__company_ids
@@ -229,12 +233,12 @@ msgstr ""
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_config_view_form
 msgid "Confirm"
-msgstr ""
+msgstr "Bestätigen"
 
 #. module: account_ebics
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_config__state__confirm
 msgid "Confirmed"
-msgstr ""
+msgstr "Bestätigt"
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_config__ebics_host
@@ -262,7 +266,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__create_uid
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Erstellt von"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__create_date
@@ -273,7 +277,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__create_date
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Erstellt am"
 
 #. module: account_ebics
 #. odoo-python
@@ -284,21 +288,21 @@ msgstr ""
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file__date
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__date_from
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file__date_from
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__date_from
 msgid "Date From"
-msgstr ""
+msgstr "Startdatum"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__date_to
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file__date_to
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__date_to
 msgid "Date To"
-msgstr ""
+msgstr "Enddatum"
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_userid__signature_class
@@ -310,7 +314,7 @@ msgstr ""
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__description
 msgid "Description"
-msgstr ""
+msgstr "Beschreibung"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__display_name
@@ -321,13 +325,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__display_name
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Anzeigename"
 
 #. module: account_ebics
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_file__state__done
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_search
 msgid "Done"
-msgstr ""
+msgstr "Erledigt"
 
 #. module: account_ebics
 #. odoo-python
@@ -339,7 +343,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_file_format__type__down
 #: model:ir.ui.menu,name:account_ebics.ebics_file_menu_download
 msgid "Download"
-msgstr ""
+msgstr "Herunterladen"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form
@@ -350,7 +354,7 @@ msgstr ""
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_download
 msgid "Download Files"
-msgstr ""
+msgstr "Dateien herunterladen"
 
 #. module: account_ebics
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_userid__transaction_rights__down
@@ -374,7 +378,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_userid__state__draft
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_search
 msgid "Draft"
-msgstr ""
+msgstr "Entwurf"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__upload_fname_dummy
@@ -842,7 +846,7 @@ msgstr ""
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__ebics_key_x509_dn_e
 msgid "Email Address"
-msgstr ""
+msgstr "E-Mail-Adresse"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__swift_3skey
@@ -881,7 +885,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
 msgid "Errors"
-msgstr ""
+msgstr "Fehler"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_admin_order_view_form
@@ -891,12 +895,12 @@ msgstr ""
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file__data
 msgid "File"
-msgstr ""
+msgstr "Datei"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_search
 msgid "File Format"
-msgstr ""
+msgstr "Dateiformat"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_config_view_form
@@ -917,7 +921,7 @@ msgstr ""
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file__name
 msgid "Filename"
-msgstr ""
+msgstr "Dateiname"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_userid_view_form
@@ -927,7 +931,7 @@ msgstr ""
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file__bank_statement_ids
 msgid "Generated Bank Statements"
-msgstr ""
+msgstr "Generierte Kontoauszüge"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_userid_view_form
@@ -942,7 +946,7 @@ msgstr ""
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_search
 msgid "Group By"
-msgstr ""
+msgstr "Gruppieren nach"
 
 #. module: account_ebics
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_config__ebics_version__h003
@@ -976,7 +980,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__id
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__ebics_ini_letter_fn
@@ -1032,7 +1036,7 @@ msgstr ""
 #. module: account_ebics
 #: model:ir.model,name:account_ebics.model_account_journal
 msgid "Journal"
-msgstr ""
+msgstr "Journal"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__write_uid
@@ -1043,7 +1047,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__write_uid
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Zuletzt aktualisiert durch"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__write_date
@@ -1054,7 +1058,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__write_date
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Zuletzt aktualisiert am"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__ebics_key_x509_dn_l
@@ -1092,7 +1096,7 @@ msgstr ""
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_config__name
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_change_passphrase__new_pass
@@ -1160,7 +1164,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_change_passphrase__note
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file__note
 msgid "Notes"
-msgstr ""
+msgstr "Notizen"
 
 #. module: account_ebics
 #. odoo-python
@@ -1192,12 +1196,12 @@ msgstr ""
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__admin_order_type
 msgid "Order"
-msgstr ""
+msgstr "Auftrag"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_config__order_number
 msgid "Order Number"
-msgstr ""
+msgstr "Auftragsnummer"
 
 #. module: account_ebics
 #. odoo-python
@@ -1212,7 +1216,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__order_type
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__order_type
 msgid "Order Type"
-msgstr ""
+msgstr "Bestelltyp"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__ebics_key_x509_dn_o
@@ -1254,7 +1258,7 @@ msgstr ""
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form
 msgid "Process"
-msgstr ""
+msgstr "Prozess"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form_result
@@ -1285,7 +1289,7 @@ msgstr ""
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__name
 msgid "Request Type"
-msgstr ""
+msgstr "Antragsart"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_admin_order_view_form_result
@@ -1381,14 +1385,14 @@ msgstr ""
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form
 msgid "Set to Done"
-msgstr ""
+msgstr "Auf Erledigt setzen"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_config_view_form
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_userid_view_form
 msgid "Set to Draft"
-msgstr ""
+msgstr "Auf Entwurf setzen"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_config_view_form
@@ -1432,7 +1436,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__state
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_search
 msgid "State"
-msgstr ""
+msgstr "Status"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__ebics_key_x509_dn_st
@@ -1467,13 +1471,13 @@ msgstr ""
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__suffix
 msgid "Suffix"
-msgstr ""
+msgstr "Suffix"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__test_mode
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__test_mode
 msgid "Test Mode"
-msgstr ""
+msgstr "Testmodus"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_mark_as_downloaded
@@ -1587,7 +1591,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file__type
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__type
 msgid "Type"
-msgstr ""
+msgstr "Typ"
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_file_format__btf_container
@@ -1598,7 +1602,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
 msgid "Unknown Error"
-msgstr ""
+msgstr "Unbekannter Fehler"
 
 #. module: account_ebics
 #. odoo-python
@@ -1611,7 +1615,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_file_format__type__up
 #: model:ir.ui.menu,name:account_ebics.ebics_file_menu_upload
 msgid "Upload"
-msgstr ""
+msgstr "Hochladen"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form
@@ -1622,7 +1626,7 @@ msgstr ""
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_upload
 msgid "Upload File"
-msgstr ""
+msgstr "Datei hochladen"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__upload_fname
@@ -1665,12 +1669,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file__user_id
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_search
 msgid "User"
-msgstr ""
+msgstr "Benutzer"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__user_ids
 msgid "Users"
-msgstr ""
+msgstr "Benutzer"
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_userid__user_ids
@@ -1702,7 +1706,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
 msgid "Warnings"
-msgstr ""
+msgstr "Warnungen"
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_admin_order__ebics_passphrase_store

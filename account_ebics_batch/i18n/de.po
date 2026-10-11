@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-10-11 20:03+0000\n"
+"PO-Revision-Date: 2026-10-11 20:25+0000\n"
 "Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
 "memory@weblate.org>\n"
 "Language-Team: German <https://translation.noviat.io/projects/noviat-generic-"
@@ -60,12 +60,12 @@ msgstr "Erstellt am"
 #. module: account_ebics_batch
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__date_from
 msgid "Date From"
-msgstr ""
+msgstr "Startdatum"
 
 #. module: account_ebics_batch
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__date_to
 msgid "Date To"
-msgstr ""
+msgstr "Enddatum"
 
 #. module: account_ebics_batch
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__display_name
@@ -159,7 +159,7 @@ msgstr "Zuletzt aktualisiert am"
 #. module: account_ebics_batch
 #: model_terms:ir.ui.view,arch_db:account_ebics_batch.ebics_batch_log_view_form
 msgid "Mark Done"
-msgstr ""
+msgstr "Als erledigt markieren"
 
 #. module: account_ebics_batch
 #. odoo-python
@@ -199,7 +199,7 @@ msgstr ""
 #. module: account_ebics_batch
 #: model_terms:ir.ui.view,arch_db:account_ebics_batch.ebics_batch_log_view_form
 msgid "Reprocess"
-msgstr ""
+msgstr "Erneut verarbeiten"
 
 #. module: account_ebics_batch
 #: model_terms:ir.ui.view,arch_db:account_ebics_batch.ebics_batch_log_view_form
@@ -214,11 +214,11 @@ msgstr ""
 #. module: account_ebics_batch
 #: model_terms:ir.ui.view,arch_db:account_ebics_batch.ebics_batch_log_view_form
 msgid "Set to Draft"
-msgstr ""
+msgstr "Auf Entwurf setzen"
 
 #. module: account_ebics_batch
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__state
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log_item__state
 #: model_terms:ir.ui.view,arch_db:account_ebics_batch.ebics_batch_log_view_search
 msgid "State"
-msgstr ""
+msgstr "Status"
