@@ -26,9 +26,19 @@ msgid "Display Name"
 msgstr "Weergavenaam"
 
 #. module: account_ebics_payment_order
+#: model:ir.model.fields,field_description:account_ebics_payment_order.field_account_payment_order__ebics_config_id
+msgid "EBICS Config"
+msgstr ""
+
+#. module: account_ebics_payment_order
 #: model:ir.model.fields,field_description:account_ebics_payment_order.field_account_payment_mode__ebics_format_id
 msgid "EBICS File Format"
 msgstr "EBICS-bestandsformaat"
+
+#. module: account_ebics_payment_order
+#: model:ir.model.fields,field_description:account_ebics_payment_order.field_account_payment_order__ebics_order_number
+msgid "EBICS OrderID"
+msgstr ""
 
 #. module: account_ebics_payment_order
 #. odoo-python
@@ -36,6 +46,16 @@ msgstr "EBICS-bestandsformaat"
 #: model_terms:ir.ui.view,arch_db:account_ebics_payment_order.account_payment_order_form
 msgid "EBICS Upload"
 msgstr "EBICS-upload"
+
+#. module: account_ebics_payment_order
+#: model:ir.model.fields,field_description:account_ebics_payment_order.field_account_payment_order__ebics_file_id
+msgid "EBICS Upload File"
+msgstr ""
+
+#. module: account_ebics_payment_order
+#: model_terms:ir.ui.view,arch_db:account_ebics_payment_order.account_payment_order_form
+msgid "EBICS upload info"
+msgstr ""
 
 #. module: account_ebics_payment_order
 #: model:ir.model.fields,field_description:account_ebics_payment_order.field_account_payment_order__hide_ebics_upload
@@ -93,4 +113,9 @@ msgstr ""
 msgid ""
 "This payment order doesn't contains attachments.\n"
 "Please generate first the Payment Order file."
+msgstr ""
+
+#. module: account_ebics_payment_order
+#: model_terms:ir.ui.view,arch_db:account_ebics_payment_order.account_payment_order_form
+msgid "Upload File"
 msgstr ""
