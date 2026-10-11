@@ -3,13 +3,13 @@
 # * account_ebics_batch
 #
 # Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2026.
+# Jérémy Didderen <jeremy.didderen@noviat.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-10-11 20:04+0000\n"
-"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
-"memory@weblate.org>\n"
+"PO-Revision-Date: 2026-10-11 21:18+0000\n"
+"Last-Translator: Jérémy Didderen <jeremy.didderen@noviat.com>\n"
 "Language-Team: German <https://translation.noviat.io/projects/noviat-generic-"
 "account-ebics-v19/account_ebics_batch/de/>\n"
 "Language: de\n"
@@ -22,28 +22,28 @@ msgstr ""
 #. module: account_ebics_batch
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__file_ids
 msgid "Batch Import EBICS Files"
-msgstr ""
+msgstr "Stapelimport EBICS-Dateien"
 
 #. module: account_ebics_batch
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log_item__note
 #: model_terms:ir.ui.view,arch_db:account_ebics_batch.ebics_batch_log_view_form
 msgid "Batch Import Log"
-msgstr ""
+msgstr "Stapelimportprotokoll"
 
 #. module: account_ebics_batch
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__log_ids
 msgid "Batch Import Log Items"
-msgstr ""
+msgstr "Stapelimport-Protokollpositionen"
 
 #. module: account_ebics_batch
 #: model_terms:ir.ui.view,arch_db:account_ebics_batch.ebics_batch_log_view_form
 msgid "Batch Import Logs"
-msgstr ""
+msgstr "Stapelimportprotokolle"
 
 #. module: account_ebics_batch
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log_item__log_id
 msgid "Batch Object"
-msgstr ""
+msgstr "Stapelobjekt"
 
 #. module: account_ebics_batch
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__create_uid
@@ -88,33 +88,33 @@ msgstr "Entwurf"
 #. module: account_ebics_batch
 #: model:ir.actions.server,name:account_ebics_batch.ir_cron_ebics_batch_import_ir_actions_server
 msgid "EBICS Batch Import"
-msgstr ""
+msgstr "EBICS-Stapelimport"
 
 #. module: account_ebics_batch
 #: model_terms:ir.ui.view,arch_db:account_ebics_batch.ebics_batch_log_view_form
 msgid "EBICS Batch Import Log"
-msgstr ""
+msgstr "EBICS-Stapelimportprotokoll"
 
 #. module: account_ebics_batch
 #: model:ir.actions.act_window,name:account_ebics_batch.ebics_batch_log_action
 #: model:ir.ui.menu,name:account_ebics_batch.ebics_batch_log_menu
 msgid "EBICS Batch Import Logs"
-msgstr ""
+msgstr "EBICS-Stapelimportprotokolle"
 
 #. module: account_ebics_batch
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__ebics_config_ids
 msgid "EBICS Configurations"
-msgstr ""
+msgstr "EBICS-Konfigurationen"
 
 #. module: account_ebics_batch
 #: model_terms:ir.ui.view,arch_db:account_ebics_batch.ebics_batch_log_view_form
 msgid "EBICS Files"
-msgstr ""
+msgstr "EBICS-Dateien"
 
 #. module: account_ebics_batch
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__file_count
 msgid "EBICS Files Count"
-msgstr ""
+msgstr "Anzahl EBICS-Dateien"
 
 #. module: account_ebics_batch
 #: model:ir.model.fields.selection,name:account_ebics_batch.selection__ebics_batch_log__state__error
@@ -126,12 +126,12 @@ msgstr "Fehler"
 #. odoo-python
 #: code:addons/account_ebics_batch/models/ebics_batch_log.py:0
 msgid "Error while processing EBICS connection '%s' :\n"
-msgstr ""
+msgstr "Fehler bei der Verarbeitung der EBICS-Verbindung '%s':\n"
 
 #. module: account_ebics_batch
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__has_draft_files
 msgid "Has Draft Files"
-msgstr ""
+msgstr "Hat Entwurfsdateien"
 
 #. module: account_ebics_batch
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__id
@@ -163,11 +163,13 @@ msgid ""
 "No EBICS UserID with stored passphrase found.\n"
 "You should configure such a UserID for automated downloads."
 msgstr ""
+"Keine EBICS-Benutzer-ID mit gespeicherter Passphrase gefunden.\n"
+"Sie sollten eine solche Benutzer-ID für automatische Downloads konfigurieren."
 
 #. module: account_ebics_batch
 #: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log_item__error_count
 msgid "Number of Errors"
-msgstr ""
+msgstr "Anzahl Fehler"
 
 #. module: account_ebics_batch
 #: model:ir.model,name:account_ebics_batch.model_ebics_batch_log_item
@@ -183,13 +185,15 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_ebics_batch/models/ebics_batch_log.py:0
 msgid "Only log objects in state 'draft' can be deleted !"
-msgstr ""
+msgstr "Nur Protokollobjekte im Status „Entwurf“ können gelöscht werden!"
 
 #. module: account_ebics_batch
 #. odoo-python
 #: code:addons/account_ebics_batch/models/ebics_batch_log.py:0
 msgid "Please set state to 'Confirm' and Reprocess this EBICS Import Log."
 msgstr ""
+"Bitte setzen Sie den Status auf „Bestätigen“ und verarbeiten Sie dieses "
+"EBICS-Importprotokoll erneut."
 
 #. module: account_ebics_batch
 #: model_terms:ir.ui.view,arch_db:account_ebics_batch.ebics_batch_log_view_form
@@ -199,12 +203,12 @@ msgstr "Erneut verarbeiten"
 #. module: account_ebics_batch
 #: model_terms:ir.ui.view,arch_db:account_ebics_batch.ebics_batch_log_view_form
 msgid "Reprocess 'draft' EBICS Files"
-msgstr ""
+msgstr "EBICS-Dateien im Status „Entwurf“ erneut verarbeiten"
 
 #. module: account_ebics_batch
 #: model_terms:ir.ui.view,arch_db:account_ebics_batch.ebics_batch_log_view_search
 msgid "Search EBICS Batch Import Log Files"
-msgstr ""
+msgstr "EBICS-Stapelimportprotokolldateien suchen"
 
 #. module: account_ebics_batch
 #: model_terms:ir.ui.view,arch_db:account_ebics_batch.ebics_batch_log_view_form
