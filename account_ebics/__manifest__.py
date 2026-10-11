@@ -2,7 +2,11 @@
 # License LGPL-3 or later (http://www.gnu.org/licenses/lgpl).
 
 {
-    "name": "EBICS banking protocol",
+    "name": "EBICS Banking Protocol",
+    "summary": (
+        "Download bank statements and upload payment files directly from Odoo, "
+        "using the European EBICS standard"
+    ),
     "version": "16.0.2.0.0",
     "license": "LGPL-3",
     "author": "Noviat",
@@ -30,5 +34,5 @@
             "cryptography",
         ]
     },
-    "images": ["static/description/cover.png"],
+    "images": ["static/description/banner.png"],
 }
