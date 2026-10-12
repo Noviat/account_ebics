@@ -1225,6 +1225,12 @@ msgstr "Aucune banque définie pour le journal financier de la config EBICS"
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
+msgid "No currency found in statement for Account Number %(nbr)s."
+msgstr ""
+
+#. module: account_ebics
+#. odoo-python
+#: code:addons/account_ebics/models/ebics_file.py:0
 msgid "No financial journal found for Account Number %(nbr)s, Currency %(cc)s"
 msgstr ""
 "Aucun journal financier trouvé pour le numéro de compte %(nbr)s, devise "
