@@ -1,9 +1,8 @@
-[![Pre-commit Status](https://github.com/Noviat-Generic/Modules dedicated to manage the EBICS protocol/actions/workflows/pre-commit.yml/badge.svg?branch=20.0)](https://github.com/Noviat-Generic/Modules dedicated to manage the EBICS protocol/actions/workflows/pre-commit.yml?query=branch%3A20.0)
-[![Build Status](https://github.com/Noviat-Generic/Modules dedicated to manage the EBICS protocol/actions/workflows/test.yml/badge.svg?branch=20.0)](https://github.com/Noviat-Generic/Modules dedicated to manage the EBICS protocol/actions/workflows/test.yml?query=branch%3A20.0)
-[![Translation state](https://translation.noviat.io/widget/noviat-generic-account-ebics-v19/multi-auto.svg)](https://translation.noviat.io/engage/noviat-generic-account-ebics-v19/)
+[![Pre-commit Status](https://github.com/Noviat/account_ebics/actions/workflows/pre-commit.yml/badge.svg?branch=20.0)](https://github.com/Noviat/account_ebics/actions/workflows/pre-commit.yml?query=branch%3A20.0)
+[![Build Status](https://github.com/Noviat/account_ebics/actions/workflows/test.yml/badge.svg?branch=20.0)](https://github.com/Noviat/account_ebics/actions/workflows/test.yml?query=branch%3A20.0)
 <!-- /!\ do not modify above this line -->
 
-# account_ebics
+# Modules dedicated to manage the EBICS protocol
 
 <!-- /!\ do not modify below this line -->
 
