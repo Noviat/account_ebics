@@ -2,21 +2,37 @@
 <odoo>
 
     <record id="account_payment_order_form" model="ir.ui.view">
-      <field name="name">account.payment.order.form</field>
-      <field name="model">account.payment.order</field>
-      <field name="inherit_id" ref="account_payment_order.account_payment_order_form" />
-      <field name="arch" type="xml">
-        <button name="open2generated" position="after">
-          <field name="hide_ebics_upload" invisible="1" />
-          <button
+        <field name="name">account.payment.order.form</field>
+        <field name="model">account.payment.order</field>
+        <field
+            name="inherit_id"
+            ref="account_payment_order.account_payment_order_form"
+        />
+        <field name="arch" type="xml">
+            <button name="open2generated" position="after">
+                <field name="hide_ebics_upload" invisible="1" />
+                <field name="ebics_config_id" invisible="1" />
+                <button
                     name="ebics_upload"
                     type="object"
                     invisible="hide_ebics_upload"
                     string="EBICS Upload"
                     class="oe_highlight"
                 />
-        </button>
-      </field>
+            </button>
+            <notebook position="inside">
+                <page
+                    string="EBICS upload info"
+                    name="ebics"
+                    invisible="not ebics_config_id"
+                >
+                    <group name="ebics_info">
+                        <field name="ebics_file_id" string="Upload File" />
+                        <field name="ebics_order_number" />
+                    </group>
+                </page>
+            </notebook>
+        </field>
     </record>
 
 </odoo>

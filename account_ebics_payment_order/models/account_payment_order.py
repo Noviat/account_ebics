@@ -8,6 +8,19 @@ from odoo.exceptions import UserError
 class AccountPaymentOrder(models.Model):
     _inherit = "account.payment.order"
 
+    ebics_config_id = fields.Many2one(
+        comodel_name="ebics.config",
+        related="journal_id.ebics_config_id",
+    )
+    ebics_file_id = fields.Many2one(
+        comodel_name="ebics.file",
+        string="EBICS Upload File",
+        readonly=True,
+    )
+    ebics_order_number = fields.Char(
+        related="ebics_file_id.ebics_order_number",
+        string="EBICS OrderID",
+    )
     hide_ebics_upload = fields.Boolean(
         compute="_compute_hide_ebics_upload", default=True
     )
@@ -16,7 +29,9 @@ class AccountPaymentOrder(models.Model):
     def _compute_hide_ebics_upload(self):
         for rec in self:
             rec.hide_ebics_upload = (
-                not rec.journal_id.ebics_config_id or rec.state != "generated"
+                self.env.neutralized
+                or not rec.journal_id.ebics_config_id
+                or rec.state != "generated"
             )
 
     def ebics_upload(self):
@@ -29,7 +44,8 @@ class AccountPaymentOrder(models.Model):
             )
         ctx.update(
             {
-                "active_model": self._name,
+                "model": self._name,
+                "id": self.id,
                 "default_format_id": ebics_format_id.id,
             }
         )
