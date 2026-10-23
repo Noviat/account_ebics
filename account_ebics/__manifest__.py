@@ -5,7 +5,7 @@
     "name": "EBICS Banking Protocol",
     "summary": "Download bank statements and upload payment "
     "files directly from Odoo, using the European EBICS standard",
-    "version": "19.0.1.3.1",
+    "version": "20.0.1.0.0",
     "license": "LGPL-3",
     "author": "Noviat",
     "website": "https://www.noviat.com/",
@@ -13,7 +13,7 @@
     "depends": ["account"],
     "data": [
         "security/ebics_security.xml",
-        "security/ir.model.access.csv",
+        "security/ir.access.csv",
         "data/ebics_file_format.xml",
         "views/ebics_config_views.xml",
         "views/ebics_file_views.xml",
