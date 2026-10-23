@@ -8,26 +8,10 @@
     />
 
     <menuitem
-        id="ebics_xfer_menu_download"
-        name="EBICS Download"
-        parent="ebics_processing_menu"
-        action="ebics_xfer_action_download"
-        sequence="10"
-    />
-
-    <menuitem
-        id="ebics_xfer_menu_upload"
-        name="EBICS Upload"
-        parent="ebics_processing_menu"
-        action="ebics_xfer_action_upload"
-        sequence="20"
-    />
-
-    <menuitem
         id="ebics_file_menu"
         name="EBICS Files"
         parent="ebics_processing_menu"
-        sequence="30"
+        sequence="10"
     />
 
     <menuitem
@@ -44,6 +28,22 @@
         parent="ebics_file_menu"
         action="ebics_file_action_upload"
         sequence="20"
+    />
+
+    <menuitem
+        id="ebics_xfer_menu_download"
+        name="EBICS Download"
+        parent="ebics_processing_menu"
+        action="ebics_xfer_action_download"
+        sequence="20"
+    />
+
+    <menuitem
+        id="ebics_xfer_menu_upload"
+        name="EBICS Upload"
+        parent="ebics_processing_menu"
+        action="ebics_xfer_action_upload"
+        sequence="30"
     />
 
     <menuitem

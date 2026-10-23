@@ -1,13 +1,13 @@
 # Copyright 2009-2025 Noviat.
 # License LGPL-3 or later (https://www.gnu.org/licenses/lgpl).
 
-import base64
 import logging
 from sys import exc_info
 from traceback import format_exception
 
 from odoo import SUPERUSER_ID, api, fields, models
 from odoo.exceptions import UserError
+from odoo.tools.binary import BinaryBytes
 
 _logger = logging.getLogger(__name__)
 
@@ -370,7 +370,7 @@ class EbicsXfer(models.TransientModel):
         self.note = ""
         client = self._setup_client()
         if client:
-            upload_data = base64.decodebytes(self.upload_data)
+            upload_data = bytes(self.upload_data)
             ef_format = self.format_id
             OrderID = False
             try:
@@ -619,10 +619,9 @@ class EbicsXfer(models.TransientModel):
                     fn,
                 )
             )
-        data = base64.encodebytes(data)
         ef_vals = {
             "name": fn,
-            "data": data,
+            "data": BinaryBytes(data),
             "date": fields.Datetime.now(),
             "date_from": self.date_from,
             "date_to": self.date_to,
