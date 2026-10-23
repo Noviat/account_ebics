@@ -12,9 +12,9 @@ from lxml import etree
 from odoo import api, fields, models
 from odoo.exceptions import UserError
 
-from odoo.addons.base.models.res_bank import sanitize_account_number
+from odoo.addons.base.models.res_partner_bank import sanitize_account_number
 
-_logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)  # lint-ignore=unused-logger
 
 DUP_CHECK_FORMATS = ["cfonb120", "camt053"]
 

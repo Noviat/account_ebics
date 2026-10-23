@@ -1,0 +1,15 @@
+id,name,model_id,group_id/id,operation,domain
+access_ebics_config_manager,ebics_config manager,ebics.config,account_ebics.group_ebics_manager,crud,
+access_ebics_config_user,ebics_config user,ebics.config,account.group_account_invoice,r,
+access_ebics_userid_manager,ebics_userid manager,ebics.userid,account_ebics.group_ebics_manager,crud,
+access_ebics_userid_user,ebics_userid user,ebics.userid,account.group_account_invoice,r,
+access_ebics_file_format_manager,ebics_file_format manager,ebics.file.format,account_ebics.group_ebics_manager,crud,
+access_ebics_file_format_user,ebics_file_format user,ebics.file.format,account.group_account_invoice,r,
+access_ebics_file_manager,ebics_file manager,ebics.file,account_ebics.group_ebics_manager,crud,
+access_ebics_file_user,ebics_file user,ebics.file,account.group_account_invoice,cru,
+access_ebics_change_passphrase,access_ebics_change_passphrase,ebics.change.passphrase,account_ebics.group_ebics_manager,cru,
+access_ebics_xfer,access_ebics_xfer,ebics.xfer,account.group_account_invoice,cru,
+access_ebics_admin_order,access_ebics_admin_order,ebics.admin.order,account_ebics.group_ebics_manager,cru,
+ebics_config_comp_rule,EBICS Configuration model company rule,ebics.config,,crud,"['|', ('company_ids', '=', False), ('company_ids', 'in', company_ids)]"
+ebics_userid_comp_rule,EBICS UserID model company rule,ebics.userid,,crud,"['|', ('company_ids', '=', False), ('company_ids', 'in', company_ids)]"
+ebics_file_comp_rule,EBICS File model company rule,ebics.file,,crud,"['|', ('company_ids', '=', False), ('company_ids', 'in', company_ids)]"
