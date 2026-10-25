@@ -8,18 +8,23 @@ on:
     branches:
       - "18.0"
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   unreleased-deps:
     runs-on: ubuntu-latest
     name: Detect unreleased dependencies
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - run: |
           for reqfile in requirements.txt test-requirements.txt ; do
               if [ -f ${reqfile} ] ; then
                   result=0
                   # reject non-comment lines that contain a / (i.e. URLs, relative paths)
-                  grep "^[^#].*/" ${reqfile} || result=$?
+                  # unless they have a "# SKIP TEST" comment
+                  grep "^[^#].*/" ${reqfile} | grep -v "# SKIP TEST" || result=$?
                   if [ $result -eq 0 ] ; then
                       echo "Unreleased dependencies found in ${reqfile}."
                       exit 1
@@ -27,7 +32,7 @@ jobs:
               fi
           done
   test:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     container: ${{ matrix.container }}
     name: ${{ matrix.name }}
     permissions:
@@ -49,7 +54,7 @@ jobs:
             makepot: "true"
     services:
       postgres:
-        image: postgres:12.0
+        image: postgres:12
         env:
           POSTGRES_USER: odoo
           POSTGRES_PASSWORD: odoo
@@ -60,20 +65,34 @@ jobs:
       INSTALL_ADDONS_DIR: "/tmp/addons-merged"
       ADDITIONAL_ADDONS_DIR: "/tmp/additional-addons"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           persist-credentials: false
+      - name: Configure git authentication
+        env:
+          TOKEN: ${{ secrets.PRIVATE_TOKEN }}
+        run: |
+          git config --global http.https://github.com/.extraheader "AUTHORIZATION: basic $(printf 'x-access-token:%s' "$TOKEN" | base64 -w0)"
+      - name: Set pip constraints (pyOpenSSL / cryptography)
+        run: |
+          cat > /tmp/constraints.txt <<'EOF'
+          pyOpenSSL == 22.1.0
+          cryptography == 38.0.4
+          EOF
+          echo "PIP_CONSTRAINT=/tmp/constraints.txt" >> $GITHUB_ENV
+      - name: Upgrade pip in container
+        run: python -m pip install --upgrade pip
+      - name: Install Odoo upgrade util
+        run: python -m pip install git+https://github.com/odoo/upgrade-util@master
       - name: Add Noviat CI Tools to PATH
         run: |
-          git clone https://${{ secrets.PRIVATE_TOKEN }}@github.com/Noviat-CI/noviat-ci-tools.git /opt/noviat-ci-tools
+          git clone https://github.com/Noviat-CI/noviat-ci-tools.git /opt/noviat-ci-tools
           echo "/opt/noviat-ci-tools" >> $GITHUB_PATH
       - name: Clone Odoo Enterprise
         if: ${{ matrix.odoo_enterprise == 1 }}
         run : |
-          git clone https://${{ secrets.PRIVATE_TOKEN }}@github.com/odoo/enterprise.git --depth 1 -b 18.0 /opt/enterprise
+          git clone https://github.com/odoo/enterprise.git --depth 1 -b 18.0 /opt/enterprise
       - name: Clone Noviat Dependencies
-        env:
-          PRIVATE_TOKEN: ${{ secrets.PRIVATE_TOKEN }}
         run: clone_oca_dependencies_by_noviat
       - name: Create addons path
         run: |
@@ -97,21 +116,30 @@ jobs:
         run: |
           echo "server_wide_modules = web,module_change_auto_install" >> ${ODOO_RC}
           echo "ODOO_MODULES_AUTO_INSTALL_DISABLED=${{ matrix.EXCLUDE_MODULES }}" >> $GITHUB_ENV
-      - name: Inject GitHub token for Noviat orgs in test-requirements.txt
-        run: |
-          sed -i -E "s#https://github.com/(Noviat-(Projects|Generic|ARP|Internal))#https://${{ secrets.PRIVATE_TOKEN }}@github.com/\1#g" test-requirements.txt
       - name: Install addons and dependencies
         run: |
           (ADDONS_PATH=${ADDONS_PATH} ADDONS_DIR=${INSTALL_ADDONS_DIR} oca_install_addons)
+      - name: Install external dependencies of core addons (not in Odoo requirements.txt)
+        run: |
+          (ADDONS_DIR=${INSTALL_ADDONS_DIR} noviat_install_odoo_external_dependencies)
       - name: Initialize test db
         run: oca_init_test_database
       - name: Run tests
         run: oca_run_tests
       - name: Generate coverage files
+        id: coverage
         run: |
+          # oca_run_tests exits early without coverage data when there is no
+          # addon to test (e.g. a freshly scaffolded version branch).
+          if [ -z "$(oca_list_addons_to_test)" ]; then
+            echo "No addon to test, skipping coverage report."
+            exit 0
+          fi
           coverage report -m
           coverage xml -o coverage.xml
+          echo "report=true" >> "$GITHUB_OUTPUT"
       - name: Code Coverage Summary Report
+        if: steps.coverage.outputs.report == 'true'
         uses: irongut/CodeCoverageSummary@v1.3.0
         with:
           filename: 'coverage.xml'
@@ -120,7 +148,8 @@ jobs:
           output: 'both'
           hide_complexity: true
       - name: Write to Job Summary
+        if: steps.coverage.outputs.report == 'true'
         run: cat code-coverage-results.md >> $GITHUB_STEP_SUMMARY
       - name: Update .pot files
-        run: noviat_export_and_push_pot https://x-access-token:${{ secrets.PRIVATE_TOKEN }}@github.com/${{ github.repository }}
+        run: noviat_export_and_push_pot https://github.com/${{ github.repository }}
         if: ${{ matrix.makepot == 'true' && github.event_name == 'push' }}

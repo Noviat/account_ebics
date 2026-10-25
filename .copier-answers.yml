@@ -1,5 +1,5 @@
 # Do NOT update manually; changes here will be overwritten by Copier
-_commit: v5.0
+_commit: v8.0.2
 _src_path: git@github.com:Noviat-CI/addons-repo-template.git
 ci_disable_autoinstall_modules: account_asset
 odoo_test_flavor: Both
@@ -9,4 +9,5 @@ rebel_module_groups: []
 repo_name: Modules dedicated to manage the EBICS protocol
 repo_slug: account_ebics
 repo_type: customer
+weblate_project_name: ''
 
