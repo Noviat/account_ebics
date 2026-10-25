@@ -15,5 +15,4 @@
         "views/account_payment_mode_views.xml",
     ],
     "images": ["static/description/banner.png"],
-    "installable": True,
 }

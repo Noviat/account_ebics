@@ -11,13 +11,13 @@ class AccountJournal(models.Model):
         comodel_name="ebics.config",
         relation="account_journal_ebics_config_rel",
         readonly=True,
-        string="Ebics Configs",
+        string="EBICS Configs",
     )
     ebics_config_id = fields.Many2one(
         comodel_name="ebics.config",
         compute="_compute_ebics_config_id",
         compute_sudo=True,
-        string="Ebics Config",
+        string="EBICS Config",
     )
 
     @api.depends("ebics_config_ids")

@@ -4,7 +4,7 @@
 import logging
 from datetime import date, datetime
 
-from odoo import _, models
+from odoo import models
 
 from odoo.addons.base.models.res_bank import sanitize_account_number
 
@@ -39,8 +39,7 @@ class AccountStatementImport(models.TransientModel):
         sanitized_number = sanitize_account_number(account_number)
         check_curr = sanitized_number[-3:]
         if check_curr.isalpha():
-            all_currencies = self.env["res.currency"].search([])
-            if check_curr in all_currencies.mapped("name"):
+            if self.env["res.currency"].search([("name", "=", check_curr)], limit=1):
                 sanitized_number = sanitized_number[:-3]
         return sanitized_number
 
@@ -49,7 +48,7 @@ class AccountStatementImport(models.TransientModel):
         if self.env.context.get("active_model") == "ebics.file":
             message = False
             if len(stmts_vals) == 0:
-                message = _("This file doesn't contain any statement.")
+                message = self.env._("This file doesn't contain any statement.")
             if not message:
                 no_st_line = True
                 for vals in stmts_vals:
@@ -57,10 +56,10 @@ class AccountStatementImport(models.TransientModel):
                         no_st_line = False
                         break
                 if no_st_line:
-                    message = _("This file doesn't contain any transaction.")
+                    message = self.env._("This file doesn't contain any transaction.")
                 if message:
                     log_msg = (
-                        _("Error detected while processing an EBICS File")
+                        self.env._("Error detected while processing an EBICS File")
                         + ":\n"
                         + message
                     )
@@ -99,7 +98,7 @@ class AccountStatementImport(models.TransientModel):
                         else:
                             st_date = st_vals["date"]
                         messages.append(
-                            _(
+                            self.env._(
                                 "Statement %(st_name)s dated %(date)s "
                                 "has already been imported.",
                                 st_name=st_vals["name"],
@@ -108,7 +107,9 @@ class AccountStatementImport(models.TransientModel):
                         )
 
             if not transactions:
-                messages.append(_("This file doesn't contain any transaction."))
+                messages.append(
+                    self.env._("This file doesn't contain any transaction.")
+                )
             if messages:
                 result["notifications"].append(
                     {"type": "warning", "message": "\n".join(messages)}

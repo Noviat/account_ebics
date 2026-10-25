@@ -8,7 +8,7 @@ import re
 from odoo import api, fields, models
 from odoo.exceptions import UserError
 
-_logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)  # lint-ignore=unused-logger
 
 
 class EbicsConfig(models.Model):
@@ -160,13 +160,12 @@ class EbicsConfig(models.Model):
         for rec in self:
             rec.company_ids = rec.journal_ids.mapped("company_id")
 
-    def unlink(self):
-        for ebics_config in self:
-            if ebics_config.state == "active":
-                raise UserError(
-                    self.env._("You cannot remove active EBICS configurations.")
-                )
-        return super().unlink()
+    @api.ondelete(at_uninstall=False)
+    def _unlink_except_active(self):
+        if any(rec.state == "active" for rec in self):
+            raise UserError(
+                self.env._("You cannot remove active EBICS configurations.")
+            )
 
     def set_to_draft(self):
         return self.write({"state": "draft"})
@@ -199,8 +198,8 @@ class EbicsConfig(models.Model):
         if not os.path.exists(dirname):
             raise UserError(
                 self.env._(
-                    "EBICS Keys Root Directory %s is not available."
-                    "\nPlease contact your system administrator."
+                    "EBICS Keys Root Directory %(dir)s is not available."
+                    "\nPlease contact your system administrator.",
+                    dir=dirname,
                 )
-                % dirname
             )

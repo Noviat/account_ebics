@@ -3,7 +3,7 @@
 
 {
     "name": "EBICS - Scheduled File Import",
-    "version": "18.0.1.0.1",
+    "version": "18.0.1.0.2",
     "license": "AGPL-3",
     "author": "Noviat",
     "website": "https://www.noviat.com/",
@@ -16,6 +16,5 @@
         "views/ebics_batch_log_views.xml",
         "views/menu.xml",
     ],
-    "installable": True,
     "images": ["static/description/banner.png"],
 }

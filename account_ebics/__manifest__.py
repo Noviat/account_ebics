@@ -26,7 +26,6 @@
         "wizards/ebics_admin_order.xml",
         "views/menu.xml",
     ],
-    "installable": True,
     "application": True,
     "external_dependencies": {
         "python": [

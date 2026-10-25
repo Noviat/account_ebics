@@ -224,9 +224,9 @@ class EbicsXfer(models.TransientModel):
         client = self._setup_client()
         if not client:
             err_cnt += 1
-            self.note += (
-                self.env._("EBICS client setup failed for connection '%s'")
-                % self.ebics_config_id.name
+            self.note += self.env._(
+                "EBICS client setup failed for connection '%s'",
+                self.ebics_config_id.name,
             )
         else:
             download_formats = (
@@ -336,11 +336,8 @@ class EbicsXfer(models.TransientModel):
             if ebics_files:
                 self.note += "\n"
                 for f in ebics_files:
-                    self.note += (
-                        self.env._(
-                            "EBICS File '%s' is available for further processing."
-                        )
-                        % f.name
+                    self.note += self.env._(
+                        "EBICS File '%s' is available for further processing.", f.name
                     )
                     self.note += "\n"
 
@@ -406,9 +403,8 @@ class EbicsXfer(models.TransientModel):
                     OrderID = client.upload(order_type, upload_data)
                 if OrderID:
                     self.note += "\n"
-                    self.note += (
-                        self.env._("EBICS File has been uploaded (OrderID %s).")
-                        % OrderID
+                    self.note += self.env._(
+                        "EBICS File has been uploaded (OrderID %s).", OrderID
                     )
                     ef_note = ""
                     if self.env.context.get("origin"):
@@ -619,9 +615,9 @@ class EbicsXfer(models.TransientModel):
                 self.env._(
                     "EBICS File with name '%s' has already been downloaded."
                     "\nPlease check this file and rename in case there is "
-                    "no risk on duplicate transactions."
+                    "no risk on duplicate transactions.",
+                    fn,
                 )
-                % fn
             )
         data = base64.encodebytes(data)
         ef_vals = {
