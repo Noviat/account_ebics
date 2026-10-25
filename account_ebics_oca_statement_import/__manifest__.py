@@ -4,7 +4,7 @@
 {
     "name": "EBICS - Bank Statement Import (OCA)",
     "summary": "Process EBICS statement files with the OCA bank statement import",
-    "version": "18.0.1.0.1",
+    "version": "18.0.1.0.2",
     "author": "Noviat",
     "website": "https://www.noviat.com/",
     "category": "Hidden",
@@ -13,7 +13,6 @@
         "account_ebics",
         "account_statement_import_file",
     ],
-    "installable": True,
     "auto_install": True,
     "images": ["static/description/banner.png"],
 }

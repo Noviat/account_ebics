@@ -14,6 +14,5 @@
         "views/account_journal_views.xml",
         "views/account_batch_payment_views.xml",
     ],
-    "installable": True,
     "images": ["static/description/banner.png"],
 }

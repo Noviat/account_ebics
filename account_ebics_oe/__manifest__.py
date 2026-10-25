@@ -4,7 +4,7 @@
 {
     "name": "EBICS - Odoo Enterprise Integration",
     "summary": "Place the EBICS menus in the Odoo Enterprise accounting application",
-    "version": "18.0.1.0.0",
+    "version": "18.0.1.0.1",
     "author": "Noviat",
     "website": "https://www.noviat.com/",
     "category": "Hidden",
@@ -14,7 +14,6 @@
         "accountant",
     ],
     "data": ["views/account_ebics_menu.xml"],
-    "installable": True,
     "auto_install": True,
     "images": ["static/description/banner.png"],
 }

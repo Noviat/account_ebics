@@ -9,12 +9,12 @@ from traceback import format_exception
 
 from lxml import etree
 
-from odoo import fields, models
+from odoo import api, fields, models
 from odoo.exceptions import UserError
 
 from odoo.addons.base.models.res_bank import sanitize_account_number
 
-_logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)  # lint-ignore=unused-logger
 
 DUP_CHECK_FORMATS = ["cfonb120", "camt053"]
 
@@ -63,7 +63,6 @@ class EbicsFile(models.Model):
     )
     user_id = fields.Many2one(
         comodel_name="res.users",
-        string="User",
         default=lambda self: self.env.user,
         readonly=True,
     )
@@ -91,13 +90,16 @@ class EbicsFile(models.Model):
         help="Companies sharing this EBICS file.",
     )
 
+    @api.ondelete(at_uninstall=False)
+    def _unlink_except_done(self):
+        if any(rec.state == "done" for rec in self):
+            raise UserError(
+                self.env._("You can only remove EBICS files in state 'Draft'.")
+            )
+
     def unlink(self):
         ff_methods = self._file_format_methods()
         for ebics_file in self:
-            if ebics_file.state == "done":
-                raise UserError(
-                    self.env._("You can only remove EBICS files in state 'Draft'.")
-                )
             # execute format specific actions
             ff = ebics_file.format_id.download_process_method
             if ff in ff_methods:
@@ -385,8 +387,7 @@ class EbicsFile(models.Model):
         file_data = base64.b64decode(self.data).replace(b"\n", b"").replace(b"\r", b"")
         if len(file_data) % 120:
             message = self.env._(
-                "Incorrect CFONB120 file:\n"
-                "the file is not divisible in 120 char lines"
+                "Incorrect CFONB120 file:\nthe file is not divisible in 120 char lines"
             )
             res["notifications"].append({"type": "error", "message": message})
             return datas
@@ -650,7 +651,7 @@ class EbicsFile(models.Model):
             self.env._(
                 "The current version of the 'account_ebics' module "
                 "has no support to automatically process EBICS files "
-                "with format %s."
+                "with format %s.",
+                self.format_id.name,
             )
-            % self.format_id.name
         )

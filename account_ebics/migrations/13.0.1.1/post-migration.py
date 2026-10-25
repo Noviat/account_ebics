@@ -3,7 +3,7 @@
 
 import os
 
-from openupgradelib import openupgrade  # pylint: disable=W7936
+from openupgradelib import openupgrade  # pylint: disable=E0401
 
 
 @openupgrade.migrate()
