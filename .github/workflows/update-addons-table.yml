@@ -1,0 +1,42 @@
+name: Update addons table after merge
+
+on:
+  push:
+    branches:
+      - "18.0"
+    paths-ignore:
+      - "README.md"
+
+permissions:
+  contents: write
+
+jobs:
+  gen-addons-table:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+      - name: Install pre-commit
+        run: pip install pre-commit
+      - name: Run the manual hook to (re)generate the addons table
+        run: pre-commit run -a --hook-stage manual oca-gen-addons-table
+        continue-on-error: true
+      - name: Commit & push if changed
+        env:
+          TOKEN: ${{ secrets.PRIVATE_TOKEN }}
+        run: |
+          if ! git diff --quiet; then
+            git config user.name  "noviat-ci-bot"
+            git config user.email "bot+ci@noviat.com"
+            git add -A
+            git commit -m "update addons table"
+            # Header instead of URL credentials, see test.yml
+            git config http.https://github.com/.extraheader "AUTHORIZATION: basic $(printf 'x-access-token:%s' "$TOKEN" | base64 -w0)"
+            git config --global --add safe.directory "$GITHUB_WORKSPACE"
+            git push origin HEAD:18.0
+          fi

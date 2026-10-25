@@ -1,3 +1,4 @@
 odoo-addon-module_change_auto_install
 openupgradelib
 cryptography<37
+lxml_html_clean

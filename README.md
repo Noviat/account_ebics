@@ -1,6 +1,5 @@
 [![Pre-commit Status](https://github.com/Noviat/account_ebics/actions/workflows/pre-commit.yml/badge.svg?branch=18.0)](https://github.com/Noviat/account_ebics/actions/workflows/pre-commit.yml?query=branch%3A18.0)
 [![Build Status](https://github.com/Noviat/account_ebics/actions/workflows/test.yml/badge.svg?branch=18.0)](https://github.com/Noviat/account_ebics/actions/workflows/test.yml?query=branch%3A18.0)
-
 <!-- /!\ do not modify above this line -->
 
 # Modules dedicated to manage the EBICS protocol
