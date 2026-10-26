@@ -14,8 +14,18 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_ebics_payment_order
+#: model:ir.model.fields,field_description:account_ebics_payment_order.field_account_payment_order__ebics_config_id
+msgid "EBICS Config"
+msgstr ""
+
+#. module: account_ebics_payment_order
 #: model:ir.model.fields,field_description:account_ebics_payment_order.field_account_payment_mode__ebics_format_id
 msgid "EBICS File Format"
+msgstr ""
+
+#. module: account_ebics_payment_order
+#: model:ir.model.fields,field_description:account_ebics_payment_order.field_account_payment_order__ebics_order_number
+msgid "EBICS OrderID"
 msgstr ""
 
 #. module: account_ebics_payment_order
@@ -23,6 +33,16 @@ msgstr ""
 #: code:addons/account_ebics_payment_order/models/account_payment_order.py:0
 #: model_terms:ir.ui.view,arch_db:account_ebics_payment_order.account_payment_order_form
 msgid "EBICS Upload"
+msgstr ""
+
+#. module: account_ebics_payment_order
+#: model:ir.model.fields,field_description:account_ebics_payment_order.field_account_payment_order__ebics_file_id
+msgid "EBICS Upload File"
+msgstr ""
+
+#. module: account_ebics_payment_order
+#: model_terms:ir.ui.view,arch_db:account_ebics_payment_order.account_payment_order_form
+msgid "EBICS upload info"
 msgstr ""
 
 #. module: account_ebics_payment_order
@@ -73,4 +93,9 @@ msgstr ""
 msgid ""
 "This payment order doesn't contain attachments.\n"
 "Please generate first the Payment Order file."
+msgstr ""
+
+#. module: account_ebics_payment_order
+#: model_terms:ir.ui.view,arch_db:account_ebics_payment_order.account_payment_order_form
+msgid "Upload File"
 msgstr ""

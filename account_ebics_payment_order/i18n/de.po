@@ -19,9 +19,19 @@ msgstr ""
 "X-Generator: Weblate 2026.9.1\n"
 
 #. module: account_ebics_payment_order
+#: model:ir.model.fields,field_description:account_ebics_payment_order.field_account_payment_order__ebics_config_id
+msgid "EBICS Config"
+msgstr ""
+
+#. module: account_ebics_payment_order
 #: model:ir.model.fields,field_description:account_ebics_payment_order.field_account_payment_mode__ebics_format_id
 msgid "EBICS File Format"
 msgstr "EBICS-Dateiformat"
+
+#. module: account_ebics_payment_order
+#: model:ir.model.fields,field_description:account_ebics_payment_order.field_account_payment_order__ebics_order_number
+msgid "EBICS OrderID"
+msgstr ""
 
 #. module: account_ebics_payment_order
 #. odoo-python
@@ -29,6 +39,16 @@ msgstr "EBICS-Dateiformat"
 #: model_terms:ir.ui.view,arch_db:account_ebics_payment_order.account_payment_order_form
 msgid "EBICS Upload"
 msgstr "EBICS-Upload"
+
+#. module: account_ebics_payment_order
+#: model:ir.model.fields,field_description:account_ebics_payment_order.field_account_payment_order__ebics_file_id
+msgid "EBICS Upload File"
+msgstr ""
+
+#. module: account_ebics_payment_order
+#: model_terms:ir.ui.view,arch_db:account_ebics_payment_order.account_payment_order_form
+msgid "EBICS upload info"
+msgstr ""
 
 #. module: account_ebics_payment_order
 #: model:ir.model.fields,field_description:account_ebics_payment_order.field_account_payment_order__hide_ebics_upload
@@ -85,6 +105,11 @@ msgid ""
 msgstr ""
 "Dieser Zahlungsauftrag enthält keine Anhänge.\n"
 "Bitte erstellen Sie zuerst die Zahlungsauftragsdatei."
+
+#. module: account_ebics_payment_order
+#: model_terms:ir.ui.view,arch_db:account_ebics_payment_order.account_payment_order_form
+msgid "Upload File"
+msgstr ""
 
 #~ msgid ""
 #~ "This payment order doesn't contains attachments.\n"
