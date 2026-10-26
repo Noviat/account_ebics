@@ -1,6 +1,6 @@
 [![Pre-commit Status](https://github.com/Noviat/account_ebics/actions/workflows/pre-commit.yml/badge.svg?branch=19.0)](https://github.com/Noviat/account_ebics/actions/workflows/pre-commit.yml?query=branch%3A19.0)
 [![Build Status](https://github.com/Noviat/account_ebics/actions/workflows/test.yml/badge.svg?branch=19.0)](https://github.com/Noviat/account_ebics/actions/workflows/test.yml?query=branch%3A19.0)
-[![Translation state](https://translation.noviat.com/widget/noviat-generic-account-ebics-v19/multi-auto.svg)](https://translation.noviat.com/engage/noviat-generic-account-ebics-v19/)
+[![Translation state](https://translation.noviat.io/widget/noviat-generic-account-ebics-v19/multi-auto.svg)](https://translation.noviat.io/engage/noviat-generic-account-ebics-v19/)
 <!-- /!\ do not modify above this line -->
 
 # Modules dedicated to manage the EBICS protocol

@@ -14,11 +14,11 @@ jobs:
   gen-addons-table:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           persist-credentials: false
           fetch-depth: 0
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.11"
       - name: Install pre-commit
@@ -28,14 +28,15 @@ jobs:
         continue-on-error: true
       - name: Commit & push if changed
         env:
-          PUSH_URL: https://x-access-token:${{ secrets.PRIVATE_TOKEN }}@github.com/${{ github.repository }}.git
+          TOKEN: ${{ secrets.PRIVATE_TOKEN }}
         run: |
           if ! git diff --quiet; then
             git config user.name  "noviat-ci-bot"
             git config user.email "bot+ci@noviat.com"
             git add -A
             git commit -m "update addons table"
-            git remote set-url origin "$PUSH_URL"
+            # Header instead of URL credentials, see test.yml
+            git config http.https://github.com/.extraheader "AUTHORIZATION: basic $(printf 'x-access-token:%s' "$TOKEN" | base64 -w0)"
             git config --global --add safe.directory "$GITHUB_WORKSPACE"
             git push origin HEAD:19.0
           fi

@@ -3,6 +3,9 @@ ignore-patterns=["^.*/TODO/.*$"]
 load-plugins=pylint_odoo
 score=n
 
+[IMPORTS]
+deprecated-modules=pdb,pudb,ipdb,bs4
+
 [ODOOLINT]
 #readme-template-url="https://github.com/OCA/maintainer-tools/blob/master/template/module/README.rst"
 manifest-required-authors=Noviat
@@ -26,6 +29,7 @@ enable =
     assignment-from-none,
     attribute-deprecated,
     dangerous-default-value,
+    deprecated-module,
     development-status-allowed,
     duplicate-key,
     eval-used,
@@ -57,10 +61,12 @@ enable =
     context-overridden,
     except-pass,
     invalid-commit,
+    manifest-external-assets,
     manifest-maintainers-list,
     missing-readme,
     missing-return,
     odoo-addons-relative-import,
+    odoo-exception-warning,
     renamed-field-parameter,
     resource-not-exist,
     test-folder-imported,
@@ -74,6 +80,7 @@ enable =
     category-allowed,
     deprecated-name-get,
     deprecated-odoo-model-method,
+    deprecated-self-cr,
     inheritable-method-lambda,
     inheritable-method-string,
     invalid-email,
@@ -87,6 +94,7 @@ enable =
     prefer-env-translation,
     translation-format-interpolation,
     translation-format-truncated,
+    translation-injection,
     translation-fstring-interpolation,
     translation-not-lazy,
     translation-too-few-args,
@@ -94,14 +102,14 @@ enable =
     translation-unsupported-format,
     no-write-in-compute,
     odoolint,
+    # >= 20
+    manifest-summary-multiline,
     # messages that do not cause the lint step to fail
     consider-merging-classes-inherited,
-    deprecated-module,
     invalid-commit,
     missing-readme,
     odoo-addons-relative-import,
-    redefined-builtin,
-    manifest-external-assets
+    redefined-builtin
 
 
 [REPORTS]
