@@ -26,6 +26,13 @@ msgid "%(st_cnt)s bank statement%(sp)s been imported: "
 msgstr ""
 
 #. module: account_ebics
+#. odoo-python
+#: code:addons/account_ebics/wizards/ebics_xfer.py:0
+msgid ""
+"'%(filename)s' has been uploaded via EBICS (OrderID: %(order_number)s)."
+msgstr ""
+
+#. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_file__date_from
 msgid "'Date From' as entered in the download wizard."
 msgstr ""
@@ -368,6 +375,7 @@ msgstr ""
 
 #. module: account_ebics
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_config__state__draft
+#: model:ir.model.fields.selection,name:account_ebics.selection__ebics_file__pain_state__draft
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_file__state__draft
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_userid__state__draft
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_search
@@ -418,6 +426,16 @@ msgstr ""
 #. module: account_ebics
 #: model:ir.ui.menu,name:account_ebics.ebics_admin_order_menu
 msgid "EBICS Administrative Orders"
+msgstr ""
+
+#. module: account_ebics
+#: model:ir.model.fields,field_description:account_ebics.field_account_journal__ebics_config_id
+msgid "EBICS Config"
+msgstr ""
+
+#. module: account_ebics
+#: model:ir.model.fields,field_description:account_ebics.field_account_journal__ebics_config_ids
+msgid "EBICS Configs"
 msgstr ""
 
 #. module: account_ebics
@@ -593,7 +611,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_config.py:0
 msgid ""
-"EBICS Keys Root Directory %s is not available.\n"
+"EBICS Keys Root Directory %(dir)s is not available.\n"
 "Please contact your system administrator."
 msgstr ""
 
@@ -608,9 +626,8 @@ msgid "EBICS Mark as Downloaded"
 msgstr ""
 
 #. module: account_ebics
-#. odoo-python
-#: code:addons/account_ebics/wizards/ebics_xfer.py:0
-msgid "EBICS OrderID: %s"
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_file__ebics_order_number
+msgid "EBICS OrderID"
 msgstr ""
 
 #. module: account_ebics
@@ -795,16 +812,6 @@ msgid "EBICS version mismatch."
 msgstr ""
 
 #. module: account_ebics
-#: model:ir.model.fields,field_description:account_ebics.field_account_journal__ebics_config_id
-msgid "Ebics Config"
-msgstr ""
-
-#. module: account_ebics
-#: model:ir.model.fields,field_description:account_ebics.field_account_journal__ebics_config_ids
-msgid "Ebics Configs"
-msgstr ""
-
-#. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__ebics_keys_fn
 msgid "Ebics Keys Fn"
 msgstr ""
@@ -854,6 +861,11 @@ msgid ""
 "Enable processing within Odoo of the downloaded file via the 'Process' "
 "button.E.g. specify camt.053 to import a camt.053 file and create a bank "
 "statement."
+msgstr ""
+
+#. module: account_ebics
+#: model:ir.model.fields.selection,name:account_ebics.selection__ebics_file__pain_state__error
+msgid "Error"
 msgstr ""
 
 #. module: account_ebics
@@ -1240,6 +1252,11 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
 msgid "Origin: %s"
+msgstr ""
+
+#. module: account_ebics
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_file__pain_state
+msgid "Pain State"
 msgstr ""
 
 #. module: account_ebics
@@ -1646,6 +1663,11 @@ msgid "Upload Only"
 msgstr ""
 
 #. module: account_ebics
+#: model:ir.model.fields.selection,name:account_ebics.selection__ebics_file__pain_state__uploaded
+msgid "Uploaded"
+msgstr ""
+
+#. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_userid_view_form
 msgid ""
 "Use this button to bypass the EBICS initialization (e.g. in case you have "
@@ -1677,7 +1699,7 @@ msgstr ""
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_userid__user_ids
-msgid "Users who are allowed to use this EBICS UserID for  bank transactions."
+msgid "Users who are allowed to use this EBICS UserID for bank transactions."
 msgstr ""
 
 #. module: account_ebics

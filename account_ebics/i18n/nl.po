@@ -33,6 +33,12 @@ msgid "%(st_cnt)s bank statement%(sp)s been imported: "
 msgstr "%(st_cnt)s rekeninguittreksel%(sp)s geïmporteerd: "
 
 #. module: account_ebics
+#. odoo-python
+#: code:addons/account_ebics/wizards/ebics_xfer.py:0
+msgid "'%(filename)s' has been uploaded via EBICS (OrderID: %(order_number)s)."
+msgstr ""
+
+#. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_file__date_from
 msgid "'Date From' as entered in the download wizard."
 msgstr "'Datum vanaf' zoals ingevoerd in de downloadwizard."
@@ -391,6 +397,7 @@ msgstr "Downloaden en uploaden"
 
 #. module: account_ebics
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_config__state__draft
+#: model:ir.model.fields.selection,name:account_ebics.selection__ebics_file__pain_state__draft
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_file__state__draft
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_userid__state__draft
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_search
@@ -455,6 +462,16 @@ msgstr "Resultaat EBICS administratieve order"
 #: model:ir.ui.menu,name:account_ebics.ebics_admin_order_menu
 msgid "EBICS Administrative Orders"
 msgstr "EBICS administratieve orders"
+
+#. module: account_ebics
+#: model:ir.model.fields,field_description:account_ebics.field_account_journal__ebics_config_id
+msgid "EBICS Config"
+msgstr ""
+
+#. module: account_ebics
+#: model:ir.model.fields,field_description:account_ebics.field_account_journal__ebics_config_ids
+msgid "EBICS Configs"
+msgstr ""
 
 #. module: account_ebics
 #: model:ir.actions.act_window,name:account_ebics.ebics_config_action
@@ -641,11 +658,9 @@ msgstr "Hoofdmap EBICS-sleutels"
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_config.py:0
 msgid ""
-"EBICS Keys Root Directory %s is not available.\n"
+"EBICS Keys Root Directory %(dir)s is not available.\n"
 "Please contact your system administrator."
 msgstr ""
-"De hoofdmap van de EBICS-sleutels %s is niet beschikbaar.\n"
-"Neem contact op met uw systeembeheerder."
 
 #. module: account_ebics
 #: model:res.groups,name:account_ebics.group_ebics_manager
@@ -658,10 +673,9 @@ msgid "EBICS Mark as Downloaded"
 msgstr "EBICS markeren als gedownload"
 
 #. module: account_ebics
-#. odoo-python
-#: code:addons/account_ebics/wizards/ebics_xfer.py:0
-msgid "EBICS OrderID: %s"
-msgstr "EBICS-order-ID: %s"
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_file__ebics_order_number
+msgid "EBICS OrderID"
+msgstr ""
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_config__ebics_partner
@@ -851,16 +865,6 @@ msgid "EBICS version mismatch."
 msgstr "EBICS-versie komt niet overeen."
 
 #. module: account_ebics
-#: model:ir.model.fields,field_description:account_ebics.field_account_journal__ebics_config_id
-msgid "Ebics Config"
-msgstr "EBICS-configuratie"
-
-#. module: account_ebics
-#: model:ir.model.fields,field_description:account_ebics.field_account_journal__ebics_config_ids
-msgid "Ebics Configs"
-msgstr "EBICS-configuraties"
-
-#. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__ebics_keys_fn
 msgid "Ebics Keys Fn"
 msgstr "Bestandsnaam EBICS-sleutels"
@@ -914,6 +918,11 @@ msgstr ""
 "De verwerking binnen Odoo van het gedownloade bestand inschakelen via de "
 "knop 'Verwerken'. Geef bijv. camt.053 op om een camt.053-bestand te "
 "importeren en een rekeninguittreksel aan te maken."
+
+#. module: account_ebics
+#: model:ir.model.fields.selection,name:account_ebics.selection__ebics_file__pain_state__error
+msgid "Error"
+msgstr ""
 
 #. module: account_ebics
 #. odoo-python
@@ -1330,6 +1339,11 @@ msgstr ""
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
 msgid "Origin: %s"
 msgstr "Oorsprong: %s"
+
+#. module: account_ebics
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_file__pain_state
+msgid "Pain State"
+msgstr ""
 
 #. module: account_ebics
 #. odoo-python
@@ -1786,6 +1800,11 @@ msgid "Upload Only"
 msgstr "Alleen uploaden"
 
 #. module: account_ebics
+#: model:ir.model.fields.selection,name:account_ebics.selection__ebics_file__pain_state__uploaded
+msgid "Uploaded"
+msgstr ""
+
+#. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_userid_view_form
 msgid ""
 "Use this button to bypass the EBICS initialization (e.g. in case you have "
@@ -1821,9 +1840,8 @@ msgstr "Gebruikers"
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_userid__user_ids
-msgid "Users who are allowed to use this EBICS UserID for  bank transactions."
+msgid "Users who are allowed to use this EBICS UserID for bank transactions."
 msgstr ""
-"Gebruikers die deze EBICS-UserID mogen gebruiken voor  banktransacties."
 
 #. module: account_ebics
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_userid__state__to_verify
@@ -1920,6 +1938,27 @@ msgid ""
 msgstr ""
 "urlopen-fout:\n"
 " url '%(url)s' - %(val)s"
+
+#~ msgid ""
+#~ "EBICS Keys Root Directory %s is not available.\n"
+#~ "Please contact your system administrator."
+#~ msgstr ""
+#~ "De hoofdmap van de EBICS-sleutels %s is niet beschikbaar.\n"
+#~ "Neem contact op met uw systeembeheerder."
+
+#~ msgid "EBICS OrderID: %s"
+#~ msgstr "EBICS-order-ID: %s"
+
+#~ msgid "Ebics Config"
+#~ msgstr "EBICS-configuratie"
+
+#~ msgid "Ebics Configs"
+#~ msgstr "EBICS-configuraties"
+
+#~ msgid ""
+#~ "Users who are allowed to use this EBICS UserID for  bank transactions."
+#~ msgstr ""
+#~ "Gebruikers die deze EBICS-UserID mogen gebruiken voor  banktransacties."
 
 #~ msgid "3SKey Certficate"
 #~ msgstr "3SKey-certificaat"
