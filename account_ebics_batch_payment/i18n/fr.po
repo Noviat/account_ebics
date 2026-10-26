@@ -28,11 +28,20 @@ msgid "Batch Payment"
 msgstr "Paiement par lot"
 
 #. module: account_ebics_batch_payment
-#: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_journal__ebics_file_format_ids
+#: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_batch_payment__ebics_config_id
+msgid "EBICS Config"
+msgstr ""
+
+#. module: account_ebics_batch_payment
 #: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_payment_method__ebics_file_format_id
 #: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_payment_method_line__ebics_file_format_id
 msgid "EBICS File Format"
 msgstr "Format de fichier EBICS"
+
+#. module: account_ebics_batch_payment
+#: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_batch_payment__ebics_order_number
+msgid "EBICS OrderID"
+msgstr ""
 
 #. module: account_ebics_batch_payment
 #. odoo-python
@@ -40,6 +49,16 @@ msgstr "Format de fichier EBICS"
 #: model_terms:ir.ui.view,arch_db:account_ebics_batch_payment.view_batch_payment_form
 msgid "EBICS Upload"
 msgstr "Téléversement EBICS"
+
+#. module: account_ebics_batch_payment
+#: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_batch_payment__ebics_file_id
+msgid "EBICS Upload File"
+msgstr ""
+
+#. module: account_ebics_batch_payment
+#: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_batch_payment__ebics_pain_state
+msgid "EBICS Upload Status"
+msgstr ""
 
 #. module: account_ebics_batch_payment
 #: model:ir.model.fields,help:account_ebics_batch_payment.field_account_payment_method__ebics_file_format_id
@@ -50,6 +69,16 @@ msgid ""
 msgstr ""
 "Format de fichier EBICS à présélectionner lors du téléversement d'un "
 "paiement groupé utilisant ce mode de paiement."
+
+#. module: account_ebics_batch_payment
+#: model_terms:ir.ui.view,arch_db:account_ebics_batch_payment.view_batch_payment_form
+msgid "EBICS upload info"
+msgstr ""
+
+#. module: account_ebics_batch_payment
+#: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_journal__ebics_file_format_ids
+msgid "Ebics File Format"
+msgstr ""
 
 #. module: account_ebics_batch_payment
 #: model:ir.model.fields,field_description:account_ebics_batch_payment.field_account_batch_payment__hide_ebics_upload
@@ -73,3 +102,13 @@ msgstr ""
 #: model:ir.model,name:account_ebics_batch_payment.model_account_payment_method_line
 msgid "Payment Methods"
 msgstr "Modes de paiement"
+
+#. module: account_ebics_batch_payment
+#: model_terms:ir.ui.view,arch_db:account_ebics_batch_payment.view_batch_payment_form
+msgid "Upload File"
+msgstr ""
+
+#. module: account_ebics_batch_payment
+#: model_terms:ir.ui.view,arch_db:account_ebics_batch_payment.view_batch_payment_form
+msgid "Upload Status"
+msgstr ""
