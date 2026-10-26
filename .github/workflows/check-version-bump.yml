@@ -1,0 +1,29 @@
+name: Check module version bump
+
+on:
+  pull_request:
+    branches:
+      - "19.0*"
+
+jobs:
+  check-version-bump:
+    runs-on: ubuntu-latest
+    name: Check module version bump
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # HEAD is the PR merge commit, HEAD^1 the tip of the base branch
+          fetch-depth: 2
+          persist-credentials: false
+      - name: Configure git authentication
+        # Header instead of URL credentials, see test.yml
+        env:
+          TOKEN: ${{ secrets.PRIVATE_TOKEN }}
+        run: |
+          git config --global http.https://github.com/.extraheader "AUTHORIZATION: basic $(printf 'x-access-token:%s' "$TOKEN" | base64 -w0)"
+      - name: Add Noviat CI Tools to PATH
+        run: |
+          git clone https://github.com/Noviat-CI/noviat-ci-tools.git /opt/noviat-ci-tools
+          echo "/opt/noviat-ci-tools" >> $GITHUB_PATH
+      - name: Check module version bump
+        run: check_module_version_bump

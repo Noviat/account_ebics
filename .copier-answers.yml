@@ -1,5 +1,5 @@
 # Do NOT update manually; changes here will be overwritten by Copier
-_commit: v7.3.0
+_commit: v8.0.2
 _src_path: git@github.com:Noviat-CI/addons-repo-template.git
 ci_disable_autoinstall_modules: ''
 odoo_test_flavor: Both
