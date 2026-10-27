@@ -161,8 +161,8 @@ class EbicsConfig(models.Model):
             rec.company_ids = rec.journal_ids.mapped("company_id")
 
     @api.ondelete(at_uninstall=False)
-    def _unlink_except_active(self):
-        if any(rec.state == "active" for rec in self):
+    def _unlink_except_confirm(self):
+        if any(rec.state == "confirm" for rec in self):
             raise UserError(
                 self.env._("You cannot remove active EBICS configurations.")
             )
