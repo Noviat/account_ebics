@@ -3,6 +3,7 @@
 
 import base64
 import logging
+import os
 from sys import exc_info
 from traceback import format_exception
 
@@ -578,11 +579,13 @@ class EbicsXfer(models.TransientModel):
             fn = ef_vals["name"]
             dups = self._check_duplicate_ebics_file(fn, self.format_id)
             if dups:
+                # pay.xml -> pay_1.xml, pay_2.xml, ...
+                base, ext = os.path.splitext(fn)
                 n = 1
-                fn = "_".join([fn, str(n)])
+                fn = f"{base}_{n}{ext}"
                 while self._check_duplicate_ebics_file(fn, self.format_id):
                     n += 1
-                    fn = "_".join([fn, str(n)])
+                    fn = f"{base}_{n}{ext}"
                 ef_vals["name"] = fn
 
     def _handle_download_data(self, data, file_format):
