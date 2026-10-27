@@ -188,7 +188,7 @@ class EbicsConfig(models.Model):
             o_list[-i] = chr(ord(c) + 1)
             break
         next_order_number = "".join(o_list)
-        if next_order_number == "ZZZZ":
+        if "ZZZZ" in (OrderID, next_order_number):
             next_order_number = "A000"
         self.order_number = next_order_number
 
