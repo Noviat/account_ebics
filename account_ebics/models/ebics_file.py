@@ -586,12 +586,11 @@ class EbicsFile(models.Model):
         camt_tag = variant_tags[camt_variant]
         stmts = root[0].findall(f"ns:{camt_tag}", ns)
         for i, stmt in enumerate(stmts):
-            acc_number = sanitize_account_number(
-                stmt.xpath(
-                    "ns:Acct/ns:Id/ns:IBAN/text() | ns:Acct/ns:Id/ns:Othr/ns:Id/text()",
-                    namespaces=ns,
-                )[0]
+            acc_ids = stmt.xpath(
+                "ns:Acct/ns:Id/ns:IBAN/text() | ns:Acct/ns:Id/ns:Othr/ns:Id/text()",
+                namespaces=ns,
             )
+            acc_number = acc_ids and sanitize_account_number(acc_ids[0])
             if not acc_number:
                 message = self.env._("No bank account number found.")
                 res["notifications"].append({"type": "error", "message": message})
