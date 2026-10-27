@@ -3,6 +3,7 @@
 
 import base64
 import logging
+import threading
 from copy import deepcopy
 from sys import exc_info
 from traceback import format_exception
@@ -507,11 +508,16 @@ class EbicsFile(models.Model):
         """
         We execute a cr.commit() after every statement import since we get a
         'savepoint does not exist' error when using 'with self.env.cr.savepoint()'.
+        The commit is skipped when running tests.
         """
+        testing = self.env.registry.in_test_mode() or getattr(
+            threading.current_thread(), "testing", False
+        )
         for st_data in st_datas:
             try:
                 self._create_bank_statement_oe(res, st_data)
-                self.env.cr.commit()  # pylint: disable=E8102
+                if not testing:
+                    self.env.cr.commit()  # pylint: disable=E8102
             except UserError as e:  # noqa: PERF203
                 msg = "".join(e.args)
                 msg += "\n"
