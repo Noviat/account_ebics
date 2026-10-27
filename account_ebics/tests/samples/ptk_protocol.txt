@@ -1,0 +1,3 @@
+Kundenprotokoll (PTK)
+Auftragsart: C53  Auftragsnummer: A00T  Teilnehmer: TESTUSER1
+Status: Auftrag erfolgreich verarbeitet
