@@ -9,8 +9,9 @@ msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-08-31 23:13+0000\n"
-"PO-Revision-Date: 2026-10-11 21:14+0000\n"
-"Last-Translator: Jérémy Didderen <jeremy.didderen@noviat.com>\n"
+"PO-Revision-Date: 2026-10-27 08:38+0000\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
+"memory@weblate.org>\n"
 "Language-Team: Dutch <https://translation.noviat.io/projects/noviat-generic-"
 "account-ebics-v18/account_ebics/nl/>\n"
 "Language: nl\n"
@@ -18,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.9.1\n"
+"X-Generator: Weblate 2026.10.1\n"
 
 #. module: account_ebics
 #. odoo-python
@@ -36,7 +37,7 @@ msgstr "%(st_cnt)s rekeninguittreksel%(sp)s geïmporteerd: "
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
 msgid "'%(filename)s' has been uploaded via EBICS (OrderID: %(order_number)s)."
-msgstr ""
+msgstr "'%(filename)s' is geüpload via EBICS (order-ID: %(order_number)s)."
 
 #. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_file__date_from
@@ -466,12 +467,12 @@ msgstr "EBICS administratieve orders"
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_account_journal__ebics_config_id
 msgid "EBICS Config"
-msgstr ""
+msgstr "EBICS-configuratie"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_account_journal__ebics_config_ids
 msgid "EBICS Configs"
-msgstr ""
+msgstr "EBICS-configuraties"
 
 #. module: account_ebics
 #: model:ir.actions.act_window,name:account_ebics.ebics_config_action
@@ -661,6 +662,8 @@ msgid ""
 "EBICS Keys Root Directory %(dir)s is not available.\n"
 "Please contact your system administrator."
 msgstr ""
+"De hoofdmap voor EBICS-sleutels %(dir)s is niet beschikbaar.\n"
+"Neem contact op met uw systeembeheerder."
 
 #. module: account_ebics
 #: model:res.groups,name:account_ebics.group_ebics_manager
@@ -675,7 +678,7 @@ msgstr "EBICS markeren als gedownload"
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file__ebics_order_number
 msgid "EBICS OrderID"
-msgstr ""
+msgstr "EBICS-order-ID"
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_config__ebics_partner
@@ -922,7 +925,7 @@ msgstr ""
 #. module: account_ebics
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_file__pain_state__error
 msgid "Error"
-msgstr ""
+msgstr "Fout"
 
 #. module: account_ebics
 #. odoo-python
@@ -1343,7 +1346,7 @@ msgstr "Oorsprong: %s"
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file__pain_state
 msgid "Pain State"
-msgstr ""
+msgstr "Pain-status"
 
 #. module: account_ebics
 #. odoo-python
@@ -1802,7 +1805,7 @@ msgstr "Alleen uploaden"
 #. module: account_ebics
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_file__pain_state__uploaded
 msgid "Uploaded"
-msgstr ""
+msgstr "Geupload"
 
 #. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_userid_view_form
