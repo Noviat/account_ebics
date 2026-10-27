@@ -6,7 +6,7 @@ exclude: |
   ^setup/|/static/description/index\.html$|
   # We don't want to mess with tool-generated files
   .svg$|/tests/([^/]+/)?cassettes/|^.copier-answers.yml$|^.github/|^eslint.config.cjs|^prettier.config.cjs|
-  # Maybe reactivate this when all README files include prettier ignore tags?
+  # README.md holds the generated addons table
   ^README\.md$|
   # Library files can have extraneous formatting (even minimized)
   /static/(src/)?lib/|
@@ -121,10 +121,6 @@ repos:
       - id: check-xml
       - id: mixed-line-ending
         args: ["--fix=lf"]
-  - repo: https://github.com/asottile/pyupgrade
-    rev: v3.21.2
-    hooks:
-      - id: pyupgrade
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.16.9
     hooks:
@@ -137,13 +133,7 @@ repos:
     rev: v10.0.11
     hooks:
       - id: pylint_odoo
-        name: pylint (optional, core only)
-        args:
-          - --rcfile=.pylintrc
-          - --exit-zero
-        verbose: true
-      - id: pylint_odoo
-        name: pylint-odoo (mandatory, blocking)
+        name: pylint-odoo
         args:
           - --disable=missing-readme
           - --rcfile=.pylintrc-mandatory

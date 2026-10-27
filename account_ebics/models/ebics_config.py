@@ -127,7 +127,7 @@ class EbicsConfig(models.Model):
 
     @api.model
     def _default_ebics_keys(self):
-        return "/".join(["/etc/odoo/ebics_keys", self._cr.dbname])
+        return f"/etc/odoo/ebics_keys/{self._cr.dbname}"
 
     @api.constrains("ebics_key_bitlength")
     def _check_ebics_key_bitlength(self):
@@ -185,9 +185,8 @@ class EbicsConfig(models.Model):
             if c == "Z":
                 o_list[-i] = "0"
                 continue
-            else:
-                o_list[-i] = chr(ord(c) + 1)
-                break
+            o_list[-i] = chr(ord(c) + 1)
+            break
         next_order_number = "".join(o_list)
         if next_order_number == "ZZZZ":
             next_order_number = "A000"

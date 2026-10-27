@@ -24,8 +24,7 @@ try:
         fintech_register_users = (
             fintech_register_users
             and [x.strip() for x in fintech_register_users.split(",")]
-            or None
-        )
+        ) or None
         fintech.cryptolib = "cryptography"
         fintech.register(
             name=fintech_register_name,
@@ -38,7 +37,7 @@ except RuntimeError as e:
     else:
         _logger.error(str(e))
         fintech.register()
-except Exception:
+except Exception:  # noqa: BLE001 - logged with the traceback, then retried
     msg = "fintech.register error"
     tb = "".join(format_exception(*exc_info()))
     msg += f"\n{tb}"

@@ -64,7 +64,7 @@ class AccountStatementImport(models.TransientModel):
                         + message
                     )
                     _logger.warning(log_msg)
-                    return
+                    return None
         return super()._check_parsed_data(stmts_vals)
 
     def _create_bank_statements(self, stmts_vals, result):
@@ -79,42 +79,39 @@ class AccountStatementImport(models.TransientModel):
         """
         if self.env.context.get("active_model") != "ebics.file":
             return super()._create_bank_statements(stmts_vals, result)
-        else:
-            messages = []
-            transactions = False
-            for st_vals in stmts_vals:
-                statement_ids = result["statement_ids"][:]
-                self._set_statement_name(st_vals)
-                if st_vals.get("transactions"):
-                    transactions = True
-                    super()._create_bank_statements([st_vals], result)
-                    if result["statement_ids"] == statement_ids:
-                        # no statement has been created, this is the case
-                        # when all transactions have been imported already
-                        if isinstance(st_vals["date"], date) or isinstance(
-                            st_vals["date"], datetime
-                        ):
-                            st_date = st_vals["date"].strftime("%Y-%m-%d")
-                        else:
-                            st_date = st_vals["date"]
-                        messages.append(
-                            self.env._(
-                                "Statement %(st_name)s dated %(date)s "
-                                "has already been imported.",
-                                st_name=st_vals["name"],
-                                date=st_date,
-                            )
+        messages = []
+        transactions = False
+        for st_vals in stmts_vals:
+            statement_ids = result["statement_ids"][:]
+            self._set_statement_name(st_vals)
+            if st_vals.get("transactions"):
+                transactions = True
+                super()._create_bank_statements([st_vals], result)
+                if result["statement_ids"] == statement_ids:
+                    # no statement has been created, this is the case
+                    # when all transactions have been imported already
+                    if isinstance(st_vals["date"], date) or isinstance(
+                        st_vals["date"], datetime
+                    ):
+                        st_date = st_vals["date"].strftime("%Y-%m-%d")
+                    else:
+                        st_date = st_vals["date"]
+                    messages.append(
+                        self.env._(
+                            "Statement %(st_name)s dated %(date)s "
+                            "has already been imported.",
+                            st_name=st_vals["name"],
+                            date=st_date,
                         )
+                    )
 
-            if not transactions:
-                messages.append(
-                    self.env._("This file doesn't contain any transaction.")
-                )
-            if messages:
-                result["notifications"].append(
-                    {"type": "warning", "message": "\n".join(messages)}
-                )
-        return
+        if not transactions:
+            messages.append(self.env._("This file doesn't contain any transaction."))
+        if messages:
+            result["notifications"].append(
+                {"type": "warning", "message": "\n".join(messages)}
+            )
+        return None
 
     def _set_statement_name(self, st_vals):
         """

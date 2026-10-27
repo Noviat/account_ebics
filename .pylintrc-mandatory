@@ -11,12 +11,11 @@ deprecated-modules=pdb,pudb,ipdb,bs4
 manifest-required-authors=Noviat
 manifest-required-keys=license
 manifest-deprecated-keys=description,active
-license-allowed=AGPL-3,GPL-2,GPL-2 or any later version,GPL-3,GPL-3 or any later version,LGPL-3
+license-allowed=AGPL-3,LGPL-3,Other proprietary
 valid-odoo-versions=18.0
 
 [MESSAGES CONTROL]
 disable=all
-
 enable =
     anomalous-backslash-in-string,
     assignment-from-none,
