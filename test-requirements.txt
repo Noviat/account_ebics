@@ -1,3 +1,5 @@
 odoo-addon-module_change_auto_install
 openupgradelib
 lxml_html_clean
+odoo-addon-account_statement_import_camt
+odoo-addon-account_statement_import_fr_cfonb

@@ -50,7 +50,7 @@ jobs:
             name: test with Odoo Community
             odoo_enterprise : 0
             exclude_modules : "account_asset"
-            skip: "account_ebics_batch_payment,account_ebics_oe"
+            skip: "account_ebics_batch_payment,account_ebics_oe,account_ebics_oe_statement_import_test"
           - container: ghcr.io/noviat-ci/odoo-ci:18.0-stable
             name: test with Odoo Enterprise
             odoo_enterprise : 1
