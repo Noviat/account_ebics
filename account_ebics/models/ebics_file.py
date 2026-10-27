@@ -11,6 +11,7 @@ from lxml import etree
 
 from odoo import api, fields, models
 from odoo.exceptions import UserError
+from odoo.modules import module as odoo_module
 
 from odoo.addons.base.models.res_bank import sanitize_account_number
 
@@ -504,11 +505,15 @@ class EbicsFile(models.Model):
         """
         We execute a cr.commit() after every statement import since we get a
         'savepoint does not exist' error when using 'with self.env.cr.savepoint()'.
+        The commit is skipped when running tests.
         """
+        # Registry.in_test_mode() and thread.testing are gone in 19.0
+        testing = odoo_module.current_test
         for st_data in st_datas:
             try:
                 self._create_bank_statement_oe(res, st_data)
-                self.env.cr.commit()  # pylint: disable=E8102
+                if not testing:
+                    self.env.cr.commit()  # pylint: disable=E8102
             except UserError as e:  # noqa: PERF203
                 msg = "".join(e.args)
                 msg += "\n"
