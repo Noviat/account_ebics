@@ -9,7 +9,7 @@ from odoo import api, fields, models
 _logger = logging.getLogger(__name__)
 
 try:
-    from fintech.ebics import EbicsTechnicalError
+    from fintech.ebics import EbicsFunctionalError, EbicsTechnicalError
 except ImportError:
     _logger.warning("Failed to import fintech")
 
@@ -35,6 +35,7 @@ class EbicsAdminOrder(models.TransientModel):
 
     def ebics_admin_order(self):
         self.ensure_one()
+        self.note = ""
         client = self._setup_client()
         if not client:
             self.note += self.env._(
@@ -46,6 +47,14 @@ class EbicsAdminOrder(models.TransientModel):
                 data = getattr(client, self.admin_order_type)(parsed=True)
                 pp = pprint.PrettyPrinter()
                 self.note = pp.pformat(data)
+            except EbicsFunctionalError as e:
+                self.note = "\n"
+                self.note += self.env._(
+                    "EBICS Functional Error during execution of order %(order_type)s:",
+                    order_type=self.admin_order_type,
+                )
+                self.note += "\n"
+                self.note += f"{e.message} (code: {e.code})"
             except EbicsTechnicalError as e:
                 self.note = "\n"
                 self.note += self.env._(
