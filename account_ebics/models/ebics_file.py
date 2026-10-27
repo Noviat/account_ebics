@@ -568,10 +568,14 @@ class EbicsFile(models.Model):
         """
         datas = []
         file_data = base64.b64decode(self.data)
-        root = etree.fromstring(file_data, parser=etree.XMLParser(recover=True))
+        try:
+            root = etree.fromstring(file_data, parser=etree.XMLParser(recover=True))
+        except etree.XMLSyntaxError:
+            root = None
         if root is None:
             message = self.env._("Invalid XML file.")
             res["notifications"].append({"type": "error", "message": message})
+            return datas
         ns = {k or "ns": v for k, v in root.nsmap.items()}
         camt_variant = ns["ns"].split("camt.")[1][:3]
         variant_tags = {
