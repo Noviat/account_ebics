@@ -413,7 +413,7 @@ class EbicsUserID(models.Model):
             raise UserError(error) from err
 
         # Send the public electronic signature key to the bank.
-        ebics_config_bank = self.ebics_config_id.journal_ids[0].bank_id
+        ebics_config_bank = self.ebics_config_id.journal_ids[:1].bank_id
         if not ebics_config_bank:
             raise UserError(
                 self.env._(
@@ -471,7 +471,6 @@ class EbicsUserID(models.Model):
             self.ebics_config_id._update_order_number(OrderID)
 
         # Create an INI-letter which must be printed and sent to the bank.
-        ebics_config_bank = self.ebics_config_id.journal_ids[0].bank_id
         cc = ebics_config_bank.country.code
         if cc in ["FR", "DE"]:
             lang = cc
