@@ -190,14 +190,20 @@ class TestEbicsXferUpload(EbicsTestCommon):
         self.assertFalse(self.ebics_config.order_number)
 
     def test_upload_same_name_twice(self):
+        """The counter goes before the extension and does not stack up."""
         names = []
-        for _i in range(3):
+        for _i in range(4):
             wizard = self._upload_wizard(self.ff_btu)
             with self._fake_client(FakeEbicsClient()):
                 names.append(wizard._ebics_upload().name)
-        # Pinned, probably unintended: _update_ef_vals appends each counter to
-        # the previous candidate (pay.xml_1_2) instead of pay.xml_2.
-        self.assertEqual(names, ["pay.xml", "pay.xml_1", "pay.xml_1_2"])
+        self.assertEqual(names, ["pay.xml", "pay_1.xml", "pay_2.xml", "pay_3.xml"])
+        # without extension
+        wizard = self._upload_wizard(self.ff_btu, fname="pay")
+        with self._fake_client(FakeEbicsClient()):
+            self.assertEqual(wizard._ebics_upload().name, "pay")
+        wizard = self._upload_wizard(self.ff_btu, fname="pay")
+        with self._fake_client(FakeEbicsClient()):
+            self.assertEqual(wizard._ebics_upload().name, "pay_1")
 
     def test_upload_ful_h003_order_number(self):
         self.ebics_config.write({"ebics_version": "H003", "order_number": "A00Z"})
