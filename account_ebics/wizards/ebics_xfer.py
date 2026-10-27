@@ -37,7 +37,7 @@ class EbicsBank(EbicsBank):
         The OrderID must be a string between 'A000' and 'ZZZZ' and
         unique for each partner id.
         """
-        return hasattr(self, "_order_number") and self._order_number or "A000"
+        return (hasattr(self, "_order_number") and self._order_number) or "A000"
 
 
 class EbicsXfer(models.TransientModel):
@@ -109,8 +109,7 @@ class EbicsXfer(models.TransientModel):
         )
         if cfg and len(cfg) == 1:
             return cfg
-        else:
-            return cfg_mod
+        return cfg_mod
 
     def _compute_ebics_sig_passphrase_invisible(self):
         for rec in self:
@@ -236,8 +235,8 @@ class EbicsXfer(models.TransientModel):
                 )
             )
             ebics_files = self.env["ebics.file"]
-            date_from = self.date_from and self.date_from.isoformat() or None
-            date_to = self.date_to and self.date_to.isoformat() or None
+            date_from = (self.date_from and self.date_from.isoformat()) or None
+            date_to = (self.date_to and self.date_to.isoformat()) or None
             for df in download_formats:
                 success = False
                 try:
@@ -314,7 +313,8 @@ class EbicsXfer(models.TransientModel):
                     )
                     self.note += "\n"
                     self.note += " ".join(e.args)
-                except Exception:
+                # Reported to the user in the note
+                except Exception:  # noqa: BLE001
                     err_cnt += 1
                     self.note += "\n"
                     self.note += self.env._(
@@ -412,7 +412,7 @@ class EbicsXfer(models.TransientModel):
                     suffix = self.format_id.suffix
                     fn = self.upload_fname
                     if suffix and not fn.endswith(suffix):
-                        fn = ".".join([fn, suffix])
+                        fn = f"{fn}.{suffix}"
                     ef_vals = {
                         "name": self.upload_fname,
                         "data": self.upload_data,
@@ -449,7 +449,8 @@ class EbicsXfer(models.TransientModel):
                 self.note += self.env._("EBICS Verification Error:")
                 self.note += "\n"
                 self.note += self.env._("The EBICS response could not be verified.")
-            except Exception:
+            # Reported to the user in the note, with the traceback
+            except Exception:  # noqa: BLE001
                 self.note += "\n"
                 self.note += self.env._("Unknown Error")
                 tb = "".join(format_exception(*exc_info()))
@@ -523,7 +524,7 @@ class EbicsXfer(models.TransientModel):
         # manual_approval replaced by transport_only class param in fintech 7.4
         fintech74 = hasattr(EbicsUser, "transport_only")
         if fintech74:
-            user_params["transport_only"] = signature_class == "T" and True or False
+            user_params["transport_only"] = (signature_class == "T" and True) or False
         try:
             user = EbicsUser(**user_params)
         except ValueError as err:
@@ -543,7 +544,8 @@ class EbicsXfer(models.TransientModel):
 
         try:
             client = EbicsClient(bank, user, version=self.ebics_config_id.ebics_version)
-        except Exception:
+        # Reported to the user in the note, with the traceback
+        except Exception:  # noqa: BLE001
             self.note += "\n"
             self.note += self.env._("Unknown Error")
             tb = "".join(format_exception(*exc_info()))
@@ -608,7 +610,7 @@ class EbicsXfer(models.TransientModel):
 
         suffix = file_format.suffix
         if suffix and not fn.endswith(suffix):
-            fn = ".".join([fn, suffix])
+            fn = f"{fn}.{suffix}"
         dups = self._check_duplicate_ebics_file(fn, file_format)
         if dups:
             raise UserError(
@@ -627,7 +629,7 @@ class EbicsXfer(models.TransientModel):
             "date_from": self.date_from,
             "date_to": self.date_to,
             "format_id": file_format.id,
-            "state": file_format.download_process_method and "draft" or "done",
+            "state": (file_format.download_process_method and "draft") or "done",
             "user_id": self._uid,
             "ebics_userid_id": self.ebics_userid_id.id,
             "company_ids": self.ebics_config_id.company_ids.ids,
@@ -656,9 +658,8 @@ class EbicsXfer(models.TransientModel):
                 break
             if c == "Z":
                 continue
-            else:
-                o_list[-i] = chr(ord(c) + 1)
-                break
+            o_list[-i] = chr(ord(c) + 1)
+            break
         next_nr = "".join(o_list)
         if next_nr == "ZZZZ":
             next_nr = "A000"

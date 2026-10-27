@@ -25,7 +25,7 @@ def _ebics_config_upgrade(env, version):
         if os.path.isfile(keys_fn_old):
             keys_fn = ebics_keys_root + "/" + cfg_data["ebics_user"] + "_keys"
             os.rename(keys_fn_old, keys_fn)
-        state = cfg_data["state"] == "active" and "confirm" or "draft"
+        state = (cfg_data["state"] == "active" and "confirm") or "draft"
         cfg.write(
             {
                 "company_ids": [(6, 0, [cfg_data["company_id"]])],

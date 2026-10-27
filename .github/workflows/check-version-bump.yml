@@ -24,6 +24,6 @@ jobs:
       - name: Add Noviat CI Tools to PATH
         run: |
           git clone https://github.com/Noviat-CI/noviat-ci-tools.git /opt/noviat-ci-tools
-          echo "/opt/noviat-ci-tools" >> $GITHUB_PATH
+          echo "/opt/noviat-ci-tools" >> "$GITHUB_PATH"
       - name: Check module version bump
         run: check_module_version_bump

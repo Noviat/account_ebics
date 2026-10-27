@@ -8,7 +8,7 @@ _logger = logging.getLogger(__name__)
 try:
     from . import models
     from . import wizards
-except Exception:
+except Exception:  # noqa: BLE001 - the module must load without fintech
     _logger.warning("Import Error, check if fintech lib has been installed")
 
 

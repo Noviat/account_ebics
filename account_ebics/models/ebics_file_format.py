@@ -113,7 +113,7 @@ class EbicsFileFormat(models.Model):
     @api.depends("ebics_version", "name", "btf_message", "description")
     def _compute_display_name(self):
         for rec in self:
-            name = rec.ebics_version == "2" and rec.name or rec.btf_message
+            name = (rec.ebics_version == "2" and rec.name) or rec.btf_message
             if rec.description:
                 name += " - " + rec.description
             rec.display_name = name
