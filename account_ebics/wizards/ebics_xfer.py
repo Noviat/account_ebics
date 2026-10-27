@@ -650,21 +650,6 @@ class EbicsXfer(models.TransientModel):
         EBICS upload file format.
         """
 
-    def _update_order_number(self, OrderID):
-        o_list = list(OrderID)
-        for i, c in enumerate(reversed(o_list), start=1):
-            if c == "9":
-                o_list[-i] = "A"
-                break
-            if c == "Z":
-                continue
-            o_list[-i] = chr(ord(c) + 1)
-            break
-        next_nr = "".join(o_list)
-        if next_nr == "ZZZZ":
-            next_nr = "A000"
-        self.ebics_config_id.order_number = next_nr
-
     def _insert_line_terminator(self, data_in, line_len):
         data_in = data_in.replace(b"\n", b"").replace(b"\r", b"")
         data_out = b""
