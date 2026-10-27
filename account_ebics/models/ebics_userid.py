@@ -281,15 +281,17 @@ class EbicsUserID(models.Model):
                     "keys": self.ebics_keys_fn,
                     "passphrase": self.ebics_passphrase,
                 }
-                keyring = EbicsKeyRing(**keyring_params)
                 try:
+                    keyring = EbicsKeyRing(**keyring_params)
                     # fintech <= 7.4.3 does not have a call to check if a
                     # passphrase matches with the value stored in the keyfile.
                     # We get around this limitation as follows:
                     # Get user keys to check for valid passphrases
-                    # It will raise a ValueError on invalid passphrases
-                    keyring["#USER"]
-                except ValueError as err:  # noqa: F841
+                    # It will raise a ValueError on invalid passphrases,
+                    # or a RuntimeError when the keyring is already open
+                    # in this process with another passphrase.
+                    keyring["#USER"]  # pylint: disable=pointless-statement
+                except (ValueError, RuntimeError) as err:  # noqa: F841
                     raise UserError(self.env._("Passphrase mismatch."))  # noqa: B904
         elif self.state != "draft":
             self.ebics_passphrase = False
