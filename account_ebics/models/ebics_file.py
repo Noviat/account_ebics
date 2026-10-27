@@ -652,7 +652,6 @@ class EbicsFile(models.Model):
         Placeholder for pain.002 specific actions before removing the
         EBICS data file.
         """
-        raise NotImplementedError
 
     def _process_undefined_format(self):
         raise UserError(
