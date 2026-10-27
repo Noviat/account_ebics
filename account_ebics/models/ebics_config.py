@@ -127,7 +127,7 @@ class EbicsConfig(models.Model):
 
     @api.model
     def _default_ebics_keys(self):
-        return "/".join(["/etc/odoo/ebics_keys", self._cr.dbname])
+        return f"/etc/odoo/ebics_keys/{self._cr.dbname}"
 
     @api.constrains("ebics_key_bitlength")
     def _check_ebics_key_bitlength(self):
@@ -161,8 +161,8 @@ class EbicsConfig(models.Model):
             rec.company_ids = rec.journal_ids.mapped("company_id")
 
     @api.ondelete(at_uninstall=False)
-    def _unlink_except_active(self):
-        if any(rec.state == "active" for rec in self):
+    def _unlink_except_confirm(self):
+        if any(rec.state == "confirm" for rec in self):
             raise UserError(
                 self.env._("You cannot remove active EBICS configurations.")
             )
@@ -185,11 +185,10 @@ class EbicsConfig(models.Model):
             if c == "Z":
                 o_list[-i] = "0"
                 continue
-            else:
-                o_list[-i] = chr(ord(c) + 1)
-                break
+            o_list[-i] = chr(ord(c) + 1)
+            break
         next_order_number = "".join(o_list)
-        if next_order_number == "ZZZZ":
+        if "ZZZZ" in (OrderID, next_order_number):
             next_order_number = "A000"
         self.order_number = next_order_number
 

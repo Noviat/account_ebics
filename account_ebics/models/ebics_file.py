@@ -3,6 +3,7 @@
 
 import base64
 import logging
+import threading
 from copy import deepcopy
 from sys import exc_info
 from traceback import format_exception
@@ -225,9 +226,8 @@ class EbicsFile(models.Model):
             journal_currency = jrnl.currency_id or jrnl.company_id.currency_id
             if journal_currency != currency:
                 continue
-            else:
-                journal = jrnl
-                break
+            journal = jrnl
+            break
 
         if not journal:
             message = self.env._(
@@ -301,7 +301,7 @@ class EbicsFile(models.Model):
             self.note_process += self.env._(
                 "%(st_cnt)s bank statement%(sp)s been imported: ",
                 st_cnt=st_cnt,
-                sp=st_cnt == 1 and self.env._(" has") or self.env._("s have"),
+                sp=(st_cnt == 1 and self.env._(" has")) or self.env._("s have"),
             )
             self.note_process += "\n"
         for statement in statements:
@@ -392,9 +392,7 @@ class EbicsFile(models.Model):
             res["notifications"].append({"type": "error", "message": message})
             return datas
 
-        lines = []
-        for i in range(0, len(file_data), 120):
-            lines.append(file_data[i : i + 120])
+        lines = [file_data[i : i + 120] for i in range(0, len(file_data), 120)]
 
         st_lines = b""
         transactions = False
@@ -488,11 +486,12 @@ class EbicsFile(models.Model):
             try:
                 with self.env.cr.savepoint():
                     self._create_bank_statement_oca(res, st_data)
-            except UserError as e:
+            except UserError as e:  # noqa: PERF203
                 res["notifications"].append(
                     {"type": "error", "message": "".join(e.args)}
                 )
-            except Exception:
+            # Each statement fails alone; the traceback is reported to the user
+            except Exception:  # noqa: BLE001
                 tb = "".join(format_exception(*exc_info()))
                 res["notifications"].append({"type": "error", "message": tb})
 
@@ -509,12 +508,17 @@ class EbicsFile(models.Model):
         """
         We execute a cr.commit() after every statement import since we get a
         'savepoint does not exist' error when using 'with self.env.cr.savepoint()'.
+        The commit is skipped when running tests.
         """
+        testing = self.env.registry.in_test_mode() or getattr(
+            threading.current_thread(), "testing", False
+        )
         for st_data in st_datas:
             try:
                 self._create_bank_statement_oe(res, st_data)
-                self.env.cr.commit()  # pylint: disable=E8102
-            except UserError as e:
+                if not testing:
+                    self.env.cr.commit()  # pylint: disable=E8102
+            except UserError as e:  # noqa: PERF203
                 msg = "".join(e.args)
                 msg += "\n"
                 msg += self.env._(
@@ -522,7 +526,8 @@ class EbicsFile(models.Model):
                     nr=st_data["acc_number"],
                 )
                 res["notifications"].append({"type": "error", "message": msg})
-            except Exception:
+            # Each statement fails alone; the traceback is reported to the user
+            except Exception:  # noqa: BLE001
                 tb = "".join(format_exception(*exc_info()))
                 res["notifications"].append({"type": "error", "message": tb})
 
@@ -569,10 +574,14 @@ class EbicsFile(models.Model):
         """
         datas = []
         file_data = base64.b64decode(self.data)
-        root = etree.fromstring(file_data, parser=etree.XMLParser(recover=True))
+        try:
+            root = etree.fromstring(file_data, parser=etree.XMLParser(recover=True))
+        except etree.XMLSyntaxError:
+            root = None
         if root is None:
             message = self.env._("Invalid XML file.")
             res["notifications"].append({"type": "error", "message": message})
+            return datas
         ns = {k or "ns": v for k, v in root.nsmap.items()}
         camt_variant = ns["ns"].split("camt.")[1][:3]
         variant_tags = {
@@ -583,12 +592,11 @@ class EbicsFile(models.Model):
         camt_tag = variant_tags[camt_variant]
         stmts = root[0].findall(f"ns:{camt_tag}", ns)
         for i, stmt in enumerate(stmts):
-            acc_number = sanitize_account_number(
-                stmt.xpath(
-                    "ns:Acct/ns:Id/ns:IBAN/text() | ns:Acct/ns:Id/ns:Othr/ns:Id/text()",
-                    namespaces=ns,
-                )[0]
+            acc_ids = stmt.xpath(
+                "ns:Acct/ns:Id/ns:IBAN/text() | ns:Acct/ns:Id/ns:Othr/ns:Id/text()",
+                namespaces=ns,
             )
+            acc_number = acc_ids and sanitize_account_number(acc_ids[0])
             if not acc_number:
                 message = self.env._("No bank account number found.")
                 res["notifications"].append({"type": "error", "message": message})
@@ -644,7 +652,6 @@ class EbicsFile(models.Model):
         Placeholder for pain.002 specific actions before removing the
         EBICS data file.
         """
-        raise NotImplementedError
 
     def _process_undefined_format(self):
         raise UserError(

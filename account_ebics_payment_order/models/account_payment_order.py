@@ -59,7 +59,7 @@ class AccountPaymentOrder(models.Model):
                     "\nPlease generate first the Payment Order file."
                 )
             )
-        elif len(attach) > 1:
+        if len(attach) > 1:
             raise UserError(
                 self.env._(
                     "This payment order contains multiple attachments."
@@ -68,39 +68,38 @@ class AccountPaymentOrder(models.Model):
                     "EBICS Processing > EBICS Upload menu"
                 )
             )
-        else:
-            origin = self.env._("Payment Order") + ": " + self.name
-            if not self.journal_id.ebics_config_id:
-                raise UserError(
-                    self.env._(
-                        "No active EBICS configuration available for the selected bank."
-                    )
+        origin = self.env._("Payment Order") + ": " + self.name
+        if not self.journal_id.ebics_config_id:
+            raise UserError(
+                self.env._(
+                    "No active EBICS configuration available for the selected bank."
                 )
-            ctx.update(
-                {
-                    "default_ebics_config_id": self.journal_id.ebics_config_id.id,
-                    "default_upload_data": attach.datas,
-                    "default_upload_fname": attach.name,
-                    "origin": origin,
-                }
             )
-            ebics_xfer = (
-                self.env["ebics.xfer"]
-                .with_company(self.company_id)
-                .with_context(**ctx)
-                .create({})
-            )
-            ebics_xfer._onchange_ebics_config_id()
-            ebics_xfer._onchange_upload_data()
-            view = self.env.ref("account_ebics.ebics_xfer_view_form_upload")
-            act = {
-                "name": self.env._("EBICS Upload"),
-                "view_mode": "form",
-                "res_model": "ebics.xfer",
-                "view_id": view.id,
-                "res_id": ebics_xfer.id,
-                "type": "ir.actions.act_window",
-                "target": "new",
-                "context": ctx,
+        ctx.update(
+            {
+                "default_ebics_config_id": self.journal_id.ebics_config_id.id,
+                "default_upload_data": attach.datas,
+                "default_upload_fname": attach.name,
+                "origin": origin,
             }
-            return act
+        )
+        ebics_xfer = (
+            self.env["ebics.xfer"]
+            .with_company(self.company_id)
+            .with_context(**ctx)
+            .create({})
+        )
+        ebics_xfer._onchange_ebics_config_id()
+        ebics_xfer._onchange_upload_data()
+        view = self.env.ref("account_ebics.ebics_xfer_view_form_upload")
+        act = {
+            "name": self.env._("EBICS Upload"),
+            "view_mode": "form",
+            "res_model": "ebics.xfer",
+            "view_id": view.id,
+            "res_id": ebics_xfer.id,
+            "type": "ir.actions.act_window",
+            "target": "new",
+            "context": ctx,
+        }
+        return act

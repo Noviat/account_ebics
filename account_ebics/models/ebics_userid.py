@@ -38,7 +38,7 @@ class EbicsBank(EbicsBank):
         The OrderID must be a string between 'A000' and 'ZZZZ' and
         unique for each partner id.
         """
-        return hasattr(self, "_order_number") and self._order_number or "A000"
+        return (hasattr(self, "_order_number") and self._order_number) or "A000"
 
 
 class EbicsUserID(models.Model):
@@ -216,7 +216,9 @@ class EbicsUserID(models.Model):
             rec.ebics_passphrase_store_readonly = True
             if rec.state == "draft":
                 rec.ebics_passphrase_required = True
-                rec.ebics_passphrase_invisible = rec.ebics_keys_found and True or False
+                rec.ebics_passphrase_invisible = (
+                    rec.ebics_keys_found and True
+                ) or False
                 rec.ebics_passphrase_store_readonly = False
             elif rec.state == "init":
                 rec.ebics_passphrase_required = False
@@ -279,19 +281,20 @@ class EbicsUserID(models.Model):
                     "keys": self.ebics_keys_fn,
                     "passphrase": self.ebics_passphrase,
                 }
-                keyring = EbicsKeyRing(**keyring_params)
                 try:
+                    keyring = EbicsKeyRing(**keyring_params)
                     # fintech <= 7.4.3 does not have a call to check if a
                     # passphrase matches with the value stored in the keyfile.
                     # We get around this limitation as follows:
                     # Get user keys to check for valid passphrases
-                    # It will raise a ValueError on invalid passphrases
-                    keyring["#USER"]
-                except ValueError as err:  # noqa: F841
+                    # It will raise a ValueError on invalid passphrases,
+                    # or a RuntimeError when the keyring is already open
+                    # in this process with another passphrase.
+                    keyring["#USER"]  # pylint: disable=pointless-statement
+                except (ValueError, RuntimeError) as err:  # noqa: F841
                     raise UserError(self.env._("Passphrase mismatch."))  # noqa: B904
-        else:
-            if self.state != "draft":
-                self.ebics_passphrase = False
+        elif self.state != "draft":
+            self.ebics_passphrase = False
 
     @api.onchange("swift_3skey")
     def _onchange_swift_3skey(self):
@@ -412,7 +415,7 @@ class EbicsUserID(models.Model):
             raise UserError(error) from err
 
         # Send the public electronic signature key to the bank.
-        ebics_config_bank = self.ebics_config_id.journal_ids[0].bank_id
+        ebics_config_bank = self.ebics_config_id.journal_ids[:1].bank_id
         if not ebics_config_bank:
             raise UserError(
                 self.env._(
@@ -470,7 +473,6 @@ class EbicsUserID(models.Model):
             self.ebics_config_id._update_order_number(OrderID)
 
         # Create an INI-letter which must be printed and sent to the bank.
-        ebics_config_bank = self.ebics_config_id.journal_ids[0].bank_id
         cc = ebics_config_bank.country.code
         if cc in ["FR", "DE"]:
             lang = cc
@@ -479,7 +481,7 @@ class EbicsUserID(models.Model):
         lang = lang.lower()
         lang = lang if lang in INI_LETTER_LANGS else "en"
         fn_date = fields.Date.today().isoformat()
-        fn = "_".join([self.ebics_config_id.ebics_host, "ini_letter", fn_date]) + ".pdf"
+        fn = f"{self.ebics_config_id.ebics_host}_ini_letter_{fn_date}" + ".pdf"
         letter = user.create_ini_letter(bankname=ebics_config_bank.name, lang=lang)
         vals = {
             "ebics_ini_letter": base64.encodebytes(letter),
@@ -548,10 +550,7 @@ class EbicsUserID(models.Model):
 
         public_bank_keys = public_bank_keys.encode()
         fn_date = fields.Date.today().isoformat()
-        fn = (
-            "_".join([self.ebics_config_id.ebics_host, "public_bank_keys", fn_date])
-            + ".txt"
-        )
+        fn = f"{self.ebics_config_id.ebics_host}_public_bank_keys_{fn_date}" + ".txt"
         vals = {
             "ebics_public_bank_keys": base64.encodebytes(public_bank_keys),
             "ebics_public_bank_keys_fn": fn,
