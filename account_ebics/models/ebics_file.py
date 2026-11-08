@@ -221,9 +221,8 @@ class EbicsFile(models.Model):
             journal_currency = jrnl.currency_id or jrnl.company_id.currency_id
             if journal_currency != currency:
                 continue
-            else:
-                journal = jrnl
-                break
+            journal = jrnl
+            break
 
         if not journal:
             message = self.env._(
@@ -297,7 +296,7 @@ class EbicsFile(models.Model):
             self.note_process += self.env._(
                 "%(st_cnt)s bank statement%(sp)s been imported: ",
                 st_cnt=st_cnt,
-                sp=st_cnt == 1 and self.env._(" has") or self.env._("s have"),
+                sp=(st_cnt == 1 and self.env._(" has")) or self.env._("s have"),
             )
             self.note_process += "\n"
         for statement in statements:
@@ -388,9 +387,7 @@ class EbicsFile(models.Model):
             res["notifications"].append({"type": "error", "message": message})
             return datas
 
-        lines = []
-        for i in range(0, len(file_data), 120):
-            lines.append(file_data[i : i + 120])
+        lines = [file_data[i : i + 120] for i in range(0, len(file_data), 120)]
 
         st_lines = b""
         transactions = False
@@ -488,7 +485,7 @@ class EbicsFile(models.Model):
                 res["notifications"].append(
                     {"type": "error", "message": "".join(e.args)}
                 )
-            except Exception:
+            except Exception:  # noqa: BLE001
                 tb = "".join(format_exception(*exc_info()))
                 res["notifications"].append({"type": "error", "message": tb})
 
@@ -518,7 +515,7 @@ class EbicsFile(models.Model):
                     nr=st_data["acc_number"],
                 )
                 res["notifications"].append({"type": "error", "message": msg})
-            except Exception:
+            except Exception:  # noqa: BLE001
                 tb = "".join(format_exception(*exc_info()))
                 res["notifications"].append({"type": "error", "message": tb})
 
