@@ -23,12 +23,6 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
-msgid " has"
-msgstr " wurde"
-
-#. module: account_ebics
-#. odoo-python
-#: code:addons/account_ebics/models/ebics_file.py:0
 msgid "%(st_cnt)s bank statement%(sp)s been imported: "
 msgstr "%(st_cnt)s Kontoauszug%(sp)s importiert: "
 
@@ -581,6 +575,12 @@ msgid ""
 msgstr ""
 "Funktionaler EBICS-Fehler beim Herunterladen des Dateiformats %(name)s "
 "(%(order_type)s):"
+
+#. module: account_ebics
+#. odoo-python
+#: code:addons/account_ebics/wizards/ebics_admin_order.py:0
+msgid "EBICS Functional Error during execution of order %(order_type)s:"
+msgstr ""
 
 #. module: account_ebics
 #. odoo-python
@@ -1951,6 +1951,9 @@ msgid ""
 msgstr ""
 "urlopen-Fehler:\n"
 " URL '%(url)s' - %(val)s"
+
+#~ msgid " has"
+#~ msgstr " wurde"
 
 #~ msgid ""
 #~ "EBICS Keys Root Directory %s is not available.\n"

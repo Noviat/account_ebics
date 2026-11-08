@@ -16,12 +16,6 @@ msgstr ""
 #. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
-msgid " has"
-msgstr ""
-
-#. module: account_ebics
-#. odoo-python
-#: code:addons/account_ebics/models/ebics_file.py:0
 msgid "%(st_cnt)s bank statement%(sp)s been imported: "
 msgstr ""
 
@@ -537,6 +531,12 @@ msgstr ""
 msgid ""
 "EBICS Functional Error during download of File Format %(name)s "
 "(%(order_type)s):"
+msgstr ""
+
+#. module: account_ebics
+#. odoo-python
+#: code:addons/account_ebics/wizards/ebics_admin_order.py:0
+msgid "EBICS Functional Error during execution of order %(order_type)s:"
 msgstr ""
 
 #. module: account_ebics
