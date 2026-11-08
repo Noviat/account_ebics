@@ -120,7 +120,8 @@ class EbicsBatchLog(models.Model):
                     )
             except UserError as e:
                 import_dict["errors"].append(err_msg + " ".join(e.args))
-            except Exception:
+            # Each configuration fails alone; reported in the batch log
+            except Exception:  # noqa: BLE001
                 tb = "".join(format_exception(*exc_info()))
                 import_dict["errors"].append(err_msg + tb)
         log.file_ids = [(6, 0, ebics_file_ids)]
@@ -128,14 +129,15 @@ class EbicsBatchLog(models.Model):
             log._ebics_process(import_dict)
         except UserError as e:
             import_dict["errors"].append(err_msg + " ".join(e.args))
-        except Exception:
+        # Reported in the batch log with the traceback
+        except Exception:  # noqa: BLE001
             tb = "".join(format_exception(*exc_info()))
             import_dict["errors"].append(err_msg + tb)
         log._finalise_processing(import_dict)
 
     def _finalise_processing(self, import_dict):
         log_item_model = self.env["ebics.batch.log.item"]
-        state = self.has_draft_files and "draft" or "done"
+        state = (self.has_draft_files and "draft") or "done"
         note = ""
         error_count = 0
         if import_dict["errors"]:
@@ -157,7 +159,7 @@ class EbicsBatchLog(models.Model):
             lambda r: r.ebics_passphrase_store
         )
         t_userids = ebics_userids.filtered(lambda r: r.signature_class == "T")
-        ebics_userid = t_userids and t_userids[0] or ebics_userids[0]
+        ebics_userid = (t_userids and t_userids[0]) or ebics_userids[0]
         xfer_wiz = (
             self.env["ebics.xfer"]
             .with_context(ebics_download=True)
