@@ -70,8 +70,7 @@ class EbicsChangePassphrase(models.TransientModel):
         passphrase = (
             self.ebics_userid_id.ebics_passphrase_store
             and self.ebics_userid_id.ebics_passphrase
-            or self.old_pass
-        )
+        ) or self.old_pass
         try:
             keyring_params = {
                 "keys": self.ebics_userid_id.ebics_keys_fn,
