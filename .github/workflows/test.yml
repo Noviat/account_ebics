@@ -46,6 +46,7 @@ jobs:
             name: test with Odoo Community
             odoo_enterprise : 0
             exclude_modules : ""
+            exclude: "account_ebics_batch_payment,account_ebics_oe"
           - container: ghcr.io/oca/oca-ci/py3.12-odoo20.0:latest
             name: test with Odoo Enterprise
             odoo_enterprise : 1
