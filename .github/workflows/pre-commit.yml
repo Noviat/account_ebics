@@ -23,7 +23,7 @@ jobs:
           cache: 'pip'
           cache-dependency-path: '.pre-commit-config.yaml'
       - name: Get python version
-        run: echo "PY=$(python -VV | sha256sum | cut -d' ' -f1)" >> $GITHUB_ENV
+        run: echo "PY=$(python -VV | sha256sum | cut -d' ' -f1)" >> "$GITHUB_ENV"
       - uses: actions/cache@v6
         with:
           path: ~/.cache/pre-commit

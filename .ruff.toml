@@ -16,6 +16,40 @@ select = [
     "E501",  # line too long (default 88)
     "I",  # isort
     "UP",  # pyupgrade
+    # Autofixed
+    "RET501",
+    "RET502",
+    "RET505",
+    "RET506",
+    "RET507",
+    "RET508",
+    "PLR1711",
+    "PLR5501",
+    "RUF019",
+    "RUF021",
+    "RUF100",
+    "SIM114",
+    "ISC001",
+    "C4",
+    "PIE",
+    "FLY",
+    "FURB",
+    # Few and real: logging format, performance, security
+    "G",
+    "PERF",
+    "S102",
+    "S105",
+    "S106",
+    "S107",
+    "S108",
+    "S301",
+    "S603",
+    "S607",
+    "S704",
+    # Commented-out code, blind except, unused unpacked variables
+    "ERA001",
+    "BLE001",
+    "RUF059",
 ]
 extend-safe-fixes = ["UP008"]
 exclude = ["setup/*"]
