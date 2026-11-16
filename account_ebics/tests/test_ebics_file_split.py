@@ -1,8 +1,6 @@
 # Copyright 2026 Noviat.
 # License LGPL-3 or later (https://www.gnu.org/licenses/lgpl).
 
-import base64
-
 from lxml import etree
 
 from odoo.tests import tagged
@@ -32,7 +30,7 @@ class TestSplitCfonb(EbicsTestCommon):
         return ebics_file._split_cfonb(res), res
 
     def _lines(self, st_data):
-        return base64.b64decode(st_data["data"]).decode("latin-1").splitlines()
+        return bytes(st_data["data"]).decode("latin-1").splitlines()
 
     def test_no_line_terminator_single_account(self):
         """Modelled on Crédit Mutuel de Bretagne: no line terminator at all."""
@@ -135,7 +133,7 @@ class TestSplitCamt(EbicsTestCommon):
         return ebics_file._split_camt(res), res
 
     def _statements(self, st_data):
-        root = etree.fromstring(base64.b64decode(st_data["data"]))
+        root = etree.fromstring(bytes(st_data["data"]))
         ns = {"ns": root.nsmap[None]}
         return root.xpath("//ns:Stmt/ns:Acct/ns:Id//text()", namespaces=ns)
 

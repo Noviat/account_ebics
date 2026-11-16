@@ -1,12 +1,12 @@
 # Copyright 2026 Noviat.
 # License LGPL-3 or later (https://www.gnu.org/licenses/lgpl).
 
-import base64
 from contextlib import contextmanager
 from unittest.mock import patch
 
 from odoo import Command, fields
 from odoo.tools import file_open
+from odoo.tools.binary import BinaryBytes
 
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
@@ -140,7 +140,7 @@ class EbicsTestCommon(AccountTestInvoicingCommon):
                     "name": f"Bank {code}",
                     "code": code,
                     "type": "bank",
-                    "bank_acc_number": acc_number,
+                    "bank_account_number": acc_number,
                     "currency_id": (currency or cls.eur).id,
                     "company_id": cls.company.id,
                 }
@@ -155,7 +155,7 @@ class EbicsTestCommon(AccountTestInvoicingCommon):
         return cls.env["ebics.file"].create(
             {
                 "name": name or sample,
-                "data": base64.b64encode(read_sample(sample)),
+                "data": BinaryBytes(read_sample(sample)),
                 "date": fields.Datetime.now(),
                 "format_id": file_format.id,
             }
@@ -191,7 +191,7 @@ class EbicsTestCommon(AccountTestInvoicingCommon):
                 "ebics_config_id": self.ebics_config.id,
                 "ebics_userid_id": self.ebics_userid.id,
                 "format_id": file_format.id,
-                "upload_data": base64.b64encode(data),
+                "upload_data": BinaryBytes(data),
                 "upload_fname": fname,
                 **vals,
             }
