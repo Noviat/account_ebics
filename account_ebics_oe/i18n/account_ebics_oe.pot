@@ -1,0 +1,61 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_ebics_oe
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 20.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_ebics_oe
+#: model:ir.module.module,description:base.module_account_ebics_oe
+msgid ""
+"===================================\n"
+"EBICS - Odoo Enterprise Integration\n"
+"===================================\n"
+"\n"
+"**Glue module. Install it and forget it.**\n"
+"\n"
+"On Odoo Enterprise, this module places the **EBICS Processing** menu in the top bar of\n"
+"the Accounting application.\n"
+"\n"
+"It is installed automatically when both of these modules are installed:\n"
+"\n"
+"- ``account_ebics``;\n"
+"- ``accountant`` (the Odoo Enterprise Accounting application).\n"
+"\n"
+"There is nothing to configure.\n"
+"\n"
+"Part of the EBICS suite\n"
+"=======================\n"
+"\n"
+"This module extends **EBICS Banking Protocol** (``account_ebics``), the EBICS implementation\n"
+"for Odoo developed and maintained by Noviat. Install it first:\n"
+"https://github.com/Noviat/account_ebics\n"
+"\n"
+"What EBICS is and what it changes, in plain language, with screen recordings of the flow:\n"
+"https://www.noviat.com/ebics\n"
+"\n"
+"Credits\n"
+"=======\n"
+"\n"
+"Developed and maintained by `Noviat <https://www.noviat.com>`_, Odoo integrator in Belgium,\n"
+"specialised in accounting and finance since 2009. We configure the connection with your banks\n"
+"and support you through the first cycles.\n"
+msgstr ""
+
+#. module: account_ebics_oe
+#: model:ir.module.module,shortdesc:base.module_account_ebics_oe
+msgid "EBICS - Odoo Enterprise Integration"
+msgstr ""
+
+#. module: account_ebics_oe
+#: model:ir.module.module,summary:base.module_account_ebics_oe
+msgid "Place the EBICS menus in the Odoo Enterprise accounting application"
+msgstr ""
