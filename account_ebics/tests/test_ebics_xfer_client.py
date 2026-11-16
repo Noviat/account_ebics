@@ -1,11 +1,11 @@
 # Copyright 2026 Noviat.
 # License LGPL-3 or later (https://www.gnu.org/licenses/lgpl).
 
-import base64
 from unittest.mock import patch
 
 from odoo.exceptions import UserError
 from odoo.tests import tagged
+from odoo.tools.binary import BinaryBytes
 
 from odoo.addons.account_ebics.wizards import ebics_xfer as ebics_xfer_module
 
@@ -50,7 +50,7 @@ class TestSetupClient(EbicsKeysCommon):
                 "ebics_config_id": self.ebics_config.id,
                 "ebics_userid_id": self.userid.id,
                 "format_id": (file_format or self.ff_ful).id,
-                "upload_data": base64.b64encode(b"LCR DATA"),
+                "upload_data": BinaryBytes(b"LCR DATA"),
                 "upload_fname": "lcr.txt",
                 "note": "",
                 **vals,

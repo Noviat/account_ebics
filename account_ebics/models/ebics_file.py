@@ -1,7 +1,6 @@
 # Copyright 2009-2025 Noviat.
 # License LGPL-3 or later (https://www.gnu.org/licenses/lgpl).
 
-import base64
 import logging
 from copy import deepcopy
 from sys import exc_info
@@ -13,7 +12,7 @@ from odoo import api, fields, models
 from odoo.exceptions import UserError
 from odoo.modules import module as odoo_module
 
-from odoo.addons.base.models.res_bank import sanitize_account_number
+from odoo.addons.base.models.res_partner_bank import sanitize_account_number
 
 _logger = logging.getLogger(__name__)  # lint-ignore=unused-logger
 
@@ -203,7 +202,7 @@ class EbicsFile(models.Model):
             [
                 ("type", "=", "bank"),
                 (
-                    "bank_account_id.sanitized_acc_number",
+                    "bank_account_id.sanitized_account_number",
                     "ilike",
                     acc_number,
                 ),
@@ -381,7 +380,7 @@ class EbicsFile(models.Model):
         Statements without transactions are removed.
         """
         datas = []
-        file_data = base64.b64decode(self.data).replace(b"\n", b"").replace(b"\r", b"")
+        file_data = bytes(self.data).replace(b"\n", b"").replace(b"\r", b"")
         if len(file_data) % 120:
             message = self.env._(
                 "Incorrect CFONB120 file:\nthe file is not divisible in 120 char lines"
@@ -411,7 +410,7 @@ class EbicsFile(models.Model):
                                 "acc_number": acc_number,
                                 "journal_id": journal.id,
                                 "company_id": journal.company_id.id,
-                                "data": base64.b64encode(st_lines),
+                                "data": st_lines,
                             }
                         )
                 st_lines = b""
@@ -499,7 +498,7 @@ class EbicsFile(models.Model):
             .with_context(active_model="ebics.file")
             .create({"statement_filename": self.name})
         )
-        wiz.import_single_file(base64.b64decode(st_data["data"]), res)
+        wiz.import_single_file(st_data["data"], res)
 
     def _process_bank_statement_oe(self, res, st_datas):
         """
@@ -534,8 +533,7 @@ class EbicsFile(models.Model):
             .create(
                 {
                     "name": self.name,
-                    "datas": st_data["data"],
-                    "store_fname": self.name,
+                    "raw": st_data["data"],
                 }
             )
         )
@@ -569,7 +567,7 @@ class EbicsFile(models.Model):
         Statements without transactions are removed.
         """
         datas = []
-        file_data = base64.b64decode(self.data)
+        file_data = bytes(self.data)
         try:
             root = etree.fromstring(file_data, parser=etree.XMLParser(recover=True))
         except etree.XMLSyntaxError:
@@ -630,7 +628,7 @@ class EbicsFile(models.Model):
                     "acc_number": acc_number,
                     "journal_id": journal.id,
                     "company_id": journal.company_id.id,
-                    "data": base64.b64encode(etree.tostring(root_new)),
+                    "data": etree.tostring(root_new),
                 }
             )
 

@@ -10,6 +10,7 @@ from urllib.error import URLError
 
 from odoo import api, fields, models
 from odoo.exceptions import UserError
+from odoo.tools.binary import BinaryBytes
 
 _logger = logging.getLogger(__name__)
 
@@ -415,7 +416,7 @@ class EbicsUserID(models.Model):
             raise UserError(error) from err
 
         # Send the public electronic signature key to the bank.
-        ebics_config_bank = self.ebics_config_id.journal_ids[:1].bank_id
+        ebics_config_bank = self.ebics_config_id.journal_ids[:1].bank_account_id
         if not ebics_config_bank:
             raise UserError(
                 self.env._(
@@ -473,7 +474,7 @@ class EbicsUserID(models.Model):
             self.ebics_config_id._update_order_number(OrderID)
 
         # Create an INI-letter which must be printed and sent to the bank.
-        cc = ebics_config_bank.country.code
+        cc = ebics_config_bank.country_id.code
         if cc in ["FR", "DE"]:
             lang = cc
         else:
@@ -481,10 +482,10 @@ class EbicsUserID(models.Model):
         lang = lang.lower()
         lang = lang if lang in INI_LETTER_LANGS else "en"
         fn_date = fields.Date.today().isoformat()
-        fn = f"{self.ebics_config_id.ebics_host}_ini_letter_{fn_date}" + ".pdf"
-        letter = user.create_ini_letter(bankname=ebics_config_bank.name, lang=lang)
+        fn = f"{self.ebics_config_id.ebics_host}_ini_letter_{fn_date}.pdf"
+        letter = user.create_ini_letter(bankname=ebics_config_bank.bank_name, lang=lang)
         vals = {
-            "ebics_ini_letter": base64.encodebytes(letter),
+            "ebics_ini_letter": BinaryBytes(letter),
             "ebics_ini_letter_fn": fn,
             "state": "init",
         }
@@ -550,9 +551,9 @@ class EbicsUserID(models.Model):
 
         public_bank_keys = public_bank_keys.encode()
         fn_date = fields.Date.today().isoformat()
-        fn = f"{self.ebics_config_id.ebics_host}_public_bank_keys_{fn_date}" + ".txt"
+        fn = f"{self.ebics_config_id.ebics_host}_public_bank_keys_{fn_date}.txt"
         vals = {
-            "ebics_public_bank_keys": base64.encodebytes(public_bank_keys),
+            "ebics_public_bank_keys": BinaryBytes(public_bank_keys),
             "ebics_public_bank_keys_fn": fn,
             "state": "to_verify",
         }

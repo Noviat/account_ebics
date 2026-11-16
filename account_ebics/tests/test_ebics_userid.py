@@ -1,7 +1,6 @@
 # Copyright 2026 Noviat.
 # License LGPL-3 or later (https://www.gnu.org/licenses/lgpl).
 
-import base64
 import gc
 import itertools
 import os
@@ -74,11 +73,11 @@ class EbicsKeysCommon(EbicsTestCommon):
         keys_dir = tempfile.mkdtemp(prefix="ebics_keys_test_")
         cls.addClassCleanup(shutil.rmtree, keys_dir, ignore_errors=True)
         cls.ebics_config.write({"ebics_keys": keys_dir, "ebics_key_bitlength": 2048})
-        cls.bank_fr = cls.env["res.bank"].create(
-            {"name": "Banque Test", "country": cls.env.ref("base.fr").id}
-        )
         cls.journal = cls._create_bank_journal("TKEY", "FR7630004000031234567890143")
-        cls.journal.bank_account_id.sudo().bank_id = cls.bank_fr
+        cls.bank_fr = cls.journal.bank_account_id.sudo()
+        cls.bank_fr.write(
+            {"bank_name": "Banque Test", "country_id": cls.env.ref("base.fr").id}
+        )
 
     def _new_userid(self, **vals):
         # A new name per test: fintech keeps open keyrings per file in-process.
@@ -109,7 +108,7 @@ class TestKeyCeremony(EbicsKeysCommon):
         self.assertEqual(userid.state, "init")
         self.assertTrue(os.path.isfile(userid.ebics_keys_fn))
         self.assertTrue(userid.ebics_keys_found)
-        self.assertTrue(base64.b64decode(userid.ebics_ini_letter).startswith(b"%PDF"))
+        self.assertTrue(bytes(userid.ebics_ini_letter).startswith(b"%PDF"))
         today = fields.Date.today().isoformat()
         self.assertEqual(userid.ebics_ini_letter_fn, f"TESTHOST_ini_letter_{today}.pdf")
 
@@ -120,7 +119,7 @@ class TestKeyCeremony(EbicsKeysCommon):
             userid.ebics_init_3()
         self.assertEqual(userid.state, "to_verify")
         self.assertEqual(
-            base64.b64decode(userid.ebics_public_bank_keys).decode(), PUBLIC_BANK_KEYS
+            bytes(userid.ebics_public_bank_keys).decode(), PUBLIC_BANK_KEYS
         )
         self.assertEqual(
             userid.ebics_public_bank_keys_fn, f"TESTHOST_public_bank_keys_{today}.txt"
@@ -242,7 +241,7 @@ class TestKeyCeremony(EbicsKeysCommon):
                     .search([("code", "=", user_lang)])
                 )
                 lang.active = True
-                self.bank_fr.country = self.env.ref(country)
+                self.bank_fr.country_id = self.env.ref(country)
                 self.env.user.lang = user_lang
                 userid = self._new_userid()
                 with patch.object(ebics_userid_module, "EbicsUser", SpyUser):

@@ -1,7 +1,6 @@
 # Copyright 2026 Noviat.
 # License LGPL-3 or later (https://www.gnu.org/licenses/lgpl).
 
-import base64
 from datetime import date
 
 from fintech.ebics import (
@@ -45,7 +44,7 @@ class TestEbicsXferDownload(EbicsTestCommon):
         self.assertEqual(ebics_file.ebics_userid_id, self.ebics_userid)
         self.assertEqual(ebics_file.company_ids, self.ebics_config.company_ids)
         # FDL CFONB downloads get a line terminator every 120 characters
-        stored = base64.b64decode(ebics_file.data)
+        stored = bytes(ebics_file.data)
         self.assertEqual(stored.count(b"\n"), 7)
         self.assertEqual(client.confirmed, [("TRANS0001", True)])
         self.assertIn("is available for further processing", wizard.note)
@@ -58,7 +57,7 @@ class TestEbicsXferDownload(EbicsTestCommon):
         ebics_file = self.env["ebics.file"].browse(action["context"]["ebics_file_ids"])
         self.assertEqual(len(ebics_file), 1)
         # BTD formats have no name, hence no line terminator handler.
-        self.assertEqual(base64.b64decode(ebics_file.data), data)
+        self.assertEqual(bytes(ebics_file.data), data)
 
     def test_same_name_in_another_format(self):
         """FDL and BTD CFONB formats share the file suffix: same file name,
@@ -170,11 +169,10 @@ class TestEbicsXferUpload(EbicsTestCommon):
             }
         )
         cls.ff_ful = cls.env.ref("account_ebics.ebics_ff_LCR")
-        bank = cls.env["res.bank"].create(
-            {"name": "Test Bank FR", "country": cls.env.ref("base.fr").id}
-        )
         journal = cls._create_bank_journal("TUPL", "FR7630004000031234567890143")
-        journal.bank_account_id.sudo().bank_id = bank
+        journal.bank_account_id.sudo().write(
+            {"bank_name": "Test Bank FR", "country_id": cls.env.ref("base.fr").id}
+        )
 
     def test_upload_btu(self):
         wizard = self._upload_wizard(self.ff_btu, test_mode=True)
