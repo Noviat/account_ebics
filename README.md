@@ -9,6 +9,13 @@
 <!-- prettier-ignore-start -->
 
 [//]: # (addons)
+
+Available addons
+----------------
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[account_ebics](account_ebics/) | 20.0.1.0.0 |  | Download bank statements and upload payment files directly from Odoo, using the European EBICS standard
+
 [//]: # (end addons)
 
 <!-- prettier-ignore-end -->
