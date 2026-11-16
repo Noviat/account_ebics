@@ -483,7 +483,7 @@ class EbicsFile(models.Model):
             try:
                 with self.env.cr.savepoint():
                     self._create_bank_statement_oca(res, st_data)
-            except UserError as e:  # noqa: PERF203
+            except UserError as e:
                 res["notifications"].append(
                     {"type": "error", "message": "".join(e.args)}
                 )
@@ -514,7 +514,7 @@ class EbicsFile(models.Model):
                 self._create_bank_statement_oe(res, st_data)
                 if not testing:
                     self.env.cr.commit()  # pylint: disable=E8102
-            except UserError as e:  # noqa: PERF203
+            except UserError as e:
                 msg = "".join(e.args)
                 msg += "\n"
                 msg += self.env._(
