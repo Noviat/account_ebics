@@ -1,0 +1,226 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * account_ebics_batch
+#
+# Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2025.
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-08-31 23:02+0000\n"
+"PO-Revision-Date: 2025-09-02 00:02+0000\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>\n"
+"Language-Team: French <https://translation.noviat.com/projects/noviat-generic-account-ebics-v18/account_ebics_batch/fr/>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.12.2\n"
+
+#. module: account_ebics_batch
+#: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__file_ids
+msgid "Batch Import EBICS Files"
+msgstr "Importer des fichiers EBICS par lot"
+
+#. module: account_ebics_batch
+#: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log_item__note
+#: model_terms:ir.ui.view,arch_db:account_ebics_batch.ebics_batch_log_view_form
+msgid "Batch Import Log"
+msgstr "Journal d'import par lot"
+
+#. module: account_ebics_batch
+#: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__log_ids
+msgid "Batch Import Log Items"
+msgstr "Éléments du journal d'import par lot"
+
+#. module: account_ebics_batch
+#: model_terms:ir.ui.view,arch_db:account_ebics_batch.ebics_batch_log_view_form
+msgid "Batch Import Logs"
+msgstr "Journaux d'import par lot"
+
+#. module: account_ebics_batch
+#: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log_item__log_id
+msgid "Batch Object"
+msgstr "Objet du lot"
+
+#. module: account_ebics_batch
+#: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__create_uid
+#: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log_item__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: account_ebics_batch
+#: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__create_date
+#: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log_item__create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: account_ebics_batch
+#: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__date_from
+msgid "Date From"
+msgstr "Du"
+
+#. module: account_ebics_batch
+#: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__date_to
+msgid "Date To"
+msgstr "Au"
+
+#. module: account_ebics_batch
+#: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__display_name
+#: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log_item__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: account_ebics_batch
+#: model:ir.model.fields.selection,name:account_ebics_batch.selection__ebics_batch_log__state__done
+#: model:ir.model.fields.selection,name:account_ebics_batch.selection__ebics_batch_log_item__state__done
+msgid "Done"
+msgstr "Terminé"
+
+#. module: account_ebics_batch
+#: model:ir.model.fields.selection,name:account_ebics_batch.selection__ebics_batch_log__state__draft
+#: model:ir.model.fields.selection,name:account_ebics_batch.selection__ebics_batch_log_item__state__draft
+msgid "Draft"
+msgstr "Brouillon"
+
+#. module: account_ebics_batch
+#: model:ir.actions.server,name:account_ebics_batch.ir_cron_ebics_batch_import_ir_actions_server
+msgid "EBICS Batch Import"
+msgstr "Import par lot EBICS"
+
+#. module: account_ebics_batch
+#: model_terms:ir.ui.view,arch_db:account_ebics_batch.ebics_batch_log_view_form
+msgid "EBICS Batch Import Log"
+msgstr "Journal d'import par lot EBICS"
+
+#. module: account_ebics_batch
+#: model:ir.actions.act_window,name:account_ebics_batch.ebics_batch_log_action
+#: model:ir.ui.menu,name:account_ebics_batch.ebics_batch_log_menu
+msgid "EBICS Batch Import Logs"
+msgstr "Journaux d'import par lot EBICS"
+
+#. module: account_ebics_batch
+#: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__ebics_config_ids
+msgid "EBICS Configurations"
+msgstr "Configurations EBICS"
+
+#. module: account_ebics_batch
+#: model_terms:ir.ui.view,arch_db:account_ebics_batch.ebics_batch_log_view_form
+msgid "EBICS Files"
+msgstr "Fichiers EBICS"
+
+#. module: account_ebics_batch
+#: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__file_count
+msgid "EBICS Files Count"
+msgstr "Nombre de fichiers EBICS"
+
+#. module: account_ebics_batch
+#: model:ir.model.fields.selection,name:account_ebics_batch.selection__ebics_batch_log__state__error
+#: model:ir.model.fields.selection,name:account_ebics_batch.selection__ebics_batch_log_item__state__error
+msgid "Error"
+msgstr "Erreur"
+
+#. module: account_ebics_batch
+#. odoo-python
+#: code:addons/account_ebics_batch/models/ebics_batch_log.py:0
+msgid "Error while processing EBICS connection '%s' :\n"
+msgstr "Erreur lors du traitement de la connexion EBICS '%s' :\n"
+
+#. module: account_ebics_batch
+#: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__has_draft_files
+msgid "Has Draft Files"
+msgstr "A des fichiers brouillon"
+
+#. module: account_ebics_batch
+#: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__id
+#: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log_item__id
+msgid "ID"
+msgstr "Identifiant"
+
+#. module: account_ebics_batch
+#: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__write_uid
+#: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log_item__write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: account_ebics_batch
+#: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__write_date
+#: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log_item__write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: account_ebics_batch
+#: model_terms:ir.ui.view,arch_db:account_ebics_batch.ebics_batch_log_view_form
+msgid "Mark Done"
+msgstr "Marquer comme fait"
+
+#. module: account_ebics_batch
+#. odoo-python
+#: code:addons/account_ebics_batch/models/ebics_batch_log.py:0
+msgid ""
+"No EBICS UserID with stored passphrase found.\n"
+"You should configure such a UserID for automated downloads."
+msgstr ""
+"Aucun UserID EBICS avec phrase secrète enregistrée trouvé.\n"
+"Vous devriez configurer un tel UserID pour les téléchargements automatisés."
+
+#. module: account_ebics_batch
+#: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log_item__error_count
+msgid "Number of Errors"
+msgstr "Nombre d'erreurs"
+
+#. module: account_ebics_batch
+#: model:ir.model,name:account_ebics_batch.model_ebics_batch_log_item
+msgid "Object to store EBICS Batch Import Log Items"
+msgstr ""
+
+#. module: account_ebics_batch
+#: model:ir.model,name:account_ebics_batch.model_ebics_batch_log
+msgid "Object to store EBICS Batch Import Logs"
+msgstr ""
+
+#. module: account_ebics_batch
+#. odoo-python
+#: code:addons/account_ebics_batch/models/ebics_batch_log.py:0
+msgid "Only log objects in state 'draft' can be deleted !"
+msgstr ""
+"Seuls les objets journal à l'état « brouillon » peuvent être supprimés !"
+
+#. module: account_ebics_batch
+#. odoo-python
+#: code:addons/account_ebics_batch/models/ebics_batch_log.py:0
+msgid "Please set state to 'Confirm' and Reprocess this EBICS Import Log."
+msgstr ""
+"Veuillez définir l'état sur « Confirmer » et retraiter ce journal d'import "
+"EBICS."
+
+#. module: account_ebics_batch
+#: model_terms:ir.ui.view,arch_db:account_ebics_batch.ebics_batch_log_view_form
+msgid "Reprocess"
+msgstr "Retraiter"
+
+#. module: account_ebics_batch
+#: model_terms:ir.ui.view,arch_db:account_ebics_batch.ebics_batch_log_view_form
+msgid "Reprocess 'draft' EBICS Files"
+msgstr "Retraiter les fichiers EBICS 'brouillon'"
+
+#. module: account_ebics_batch
+#: model_terms:ir.ui.view,arch_db:account_ebics_batch.ebics_batch_log_view_search
+msgid "Search EBICS Batch Import Log Files"
+msgstr "Rechercher des fichiers journaux d'import par lot EBICS"
+
+#. module: account_ebics_batch
+#: model_terms:ir.ui.view,arch_db:account_ebics_batch.ebics_batch_log_view_form
+msgid "Set to Draft"
+msgstr "Mettre à l'état \"Brouillon\""
+
+#. module: account_ebics_batch
+#: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log__state
+#: model:ir.model.fields,field_description:account_ebics_batch.field_ebics_batch_log_item__state
+#: model_terms:ir.ui.view,arch_db:account_ebics_batch.ebics_batch_log_view_search
+msgid "State"
+msgstr "Statut"
+
+#~ msgid "Group By"
+#~ msgstr "Regrouper par"
