@@ -10,6 +10,8 @@ access_ebics_file_user,ebics_file user,ebics.file,account.group_account_invoice,
 access_ebics_change_passphrase,access_ebics_change_passphrase,ebics.change.passphrase,account_ebics.group_ebics_manager,cru,
 access_ebics_xfer,access_ebics_xfer,ebics.xfer,account.group_account_invoice,cru,
 access_ebics_admin_order,access_ebics_admin_order,ebics.admin.order,account_ebics.group_ebics_manager,cru,
+access_ebics_batch_log,ebics.batch.log,ebics.batch.log,account.group_account_invoice,crud,
+access_ebics_batch_log_item,ebics.batch.log.item,ebics.batch.log.item,account.group_account_invoice,crud,
 ebics_config_comp_rule,EBICS Configuration model company rule,ebics.config,,crud,"['|', ('company_ids', '=', False), ('company_ids', 'in', company_ids)]"
 ebics_userid_comp_rule,EBICS UserID model company rule,ebics.userid,,crud,"['|', ('company_ids', '=', False), ('company_ids', 'in', company_ids)]"
 ebics_file_comp_rule,EBICS File model company rule,ebics.file,,crud,"['|', ('company_ids', '=', False), ('company_ids', 'in', company_ids)]"
