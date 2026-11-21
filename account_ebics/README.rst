@@ -128,8 +128,6 @@ From this repository:
 
 - **EBICS - Odoo Enterprise Integration** (``account_ebics_oe``): required on Odoo
   Enterprise; installed automatically.
-- **EBICS - Scheduled File Import** (``account_ebics_batch``): downloads and processes the
-  files of every connection on a schedule.
 - **EBICS - Batch Payments (Odoo Enterprise)** (``account_ebics_batch_payment``): uploads
   the batch payments of the Odoo Enterprise ``account_batch_payment`` module.
 - **EBICS - Payment Orders (OCA)** (``account_ebics_payment_order``): uploads the payment
@@ -168,6 +166,18 @@ project is the bank, and it is almost never for a technical reason:
 
 Count in weeks per bank rather than days, and start the contract and the paperwork early.
 
+Installation
+============
+
+**Upgrading from versions prior to account_ebics 20.0.1.1.0**:
+If ``account_ebics_batch`` is present in your addons path, remove its directory
+before running the upgrade. Its functionality has been merged into this module.
+
+If the directory is left on disk, the upgrade completes correctly but Odoo will
+rediscover ``account_ebics_batch`` on the next restart and add it back to the
+module list as *Not Installed*. It will not cause errors, but removing it keeps
+the installation clean.
+
 Configuration
 =============
 
@@ -193,6 +203,23 @@ connection per bank contract, with the identifiers your bank sent you.
    :alt: A downloaded camt.053 statement file in Odoo, before processing
    :width: 100%
 
+Scheduled import
+----------------
+
+A scheduled action **EBICS Batch Import** is created **inactive** at installation, with a
+daily interval. Activate it in *Settings > Technical > Automation > Scheduled Actions*
+(developer mode), and adapt its interval if needed.
+
+The action runs the following method on all confirmed connections::
+
+  model._batch_import()
+
+To limit it to specific connections, pass their ids::
+
+  model._batch_import(ebics_config_ids=[1, 3])
+
+Batch Import Logs are listed under *EBICS Processing > Batch Import Logs*.
+
 Usage
 =====
 
@@ -202,6 +229,10 @@ downloaded and uploaded files and offers manual downloads and uploads.
 Downloaded files are processed into bank statements. Uploads are launched from the payment
 batch or the payment order, with the format set in the configuration: on the payment
 mode for a payment order, on the journal's payment method for a batch payment.
+
+Every run of the automatic download via the **EBICS Batch Import** scheduled action
+creates a **Batch Import Log** that records which files were processed and what went wrong;
+the *Reprocess* button retries any files still in draft until all errors are cleared.
 
 .. image:: https://raw.githubusercontent.com/Noviat/account_ebics/19.0/account_ebics/static/description/ebics_upload.png
    :alt: Uploading a pain.001 SEPA credit transfer file over EBICS 3.0, with the test mode option
@@ -226,16 +257,18 @@ During an upload or a download, your bank may return an error code, for example:
 The codes are explained on `ebics.org <https://www.ebics.org>`_ and in the ``doc`` folder of
 this module (``EBICS_Annex1_ReturnCodes``).
 
-Electronic Distributed Signature (EDS)
---------------------------------------
+EBICS TS (Transport and Signature) and EBICS EDS (Electronic Distributed Signature)
+-----------------------------------------------------------------------------------
 
-Where your bank supports EBICS T, Odoo prepares the file and holds no signing credentials
-at all: the payment is approved in your own signing application, which is what a segregation
-of duties policy usually demands. Where it does not, which happens with German and Swiss
-banks, the signing key sits on your Odoo server, and you can protect it with a separate
-signature passphrase that is never stored and is asked for every signed transaction.
+When configuring the bank connection as EBICS T, Odoo prepares the file and holds no signing
+credentials at all: the payment is approved in your own signing application, which is what
+a segregation of duties policy usually demands.
+If you prefer not to do this or when the bank's web/mobile banking app does not support
+unsigned payment files, you can upload signed files.
+In this case, the signing key sits on your Odoo server, and you can protect it with
+a separate signature passphrase that is never stored and is asked for every signed transaction.
 
-External signing apps include BankingVEU
+You can also explore the use of external signing apps such as BankingVEU
 (`Android <https://play.google.com/store/apps/details?id=subsembly.bankingveu>`_,
 `iOS <https://apps.apple.com/de/app/bankingveu/id1578694190>`_).
 
@@ -249,6 +282,16 @@ Roadmap
 
 Issues and pull requests are welcome on
 `GitHub <https://github.com/Noviat/account_ebics>`_.
+
+Changelog
+=========
+
+20.0.1.1.0 (2026-11-17)
+------------------------
+
+The automated download of EBICS files (bank statements, payment status reports) was up to
+Odoo 19.0 provided by the ``account_ebics_batch`` module.
+This functionality has now been integrated into the base ``account_ebics`` module.
 
 Credits
 =======

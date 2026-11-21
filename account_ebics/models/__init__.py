@@ -5,3 +5,4 @@ from . import ebics_config
 from . import ebics_file
 from . import ebics_file_format
 from . import ebics_userid
+from . import ebics_batch_log
