@@ -198,8 +198,6 @@ msgid ""
 "\n"
 "- **EBICS - Odoo Enterprise Integration** (``account_ebics_oe``): required on Odoo\n"
 "  Enterprise; installed automatically.\n"
-"- **EBICS - Scheduled File Import** (``account_ebics_batch``): downloads and processes the\n"
-"  files of every connection on a schedule.\n"
 "- **EBICS - Batch Payments (Odoo Enterprise)** (``account_ebics_batch_payment``): uploads\n"
 "  the batch payments of the Odoo Enterprise ``account_batch_payment`` module.\n"
 "- **EBICS - Payment Orders (OCA)** (``account_ebics_payment_order``): uploads the payment\n"
@@ -238,6 +236,18 @@ msgid ""
 "\n"
 "Count in weeks per bank rather than days, and start the contract and the paperwork early.\n"
 "\n"
+"Installation\n"
+"============\n"
+"\n"
+"**Upgrading from versions prior to account_ebics 20.0.1.1.0**:\n"
+"If ``account_ebics_batch`` is present in your addons path, remove its directory\n"
+"before running the upgrade. Its functionality has been merged into this module.\n"
+"\n"
+"If the directory is left on disk, the upgrade completes correctly but Odoo will\n"
+"rediscover ``account_ebics_batch`` on the next restart and add it back to the\n"
+"module list as *Not Installed*. It will not cause errors, but removing it keeps\n"
+"the installation clean.\n"
+"\n"
 "Configuration\n"
 "=============\n"
 "\n"
@@ -263,6 +273,23 @@ msgid ""
 "   :alt: A downloaded camt.053 statement file in Odoo, before processing\n"
 "   :width: 100%\n"
 "\n"
+"Scheduled import\n"
+"----------------\n"
+"\n"
+"A scheduled action **EBICS Batch Import** is created **inactive** at installation, with a\n"
+"daily interval. Activate it in *Settings > Technical > Automation > Scheduled Actions*\n"
+"(developer mode), and adapt its interval if needed.\n"
+"\n"
+"The action runs the following method on all confirmed connections::\n"
+"\n"
+"  model._batch_import()\n"
+"\n"
+"To limit it to specific connections, pass their ids::\n"
+"\n"
+"  model._batch_import(ebics_config_ids=[1, 3])\n"
+"\n"
+"Batch Import Logs are listed under *EBICS Processing > Batch Import Logs*.\n"
+"\n"
 "Usage\n"
 "=====\n"
 "\n"
@@ -272,6 +299,10 @@ msgid ""
 "Downloaded files are processed into bank statements. Uploads are launched from the payment\n"
 "batch or the payment order, with the format set in the configuration: on the payment\n"
 "mode for a payment order, on the journal's payment method for a batch payment.\n"
+"\n"
+"Every run of the automatic download via the **EBICS Batch Import** scheduled action\n"
+"creates a **Batch Import Log** that records which files were processed and what went wrong;\n"
+"the *Reprocess* button retries any files still in draft until all errors are cleared.\n"
 "\n"
 ".. image:: https://raw.githubusercontent.com/Noviat/account_ebics/19.0/account_ebics/static/description/ebics_upload.png\n"
 "   :alt: Uploading a pain.001 SEPA credit transfer file over EBICS 3.0, with the test mode option\n"
@@ -296,16 +327,18 @@ msgid ""
 "The codes are explained on `ebics.org <https://www.ebics.org>`_ and in the ``doc`` folder of\n"
 "this module (``EBICS_Annex1_ReturnCodes``).\n"
 "\n"
-"Electronic Distributed Signature (EDS)\n"
-"--------------------------------------\n"
+"EBICS TS (Transport and Signature) and EBICS EDS (Electronic Distributed Signature)\n"
+"-----------------------------------------------------------------------------------\n"
 "\n"
-"Where your bank supports EBICS T, Odoo prepares the file and holds no signing credentials\n"
-"at all: the payment is approved in your own signing application, which is what a segregation\n"
-"of duties policy usually demands. Where it does not, which happens with German and Swiss\n"
-"banks, the signing key sits on your Odoo server, and you can protect it with a separate\n"
-"signature passphrase that is never stored and is asked for every signed transaction.\n"
+"When configuring the bank connection as EBICS T, Odoo prepares the file and holds no signing\n"
+"credentials at all: the payment is approved in your own signing application, which is what\n"
+"a segregation of duties policy usually demands.\n"
+"If you prefer not to do this or when the bank's web/mobile banking app does not support\n"
+"unsigned payment files, you can upload signed files.\n"
+"In this case, the signing key sits on your Odoo server, and you can protect it with\n"
+"a separate signature passphrase that is never stored and is asked for every signed transaction.\n"
 "\n"
-"External signing apps include BankingVEU\n"
+"You can also explore the use of external signing apps such as BankingVEU\n"
 "(`Android <https://play.google.com/store/apps/details?id=subsembly.bankingveu>`_,\n"
 "`iOS <https://apps.apple.com/de/app/bankingveu/id1578694190>`_).\n"
 "\n"
@@ -319,6 +352,16 @@ msgid ""
 "\n"
 "Issues and pull requests are welcome on\n"
 "`GitHub <https://github.com/Noviat/account_ebics>`_.\n"
+"\n"
+"Changelog\n"
+"=========\n"
+"\n"
+"20.0.1.1.0 (2026-11-17)\n"
+"------------------------\n"
+"\n"
+"The automated download of EBICS files (bank statements, payment status reports) was up to\n"
+"Odoo 19.0 provided by the ``account_ebics_batch`` module.\n"
+"This functionality has now been integrated into the base ``account_ebics`` module.\n"
 "\n"
 "Credits\n"
 "=======\n"
@@ -448,6 +491,32 @@ msgid "Bank Statements"
 msgstr ""
 
 #. module: account_ebics
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_batch_log__file_ids
+msgid "Batch Import EBICS Files"
+msgstr ""
+
+#. module: account_ebics
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_batch_log_item__note
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_batch_log_view_form
+msgid "Batch Import Log"
+msgstr ""
+
+#. module: account_ebics
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_batch_log__log_ids
+msgid "Batch Import Log Items"
+msgstr ""
+
+#. module: account_ebics
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_batch_log_view_form
+msgid "Batch Import Logs"
+msgstr ""
+
+#. module: account_ebics
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_batch_log_item__log_id
+msgid "Batch Object"
+msgstr ""
+
+#. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_change_passphrase_view_form
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_download
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_xfer_view_form_mark_as_downloaded
@@ -526,6 +595,8 @@ msgstr ""
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__create_uid
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_batch_log__create_uid
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_batch_log_item__create_uid
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_change_passphrase__create_uid
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_config__create_uid
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file__create_uid
@@ -537,6 +608,8 @@ msgstr ""
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__create_date
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_batch_log__create_date
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_batch_log_item__create_date
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_change_passphrase__create_date
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_config__create_date
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file__create_date
@@ -559,6 +632,7 @@ msgstr ""
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__date_from
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_batch_log__date_from
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file__date_from
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__date_from
 msgid "Date From"
@@ -566,6 +640,7 @@ msgstr ""
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__date_to
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_batch_log__date_to
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file__date_to
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_xfer__date_to
 msgid "Date To"
@@ -587,6 +662,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_ebics.field_account_bank_statement__display_name
 #: model:ir.model.fields,field_description:account_ebics.field_account_journal__display_name
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__display_name
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_batch_log__display_name
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_batch_log_item__display_name
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_change_passphrase__display_name
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_config__display_name
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file__display_name
@@ -597,6 +674,8 @@ msgid "Display Name"
 msgstr ""
 
 #. module: account_ebics
+#: model:ir.model.fields.selection,name:account_ebics.selection__ebics_batch_log__state__done
+#: model:ir.model.fields.selection,name:account_ebics.selection__ebics_batch_log_item__state__done
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_file__state__done
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_search
 msgid "Done"
@@ -649,6 +728,8 @@ msgid ""
 msgstr ""
 
 #. module: account_ebics
+#: model:ir.model.fields.selection,name:account_ebics.selection__ebics_batch_log__state__draft
+#: model:ir.model.fields.selection,name:account_ebics.selection__ebics_batch_log_item__state__draft
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_config__state__draft
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_file__pain_state__draft
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_file__state__draft
@@ -710,6 +791,22 @@ msgid "EBICS Banking Protocol"
 msgstr ""
 
 #. module: account_ebics
+#: model:ir.actions.server,name:account_ebics.ir_cron_ebics_batch_import_ir_actions_server
+msgid "EBICS Batch Import"
+msgstr ""
+
+#. module: account_ebics
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_batch_log_view_form
+msgid "EBICS Batch Import Log"
+msgstr ""
+
+#. module: account_ebics
+#: model:ir.actions.act_window,name:account_ebics.ebics_batch_log_action
+#: model:ir.ui.menu,name:account_ebics.ebics_batch_log_menu
+msgid "EBICS Batch Import Logs"
+msgstr ""
+
+#. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_account_journal__ebics_config_id
 msgid "EBICS Config"
 msgstr ""
@@ -728,6 +825,11 @@ msgstr ""
 #: model:ir.ui.menu,name:account_ebics.ebics_config_menu
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_config_view_form
 msgid "EBICS Configuration"
+msgstr ""
+
+#. module: account_ebics
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_batch_log__ebics_config_ids
+msgid "EBICS Configurations"
 msgstr ""
 
 #. module: account_ebics
@@ -809,7 +911,13 @@ msgstr ""
 
 #. module: account_ebics
 #: model:ir.ui.menu,name:account_ebics.ebics_file_menu
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_batch_log_view_form
 msgid "EBICS Files"
+msgstr ""
+
+#. module: account_ebics
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_batch_log__file_count
+msgid "EBICS Files Count"
 msgstr ""
 
 #. module: account_ebics
@@ -1151,6 +1259,8 @@ msgid ""
 msgstr ""
 
 #. module: account_ebics
+#: model:ir.model.fields.selection,name:account_ebics.selection__ebics_batch_log__state__error
+#: model:ir.model.fields.selection,name:account_ebics.selection__ebics_batch_log_item__state__error
 #: model:ir.model.fields.selection,name:account_ebics.selection__ebics_file__pain_state__error
 msgid "Error"
 msgstr ""
@@ -1172,6 +1282,12 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_ebics/wizards/ebics_xfer.py:0
 msgid "Error while accessing the EBICS UserID:"
+msgstr ""
+
+#. module: account_ebics
+#. odoo-python
+#: code:addons/account_ebics/models/ebics_batch_log.py:0
+msgid "Error while processing EBICS connection '%s' :\n"
 msgstr ""
 
 #. module: account_ebics
@@ -1252,6 +1368,11 @@ msgid "H005 (3.0)"
 msgstr ""
 
 #. module: account_ebics
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_batch_log__has_draft_files
+msgid "Has Draft Files"
+msgstr ""
+
+#. module: account_ebics
 #: model:ir.model.fields,help:account_ebics.field_ebics_config__ebics_userid_ids
 #: model:ir.model.fields,help:account_ebics.field_ebics_userid__name
 msgid ""
@@ -1263,6 +1384,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_ebics.field_account_bank_statement__id
 #: model:ir.model.fields,field_description:account_ebics.field_account_journal__id
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__id
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_batch_log__id
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_batch_log_item__id
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_change_passphrase__id
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_config__id
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file__id
@@ -1330,6 +1453,8 @@ msgstr ""
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__write_uid
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_batch_log__write_uid
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_batch_log_item__write_uid
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_change_passphrase__write_uid
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_config__write_uid
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file__write_uid
@@ -1341,6 +1466,8 @@ msgstr ""
 
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_admin_order__write_date
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_batch_log__write_date
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_batch_log_item__write_date
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_change_passphrase__write_date
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_config__write_date
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file__write_date
@@ -1353,6 +1480,11 @@ msgstr ""
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__ebics_key_x509_dn_l
 msgid "Locality Name [L]"
+msgstr ""
+
+#. module: account_ebics
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_batch_log_view_form
+msgid "Mark Done"
 msgstr ""
 
 #. module: account_ebics
@@ -1439,6 +1571,14 @@ msgstr ""
 
 #. module: account_ebics
 #. odoo-python
+#: code:addons/account_ebics/models/ebics_batch_log.py:0
+msgid ""
+"No EBICS UserID with stored passphrase found.\n"
+"You should configure such a UserID for automated downloads."
+msgstr ""
+
+#. module: account_ebics
+#. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
 msgid "No bank account number found."
 msgstr ""
@@ -1468,6 +1608,11 @@ msgid "Notes"
 msgstr ""
 
 #. module: account_ebics
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_batch_log_item__error_count
+msgid "Number of Errors"
+msgstr ""
+
+#. module: account_ebics
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
 msgid "Number of errors: %(nr)s"
@@ -1477,6 +1622,16 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_ebics/models/ebics_file.py:0
 msgid "Number of warnings: %(nr)s"
+msgstr ""
+
+#. module: account_ebics
+#: model:ir.model,name:account_ebics.model_ebics_batch_log_item
+msgid "Object to store EBICS Batch Import Log Items"
+msgstr ""
+
+#. module: account_ebics
+#: model:ir.model,name:account_ebics.model_ebics_batch_log
+msgid "Object to store EBICS Batch Import Logs"
 msgstr ""
 
 #. module: account_ebics
@@ -1492,6 +1647,12 @@ msgstr ""
 #. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_change_passphrase__old_sig_pass
 msgid "Old Signature Passphrase"
+msgstr ""
+
+#. module: account_ebics
+#. odoo-python
+#: code:addons/account_ebics/models/ebics_batch_log.py:0
+msgid "Only log objects in state 'draft' can be deleted !"
 msgstr ""
 
 #. module: account_ebics
@@ -1562,6 +1723,12 @@ msgid ""
 msgstr ""
 
 #. module: account_ebics
+#. odoo-python
+#: code:addons/account_ebics/models/ebics_batch_log.py:0
+msgid "Please set state to 'Confirm' and Reprocess this EBICS Import Log."
+msgstr ""
+
+#. module: account_ebics
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form
 msgid "Process"
 msgstr ""
@@ -1593,6 +1760,16 @@ msgid "Renew Bank Keys"
 msgstr ""
 
 #. module: account_ebics
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_batch_log_view_form
+msgid "Reprocess"
+msgstr ""
+
+#. module: account_ebics
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_batch_log_view_form
+msgid "Reprocess 'draft' EBICS Files"
+msgstr ""
+
+#. module: account_ebics
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file_format__name
 msgid "Request Type"
 msgstr ""
@@ -1615,6 +1792,11 @@ msgstr ""
 msgid ""
 "Scope of service.\n"
 "Either an ISO-3166 ALPHA 2 country code or an issuer code of 3 alphanumeric characters [A-Z0-9]."
+msgstr ""
+
+#. module: account_ebics
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_batch_log_view_search
+msgid "Search EBICS Batch Import Log Files"
 msgstr ""
 
 #. module: account_ebics
@@ -1694,6 +1876,7 @@ msgid "Set to Done"
 msgstr ""
 
 #. module: account_ebics
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_batch_log_view_form
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_config_view_form
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_form
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_userid_view_form
@@ -1737,9 +1920,12 @@ msgid ""
 msgstr ""
 
 #. module: account_ebics
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_batch_log__state
+#: model:ir.model.fields,field_description:account_ebics.field_ebics_batch_log_item__state
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_config__state
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_file__state
 #: model:ir.model.fields,field_description:account_ebics.field_ebics_userid__state
+#: model_terms:ir.ui.view,arch_db:account_ebics.ebics_batch_log_view_search
 #: model_terms:ir.ui.view,arch_db:account_ebics.ebics_file_view_search
 msgid "State"
 msgstr ""
