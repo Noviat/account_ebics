@@ -14,7 +14,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[account_ebics](account_ebics/) | 20.0.1.0.0 |  | Download bank statements and upload payment files directly from Odoo, using the European EBICS standard
+[account_ebics](account_ebics/) | 20.0.1.1.0 |  | Download bank statements and upload payment files directly from Odoo, using the European EBICS standard
 [account_ebics_oe](account_ebics_oe/) | 20.0.1.0.0 |  | Place the EBICS menus in the Odoo Enterprise accounting application
 
 [//]: # (end addons)
